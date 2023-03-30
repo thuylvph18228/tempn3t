@@ -1,0 +1,564 @@
+<div class="container">
+    <div ng-include="'/views/common/Alert.html'"></div>
+    <!-- MODAL SIZE -->
+    <div class="modal fade" id="size" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Kích cỡ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" name="form_size">
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" ng-model="size.name" id="size" placeholder="Size*" 
+                            name="size" ng-required="true" ng-trim="true" ng-maxlength="2" minlength="2" oninput="this.value = Math.abs(this.value)" >
+                            <label for="size">Kích cỡ*</label>
+                            <div class="text-danger" ng-hide="form_size.size.$untouched || form_size.size.$valid">
+                                <small class="text-danger" ng-show="form_size.size.$error.required"> Hãy nhập kích cỡ cho sản phẩm! </small>
+                                <small class="text-danger" ng-show="form_size.size.$error.minlength">Vui lòng nhập kích cỡ hợp lệ!</small>
+                                <small class="text-danger" ng-show="form_size.size.$error.maxlength">Vui lòng nhập kích cỡ hợp lệ!</small>
+                            </div>
+                        </div>
+                        <div class=" mt-3"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        ng-click="cancelSize()">Hủy</button>
+                    <button type="button" ng-show="!size.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="saveSize()" ng-disabled="form_size.size.$invalid">Lưu </button>
+                    <button type="button" ng-show="size.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="updateSize()">Cập nhật </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL Color -->
+    <div class="modal fade" id="color" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Màu sắc</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" name="form_color">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" ng-model="color.name" id="color" name="color"
+                            placeholder="Color*" ng-required="true" ng-trim="true" ng-maxlength="255" minlength="2">
+                            <label for="color">Màu sắc*</label>
+                            <div class="text-danger" ng-hide="form_color.color.$untouched || form_color.color.$valid">
+                                <small class="text-danger" ng-show="form_color.color.$error.required"> Hãy nhập màu sắc cho sản phẩm! </small>
+                                <small class="text-danger" ng-show="form_color.color.$error.minlength">Vui lòng nhập màu sắc hợp lệ!</small>
+                                <small class="text-danger" ng-show="form_color.color.$error.maxlength">Vui lòng nhập màu sắc hợp lệ!</small>
+                            </div>
+                        </div>
+                        <div class=" mt-3"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        ng-click="cancelSize()">Hủy</button>
+                    <button type="button" ng-show="!color.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="saveColor()" ng-disabled="form_color.color.$invalid">Lưu </button>
+                    <button type="button" ng-show="color.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="updateColor()" ng-disabled="form_color.color.$invalid">Cập nhật </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL material -->
+    <div class="modal fade" id="material" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Chất liệu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" name="form_material">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" ng-model="material.name" id="material" name="material"
+                            placeholder="Material*" ng-required="true" ng-trim="true" ng-maxlength="255" minlength="2">
+                            <label for="material">Chất liệu*</label>
+                            <div class="text-danger" ng-hide="form_material.material.$untouched || form_material.material.$valid">
+                                <small class="text-danger" ng-show="form_material.material.$error.required"> Hãy nhập chất liệu của sản phẩm! </small>
+                                <small class="text-danger" ng-show="form_material.material.$error.minlength">Vui lòng nhập chất liệu hợp lệ!</small>
+                                <small class="text-danger" ng-show="form_material.material.$error.maxlength">Vui lòng nhập chất liệu hợp lệ!</small>
+                            </div>
+                        </div>
+                        <div class=" mt-3"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        ng-click="cancelSize()">Hủy</button>
+                    <button type="button" ng-show="!material.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="saveMaterial()"ng-disabled="form_material.material.$invalid">Lưu </button>
+                    <button type="button" ng-show="material.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="updateMaterial()" ng-disabled="form_material.material.$invalid">Cập nhật </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL height -->
+    <div class="modal fade" id="height" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Độ cao đế giày</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" name="form_height">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" ng-model="height.height" id="height" name="height"
+                            placeholder="Height*" ng-required="true" ng-trim="true" ng-maxlength="255" minlength="1">
+                            <label for="height">Độ cao đế giày*</label>
+                            <div class="text-danger" ng-hide="form_height.height.$untouched || form_height.height.$valid">
+                                <small class="text-danger" ng-show="form_height.height.$error.required"> Hãy nhập độ cao của đế giày của sản phẩm! </small>
+                                <small class="text-danger" ng-show="form_height.height.$error.minlength">Vui lòng nhập độ cao của đế giày hợp lệ!</small>
+                                <small class="text-danger" ng-show="form_height.height.$error.maxlength">Vui lòng nhập độ cao của đế giày hợp lệ!</small>
+                            </div>
+                        </div>
+                        <div class=" mt-3"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        ng-click="cancelSize()">Hủy</button>
+                    <button type="button" ng-show="!height.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="saveHeight()" ng-disabled="form_height.height.$invalid">Lưu </button>
+                    <button type="button" ng-show="height.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="updateHeight()" ng-disabled="form_height.height.$invalid">Cập nhật </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL weight -->
+    <div class="modal fade" id="weight" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Khối lượng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" name="form_weight">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" ng-model="weight.weight" id="weight" name="weight"
+                                placeholder="Weight*" ng-required="true" ng-trim="true" ng-maxlength="10" minlength="1">
+                            <label for="weight">Khối lượng*</label>
+                            <div class="text-danger" ng-hide="form_weight.weight.$untouched || form_weight.weight.$valid">
+                                <small class="text-danger" ng-show="form_weight.weight.$error.required"> Hãy nhập khối lượng của sản phẩm! </small>
+                                <small class="text-danger" ng-show="form_weight.weight.$error.minlength">Vui lòng nhập khối lượng của giày hợp lệ!</small>
+                                <small class="text-danger" ng-show="form_weight.weight.$error.maxlength">Vui lòng nhập khối lượng của giày hợp lệ!</small>
+                            </div>
+                        </div>
+                        <div class=" mt-3"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        ng-click="cancelSize()">Hủy</button>
+                    <button type="button" ng-show="!weight.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="saveWeight()" ng-disabled="form_weight.weight.$invalid">Lưu </button>
+                    <button type="button" ng-show="weight.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="updateWeight()" ng-disabled="form_weight.weight.$invalid">Cập nhật </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL origin -->
+    <div class="modal fade" id="origin" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Xuất xứ</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" name="form_origin">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" ng-model="origin.origin" id="origin"
+                                placeholder="Origin*" ng-required="true" ng-trim="true" ng-maxlength="255" minlength="1">
+                            <label for="origin">Xuất xứ*</label>
+                            <div class="text-danger" ng-hide="form_origin.origin.$untouched || form_origin.origin.$valid">
+                                <small class="text-danger" ng-show="form_origin.origin.$error.required"> Hãy nhập xuất xứ của sản phẩm! </small>
+                                <small class="text-danger" ng-show="form_origin.origin.$error.minlength">Vui lòng nhập xuất xứ của giày hợp lệ!</small>
+                                <small class="text-danger" ng-show="form_origin.origin.$error.maxlength">Vui lòng nhập xuất xứ của giày hợp lệ!</small>
+                            </div>
+                        </div>
+                        <div class=" mt-3"></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        ng-click="cancelSize()">Hủy</button>
+                    <button type="button" ng-show="!origin.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="saveOrigin()" ng-disabled="form_origin.orrigin.$invalid">Lưu </button>
+                    <button type="button" ng-show="origin.id" class="btn btn-primary" data-bs-dismiss="modal"
+                        ng-click="updateOrigin()" ng-disabled="form_origin.orrigin.$invalid">Cập nhật </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ------------------------------------------------ -->
+
+    <h4 class="mt-3" style="text-align: center;">Quản lý thuộc tính sản phẩm</h4>
+    <div class="mt-3">
+        <div class="dropdown btn mt-3 d-flex justify-content-end">
+            <button type="button" class="btn btn-dark dropdown-toggle " id="dropdownMenuCreate"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                + Thêm mới thuộc tính 
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuCreate">
+                <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#size">Kích cỡ
+                    </button>
+                </li>
+                <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#color">Màu sắc
+                    </button>
+                </li>
+
+                <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="modal"
+                        data-bs-target="#material">Chất liệu
+                    </button>
+                </li>
+                <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#height">Độ cao đế giày
+                    </button>
+                </li>
+
+                <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#weight">Khối lượng
+                    </button>
+                </li>
+                <li>
+                    <button class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#origin">Xuất xứ
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <br>
+
+        <div class="row">
+            <div class="col-2">
+                <table class="table table-bordered table-responsive">
+                    <thead style="height: 66px;">
+                        <th>Kích cỡ</th>
+                        <th>Trạng thái</th>
+                    </thead>
+                    <tbody style="text-align: center;">
+                        <tr ng-repeat="size in sizes">
+                            <td style="height: 66px;">
+                                <div class="d-flex justify-content-between">
+                                    <div></div>
+                                    <a href="" ng-click="editSize(size, $index)" data-bs-toggle="modal" data-bs-target="#size"
+                                        style="color: black; text-decoration: none;">
+                                        {{size.name}}
+                                    </a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#size{{$index}}" style="color: red;">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+        
+                                <!-- Modal Xác nhận xóa -->
+                                <div class="modal fade" id="size{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Xác nhận xóa
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy</button>
+                                                <button ng-click="deleteSize(size.id, $index)" data-bs-dismiss="modal"
+                                                    class="btn btn-danger">Xóa</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="d-flex justify-content-center">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" ng-checked="true" 
+                                    ng-click="updateStatusVoucher(voucher, $index)" ng-disabled="checkEndDate(voucher)">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>         
+            <div class="col-2 border-left">
+                <table class="table table-bordered table-responsive">
+                    <thead style="height: 66px;">
+                        <th>Màu</th>
+                        <th>Trạng thái</th>
+                    </thead>
+                    <tbody style="text-align: center;">
+                        <tr ng-repeat="color in colors">
+                            <td style="height: 66px;">
+                                <div class="d-flex justify-content-between">
+                                    <div></div>
+                                    <a href="" ng-click="editColor(color, $index)" data-bs-toggle="modal"
+                                        data-bs-target="#color" style="color: black; text-decoration: none;">
+                                        {{color.name}}
+                                    </a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#color{{$index}}" style="color: red;">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                                <!-- Modal xác nhận xóa -->
+                                <div class="modal fade" id="color{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Xác nhận xóa
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy</button>
+                                                <button ng-click="deleteColor(color.id, $index)" data-bs-dismiss="modal"
+                                                    class="btn btn-danger">Xóa</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="d-flex justify-content-center">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" ng-checked="true" 
+                                    ng-click="updateStatusVoucher(voucher, $index)" ng-disabled="checkEndDate(voucher)">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>   
+            <div class="col-2">
+                <table class="table table-bordered table-responsive">
+                    <thead style="height: 66px;">
+                        <th>Chất liệu</th>
+                        <th>Trạng thái</th>
+                    </thead>
+                    <tbody style="text-align: center;">
+                        <tr ng-repeat="material in materials">
+                            <td style="height: 66px;">
+                                <div class="d-flex justify-content-between">
+                                    <div></div>
+                                    <a href="" ng-click="editMaterial(material, $index)" data-bs-toggle="modal"
+                                        data-bs-target="#material" style="color: black; text-decoration: none;">
+                                        {{material.name}}
+                                    </a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#material{{$index}}" style="color: red;">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                                <!-- Modal Xác nhận xóa -->
+                                <div class="modal fade" id="material{{$index}}" tabindex="-1"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Xác nhận xóa
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy</button>
+                                                <button ng-click="deleteMaterial(material.id, $index)" data-bs-dismiss="modal"
+                                                    class="btn btn-danger">Xóa</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="d-flex justify-content-center">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" ng-checked="true" 
+                                    ng-click="updateStatusVoucher(voucher, $index)" ng-disabled="checkEndDate(voucher)">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>   
+            <div class="col-2">
+                <table class="table table-bordered table-responsive">
+                    <thead style="height: 66px;">
+                        <th>Độ cao đế</th>
+                        <th>Trạng thái</th>
+                    </thead>
+                    <tbody style="text-align: center;">
+                        <tr ng-repeat="height in heights">
+                            <td style="height: 66px;">
+                                <div class="d-flex justify-content-between">
+                                    <div></div>
+                                    <a href="" ng-click="editHeight(height, $index)" data-bs-toggle="modal"
+                                        data-bs-target="#height" style="color: black; text-decoration: none;">
+                                        {{height.height}}
+                                    </a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#height{{$index}}" style="color: red;">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                                <!-- Modal Xác nhận xóa -->
+                                <div class="modal fade" id="height{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Xác nhận xóa
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy</button>
+                                                <button ng-click="deleteHeight(height.id, $index)" data-bs-dismiss="modal"
+                                                    class="btn btn-danger">Xóa</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="d-flex justify-content-center">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" ng-checked="true" 
+                                    ng-click="updateStatusVoucher(voucher, $index)" ng-disabled="checkEndDate(voucher)">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>   
+            <div class="col-2">
+                <table class="table table-bordered table-responsive">
+                    <thead style="height: 66px;">
+                        <th>Cân nặng</th>
+                        <th>Trạng thái</th>
+                    </thead>
+                    <tbody style="text-align: center;">
+                        <tr ng-repeat="weight in weights">
+                            <td style="height: 66px;">
+                                <div class="d-flex justify-content-between">
+                                    <div></div>
+                                    <a href="" ng-click="editWeight(weight, $index)" data-bs-toggle="modal"
+                                        data-bs-target="#weight" style="color: black; text-decoration: none;">
+                                        {{weight.weight}}
+                                    </a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#weight{{$index}}" style="color: red;">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                                <!-- Modal Xác nhận xóa -->
+                                <div class="modal fade" id="weight{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Xác nhận xóa
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy</button>
+                                                <button ng-click="deleteWeight(weight.id, $index)" data-bs-dismiss="modal"
+                                                    class="btn btn-danger">Xóa</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="d-flex justify-content-center">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" ng-checked="true" 
+                                    ng-click="updateStatusVoucher(voucher, $index)" ng-disabled="checkEndDate(voucher)">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>   
+            <div class="col-2">
+                <table class="table table-bordered table-responsive">
+                    <thead style="height: 66px;">
+                        <th>Xuất xứ</th>
+                        <th>Trạng thái</th>
+                    </thead>
+                    <tbody style="text-align: center;">
+                        <tr ng-repeat="origin in origins">
+                            <td style="height: 66px;">
+                                <div class="d-flex justify-content-between">
+                                    <div></div>
+                                    <a href="" ng-click="editOrigin(origin, $index)" data-bs-toggle="modal"
+                                        data-bs-target="#origin" style="color: black; text-decoration: none;">
+                                        {{origin.origin}}
+                                    </a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#origin{$index}}" style="color: red;">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                                <!-- Modal Xác nhận xóa -->
+                                <div class="modal fade" id="origin{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Xác nhận xóa
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Hủy</button>
+                                                <button ng-click="deleteOrigin(origin.id, $index)" data-bs-dismiss="modal"
+                                                    class="btn btn-danger">Xóa</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="d-flex justify-content-center">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" ng-checked="true" 
+                                    ng-click="updateStatusVoucher(voucher, $index)" ng-disabled="checkEndDate(voucher)">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>   
+        </div>
+    </div>
+</div>

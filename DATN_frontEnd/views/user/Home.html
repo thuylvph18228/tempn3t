@@ -1,0 +1,212 @@
+<style>
+  #nameProduct {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.40);
+  }
+
+  #nameProduct:hover {
+    color: black;
+  }
+
+  #backtop {
+    width: 50px;
+    height: 50px;
+    background: tomato;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    position: fixed;
+    bottom: 40px;
+    right: 20px;
+  }
+
+  .hover-img a {
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+    border: 1px solid #888;
+    background: rgba(0, 0, 0, 0.2);
+    display: inline-block;
+    margin: 86px 5px;
+
+  }
+
+  /* .hover-img:hover {
+    background: url(/images/icon/bag-plus.svg) no-repeat center center;
+  }
+
+  .hover-img .detail-hover {
+    background: url(../images/cart3.jpg) no-repeat center center;
+  } */
+
+  #card-product:hover {
+    border: 0.5px solid rgb(87, 85, 85);
+  }
+  .btn_filter {
+    background-color: #ec5444;
+    color: white;
+  }
+  
+</style>
+<header class="mt-4">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+        aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+        aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+        aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3"
+        aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="3000">
+        <img src="images/img/banner.png" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="3000">
+        <img src="images/img/banner.png" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="3000">
+        <img src="images/img/banner.png" class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item" data-bs-interval="3000">
+        <img src="images/img/banner.png" class="d-block w-100" alt="...">
+      </div>
+      </style>
+      <div class="row">
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+          data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+</header>
+<div class=" row">
+</div>
+<div class="">
+  <div class="button-group">
+    <a class="button is-checked nav-link">Tất cả</a>
+    <a class="button nav-link">Nam</a>
+    <a class="button nav-link">Nữ</a>
+    <a class="button nav-link">Trẻ em</a>
+  </div>
+</div>
+<div class="">
+  <div class="d-flex justify-content-end"> 
+    <button class="btn btn_filter" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Lọc <i class="bi bi-plus"></i>
+    </button>
+  </div>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      <div class="row d-flex justify-content-center">
+        <div class="col-2 mt-3">
+          <!-- ng-change="changeCategoryFilter()" -->
+          <label>Chọn danh mục</label>
+          <select class="form-select" ng-model="productt.categoryId">
+              <option ng-repeat="category in categories" value="{{category.id}}">{{category.name}}</option>
+          </select>
+      </div>
+          <div class="col-2 mt-3">
+            <label>Chọn màu sắc</label>
+              <select class="form-select"  ng-model="productt.color"> 
+                  <option ng-repeat="color in colors" value="{{color.id}}">{{color.name}}</option>
+              </select>
+          </div>
+          <div class="col-2 mt-3">
+            <label>Chọn kích thước</label>
+            <select class="form-select" ng-model="productt.size">
+                <option ng-repeat="sizeShoes in sizeShoess" value="{{sizeShoes.id}}">{{sizeShoes.name}}</option>
+            </select>
+        </div>
+        <div class="col-2 mt-3">
+          <label>Độ cao đế</label>
+          <select class="form-select" ng-model="productt.height" >
+              <option ng-repeat="height in heights" value="{{height.id}}">{{height.height}}</option>
+          </select>
+      </div>
+          <div class="col-2 mt-3">
+            <label>Chọn giá bán</label>
+              <div type="button" class="col-12 btn dropdown-toggle border" data-bs-toggle="dropdown" aria-expanded="false">
+                  Khoảng giá
+              </div>
+              <ul class="dropdown-menu">
+                  <li>
+                      <div class="mt-2">
+                          <div class="mt-2 ps-3 pe-3">
+                              <input type="number" class="form-control" placeholder="Từ" ng-keyup="productt.formPrice" ng-model="productt.formPrice">
+                          </div>
+                          <div class="mt-2 ps-3 pe-3">
+                              <input type="number" class="form-control" placeholder="Đến" ng-keyup="productt.toPrice" ng-model="productt.toPrice">
+                          </div>
+                      </div>
+                  </li>
+              </ul>
+          </div>
+        <div class="col-2" style="margin-top: 40px;">
+          <button class="btn btn_filter" ng-click="getAllProductt()">Áp dụng</button>
+          <button class="btn btn-secondary" ng-click="resetFilter()">Hủy</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div ng-repeat="product in productst" class="col-3 p-2 mt-5" style="text-align: center; max-height: auto; min-height: auto;">
+    <div id="card-product" class="bg-light" style="height: 100%;">
+      <a href="#product-detail/{{product.id}}">
+        <div class="">
+          <div ng-show="showImageDetail">
+            <img class="img-fluid" src="{{product.avatar}}" style="max-height: 400px; min-height: 400px;">
+          </div>
+    
+          <div class="border">
+            <div class="mt-2">
+              <h6><a href="#product-detail/{{product.id}}" id="nameProduct">{{product.name.length > 35 ? product.name.substring(0, 20) + "..." : product.name}}</a></h6>
+              <!-- <h6 ng-if="45 > product.name.length">&nbsp;</h6> -->
+              <span style="font-weight: 700; font-size: 17px;">{{ product.price | currency : '' : 0 }}₫</span>
+                <del style="font-size: 12px; margin-left: 12px">{{ product.listed_price | currency : '' : 0 }}₫</del>
+            </div>
+            <div class="h-100">
+              <a href="#product-detail/{{product.id}}" class="btn bg-dark" style="color: white;" >Mua ngay</a>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <div class="d-flex justify-content-center">
+      <nav aria-label="Page navigation example" >
+          <ul class="pagination">
+              <li class="page-item">
+                  <a class="page-link" ng-click="prev()" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                  </a>
+              </li>
+              <!-- <li class="page-item">
+                  <input type="number" ng-model="page.page" ng-keyup="changePage()"
+                  ng-value="page.page" class="form-control" style="text-align: center; max-width: 50px;">
+              </li> -->
+              <li class="page-item">
+              <a class="page-link" ng-click="next()" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+      </nav>
+  </div>
+  </div>
+</div>
+<div id="backtop">
+  <i class="fas fa-chevron-up"></i>
+</div>

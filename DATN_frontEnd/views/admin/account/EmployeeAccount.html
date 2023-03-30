@@ -1,0 +1,165 @@
+<div class="container">
+    <h4 class="mt-3" style="text-align: center;">Quản lý nhân viên </h4>
+    <div class="mt-3"></div>
+    <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Tìm kiếm nhân viên..." aria-label="Search">
+        <button class="btn btn-outline-dark" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    <div class="mt-3"></div>
+    <div class="btn mt-3 d-flex justify-content-end">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#themmoinhanvienModal">
+            + Thêm mới nhân viên
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="themmoinhanvienModal" tabindex="-1" aria-labelledby="themmoinhanvienModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="themmoinhanvienModalLabel"></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <h4 class="" style="text-align: center; color: red;">Thêm mới nhân viên </h4>
+                            <div class="mt-3"></div>
+                            <form ng-submit="saveUser($event)">
+                                <div class="form-floating  mb-3">
+                                    <input type="text" class="form-control" id="fullname" placeholder="Tên nhân viên *" ng-model="user.fullname" required autocomplete="off">
+                                    <label for="fullname">Tên nhân viên *</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="email" placeholder="Email *" required ng-model="user.email" required autocomplete="off">
+                                    <label for="email">Email *</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="phone" placeholder="SĐT *" required ng-model="user.phone" required autocomplete="off">
+                                    <label for="phone">SĐT *</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="username" placeholder="Tên tài khoản *" ng-model="user.username" required autocomplete="off"
+                                        required>
+                                    <label for="username">Tên tài khoản *</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="password" placeholder="Mật khẩu *" ng-model="user.password" required autocomplete="off"
+                                        required>
+                                    <label for="password">Mật khẩu *</label>
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="password" class="form-control" id="username" placeholder="Mật khẩu *"
+                                        required>
+                                    <label for="password">Mật khẩu *</label>
+                                </div>
+                                <div class=" mt-3"></div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Hủy</button>
+                                    <button type="submit" class="btn btn-primary">Lưu</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3"></div>
+    <table class="table table-bordered ">
+        <thead style="text-align: center;">
+            <th>STT</th>
+            <th>Họ tên nhân viên</th>
+            <th>SĐT</th>
+            <th>Địa chỉ</th>
+            <th>Tên tài khoản</th>
+            <th>Email</th>
+            <th colspan="2">Hành động</th>
+        </thead>
+        <tbody style="text-align: center;">
+            <tr ng-repeat="user in users">
+                <td>
+                    {{$index + 1}}
+                </td>
+                <td>
+                    {{user.fullname}}
+                </td>
+                <td>
+                    {{user.phone}}
+                </td>
+                <td>
+                    {{user.address}}{{user.ward ? "," : ""}} {{user.ward}}{{user.district ? "," : ""}} {{user.district}}{{user.province ? "," : ""}} {{user.province}}
+                </td>
+                <td>
+                    {{user.username}}
+                </td>
+                <td>
+                    {{user.email}}
+                </td>
+                <td> 
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" ng-model="user.status" ng-checked="user.status == 'ACTIVE' " ng-click="updateStatus(user.id)">
+                    </div>
+                </td>
+                <td style="color: rgb(6, 92, 253);">
+                    <a type="button" style="color: rgb(6, 92, 253);" data-bs-toggle="modal" data-bs-target="#editUser{{$index}}" >
+                        <h5>
+                            <i class="fas fa-edit"></i>
+                        </h5>
+                    </a>
+                    <div class="modal fade" id="editUser{{$index}}" tabindex="-1" aria-labelledby="editCustomerModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="editCustomerModalLabel"></h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="container">
+                                        <h4 class="" style="text-align: center; color: red;"> Sửa thông tin </h4>
+                                        <div class="mt-3"></div>
+                                        <form ng-submit="saveUser($event)">
+                                            <div class="form-floating  mb-3">
+                                                <input type="text" class="form-control" id="fullname" placeholder="Họ tên khách hàng *" ng-model ="user.fullname"
+                                                    required>
+                                                <label for="fullname">Họ tên *</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="email" placeholder="Email *" ng-model ="user.email" required>
+                                                <label for="email">Email *</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="phone" placeholder="SĐT *" ng-model ="user.phone" required>
+                                                <label for="phone">SĐT *</label>
+                                            </div>
+                                            <div class="form-floating  mb-3">
+                                                <input type="text" class="form-control" id="address" placeholder="Địa chỉ *" ng-model ="user.address"
+                                                    required>
+                                                <label for="address">Địa chỉ *</label>
+                                            </div>
+                                            <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" id="username" placeholder="Tên tài khoản *" ng-model ="user.username"
+                                                    required>
+                                                <label for="username">Tên tài khoản *</label>
+                                            </div>
+                                            <div class=" mt-3"></div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                <button type="submit" class="btn btn-primary">Lưu</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+</div>

@@ -1,0 +1,303 @@
+ 
+<link rel="stylesheet" href="/css/Lac.css">
+<div class="container">
+    <!--alert-->
+    <div class="mt-5" ng-include="'/views/common/Alert.html'"></div>
+    <!--end alert-->
+
+    <nav>
+        <div class="nav nav-tabs row d-flex active" id="nav-tab" role="tablist">
+            <div class="nav-link active col-6 text-center" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" 
+                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+                Voucher
+            </div>
+            <div class="nav-link col-6 text-center" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" 
+                type="button" role="tab" aria-controls="nav-home" aria-selected="true">
+                Khuyến Mãi
+            </div>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <div class="row mt-2">
+                <div class="col-1"></div>
+                <div class="col-10">
+                    <h5 class="d-flex justify-content-center mt-3">Tạo chương trình khuyến mãi</h5>
+                    <form action="" method="" class="mt-5">
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Tên chương trình
+                                <span class="text-danger">*</span></label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" ng-model="promotion.name">
+                                <!-- <small class="text-danger">Không được để trống </small> -->
+                            </div>
+                        </div>
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Giá trị
+                                <span class="text-danger">*</span></label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" ng-model="promotion.quantity" placeholder="%">
+                                <!-- <small class="text-danger">Không được để trống </small> -->
+                            </div>
+                        </div>
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Thời gian
+                                <span class="text-danger">*</span></label>
+                            <div class="col-10">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="date" id="beginDate" class="form-control" ng-model="promotion.beginDate">
+                                        <!-- <small class="text-danger">Không được để trống </small> -->
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="date" class="form-control" ng-model="promotion.endDate">
+                                        <!-- <small class="text-danger">Không được để trống </small> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Trạng thái
+                                <span class="text-danger">*</span></label>
+                            <div class="col-10">
+                                <div> 
+                                    <select class="form-select" ng-model="promotion.status">
+                                        <option value="AVAILABLE">Áp dụng</option>
+                                        <option value="UNAVAILABLE">Không áp dụng</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-center mt-4">
+                            <button class="btn btn-outline-secondary" ng-click="clearPromotion()" type="">Hủy</button>
+                            <button class="btn btn-outline-success ms-3" ng-if="!promotion.id" ng-click="savePromotion()">Tạo khuyến mãi</button>
+                            <button class="btn btn-outline-success ms-3" ng-if="promotion.id" ng-click="savePromotion()">Cập nhật</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <table class="table table-bordered table-hover">
+                    <thead class="table table-danger">
+                        <tr>
+                            <th class="text-center ">STT</th>
+                            <th class="text-center">Tên Trương Trình</th>
+                            <th class="text-center">Giá trị</th>
+                            <th class="text-center">Thời gian</th>
+                            <th class="text-center">Trạng thái</th>
+                            <th colspan="2" class="text-center">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <!-- <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td>test</td>
+                            <td class="text-center">
+                                <a href="#promotion-detail" class="btn btn-warning btn-sm">Chi tiết</a>
+                                <button class="btn btn-warning btn-sm">Áp dụng</button>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-warning btn-sm">Sửa</button>
+                                <button data-bs-toggle="modal" data-bs-target="#modal_delete"
+                                    class="btn btn-danger btn-sm">Xóa</button>
+                                <div class="modal fade" id="modal_delete" tabindex="-1"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Xóa</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Xác nhận xóa?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-danger" ng-click="" data-bs-dismiss="modal">Xóa</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td> -->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade show active" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="row mt-2">
+                <div class="col-1"></div>
+                <div class="col-10">
+                    <h5 class="d-flex justify-content-center mt-3">Tạo Voucher giảm giá</h5>
+                    <form class="mt-5">
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Tên chương trình
+                                <span class="text-danger">*</span></label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" ng-model="voucher.name">
+                                <!-- <small class="text-danger">Không được để trống </small> -->
+                            </div>
+                        </div>
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Mã voucher
+                            </label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" ng-model="voucher.code" readonly placeholder="Mã được tạo tự động">
+                            </div>
+                        </div>
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Giá trị
+                                <span class="text-danger">*</span></label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" ng-model="voucher.promotion" placeholder="VNĐ">
+                                <!-- <small class="text-danger">Không được để trống </small> -->
+                            </div>
+                        </div>
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Số tiền tối thiểu
+                                <span class="text-danger">*</span></label>
+                            <div class="col-10">
+                                <input type="text" class="form-control" ng-model="voucher.minMoney" placeholder="VNĐ">
+                                <!-- <small class="text-danger">Không được để trống </small> -->
+                            </div>
+                        </div>
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Số lượng
+                                <span class="text-danger">*</span></label>
+                            <div class="col-10">
+                                <input type="number" class="form-control" ng-model="voucher.quantity" min="1" oninput="this.value = Math.abs(this.value)" >
+                                <!-- <small class="text-danger">Không được để trống </small> -->
+                            </div>
+                        </div>
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Thời gian
+                                <span class="text-danger">*</span></label>
+                            <div class="col-10">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input type="date" id="beginDate" class="form-control" ng-model="voucher.beginDate">
+                                        <!-- <small class="text-danger">Không được để trống </small> -->
+                                    </div>
+                                    <div class="col-6">
+                                        <input type="date" class="form-control" ng-model="voucher.endDate" min="voucher.beginDate">
+                                        <!-- <small class="text-danger">Không được để trống </small> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 row">
+                            <label class="col-2">
+                                Trạng thái
+                                <span class="text-danger">*</span></label>
+                            <div class="col-10">
+                                <select class="form-select" ng-model="voucher.status">
+                                    <option value="AVAILABLE">Áp dụng</option>
+                                    <option value="UNAVAILABLE">Không áp dụng</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-4">
+                            <button class="btn btn-outline-secondary" ng-click="clearVoucher()" type="">Hủy</button>
+                            <button class="btn btn-outline-success ms-3" ng-if="!voucher.id" data-bs-toggle="modal" data-bs-target="#modal_save_voucher">Tạo Voucher</button>
+                            <button class="btn btn-outline-success ms-3" ng-if="voucher.id" data-bs-toggle="modal" data-bs-target="#modal_save_voucher">Cập nhật</button>
+                        </div>
+                        <!-- modal save -->
+                        <div class="modal fade" id="modal_save_voucher" tabindex="-1" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Lưu voucher ? 
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  ng-click="saveVoucher()">Xác nhận</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end modal save -->
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <table class="table table-bordered table-hover">
+                    <thead class="table table-danger">
+                        <tr>
+                            <th class="text-center ">STT</th>
+                            <th class="text-center">Tên Trương Trình</th>
+                            <th class="text-center">Mã Voucher</th>
+                            <th class="text-center">Giá Trị</th>
+                            <th class="text-center">Số lượng còn lại</th>
+                            <th class="text-center">Thời gian</th>
+                            <th class="text-center">Người tạo</th>
+                            <th class="text-center">Trạng thái</th>
+                            <th colspan="2" class="text-center">Thao Tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-center" ng-repeat="voucher in vouchers">
+                            <td>{{$index + 1}}</td>
+                            <td>{{voucher.name}}</td>
+                            <td>{{voucher.code}}</td>
+                            <td>{{voucher.promotion}}</td>
+                            <td>{{voucher.quantity | currency : "" : 0}}</td>
+                            <td>{{voucher.beginDate}} -> {{voucher.endDate}}</td>
+                            <td>{{voucher.createBy.username}}</td>
+                            <td class="d-flex justify-content-center">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" ng-checked="voucher.status == 'AVAILABLE' " 
+                                    ng-click="updateStatusVoucher(voucher, $index)" ng-disabled="checkEndDate(voucher)">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked"></label>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <button class="btn btn-warning btn-sm" ng-click="editVoucher($index)">Sửa</button>
+                                <button data-bs-toggle="modal" data-bs-target="#modal_delete{{$index}}" class="btn btn-danger btn-sm">Xóa</button>
+                                <!-- modal xóa -->
+                                <div class="modal fade" id="modal_delete{{$index}}" tabindex="-1" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Xóa</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Xác nhận xóa?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-danger" ng-click="deleteVoucher($index, voucher)" data-bs-dismiss="modal">Xóa</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+      </div>
+
+
+    
+</div>

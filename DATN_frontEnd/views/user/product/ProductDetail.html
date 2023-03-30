@@ -1,0 +1,343 @@
+<style>
+    .select-size input{
+        display: none;
+    }
+
+    label {
+        display: inline-block;
+        min-width: 30px;
+        width: auto;
+        height: 30px;
+        text-align: center;
+        /* border: 1px solid #ddd; */
+        line-height: 30px;
+        cursor: pointer
+    }
+    .size:hover {
+        background-color: rgb(204, 202, 199);
+        color: rgb(55, 127, 179);
+    }
+    .color:hover {
+        background-color: rgb(204, 202, 199);
+        color: rgb(55, 127, 179);
+    }
+</style>
+<div class="row mt-5">
+    <!--alert-->
+    <div class="mt-5" ng-include="'/views/common/Alert.html'"></div>
+    <!--end alert-->
+    <div class="col-6 bg-light">
+        <div class="mt-5 row mb-3">
+            <div ng-repeat="image in product.images" class="{{2 > $index ? 'col-6' : 'col-4'}}">
+                <img ng-if="2 > $index" src="{{image.path}}" class="img-thumbnail img-fluid" style="width: 370px; height: 370px;" alt="#">
+                <img ng-if="$index > 1" src="{{image.path}}" class="img-thumbnail img-fluid mt-3" style="width: 230px; height: 288px;" alt="#">
+            </div>
+        </div>
+    </div>
+
+    <div class="col-1 bg-light">
+
+    </div>
+    <div class="col-5 bg-light">
+        <div class="mt-5 mb-3">
+            <h5><b>{{product.name}}</b></h5>
+            <!-- <p style="color: rgb(143, 141, 141);"><del>Giá cũ: 2.000.000 đ</del></p> -->
+            <p style="color: red;"><b style="color: black;">Giá: </b>{{product.price | currency : "" : 0}}đ
+                <del style="font-size: 12px; margin-left: 12px">{{ product.listed_price | currency : '' : 0 }}₫</del>
+            </p>
+
+            <div>
+                <div class="select-size row">
+                    <div class="col-auto" ng-repeat="color in colors">
+                        <input type="radio" name="color" id="color{{$index}}" ng-value="color" ng-model="newProduct.productDetail.color"
+                            ng-click="changeColor(color)" ng-disabled="color.disable" /> 
+                        <label class="ps-1 pe-1 {{color.disable ? '' : 'color'}} {{newProduct.productDetail.color.id == color.id ? 'border bg-info text-light' : '' }}" 
+                            for="color{{$index}}">
+                            {{color.name}}
+                        </label>
+                    </div>
+                </div>
+                <div class="select-size row mt-3">
+                    <div class="col-auto" ng-repeat="size in sizes">
+                        <input type="radio" name="size" id="size{{$index}}" ng-value="size" ng-model="newProduct.productDetail.size" 
+                            ng-click="changeSize(size)" ng-disabled="size.disable" /> 
+                        <label class="ps-1 pe-1 {{size.disable ? ' bg-secondary' : 'size'}} {{ newProduct.productDetail.size.id == size.id ? 'border bg-info text-light' : '' }}" 
+                            for="size{{$index}}">
+                            {{size.name}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <br>
+            <div class="row">
+                <div class="col-8">
+                    <button type="button" class="col-12 btn btn-dark" ng-click="buy()" data-bs-toggle="modal" data-bs-target="#buy">
+                        MUA NGAY
+                    </button>
+                </div>
+                <div class="col-4 pe-0">
+                    <button class="btn btn-danger col-12 ps-1" ng-click="addToCart()">
+                        <i class="bi bi-cart-plus"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- modal mua hàng -->
+            <div class="modal fade" id="buy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Xem lại đơn hàng</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form name="createOrderForm">
+                            <div class="modal-body">
+                                <b>Thông tin cá nhân</b>
+                                <div class="row mt-2">
+                                    <div class="col-1">
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" ng-model="orderNew.customerName" id="fullname" placeholder="Họ và tên *" name="customerName"
+                                                    ng-minlength="2" ng-maxlength="255" ng-required="true" ng-trim="true">
+                                                <div class="text-danger" ng-hide="createOrderForm.customerName.$untouched || createOrderForm.customerName.$valid">
+                                                    <small class="text-danger" ng-show="createOrderForm.customerName.$error.required"> Không được để trống </small>
+                                                    <!-- <small class="text-danger" ng-show="createOrderForm.customerName.$error.pattern"> Không được nhập ký tự đặc biệt</small> -->
+                                                    <small class="text-danger" ng-show="createOrderForm.customerName.$error.maxlength">Không được nhập quá 255 ký tự</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" ng-model="orderNew.phone" placeholder="Số điện thoại*" name="phone"
+                                                    ng-minlength="10" ng-maxlength="11" ng-required="true" ng-trim="true">
+                                                <div class="text-danger" ng-hide="createOrderForm.phone.$untouched || createOrderForm.phone.$valid">
+                                                    <small class="text-danger" ng-show="createOrderForm.phone.$error.required"> Không được để trống </small>
+                                                    <!-- <small class="text-danger" ng-show="createOrderForm.phone.$error.pattern"> Không được nhập ký tự đặc biệt</small> -->
+                                                    <small class="text-danger" ng-show="createOrderForm.phone.$error.minlength">Tối thiểu 10 ký tự</small>
+                                                    <small class="text-danger" ng-show="createOrderForm.phone.$error.maxlength">Không được nhập quá 11 ký tự</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-1">
+                                        <label for=""><h2><i class="bi bi-geo-alt"></i></h2></label>
+                                    </div>
+                                    <div class="col-11">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <input class="form-control dropdown-toggle" type="text" id="orderProvince{{$index}}" ng-model="orderNew.province" name="province"
+                                                    ng-focus="showProvince()" placeholder="Tỉnh, thành phố...*"  data-bs-toggle="dropdown" aria-expanded="false" ng-required="true"/>
+                                                    <div class="text-danger" ng-hide="createOrderForm.province.$untouched || createOrderForm.province.$valid">
+                                                        <small class="text-danger" ng-show="createOrderForm.province.$error.required"> Không được để trống </small>
+                                                        <!-- <small class="text-danger" ng-show="createOrderForm.province.$error.pattern"> Không được nhập ký tự đặc biệt</small> -->
+                                                        <small class="text-danger" ng-show="createOrderForm.province.$error.minlength">Tối thiểu 10 ký tự</small>
+                                                        <small class="text-danger" ng-show="createOrderForm.province.$error.maxlength">Không được nhập quá 11 ký tự</small>
+                                                    </div>
+                                                <div class="dropdown-menu" aria-labelledby="orderProvince{{$index}}" style="width: 210px; height: 200px; overflow-y: scroll">
+                                                    <p id="province" ng-repeat="province in listProvince" ng-click="chooseProvince(province.ProvinceID)">
+                                                        <a  href="" style="text-decoration: none; color: black;">{{province.ProvinceName}}</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <input class="form-control dropdown-toggle" type="text" id="orderDistrict{{$index}}" ng-model="orderNew.district" name="district"
+                                                    ng-focus="showDistrict()" placeholder="Quận/Huyện...*"  data-bs-toggle="dropdown" aria-expanded="false" ng-required="true"/>
+                                                    <div class="text-danger" ng-hide="createOrderForm.district.$untouched || createOrderForm.district.$valid">
+                                                        <small class="text-danger" ng-show="createOrderForm.district.$error.required"> Không được để trống </small>
+                                                        <!-- <small class="text-danger" ng-show="createOrderForm.district.$error.pattern"> Không được nhập ký tự đặc biệt</small> -->
+                                                        <small class="text-danger" ng-show="createOrderForm.district.$error.minlength">Tối thiểu 10 ký tự</small>
+                                                        <small class="text-danger" ng-show="createOrderForm.district.$error.maxlength">Không được nhập quá 11 ký tự</small>
+                                                    </div>
+                                                <div ng-show="orderNew.province" class="dropdown-menu" aria-labelledby="orderDistrict{{$index}}" style="width: 210px; height: 200px; overflow-y: scroll">
+                                                    <p id="district" ng-repeat="district in listDistrict" ng-click="chooseDistrict(district.DistrictID)">
+                                                        <a href="" style="text-decoration: none; color: black;">{{district.DistrictName}}</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mt-2">
+                                            <div class="col-6">
+                                                <input class="form-control dropdown-toggle" type="text" id="orderWard{{$index}}" ng-model="orderNew.ward" name="ward"
+                                                    ng-focus="showWard()" placeholder="Phường, xã...*"  data-bs-toggle="dropdown" aria-expanded="false" ng-required="true"/>
+                                                    <div class="text-danger" ng-hide="createOrderForm.ward.$untouched || createOrderForm.ward.$valid">
+                                                        <small class="text-danger" ng-show="createOrderForm.ward.$error.required"> Không được để trống </small>
+                                                        <!-- <small class="text-danger" ng-show="createOrderForm.ward.$error.pattern"> Không được nhập ký tự đặc biệt</small> -->
+                                                        <small class="text-danger" ng-show="createOrderForm.ward.$error.minlength">Tối thiểu 10 ký tự</small>
+                                                        <small class="text-danger" ng-show="createOrderForm.ward.$error.maxlength">Không được nhập quá 11 ký tự</small>
+                                                    </div>
+                                                <div ng-show="orderNew.district" class="dropdown-menu" aria-labelledby="orderWard{{$index}}" style="width: 210px; height: 200px; overflow-y: scroll">
+                                                    <p id="ward" ng-repeat="ward in listWard" ng-click="chooseWard(ward.WardCode)">
+                                                        <a  href="" style="text-decoration: none; color: black;">{{ward.WardName}}</a>
+                                                    </p>
+                                                </div>  
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" ng-model="orderNew.address" placeholder="Địa chỉ chi tiết*" name="address"
+                                                    ng-minlength="1" ng-maxlength="255" ng-required="true" ng-trim="true">
+                                                <div class="text-danger" ng-hide="createOrderForm.address.$untouched || createOrderForm.address.$valid">
+                                                    <small class="text-danger" ng-show="createOrderForm.address.$error.required"> Không được để trống </small>
+                                                    <!-- <small class="text-danger" ng-show="createOrderForm.address.$error.pattern"> Không được nhập ký tự đặc biệt</small> -->
+                                                    <small class="text-danger" ng-show="createOrderForm.address.$error.minlength">Tối thiểu 1 ký tự</small>
+                                                    <small class="text-danger" ng-show="createOrderForm.address.$error.maxlength">Không được nhập quá 255 ký tự</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-2 row">
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" ng-model="codeVoucher" placeholder="Mã giảm giá" ng-change="changeVoucher()">
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="text" class="form-control" ng-nodel="orderNew.description" placeholder="Ghi chú đơn hàng">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div>
+                                    <b>Thông tin sản phẩm</b>
+                                    <table class="table table-bordered table-responsive">
+                                        <thead>
+                                            <tr class="text-center">
+                                                <td></td>
+                                                <td>Tên sản phẩm</td>
+                                                <td>Chi tiết</td>
+                                                <td>Giá</td>
+                                                <td>Số lượng</td>
+                                                <td>Tổng tiền</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="orderDetail in orderNew.orderDetails" class="text-center">
+                                                <td class="d-flex justify-content-center">
+                                                    <img ng-src="{{orderDetail.product.avatar}}" class="img-fluid" style="width: 100px; height: 100px;">
+                                                </td>
+                                                <td>{{orderDetail.product.name}}</td>
+                                                <td>Màu: {{orderDetail.productDetail.color.name}} - Size: {{orderDetail.productDetail.size.name}}</td>
+                                                <td>{{orderDetail.product.price | currency : "" : 0}}</td>
+                                                <td>
+                                                    <input type="number" class="col-2" ng-change="changeQuantity(orderDetail.quantity)" 
+                                                        ng-blur="focusQuantity(orderDetail.quantity)" ng-model="orderDetail.quantity" min="1">
+                                                </td>
+                                                <td>{{orderDetail.quantity * orderDetail.product.price | currency : '' : 0}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <p>Hình thức thanh toán</p>
+                                            <div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" ng-model="orderNew.paymentType" name="paymentType" id="OFFLINE" value="OFFLINE">
+                                                    <p class="form-check-label" for="OFFLINE">Thanh toán khi nhận hàng</p>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="radio" ng-model="orderNew.paymentType" name="paymentType" id="VNPAY" value="VNPAY">
+                                                    <p class="form-check-label" for="VNPAY">Thanh toán VNPAY</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <p>Phí ship: <b>{{ totalShipFee | currency: "" : 0 }}</b></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="d-flex justify-content-between" style="width: 100%;">
+                                    <div> 
+                                        Tổng tiền đơn hàng: <b>{{orderNew.totalMoney | currency: "" : 0}}</b>
+                                    </div>
+                                    <div></div>
+                                    <div>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                        <button type="button" ng-show="orderNew.paymentType != 'OFFLINE' " class="btn btn-primary"
+                                            ng-disabled="createOrderForm.$invalid" 
+                                        >
+                                            Thanh toán
+                                        </button>
+                                        <button type="button" ng-show="orderNew.paymentType == 'OFFLINE' " data-bs-dismiss="modal" ng-click="createOrder()" class="btn btn-primary"
+                                        ng-disabled="createOrderForm.$invalid"
+                                        >
+                                            Đặt hàng
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <br> <br>
+            <!-- <div class="row">
+                <p style="width: 450px; ">✓ Giày Converse Chuck Taylor 1970s High Valentine</p>
+                <p style="width: 450px;">✓ Cam kết 100% chính hãng </p>
+            </div> -->
+            <div class="row">
+                <div class="nav nav-tabs row" id="nav-tab" role="tablist">
+                    <div class="nav-link active col-6 text-dark" id="motasp-tab" data-bs-toggle="tab" data-bs-target="#motasp" type="button" role="tab" aria-controls="motasp" aria-selected="true">Mô tả</div>
+                    <div class="nav-link col-6 text-dark" id="chitietsp-tab" data-bs-toggle="tab" data-bs-target="#chitietsp" type="button" role="tab" aria-controls="chitietsp" aria-selected="false">Chi tiết sản phẩm</div>
+                </div>
+            </div>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="motasp" role="tabpanel" aria-labelledby="motasp-tab">{{product.description}}</div>
+                <div class="tab-pane fade" id="chitietsp" role="tabpanel" aria-labelledby="chitietsp-tab">
+                    <ul>
+                        <li>
+                            Mã sản phẩm: {{product.code}}
+                        </li>
+                        <li>
+                            Nhãn hiệu: {{product.brand.name}}
+                        </li>
+                        <li>
+                            Kiểu dáng: {{product.category.name}}
+                        </li>
+                        <!-- <li>
+                            Chất liệu: <span ng-repeat="item in product.productDetails">{{item.material.name}}, </span>
+                        </li> -->
+                        <!-- <li>
+                            Độ cao: {{product.productDetails[0].height.name}}
+                        </li> -->
+                        <li>
+                            Màu sắc: <span ng-repeat="item in colors">{{item.name}}, </span>
+                        </li>
+                        <li>
+                            Kích cỡ: <span ng-repeat="item in sizes">{{item.name}}, </span>
+                        </li>
+                        <li>
+                            Xuất xứ: {{product.origin.origin}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="">
+    <div class="mt-4">
+        <p>
+            <b>GỌI MUA HÀNG ONLINE </b> (08:00 - 22:00 mỗi ngày)
+        </p>
+        <h3>
+            <b>1800 2002</b>
+        </h3>
+        <p>Tất cả các ngày trong tuần (Trừ Tết Âm Lịch)</p>
+    </div>
+    <hr width="25%">
+    <div class="mt-4">
+        <h5>Chính sách đổi trả</h5>
+        <p>
+            N3T SHOP hiện đang áp dụng chính sách Đổi/Trả cho các sản phẩm như sau: <br>
+            - Trong vòng <b>10 ngày</b> kể từ ngày nhận sản phẩm đối với tất cả các mặt hàng <br>
+        </p>
+    </div>
+    <hr width="25%">
+    <div class="mt-4">
+        <h5> Hướng dẫn tính size </h5>
+        <img src="/images/img/Huong-Dan-Chon-Size.jpg" alt="" class="img-fluid">
+    </div>
+
+</div>

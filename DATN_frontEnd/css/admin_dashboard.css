@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+body,button {
+  font-family: "Inter", sans-serif;
+}
+:root {
+  --offcanvas-width: 270px;
+  --topNavbarHeight: 60px;
+}
+#navbar-top {
+  background-color: rgb(224, 215, 215);
+  
+}
+#sidebar {
+  background-color: rgb(224, 215, 215);
+}
+.sidebar-nav {
+  width: var(--offcanvas-width);
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+}
+.sidebar-link .right-icon {
+  display: inline-flex;
+}
+.sidebar-link[aria-expanded="true"] .right-icon {
+  transform: rotate(180deg);
+}
+@media (min-width: 992px) {
+  body {
+    overflow: auto !important;
+  }
+  main {
+    margin-left: var(--offcanvas-width);
+  }
+  /* this is to remove the backdrop */
+  .offcanvas-backdrop::before {
+    display: none;
+  }
+  .sidebar-nav {
+    -webkit-transform: none;
+    transform: none;
+    visibility: visible !important;
+    height: calc(100% - var(--topNavbarHeight));
+    top: var(--topNavbarHeight);
+  }
+}
+#statistical_1 {
+  background-color: rgb(126, 166, 187);
+}
+#statistical_2 {
+  background-color: rgb(126, 120, 190);
+}
+#statistical_3 {
+  background-color: rgb(115, 175, 127);
+}
+#statistical_4 {
+  background-color: rgb(204, 190, 144);
+}
+#statistical_5 {
+  background-color: rgba(135, 125, 240, 0.652);
+}
+#statistical_6 {
+  background-color: rgb(221, 124, 132);
+}
+#statistical_7 {
+  background-color: rgb(95, 187, 99);
+}
+#statistical_8 {
+  background-color: rgb(199, 100, 100);
+}
+#statistical_9 {
+  background-color: rgb(121, 210, 214);
+}
+#statistical_10 {
+  background-color: rgb(170, 120, 196);
+}

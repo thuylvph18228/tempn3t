@@ -1,0 +1,342 @@
+<div class="container-fluid">
+     <!--alert-->
+    <div ng-include="'/views/common/Alert.html'"></div>
+    <!--end alert-->
+    <div class="row mt-5">
+        <h3 class="text-center">  Đơn chờ xác nhận </h3>
+    </div>
+    
+    <div class="row mt-">
+        <div class="col-sm-12 col-md-12 mt-3">
+            <div class="row mt-3">
+                <div class="mb-3">
+                    <div class="d-flex justify-content-end">
+                        <div class="col-12 col-sm-6 col-xl-3 mb-1">
+                            <input class="form-control" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body mt-3">
+                            <div class="table-responsive">
+                                <table id="example" class="table data-table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Mã đơn hàng</th>
+                                            <th>Thời gian</th>
+                                            <!-- <th>Người tạo</th> -->
+                                            <!-- <th>Sản phẩm</th> -->
+                                            <th>Khách hàng</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="order in orders">
+                                            <td>{{order.code}}</td>
+                                            <td>{{order.createdDate | date:"dd/MM/yyyy ' - ' h:mma"}}</td>
+                                            <!-- <td>{{order.createBy.username}}</td> -->
+                                            <!-- <td>
+                                                <div ng-repeat="orderDetail in order.orderDetails">
+                                                    <p>- {{orderDetail.product.name}}</p>
+                                                </div>
+                                            </td> -->
+                                            <td>
+                                                {{order.customerName}} <br>
+                                                SĐT: {{order.phone}}
+                                            </td>
+                                            <td>
+                                                {{order.address}} <br>
+                                                {{order.ward}}, {{order.district}}, {{order.province}}
+                                            </td>
+                                            <td>
+                                                {{order.totalMoney | currency : "" : 0}} 
+                                            </td>
+                                            <td>
+                                                Đang chờ xác nhận
+                                            </td>
+                                            <td>
+                                                <div class="row">
+                                                    <!-- <div class="col-auto pt-1">
+                                                        <h4>
+                                                            <a href="#" style="color: rgb(8, 159, 41);" 
+                                                            data-bs-toggle="modal" data-bs-target="#detailModal{{$index}}">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+                                                        </h4>
+                                                    </div> -->
+                                                    <div class="col-1 pt-1">
+                                                        <h4>
+                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#confirm{{$index}}" style="color: rgb(29, 201, 231);">
+                                                                <i class="bi bi-check2-square"></i>
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="col-1 pt-1">
+                                                        <h4>
+                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#update{{$index}}" style="color: rgb(198, 198, 18);" ng-click="chosesOrderUpdate($index)">
+                                                                <i class="bi bi-pencil-square"></i>
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                    <div class="col-1 pt-1">
+                                                        <h4>
+                                                            <a href="#" class="ps-2" style="color: rgb(234, 55, 55);"
+                                                                data-bs-toggle="modal" data-bs-target="#unConfirm{{$index}}">
+                                                                <i class="bi bi-x-circle"></i>
+                                                            </a>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+
+                                                <!-- modal un confirm -->
+                                                <div class="modal fade" id="unConfirm{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">Hủy đơn hàng</h5>
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Bạn có chắc chắn muốn hủy đơn hàng này ?
+                                                                <div class="mt-1">
+                                                                    <textarea ng-model="order.description" class="form-control" rows="3" placeholder="Lý do hủy đơn *"></textarea>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal" ng-click="unConfirmOrder(order, $index)">Xác nhận</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- modal confirm -->
+                                                <div class="modal fade" id="confirm{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <!-- <h5 class="modal-title" id="exampleModalLabel">Xác đơn hàng</h5> -->
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Xác nhận đơn hàng này ?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" ng-click="confirmOrder(order, $index)">Xác nhận</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- modal update -->
+                                                <div class="modal fade" id="update{{$index}}" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-xl">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLabel">
+                                                                    Chi tiết đơn hàng: {{order.code}}
+                                                                </h5>
+                                                                <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <!--table model-->
+                                                            <div class="modal-body row">
+                                                                <div class="col-11">
+                                                                    Mã đơn hàng: <b> {{order.code}} </b> - Ngày tạo: <b>{{order.createdDate | date:"dd/MM/yyyy ' - ' h:mma"}}</b> <br>
+                                                                    
+                                                                    <div class="row mt-3">
+                                                                        <div class="col-1">
+                                                                            <label for=""><h2><i class="bi bi-person"></i></h2></label>
+                                                                        </div>
+                                                                        <div class="col-11">
+                                                                            <div class="row">
+                                                                                <div class="col-6">
+                                                                                    <input type="text" class="form-control" ng-model="order.customerName" placeholder="Tên người nhận">
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    <input type="text" class="form-control" ng-model="order.phone" placeholder="Số điện thoại">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>                                                                        
+                                                                    </div>
+                                                                    
+                                                                    <div class="row mt-2" ng-if="order.orderType == 'ONLINE' || order.orderType == 'ONLINE_WEB' ">
+                                                                        <div class="col-1">
+                                                                            <label for=""><h2><i class="bi bi-geo-alt"></i></h2></label>
+                                                                        </div>
+                                                                        <div class="col-11">
+                                                                            <div class="row">
+                                                                                <div class="col-6">
+                                                                                    <input class="form-control dropdown-toggle" type="text" id="orderProvince{{$index}}" ng-model="order.province" 
+                                                                                        ng-focus="showProvince()" placeholder="Tỉnh, thành phố.."  data-bs-toggle="dropdown" aria-expanded="false"/>
+                                                                                    <div class="dropdown-menu" aria-labelledby="orderProvince{{$index}}" style="width: 210px; height: 200px; overflow-y: scroll">
+                                                                                        <p id="province" ng-repeat="province in listProvince" ng-click="chooseProvince(province.ProvinceID, $parent.$index)">
+                                                                                            <a href="" style="text-decoration: none; color: black;">{{province.ProvinceName}}</a>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    <input class="form-control dropdown-toggle" type="text" id="orderDistrict{{$index}}" ng-model="order.district" 
+                                                                                        ng-focus="showDistrict()" placeholder="Quận/Huyện..."  data-bs-toggle="dropdown" aria-expanded="false"/>
+                                                                                    <div ng-show="order.province" class="dropdown-menu" aria-labelledby="orderDistrict{{$index}}" style="width: 210px; height: 200px; overflow-y: scroll">
+                                                                                        <p id="district" ng-repeat="district in listDistrict" ng-click="chooseDistrict(district.DistrictID, $parent.$index)">
+                                                                                            <a href="" style="text-decoration: none; color: black;">{{district.DistrictName}}</a>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="row mt-2">
+                                                                                <div class="col-6">
+                                                                                    <input class="form-control dropdown-toggle" type="text" id="orderWard{{$index}}" ng-model="order.ward" 
+                                                                                        ng-focus="showWard()" placeholder="Phường, xã..."  data-bs-toggle="dropdown" aria-expanded="false"/>
+                                                                                    <div ng-show="order.district" class="dropdown-menu" aria-labelledby="orderWard{{$index}}" style="width: 210px; height: 200px; overflow-y: scroll">
+                                                                                        <p id="ward" ng-repeat="ward in listWard" ng-click="chooseWard(ward.WardCode, $parent.$index)">
+                                                                                            <a  href="" style="text-decoration: none; color: black;">{{ward.WardName}}</a>
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="col-6">
+                                                                                    <input type="text" class="form-control" ng-model="order.address" placeholder="Địa chỉ chi tiết">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="d-flex justify-content-center mt-3 mt-2">
+                                                                    <div class="col-10">
+                                                                        <input type="text" ng-model="nameProduct" id="productOrder" ng-focus="showAllProduct()" data-bs-toggle="dropdown" aria-expanded="false"
+                                                                            ng-change="searchProduct()" class="form-control" placeholder="Tìm kiếm sản phẩm...">
+                                                                        
+                                                                        <div class="dropdown-menu" aria-labelledby="productOrder" style="width: 922px; height: 200px; overflow-y: scroll">
+                                                                            <div ng-show="products" ng-repeat="product in products" >
+                                                                                <div id="productDetail" ng-repeat="productDetail in product.productDetails" >
+                                                                                    <p ng-click="chooseProduct(product, productDetail, $parent.$parent.$index)">
+                                                                                        <a href="" style="text-decoration: none; color: black;"> 
+                                                                                            {{product.name}} - {{product.price | currency : "" : 0}}
+                                                                                        </a><br>
+                                                                                        <a href="" style="text-decoration: none; color: black;">
+                                                                                            Size{{productDetail.size.name}} - Màu: {{productDetail.color.name}} - Độ cao đế: {{productDetail.height.height}}cm - Chất liệu: {{productDetail.material.name}}
+                                                                                        </a>
+                                                                                    </p>
+                                                                                    <hr>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <table class="mt-4 table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th>STT</th>
+                                                                            <th>Sản phẩm</th>
+                                                                            <th>Size</th>
+                                                                            <th>Màu sắc</th>
+                                                                            <th>Giá tiền</th>
+                                                                            <th>Số lượng</th>
+                                                                            <th>Tổng tiền</th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr ng-repeat="orderDetail in order.orderDetails">
+                                                                            <td>{{$index + 1}}</td>
+                                                                            <td>
+                                                                                {{orderDetail.product.name}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{orderDetail.productDetail.size.name}}
+                                                                            </td>
+                                                                            <td>
+                                                                                {{orderDetail.productDetail.color.name}}
+
+                                                                            </td>
+                                                                            <td>
+                                                                                {{orderDetail.price | currency : "" : 0}}
+
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="d-flex justify-content-center align-center">
+                                                                                    <input type="number" ng-change="changeQuantity($parent.$index, $index)" class="col-2" ng-model="orderDetail.quantity" 
+                                                                                     min="1" oninput="this.value = Math.abs(this.value)">
+                                                                                </div>
+                                                                            </td>
+                                                                            <td>
+                                                                                {{orderDetail.price * orderDetail.quantity | currency : "" : 0}}
+                                                                            </td>
+                                                                            <td>
+                                                                                <div class="row">
+                                                                                    <h5 class="col-auto mt-2">
+                                                                                        <a type="button" ng-click="a($index, $parent.$index)" class="ps-2" style="color: rgb(234, 55, 55);">
+                                                                                            <i class="bi bi-trash"></i>
+                                                                                        </a>
+                                                                                    </h5>
+                                                                                </div>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <div class="d-flex justify-content-end">
+                                                                    <h5>Tổng tiền đơn hàng: <b>{{ totalMoney | currency : "" : 0}}</b></h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#updateProduct{{$index}}">Cập nhật</button>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- Modal xác nhận update product -->
+                                                <div class="modal fade" id="updateProduct{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Thay đổi đơn hàng
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#update{{$index}}">Hủy</button>
+                                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" ng-click="updateOrder($index)">Thay đổi</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!--Page-->
+    <div>
+
+    </div>
+    <nav aria-label="Page navigation example" class="mt-3 offset-5">
+        <ul class="pagination pagination-sm">
+            <li ng-class="['page-item', {{ pageIndex == 0 ? 'disabled' : '' }} ]" >
+                <a class="page-link" aria-label="Previous" ng-click="prev()" >
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li ng-class="['page-item', {{ pageIndex == totalPage ? 'disabled' : '' }} ]" >
+                <a class="page-link" aria-label="Next" ng-click="next()">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

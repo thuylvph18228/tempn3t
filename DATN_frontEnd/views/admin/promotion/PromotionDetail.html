@@ -1,0 +1,140 @@
+<link rel="stylesheet" href="/css/Lac.css">
+<style type="text/css">
+    .container {  
+        padding: 10px;
+    }
+    
+    .search-box {  
+        display: inline-block;  
+        width: 100%;  
+        border-radius: 3px;  
+        padding: 4px 55px 4px 15px;  
+        position: relative;  
+        background: #fff;  
+        border: 1px solid #ddd;  
+        -webkit-transition: all 200ms ease-in-out;  
+        -moz-transition: all 200ms ease-in-out;  
+        transition: all 200ms ease-in-out;
+    }
+    
+    .search-box.hovered, .search-box:hover, .search-box:active {  
+        border: 1px solid rgb(154, 95, 95);
+    }
+    
+    .search-box input[type=text] { 
+        border: none;  
+        box-shadow: none;  
+        display: inline-block;  
+        padding: 0;  
+        background: transparent;
+    }
+    
+    .search-box input[type=text]:hover, .search-box input[type=text]:focus, .search-box input[type=text]:active {  
+        box-shadow: none;
+    }
+    
+    .search-box .search-btn {  
+        position: absolute;  
+
+        right: -2px;  
+        top: -3px;  
+        color: rgb(187, 84, 84);  
+        border-radius: 3px;  
+        font-size: 21px;  
+        padding: 5px 10px 5px 10px;  
+        -webkit-transition: all 200ms ease-in-out;  
+        -moz-transition: all 200ms ease-in-out;  
+        transition: all 200ms ease-in-out;
+    }
+    
+    .search-box .search-btn:hover {  
+        color: #fff;  
+        background-color: #8FBE00;
+    }
+</style>
+<div class="row">
+    <div class="col-3"> <a class="nav-link text-danger text-center "><strong class="mauchu">Các sản phẩm được khuyễn mãi</strong></a></div>
+</div>
+<div class="row">
+    <hr>
+    <div class=" d-flex justify-content-end">
+        <div class="col-3"> 
+            <div class=""> 
+                <div class="search-box"> 
+                    <form class="search-form" action=""> <input class="form-control" placeholder="Search" type="text" > 
+                        <button class="btn btn-link search-btn">  
+                        </button> 
+                    </form> 
+                </div> 
+            </div> 
+        </div>
+        <!-- <div class="col-12">
+            <div class="panel panel-default  ">
+                <div class="panel-heading card ">
+                    <div class="card-header text-nowrap btn btn-outline-success">
+                        <h5 data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                            aria-expanded="false" aria-controls="collapseExample"
+                            class="fas fa-list ">Danh Mục
+                        </h5>
+                    </div>
+                </div>
+                <ul class="list-group collapse" id="collapseExample">
+                </ul>
+            </div>
+        </div> -->
+    </div>
+    <div class="mt-1">
+        <table class="table table-bordered table-hover">
+            <thead class="table table-danger">
+                <tr>
+                    <!-- <th class="text-center ">DA</th> -->
+                    <th class="text-center">Sản Phẩm</th>
+                    <th class="text-center">Giá Sản Phẩm</th>
+                    <th class="text-center">Số Lượng</th>
+                    
+                    <th  class="text-center">Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!-- <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style=" margin: 20px -20px 20px 20px; padding: 15px;"></td> -->
+                    <td>{{  }}</td>
+                    <td>{{  }}</td>
+                    <td>{{  }}</td>
+                    <td class="text-center">
+                        <button data-bs-toggle="modal" data-bs-target="#modal_delete_{{ student.id }}"
+                            class="btn btn-danger" ng-click="edit($index)"> xóa</button>
+                        <div class="modal fade" id="modal_delete_{{ student.id }}" tabindex="-1"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Xóa</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Xác nhận xóa?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Đóng</button>
+                                        <button type="button" class="btn btn-danger"
+                                            ng-click="onDelete($index)" data-bs-dismiss="modal">Xóa</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+<div class="button">
+    <button type="submit" class="btn btn-outline-success" >Lưu</button>
+    <button class="btn btn-outline-danger" ng-click="clear()" type="">Xóa form</button>
+
+</div>
+<hr>
