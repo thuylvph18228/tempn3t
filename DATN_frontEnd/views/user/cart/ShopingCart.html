@@ -158,10 +158,15 @@
                                     </div>
                                     <div class="mt-2 row">
                                         <div class="col-6">
-                                            <select class="form-select">
-                                                <option></option>
-                                            </select>
-                                            <input type="text" class="form-control" ng-model="codeVoucher" placeholder="Mã giảm giá" ng-change="changeVoucher()" autocomplete="off">
+<!--                                            <input type="text" class="form-control" ng-model="codeVoucher" placeholder="Mã giảm giá" ng-change="changeVoucher()" autocomplete="off">-->
+                                            <input class="form-control dropdown-toggle" type="text" id="codeVoucher{{$index}}" ng-model="codeVoucher"
+                                                   ng-focus="showProvince()" placeholder="Mã giảm giá"  data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off"
+                                                   name="voucher" ng-required="true" ng-trim="true" minlength="5" maxlength="255"/>
+                                            <div class="dropdown-menu" aria-labelledby="codeVoucher{{$index}}" style="width: 486px; height: 200px; overflow-y: scroll">
+                                                <p id="voucher" ng-repeat="voucher in listVoucher" ng-click="changeVoucher(voucher.code)">
+                                                    <a href="" style="text-decoration: none; color: black;">{{voucher.name}}</a>
+                                                </p>
+                                            </div>
                                         </div>
                                         <div class="col-6">
                                             <input type="text" class="form-control" ng-nodel="orderNew.description" placeholder="Ghi chú đơn hàng" autocomplete="off">

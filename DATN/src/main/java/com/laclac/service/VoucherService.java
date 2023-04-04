@@ -13,4 +13,6 @@ public interface VoucherService {
     Voucher getByCode(String code);
     VoucherDto save(VoucherDto voucherDto);
     Voucher delete(int id);
+    List<Voucher> getByMoney(int money);
+
 }

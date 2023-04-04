@@ -18,6 +18,11 @@ public class VoucherController {
         return ResponseEntity.ok(this.voucherService.getAll());
     }
 
+    @GetMapping("/money/{money}")
+    private ResponseEntity<?> getByMoney(@PathVariable("money") int money) {
+        return ResponseEntity.ok(this.voucherService.getByMoney(money));
+    }
+
     @GetMapping("/{code}")
     private ResponseEntity findByCode(@PathVariable("code") String code) {
         return ResponseEntity.ok(this.voucherService.getByCode(code));

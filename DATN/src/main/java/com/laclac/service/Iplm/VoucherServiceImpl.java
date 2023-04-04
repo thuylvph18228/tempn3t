@@ -61,4 +61,9 @@ public class VoucherServiceImpl implements VoucherService {
     public Voucher delete(int id) {
         return null;
     }
+
+    @Override
+    public List<Voucher> getByMoney(int money) {
+        return this.voucherRepo.findByMinMoney(money);
+    }
 }

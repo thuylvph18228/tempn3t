@@ -12,6 +12,8 @@ public interface VoucherRepository extends JpaRepository<Voucher, Integer> {
 
     @Query(value = "select o from Voucher o where o.isDelete = 0")
     List<Voucher> findAll();
+    @Query(value = "select o from Voucher o where :money >= o.minMoney")
+    List<Voucher>  findByMinMoney(int money);
     Voucher findByCode(String code);
 
     @Query("select count(id) from  Voucher ")

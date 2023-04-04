@@ -86,6 +86,7 @@ function productDetailUser ($scope, $http, $routeParams) {
     $scope.colors = [];
     $scope.heights = [];
 
+    $scope.listVoucher = [];
     $scope.listProvince = [];
     $scope.listDistrict = [];
     $scope.listWard = [];
@@ -504,7 +505,8 @@ function productDetailUser ($scope, $http, $routeParams) {
     //kiểm tra xem voucher có tồn tại không
     const apiVoucher = 'http://localhost:8080/laclac/voucher';
     $scope.codeVoucher = "";
-    $scope.changeVoucher = () => {
+    $scope.changeVoucher = (code) => {
+        $scope.codeVoucher = code;
         if($scope.codeVoucher.length == 9) { 
             $http.get(apiVoucher + "/" + $scope.codeVoucher)
                 .then(res => {
@@ -539,5 +541,15 @@ function productDetailUser ($scope, $http, $routeParams) {
         }
     }
 
-    
+    /**get all voucher */
+    $http.get(apiVoucher)
+        .then(function (response) {
+            $scope.listVoucher = response.data;
+            $scope.isLoading = false;
+        })
+        .catch(function (error) {
+            console.log(error);
+            $scope.isLoading = false;
+        });
+
 }
