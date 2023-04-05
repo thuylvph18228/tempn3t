@@ -50,7 +50,7 @@
   <!-- user display -->
   <div ng-if="!isAdmin" class="container responsive">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top"  style="background-color:#87CEEB ;">
       <!-- Container wrapper -->
       <div class="container">
         <!-- Toggle button -->
@@ -204,7 +204,7 @@
   <!-- admin display -->
   <div ng-if="isAdmin" class="container-fluid">
     <!-- top navigation bar -->
-    <nav id="navbar-top" class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #464343">
+    <nav id="navbar-top" class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #87CEEB">
       <div class="container-fluid">
         <button
           class="navbar-toggler"
@@ -216,7 +216,7 @@
           <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
         </button>
         <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#" >
-          <h4 style="color: white">N3T SHOP</h4>
+          <h4 style="color: black">N3T SHOP</h4>
         </a
         >
         <button
@@ -245,7 +245,7 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i class="bi bi-person-fill" style="color: white"></i>
+                <i class="bi bi-person-fill" style="color: black"></i>
                 {{user.fullname}}
               </a>
               <ul class="dropdown-menu dropdown-menu-end bg-light">
@@ -254,7 +254,7 @@
               </ul>
             </li>
             <li class="nav-item dropdown" ng-controller="controllerLogout">
-              <a class="nav-link ms-2" href="#" ng-click="logout()" style="color: white">
+              <a class="nav-link ms-2" href="#" ng-click="logout()" style="color: black">
                 Đăng xuất
                 <i class="bi bi-box-arrow-right"></i>
               </a>
@@ -269,7 +269,7 @@
       class="offcanvas offcanvas-start sidebar-nav"
       tabindex="-1"
       id="sidebar"
-      style="background-color: #464343"
+      style="background-color: #87CEEB"
     >
       <div class="offcanvas-body p-0">
         <nav class="navbar-light">
@@ -277,7 +277,7 @@
 
             <li class="my-4"><hr class="dropdown-divider bg-dark" /></li>
             <li>
-              <div class="text-muted small fw-bold text-uppercase px-3 mb-3" style="color: white">
+              <div class="text-muted small fw-bold text-uppercase px-3 mb-3" style="color: black">
                 Quản lý
               </div>
             </li>
@@ -285,7 +285,7 @@
               <b>
                   <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#orderManagement" >
                   <span class="me-2"><i class="bi bi-table"></i></span>
-                  <span style="color: white">Đơn hàng</span>
+                  <span style="color: black">Đơn hàng</span>
                   <span class="ms-auto">
                       <span class="right-icon">
                       <i class="bi bi-chevron-down"></i>
@@ -300,55 +300,55 @@
                       <span class="me-2" >
                         <i class="bi bi-file-earmark-plus"></i>
                       </span>
-                      <span style="color: white">Tạo mới đơn hàng</span>
+                      <span style="color: black">Tạo mới đơn hàng</span>
                     </a>
                   </li>
                   <li>
                     <a href="#wait-for-confirmation" class="nav-link px-3">
                       <span class="me-2"><i class="bi bi-calendar3-week"></i></span>
-                      <span style="color: white">Đơn chờ xác nhận</span>
+                      <span style="color: black">Đơn chờ xác nhận</span>
                     </a>
                   </li>
                   <li>
                     <a href="#CONFIRMED" class="nav-link px-3">
                       <span class="me-2"><i class="bi bi-calendar3-week"></i></span>
-                      <span style="color: white">Đơn đang xử lý</span>
+                      <span style="color: black">Đơn đang xử lý</span>
                     </a>
                   </li>
                   <li>
                     <a href="#WAIT_FOR_THE_SHIPPER_TO_PICK_UP" class="nav-link px-3">
                       <span class="me-2"><i class="bi bi-calendar3-week"></i></span>
-                      <span style="color: white">Đơn chờ bên vận chuyển lấy hàng</span>
+                      <span style="color: black">Đơn chờ bên vận chuyển lấy hàng</span>
                     </a>
                   </li>
                   <li>
                     <a href="#DELIVERING" class="nav-link px-3">
                       <span class="me-2"><i class="bi bi-truck"></i></span>
-                      <span style="color: white">Đơn đang giao</span>
+                      <span style="color: black">Đơn đang giao</span>
                     </a>
                   </li>
                   <li>
                     <a href="#DELIVERED" class="nav-link px-3">
                       <span class="me-2"><i class="bi bi-calendar-check"></i></span>
-                      <span style="color: white">Đơn đã giao</span>
+                      <span style="color: black">Đơn đã giao</span>
                     </a>
                   </li>
                   <li>
                     <a href="#NO_DELIVERY" class="nav-link px-3">
                       <span class="me-2"><i class="bi bi-calendar-x"></i></span>
-                      <span style="color: white">Đơn không giao được</span>
+                      <span style="color: black">Đơn không giao được</span>
                     </a>
                   </li>
                   <li>
                     <a href="#CANCELLED" class="nav-link px-3">
                       <span class="me-2"><i class="bi bi-calendar-x"></i></span>
-                      <span style="color: white">Đơn bị hủy phía cửa hàng & phía khách hàng</span>
+                      <span style="color: black">Đơn bị hủy phía cửa hàng & phía khách hàng</span>
                     </a>
                   </li>
                   <li>
                     <a href="#return-order" class="nav-link px-3">
                       <span class="me-2"><i class="bi bi-arrow-left-right"></i></span>
-                      <span style="color: white">Đổi - trả hàng</span>
+                      <span style="color: black">Đổi - trả hàng</span>
                     </a>
                   </li>
                   <li>
@@ -356,7 +356,7 @@
                       <span class="me-2"
                         ><i class="bi bi-speedometer2"></i
                       ></span>
-                      <span style="color: white">Tất cả đơn hàng</span>
+                      <span style="color: black">Tất cả đơn hàng</span>
                     </a>
                   </li>
                 </ul>
@@ -366,7 +366,7 @@
               <b>
                   <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#product" >
                   <span class="me-2"><i class="bi bi-layout-split"></i></span>
-                  <span style="color: white">Sản phẩm</span>
+                  <span style="color: black">Sản phẩm</span>
                   <span class="ms-auto">
                       <span class="right-icon">
                       <i class="bi bi-chevron-down"></i>
@@ -379,21 +379,21 @@
                   <li>
                     <a href="#brand-and-category" class="nav-link px-3">
                       <span class="me-2"></span>
-                      <span style="color: white">Nhãn hiệu và danh mục</span>
+                      <span style="color: black">Nhãn hiệu và danh mục</span>
                     </a>
                   </li>
                   <li>
                     <a href="#product" class="nav-link px-3">
                       <span class="me-2">
                       </span>
-                      <span style="color: white">Sản phẩm</span>
+                      <span style="color: black">Sản phẩm</span>
                     </a>
                   </li>
                   <li>
                     <a href="#admin-product-properties" class="nav-link px-3">
                       <span class="me-2">
                       </span>
-                      <span style="color: white">Thuộc tính sản phẩm</span>
+                      <span style="color: black">Thuộc tính sản phẩm</span>
                     </a>
                   </li>
                 </ul>
@@ -403,7 +403,7 @@
               <b>
                   <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#promotion" >
                   <span class="me-2"><i class="bi bi-journal-plus"></i></span>
-                  <span style="color: white">Khuyến mãi</span>
+                  <span style="color: black">Khuyến mãi</span>
                   <span class="ms-auto">
                       <span class="right-icon">
                       <i class="bi bi-chevron-down"></i>
@@ -417,7 +417,7 @@
                     <a href="#promotion" class="nav-link px-3">
                       <span class="me-2">
                       </span>
-                      <span style="color: white">Chương trình khuyến mãi</span>
+                      <span style="color: black">Chương trình khuyến mãi</span>
                     </a>
                   </li>
                   <!-- <li>
@@ -435,7 +435,7 @@
               <b>
                   <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#account" >
                   <span class="me-2"><i class="bi bi-people"></i></span>
-                  <span style="color: white">Tài khoản</span>
+                  <span style="color: black">Tài khoản</span>
                   <span class="ms-auto">
                       <span class="right-icon">
                       <i class="bi bi-chevron-down"></i>
@@ -450,7 +450,7 @@
                       <span class="me-2" >
 
                       </span>
-                      <span style="color: white">Tất cả các khách hàng</span>
+                      <span style="color: black">Tất cả các khách hàng</span>
                     </a>
                   </li>
                   <li>
@@ -458,7 +458,7 @@
                       <span class="me-2" >
 
                       </span>
-                      <span style="color: white">Quản lý nhân viên</span>
+                      <span style="color: black">Quản lý nhân viên</span>
                     </a>
                   </li>
                 </ul>
@@ -475,7 +475,7 @@
               <b>
                   <a class="nav-link px-3 sidebar-link" href="#">
                   <span class="me-2"><i class="bi bi-chat-left-dots"></i></i></span>
-                  <span style="color: white">Đánh giá sản phẩm</span>
+                  <span style="color: black">Đánh giá sản phẩm</span>
                   </a>
               </b>
             </li>
@@ -483,7 +483,7 @@
               <b>
                   <a class="nav-link px-3 sidebar-link" href="#admin-sales-report">
                   <span class="me-2"><i class="bi bi-bar-chart"></i></span>
-                  <span style="color: white">Doanh số bán hàng</span>
+                  <span style="color: black">Doanh số bán hàng</span>
                   </a>
               </b>
             </li>
@@ -491,7 +491,7 @@
               <b>
                   <a class="nav-link px-3 sidebar-link" href="#doanhThu">
                   <span class="me-2"><i class="bi bi-graph-up"></i></span>
-                  <span style="color: white">Doanh thu</span>
+                  <span style="color: black">Doanh thu</span>
                   </a>
               </b>
             </li>

@@ -1,7 +1,7 @@
 <style>
   #nameProduct {
     text-decoration: none;
-    color: rgba(0, 0, 0, 0.40);
+    color: black;
   }
 
   #nameProduct:hover {
@@ -51,7 +51,7 @@
   
 </style>
 <header class="mt-4">
-  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="margin-top: 8%;">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
         aria-current="true" aria-label="Slide 1"></button>
@@ -64,13 +64,13 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active" data-bs-interval="3000">
-        <img src="images/img/banner.png" class="d-block w-100" alt="...">
+        <img src="images/img/banner.jpg" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item" data-bs-interval="3000">
         <img src="images/img/banner.png" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item" data-bs-interval="3000">
-        <img src="images/img/banner.png" class="d-block w-100" alt="...">
+        <img src="images/img/banner.jpg" class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item" data-bs-interval="3000">
         <img src="images/img/banner.png" class="d-block w-100" alt="...">
@@ -91,17 +91,17 @@
 </header>
 <div class=" row">
 </div>
-<div class="">
+<!-- <div class="">
   <div class="button-group">
     <a class="button is-checked nav-link">Tất cả</a>
     <a class="button nav-link">Nam</a>
     <a class="button nav-link">Nữ</a>
     <a class="button nav-link">Trẻ em</a>
   </div>
-</div>
-<div class="">
-  <div class="d-flex justify-content-end"> 
-    <button class="btn btn_filter" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+</div> -->
+<div class="mt-3">
+  <div class="d-flex justify-content-center"> 
+    <button class="btn btn_filter" style="background-color: #87CEEB; color: black;" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       Lọc <i class="bi bi-plus"></i>
     </button>
   </div>
@@ -152,7 +152,7 @@
               </ul>
           </div>
         <div class="col-2" style="margin-top: 40px;">
-          <button class="btn btn_filter" ng-click="getAllProductt()">Áp dụng</button>
+          <button class="btn btn_filter" ng-click="getAllProductt()" style="background-color: #87CEEB; color: black">Áp dụng</button>
           <button class="btn btn-secondary" ng-click="resetFilter()">Hủy</button>
         </div>
       </div>
@@ -176,7 +176,7 @@
                 <del style="font-size: 12px; margin-left: 12px">{{ product.listed_price | currency : '' : 0 }}₫</del>
             </div>
             <div class="h-100">
-              <a href="#product-detail/{{product.id}}" class="btn bg-dark" style="color: white;" >Mua ngay</a>
+              <a href="#product-detail/{{product.id}}" class="btn mb-2" style="color: black; background-color: #87CEEB;" >Mua ngay</a>
             </div>
           </div>
         </div>
