@@ -109,9 +109,9 @@ function cart($scope, $http, $routeParams) {
     $scope.districtId = null;
     $scope.wardCode = null;
 
-    const apiShop = 'http://localhost:8080/laclac/shop';
-    const apiOrder = 'http://localhost:8080/laclac/order';
-    const apiUser = 'http://localhost:8080/laclac/user';
+    const apiShop = 'http://localhost:8080/n3t/shop';
+    const apiOrder = 'http://localhost:8080/n3t/order';
+    const apiUser = 'http://localhost:8080/n3t/user';
 
     /**hien thi thong bao */
     alertShow = () => {
@@ -390,7 +390,7 @@ function cart($scope, $http, $routeParams) {
         const idProductDetail = $scope.products[index].productDetail.id;
         const quantityProduct = $scope.products[index].quantity;
 
-        $http.get("http://localhost:8080/laclac/product/detail/check-quantity/" + idProductDetail + "?quantity=" + Number(quantityProduct))
+        $http.get("http://localhost:8080/n3t/product/detail/check-quantity/" + idProductDetail + "?quantity=" + Number(quantityProduct))
             .then(res => {
                 if (res.data[1] == false) {
                     $scope.showErrQuantity = true;
@@ -447,7 +447,7 @@ function cart($scope, $http, $routeParams) {
         updateOrder();
     }
 
-    const apiVoucher = 'http://localhost:8080/laclac/voucher';
+    const apiVoucher = 'http://localhost:8080/n3t/voucher';
     $scope.codeVoucher = "";
     $scope.changeVoucher = (code) => {
         $scope.codeVoucher = code;

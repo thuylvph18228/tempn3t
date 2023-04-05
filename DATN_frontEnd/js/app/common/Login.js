@@ -10,7 +10,7 @@ function login ($scope, $http, jwtHelper, $rootScope) {
     $scope.isSuccess = true;
     $scope.message = "";
 
-    const apiUser = "http://localhost:8080/laclac/user"
+    const apiUser = "http://localhost:8080/n3t/user"
 
     /**hien thi thong bao */
     alertShow = () => {

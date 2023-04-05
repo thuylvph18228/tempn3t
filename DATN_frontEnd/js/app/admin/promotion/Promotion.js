@@ -46,8 +46,8 @@ function promotion ($scope, $http, $rootScope) {
     $scope.isSuccess = true;
     $scope.message = "";
 
-    const apiPromotion = "http://localhost:8080/laclac/promotion"
-    const apiVoucher = "http://localhost:8080/laclac/voucher"
+    const apiPromotion = "http://localhost:8080/n3t/promotion"
+    const apiVoucher = "http://localhost:8080/n3t/voucher"
 
     /**hien thi thong bao */
     alertShow = () => {

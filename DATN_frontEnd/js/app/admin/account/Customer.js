@@ -28,8 +28,8 @@ function customer($scope, $http) {
         $(".toast").toast("show");
       });
     };
-    const apiUser = "http://localhost:8080/laclac/user";
-    const apiOrder = "http://localhost:8080/laclac/order";
+    const apiUser = "http://localhost:8080/n3t/user";
+    const apiOrder = "http://localhost:8080/n3t/order";
     
     getAllUser = () => {
         $http.get(apiUser + "/get-by-role?role=" + "USER")

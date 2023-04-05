@@ -67,9 +67,9 @@ function WAIT_FOR_THE_SHIPPER_TO_PICK_UP ($scope, $http, $rootScope){
 
     $scope.orderStatus = $scope.orderStatusReturn;
 
-    const apiOrder = 'http://localhost:8080/laclac/order';
-    const apiProduct = 'http://localhost:8080/laclac/product';
-    const apiShop = 'http://localhost:8080/laclac/shop';
+    const apiOrder = 'http://localhost:8080/n3t/order';
+    const apiProduct = 'http://localhost:8080/n3t/product';
+    const apiShop = 'http://localhost:8080/n3t/shop';
 
     alertShow = () => {
         $(document).ready(function(){

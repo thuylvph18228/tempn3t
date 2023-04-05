@@ -7,7 +7,7 @@ function changePassword ($scope, $http) {
     $scope.isSuccess = true;
     $scope.isLoading = true;  
 
-    const apiUser = 'http://localhost:8080/laclac/user';
+    const apiUser = 'http://localhost:8080/n3t/user';
 
     /**hien thi thong bao */
     alertShow = () => {

@@ -62,12 +62,12 @@ function properties_product($scope, $http, $rootScope) {
         });
     }
 
-    const apiSize = 'http://localhost:8080/laclac/size';
-    const apiColor = 'http://localhost:8080/laclac/color';
-    const apiMaterial = 'http://localhost:8080/laclac/material';
-    const apiHeight = 'http://localhost:8080/laclac/height';
-    const apiWeight = 'http://localhost:8080/laclac/weight';
-    const apiOrigin = 'http://localhost:8080/laclac/origin';
+    const apiSize = 'http://localhost:8080/n3t/size';
+    const apiColor = 'http://localhost:8080/n3t/color';
+    const apiMaterial = 'http://localhost:8080/n3t/material';
+    const apiHeight = 'http://localhost:8080/n3t/height';
+    const apiWeight = 'http://localhost:8080/n3t/weight';
+    const apiOrigin = 'http://localhost:8080/n3t/origin';
     $scope.isLoading = true;
     getAllSize = () => {
         $http.get(apiSize) // Gửi request dạng GET lên API lấy tất cả danh sách size

@@ -24,7 +24,7 @@ function adminSaleReport ($scope, $http, $rootScope) {
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
   ];
 
-  const apiStatistic = 'http://localhost:8080/laclac/statistic';
+  const apiStatistic = 'http://localhost:8080/n3t/statistic';
   
   $scope.year = new Date().getFullYear();
 

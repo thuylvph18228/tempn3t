@@ -77,9 +77,9 @@ function CONFIRMED ($scope, $http, $rootScope){
 
     $scope.orderStatus = $scope.orderStatusReturn;
 
-    const apiOrder = 'http://localhost:8080/laclac/order';
-    const apiProduct = 'http://localhost:8080/laclac/product';
-    const apiShop = 'http://localhost:8080/laclac/shop';
+    const apiOrder = 'http://localhost:8080/n3t/order';
+    const apiProduct = 'http://localhost:8080/n3t/product';
+    const apiShop = 'http://localhost:8080/n3t/shop';
     // const apiGHN = 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create';
 
     alertShow = () => {
@@ -272,7 +272,7 @@ function CONFIRMED ($scope, $http, $rootScope){
     $scope.deleteProduct = () => {
         const productDetailId =  $scope.orders[$scope.indexOrder].orderDetails[$scope.indexOrderDetail].id;
 
-        $http.delete("http://localhost:8080/laclac/order/detail/" + productDetailId)
+        $http.delete("http://localhost:8080/n3t/order/detail/" + productDetailId)
             .then(response => {
                 $scope.isSuccess = true;
                 $scope.message = "Đã xóa sản phẩm";

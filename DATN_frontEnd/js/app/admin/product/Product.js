@@ -70,7 +70,7 @@ function product($scope, $http, $rootScope) {
         });
     }
 
-    const api = 'http://localhost:8080/laclac/product';
+    const api = 'http://localhost:8080/n3t/product';
     $scope.isLoading = true;
 
     /**get all product */
@@ -105,7 +105,7 @@ function product($scope, $http, $rootScope) {
     getAllProduct(api, 0, 10);
 
     /**get all brands */
-    $http.get("http://localhost:8080/laclac/brand")
+    $http.get("http://localhost:8080/n3t/brand")
         .then(function (response) {
             $scope.brands = response.data;
             $scope.isLoading = false;
@@ -116,7 +116,7 @@ function product($scope, $http, $rootScope) {
         });
 
     /**get all category */
-    $http.get("http://localhost:8080/laclac/category")
+    $http.get("http://localhost:8080/n3t/category")
         .then(function (response) {
             $scope.categories = response.data;
             $scope.isLoading = false;
@@ -130,7 +130,7 @@ function product($scope, $http, $rootScope) {
     $scope.changeBrand = function () {
 
         // if($scope.product.brand){
-        //     $http.get("http://localhost:8080/laclac/brand-category" + "/" + $scope.product.brand.id)
+        //     $http.get("http://localhost:8080/n3t/brand-category" + "/" + $scope.product.brand.id)
         //         .then(function (response) {                    
         //             $scope.categories = response.data;
         //             $scope.isLoading = false;
@@ -143,7 +143,7 @@ function product($scope, $http, $rootScope) {
     };
 
     getAllCategories = function () {
-        $http.get("http://localhost:8080/laclac/category")
+        $http.get("http://localhost:8080/n3t/category")
             .then(function (response) {
                 $scope.categories = response.data;
                 $scope.isLoading = false;
@@ -156,7 +156,7 @@ function product($scope, $http, $rootScope) {
     getAllCategories();
 
     /**get all weights */
-    $http.get("http://localhost:8080/laclac/weight")
+    $http.get("http://localhost:8080/n3t/weight")
         .then(function (response) {
             $scope.weights = response.data;
             $scope.isLoading = false;
@@ -167,7 +167,7 @@ function product($scope, $http, $rootScope) {
         });
 
     /**get all origins */
-    $http.get("http://localhost:8080/laclac/origin")
+    $http.get("http://localhost:8080/n3t/origin")
         .then(function (response) {
             $scope.origins = response.data;
             $scope.isLoading = false;
@@ -181,7 +181,7 @@ function product($scope, $http, $rootScope) {
     $scope.createProduct = function (event) {
         // var brandName = "";
         // var categoryName = "";
-        // $http.get("http://localhost:8080/laclac/brand/" + $scope.product.brand)
+        // $http.get("http://localhost:8080/n3t/brand/" + $scope.product.brand)
         // .then(function (response) {                    
         //     brandName = response.data.name.toUpperCase().substr(0, 3);
         //     $scope.isLoading = false;
@@ -191,7 +191,7 @@ function product($scope, $http, $rootScope) {
         //     $scope.isLoading = false;
         // });
 
-        // $http.get("http://localhost:8080/laclac/category/" + $scope.product.category)
+        // $http.get("http://localhost:8080/n3t/category/" + $scope.product.category)
         // .then(function (response) {                    
         //     categoryName = response.data.name.toUpperCase().substr(0, 3);
         //     $scope.isLoading = false;
@@ -265,7 +265,7 @@ function product($scope, $http, $rootScope) {
     /**loc san pham */
     function filterProduct(brandId, categoryId, quantityOrder, quantity) {
 
-        $http.get("http://localhost:8080/laclac/product")
+        $http.get("http://localhost:8080/n3t/product")
             .then(function (response) {
                 $scope.origins = response.data;
                 $scope.isLoading = false;
@@ -408,15 +408,15 @@ function product($scope, $http, $rootScope) {
     $scope.save = () => {
         var api = "";
         if ($scope.type == 1) { // brand
-            api = "http://localhost:8080/laclac/brand";
+            api = "http://localhost:8080/n3t/brand";
         } else if ($scope.type == 2) { //category
-            api = "http://localhost:8080/laclac/category";
+            api = "http://localhost:8080/n3t/category";
         } else if ($scope.type == 3) { //weight
-            api = "http://localhost:8080/laclac/weigth";
+            api = "http://localhost:8080/n3t/weigth";
             $scope.properties.weight = $scope.properties.name;
 
         } else if ($scope.type == 4) { //origin
-            api = "http://localhost:8080/laclac/origin";
+            api = "http://localhost:8080/n3t/origin";
             $scope.properties.origin = $scope.properties.name;
         }
 

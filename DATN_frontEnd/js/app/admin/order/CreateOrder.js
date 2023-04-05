@@ -88,9 +88,9 @@ function createOrder ($scope, $http, $rootScope){
         });
     }
 
-    const apiProduct = 'http://localhost:8080/laclac/product';
-    const apiOrder = 'http://localhost:8080/laclac/order';
-    const apiUser = 'http://localhost:8080/laclac/user'
+    const apiProduct = 'http://localhost:8080/n3t/product';
+    const apiOrder = 'http://localhost:8080/n3t/order';
+    const apiUser = 'http://localhost:8080/n3t/user'
 
     $scope.isLoading = true;
     //get all tinh, thanh pho
@@ -286,7 +286,7 @@ function createOrder ($scope, $http, $rootScope){
         const idProductDetail = $scope.listOrder[orderNo].orderDetails[indexProduct].productDetail.id;
         const quantityProduct = $scope.listOrder[orderNo].orderDetails[indexProduct].quantity;
 
-        $http.get("http://localhost:8080/laclac/product/detail/check-quantity/" + idProductDetail + "?quantity=" + Number(quantityProduct))
+        $http.get("http://localhost:8080/n3t/product/detail/check-quantity/" + idProductDetail + "?quantity=" + Number(quantityProduct))
             .then(res => {
                 if(res.data[1] == false){
                     $scope.showErrQuantity = true;

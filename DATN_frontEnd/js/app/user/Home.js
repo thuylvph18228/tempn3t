@@ -49,9 +49,9 @@ function home ($scope, $http, $rootScope) {
     $scope.productst = [];
     $scope.isLoading = false;
 
-    const apiProduct = "http://localhost:8080/laclac/product";
-    const apiProductt = "http://localhost:8080/laclac/product/get-page";
-    const apiUser = "http://localhost:8080/laclac/user";
+    const apiProduct = "http://localhost:8080/n3t/product";
+    const apiProductt = "http://localhost:8080/n3t/product/get-page";
+    const apiUser = "http://localhost:8080/n3t/user";
 
     // getAllProduct = (apiProduct, page, size) => {
     //     $scope.isLoading = true;
@@ -123,7 +123,7 @@ function home ($scope, $http, $rootScope) {
     }
 
      /**get all category */
-     $http.get("http://localhost:8080/laclac/category")
+     $http.get("http://localhost:8080/n3t/category")
      .then(function (response) {                    
          $scope.categories = response.data;
          $scope.isLoading = false;
@@ -135,7 +135,7 @@ function home ($scope, $http, $rootScope) {
  
 
       /**get all Kích thước */
-      $http.get("http://localhost:8080/laclac/size")
+      $http.get("http://localhost:8080/n3t/size")
       .then(function (response) {                    
           $scope.sizeShoess = response.data;
           $scope.isLoading = false;
@@ -146,7 +146,7 @@ function home ($scope, $http, $rootScope) {
       });
 
        /**get all color */
-       $http.get("http://localhost:8080/laclac/color")
+       $http.get("http://localhost:8080/n3t/color")
        .then(function (response) {                    
            $scope.colors = response.data;
            $scope.isLoading = false;
@@ -157,7 +157,7 @@ function home ($scope, $http, $rootScope) {
        });
 
        /**get all height */
-       $http.get("http://localhost:8080/laclac/height")
+       $http.get("http://localhost:8080/n3t/height")
        .then(function (response) {                    
            $scope.heights = response.data;
            $scope.isLoading = false;

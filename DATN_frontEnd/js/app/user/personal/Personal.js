@@ -131,8 +131,8 @@ function personal ($scope, $http){
     $scope.pageIndex = 0;
     $scope.totalPage = '';
 
-    const apiOrder = 'http://localhost:8080/laclac/order';
-    const apiProduct = 'http://localhost:8080/laclac/product';
+    const apiOrder = 'http://localhost:8080/n3t/order';
+    const apiProduct = 'http://localhost:8080/n3t/product';
 
     /**hien thi thong bao */
     alertShow = () => {
@@ -300,7 +300,7 @@ function personal ($scope, $http){
         } else {
             const productDetailId =  $scope.orders[$scope.indexOrder].orderDetails[$scope.indexOrderDetail].id;
 
-            $http.delete("http://localhost:8080/laclac/order/detail/" + productDetailId)
+            $http.delete("http://localhost:8080/n3t/order/detail/" + productDetailId)
                 .then(response => {
                     $scope.isSuccess = true;
                     $scope.message = "Đã xóa sản phẩm";
@@ -585,7 +585,7 @@ function personal ($scope, $http){
         provinceId: "",
     }
 
-    const apiUser = 'http://localhost:8080/laclac/user';
+    const apiUser = 'http://localhost:8080/n3t/user';
 
     getInfoUser = () => {
         $http.get(apiUser + "/get-by-username?username=" + $scope.username)

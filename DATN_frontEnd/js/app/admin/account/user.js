@@ -28,7 +28,7 @@ function user($scope, $http) {
         $(".toast").toast("show");
       });
     }; 
-    const apiUser = "http://localhost:8080/laclac/user";    
+    const apiUser = "http://localhost:8080/n3t/user";
     
     getAllUser = () => {
       $http.get(apiUser + "/get-by-role?role=" + "ADMIN")

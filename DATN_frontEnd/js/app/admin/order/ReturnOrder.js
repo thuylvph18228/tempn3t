@@ -55,8 +55,8 @@ function returnOrder ($scope, $http, $rootScope){
     $scope.totalPage = '';
     $scope.active = false;
 
-    const apiOrder = 'http://localhost:8080/laclac/order';
-    const apiProduct = 'http://localhost:8080/laclac/product';
+    const apiOrder = 'http://localhost:8080/n3t/order';
+    const apiProduct = 'http://localhost:8080/n3t/product';
 
     /**hien thi thong bao */
     alertShow = () => {
@@ -414,7 +414,7 @@ function returnOrder ($scope, $http, $rootScope){
         $scope.index = index;
     }
     $scope.deleteProductInReturnOrder = () => {
-        $http.delete("http://localhost:8080/laclac/orderReturn/" + $scope.idOrderReturn)
+        $http.delete("http://localhost:8080/n3t/orderReturn/" + $scope.idOrderReturn)
             .then(respone => {
                 $scope.isLoading = false;
                 $scope.isSuccess = true;

@@ -61,8 +61,8 @@ function orderWaitConfirm ($scope, $http, $rootScope){
     $scope.listDistrict = [];
     $scope.listWard = [];
 
-    const apiOrder = 'http://localhost:8080/laclac/order';
-    const apiProduct = 'http://localhost:8080/laclac/product';
+    const apiOrder = 'http://localhost:8080/n3t/order';
+    const apiProduct = 'http://localhost:8080/n3t/product';
 
     /**hien thi thong bao */
     alertShow = () => {

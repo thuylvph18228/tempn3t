@@ -95,10 +95,10 @@ function productDetailUser ($scope, $http, $routeParams) {
     $scope.isLoading = false;
     $scope.isSuccess = true;
 
-    const apiProduct = "http://localhost:8080/laclac/product";
-    const apiShop = 'http://localhost:8080/laclac/shop';
-    const apiOrder = 'http://localhost:8080/laclac/order';
-    const apiUser = 'http://localhost:8080/laclac/user';
+    const apiProduct = "http://localhost:8080/n3t/product";
+    const apiShop = 'http://localhost:8080/n3t/shop';
+    const apiOrder = 'http://localhost:8080/n3t/order';
+    const apiUser = 'http://localhost:8080/n3t/user';
 
     /**hien thi thong bao */
     alertShow = () => {
@@ -503,7 +503,7 @@ function productDetailUser ($scope, $http, $routeParams) {
     }
 
     //kiểm tra xem voucher có tồn tại không
-    const apiVoucher = 'http://localhost:8080/laclac/voucher';
+    const apiVoucher = 'http://localhost:8080/n3t/voucher';
     $scope.codeVoucher = "";
     $scope.changeVoucher = (code) => {
         $scope.codeVoucher = code;

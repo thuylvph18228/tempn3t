@@ -47,9 +47,9 @@ function category($scope, $http, $rootScope) {
       $(".toast").toast("show");
     });
   };
-  const apiCategory = "http://localhost:8080/laclac/category";
-  const apiBrand = "http://localhost:8080/laclac/brand";
-  const apiBrandsCategories = "http://localhost:8080/laclac/brand-category";
+  const apiCategory = "http://localhost:8080/n3t/category";
+  const apiBrand = "http://localhost:8080/n3t/brand";
+  const apiBrandsCategories = "http://localhost:8080/n3t/brand-category";
 
   /**get all brands */
   $http.get(apiBrand)

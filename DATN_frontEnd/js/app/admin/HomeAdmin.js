@@ -63,8 +63,8 @@ function homeAdmin ($scope, $http, $rootScope) {
     $scope.SL_Order; 
     $scope.DS_Order; 
     $scope.t == 0;
-    const apiOrder = 'http://localhost:8080/laclac/order';
-    const statistic = "http://localhost:8080/laclac/thong-ke"; 
+    const apiOrder = 'http://localhost:8080/n3t/order';
+    const statistic = "http://localhost:8080/n3t/thong-ke";
     
     /**hien thi thong bao */
     alertShow = () => {
@@ -171,7 +171,7 @@ function homeAdmin ($scope, $http, $rootScope) {
         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     ];
 
-    const apiStatistic = 'http://localhost:8080/laclac/statistic';
+    const apiStatistic = 'http://localhost:8080/n3t/statistic';
     
     $scope.month = new Date().getMonth() + 1;
     $scope.year = new Date().getFullYear();

@@ -76,9 +76,9 @@ function orderManagement ($scope, $http, $rootScope, $filter){
 
     $scope.orderStatus = $scope.orderStatusReturn;
 
-    const apiOrder = 'http://localhost:8080/laclac/order';
-    const apiProduct = 'http://localhost:8080/laclac/product';
-    const apiShop = 'http://localhost:8080/laclac/shop';
+    const apiOrder = 'http://localhost:8080/n3t/order';
+    const apiProduct = 'http://localhost:8080/n3t/product';
+    const apiShop = 'http://localhost:8080/n3t/shop';
     // const apiGHN = 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create';
 
     alertShow = () => {
@@ -268,7 +268,7 @@ function orderManagement ($scope, $http, $rootScope, $filter){
         const idProductDetail = $scope.orders[indexOrder].orderDetails[index].productDetail.id;
         const quantityProduct = $scope.orders[indexOrder].orderDetails[index].quantity;
         
-        $http.get("http://localhost:8080/laclac/product/detail/check-quantity/" + idProductDetail + "?quantity=" + Number(quantityProduct))
+        $http.get("http://localhost:8080/n3t/product/detail/check-quantity/" + idProductDetail + "?quantity=" + Number(quantityProduct))
             .then(res => {
                 if(res.data[1] == false){
                     $scope.showErrQuantity = true;
@@ -291,7 +291,7 @@ function orderManagement ($scope, $http, $rootScope, $filter){
     $scope.deleteProduct = () => {
         const productDetailId =  $scope.orders[$scope.indexOrder].orderDetails[$scope.indexOrderDetail].id;
 
-        $http.delete("http://localhost:8080/laclac/order/detail/" + productDetailId)
+        $http.delete("http://localhost:8080/n3t/order/detail/" + productDetailId)
             .then(response => {
                 $scope.isSuccess = true;
                 $scope.message = "Đã xóa sản phẩm";
@@ -844,7 +844,7 @@ function orderManagement ($scope, $http, $rootScope, $filter){
         }
     }
     $scope.deleteProductInReturnOrder = () => {
-        $http.delete("http://localhost:8080/laclac/orderReturn/" + $scope.idOrderReturn)
+        $http.delete("http://localhost:8080/n3t/orderReturn/" + $scope.idOrderReturn)
             .then(respone => {
                 $scope.isLoading = false;
                 $scope.isSuccess = true;
