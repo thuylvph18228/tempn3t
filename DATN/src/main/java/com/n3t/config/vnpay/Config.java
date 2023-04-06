@@ -18,8 +18,8 @@ public class Config {
 
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     public static String vnp_Returnurl = "http://127.0.0.1:5500/Index.html#/cart"; // thay đường dẫn trả về
-    public static String vnp_TmnCode = "ZBD0723B";
-    public static String vnp_HashSecret = "NUYTIVNJKMQBAXOTXNIKTCKWUVMUSGVI";
+    public static String vnp_TmnCode = "8EJALIZX";
+    public static String vnp_HashSecret = "NALJLTPNVYSSHMAUJHIHMNLLTIOQLVWP";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/merchant.html";
 
     public static String md5(String message) {

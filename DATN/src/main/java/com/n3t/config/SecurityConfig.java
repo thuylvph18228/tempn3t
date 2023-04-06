@@ -91,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 UsernamePasswordAuthenticationFilter.class);
         http.cors().configurationSource(request -> {
             final CorsConfiguration cors = new CorsConfiguration();
-            cors.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "http://127.0.0.1:5501", "http://localhost:8080","http://localhost:63342"));
+            cors.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500", "http://127.0.0.1:5501", "http://localhost:8080, http://localhost:5500"));
             cors.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
             cors.setAllowCredentials(true);
             cors.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type", TokenAuthService.AUTH_HEADER_NAME, "x-file-name"));
