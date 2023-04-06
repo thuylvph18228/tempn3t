@@ -20,24 +20,24 @@
 	border-radius: 0;
 }
 .button-group .button:hover {
-  background-color: #f05242;
-  color: #fff;
-	border:1px solid #f05242;
+  background-color: #87CEEB;
+  color: black;
+	border:1px solid #87CEEB;
 	border-right:none;
 }
 .button-group .button:first-child { border-radius: 4px 4px 4px 4px; }
 .button-group .button:last-child { border-radius: 0 4px 4px 0; border-right:1px solid #ccc }
 .button-group .button.is-checked {
-    background-color: #e74c3c;
-      color: white;
-      border:1px solid #e74c3c;
+    background-color: #87CEEB;
+      color: black;
+      border:1px solid #87CEEB;
       border-right:none;
   }
   .mauchu {
-    color: #f05242;
+    color: #87CEEB;
   }
   .mauvien {
-    background-color: #f05242;
+    background-color: #87CEEB;
   }
   /* .isotope {
    width:100%;
@@ -137,13 +137,13 @@
     color: #666;
   }
   .congcu:hover {
-    color: #f05242;
+    color: #87CEEB;
   }
   .buttondangki  {
   width:20%;
 	height:36px;	
-  background:#eb4c3c url(../images/btn-send.png) no-repeat center center;
-	border:1px solid #ff7263;
+  background:#87CEEB url(../images/btn-send.png) no-repeat center center;
+	border:1px solid #87CEEB;
   border-radius: 7%;
 	font-size:11px;
 	float:right;
@@ -151,7 +151,7 @@
   .buttondangnhap  {
     width:20%;
     height:36px;	
-    border:1px solid #ff7263;
+    border:1px solid #87CEEB;
     border-radius: 7%;
     font-size:11px;
     float:left;
@@ -159,9 +159,9 @@
     .buttondangnhap:hover {
       width:20%;
       height:36px;	
-      background: #f05242;
+      background: #87CEEB;
       color: aliceblue;
-      border:1px solid #ff7263;
+      border:1px solid #87CEEB;
       border-radius: 7%;
       font-size:11px;
       float:left;
