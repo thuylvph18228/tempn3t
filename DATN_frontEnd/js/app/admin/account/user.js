@@ -80,6 +80,22 @@ function user($scope, $http) {
         getAllUser(apiUser);
       }
     };
+
+    $scope.info = '';
+    $scope.search = () => {
+        if($scope.info.length){
+            $http.get(apiUser + "/find-by-fullname-or-phone/" + $scope.info)
+                .then(res => {
+                    $scope.users = res.data;
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        } else {
+            getAllUser();
+        }
+        $scope.orders = [];
+    }
   
     /** delete user */
     $scope.deleteUser = (userId, index) => {

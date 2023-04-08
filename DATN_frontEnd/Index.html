@@ -18,31 +18,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js" defer></script> 
-  <script src="https://code.jquery.com/jquery-3.6.2.js" integrity="sha256-pkn2CUZmheSeyssYw3vMp1+xyub4m+e+QK4sQskvuo4=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js" defer></script>
+  <script src="https://code.jquery.com/jquery-3.6.2.js" integrity="sha256-pkn2CUZmheSeyssYw3vMp1+xyub4m+e+QK4sQskvuo4="
+    crossorigin="anonymous"></script>
   <link rel="stylesheet" href="/css/Lac.css">
   <link rel="stylesheet" href="/css/admin_dashboard.css" />
   <style>
     .loading {
-        background: rgba(0, 0, 0, 0.292);
-        width:100%;
-        height:100%;
-        position:fixed;
-        top:0;
-        left:0;
-        z-index:999;
+      background: rgba(0, 0, 0, 0.292);
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
     }
 
     .spinner-center {
-        top: 50%;
-        left: 50%;
-        position: absolute;
+      top: 50%;
+      left: 50%;
+      position: absolute;
     }
-</style>
+  </style>
 </head>
 
 <body ng-app="app">
-  
+
   <!-- loading -->
   <div ng-show="isLoading" class="loading">
     <div class="spinner-border text-secondary spinner-center" role="status"></div>
@@ -50,7 +51,7 @@
   <!-- user display -->
   <div ng-if="!isAdmin" class="container responsive">
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top"  style="background-color:#87CEEB ;">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:#87CEEB ;">
       <!-- Container wrapper -->
       <div class="container">
         <!-- Toggle button -->
@@ -112,7 +113,8 @@
                 <a class="dropdown-item" href="#register" ng-if="!isLogin">Đăng ký</a>
               </li>
               <li ng-controller="controllerLogout">
-                <a class="dropdown-item" href="#" ng-click="logout()" ng-if="isLogin">Đăng xuất<i class="bi bi-box-arrow-right"></i></a>
+                <a class="dropdown-item" href="#" ng-click="logout()" ng-if="isLogin">Đăng xuất<i
+                    class="bi bi-box-arrow-right"></i></a>
               </li>
             </ul>
           </div>
@@ -126,77 +128,77 @@
     <!-- Navbar -->
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted responsive">
-        <!-- Section: Social media -->
-<!--        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">-->
-<!--        &lt;!&ndash; Left &ndash;&gt;-->
-<!--        <div class="me-5 d-none d-lg-block">-->
-<!--            <span>Get connected with us on social networks:</span>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Left &ndash;&gt;-->
-<!--    -->
-<!--        &lt;!&ndash; Right &ndash;&gt;-->
-<!--        <div>-->
-<!--            <a href="" class="me-4 text-reset">-->
-<!--            <i class="bi bi-facebook"></i>-->
-<!--            </a>-->
-<!--            <a href="" class="me-4 text-reset">-->
-<!--            <i class="bi bi-twitter"></i>-->
-<!--            </a>-->
-<!--            <a href="" class="me-4 text-reset">-->
-<!--            <i class="bi bi-google"></i>-->
-<!--            </a>-->
-<!--            <a href="" class="me-4 text-reset">-->
-<!--            <i class="bi bi-instagram"></i>-->
-<!--            </a>-->
-<!--            <a href="" class="me-4 text-reset">-->
-<!--            <i class="bi bi-linkedin"></i>-->
-<!--            </a>-->
-<!--            <a href="" class="me-4 text-reset">-->
-<!--            <i class="bi bi-github"></i>-->
-<!--            </a>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Right &ndash;&gt;-->
-<!--        </section>-->
-    
-<!--        <section class="">-->
-<!--        <div class="container text-center text-md-start mt-5">-->
-<!--            &lt;!&ndash; Grid row &ndash;&gt;-->
-<!--            <div class="row mt-3">-->
-<!--            &lt;!&ndash; Grid column &ndash;&gt;-->
-<!--            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">-->
-<!--                &lt;!&ndash; Content &ndash;&gt;-->
-<!--                <h6 class="text-uppercase fw-bold mb-4">-->
-<!--                <i class="fas fa-gem me-3"></i>Company name-->
-<!--                </h6>-->
-<!--                <p>-->
-<!--                If you are not willing to learn, no one can help you. If you are determined to learn, no one can stop-->
-<!--                you.-->
-<!--                </p>-->
-<!--            </div>-->
-<!--            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">-->
-<!--                &lt;!&ndash; Links &ndash;&gt;-->
-<!--                <h6 class="text-uppercase fw-bold mb-4">-->
-<!--                Contact-->
-<!--                </h6>-->
-<!--                <p><i class="bi bi-house-door"></i> Hà Nội , Việt Nam</p>-->
-<!--                <p>-->
-<!--                <i class="bi bi-mailbox2 me-3"></i>-->
-<!--                info@example.com-->
-<!--                </p>-->
-<!--                <p><i class="bi bi-phone me-3"></i> +84 382399283</p>-->
-<!--                <p><i class="bi bi-phone-fill me-3"></i> +84 738288283</p>-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Grid column &ndash;&gt;-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Grid row &ndash;&gt;-->
-<!--        </div>-->
-<!--        </section>-->
-    
-        <div class="text-center p-4" style="background-color: rgba(14, 183, 212, 0.05);">
+      <!-- Section: Social media -->
+      <!--        <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">-->
+      <!--        &lt;!&ndash; Left &ndash;&gt;-->
+      <!--        <div class="me-5 d-none d-lg-block">-->
+      <!--            <span>Get connected with us on social networks:</span>-->
+      <!--        </div>-->
+      <!--        &lt;!&ndash; Left &ndash;&gt;-->
+      <!--    -->
+      <!--        &lt;!&ndash; Right &ndash;&gt;-->
+      <!--        <div>-->
+      <!--            <a href="" class="me-4 text-reset">-->
+      <!--            <i class="bi bi-facebook"></i>-->
+      <!--            </a>-->
+      <!--            <a href="" class="me-4 text-reset">-->
+      <!--            <i class="bi bi-twitter"></i>-->
+      <!--            </a>-->
+      <!--            <a href="" class="me-4 text-reset">-->
+      <!--            <i class="bi bi-google"></i>-->
+      <!--            </a>-->
+      <!--            <a href="" class="me-4 text-reset">-->
+      <!--            <i class="bi bi-instagram"></i>-->
+      <!--            </a>-->
+      <!--            <a href="" class="me-4 text-reset">-->
+      <!--            <i class="bi bi-linkedin"></i>-->
+      <!--            </a>-->
+      <!--            <a href="" class="me-4 text-reset">-->
+      <!--            <i class="bi bi-github"></i>-->
+      <!--            </a>-->
+      <!--        </div>-->
+      <!--        &lt;!&ndash; Right &ndash;&gt;-->
+      <!--        </section>-->
+
+      <!--        <section class="">-->
+      <!--        <div class="container text-center text-md-start mt-5">-->
+      <!--            &lt;!&ndash; Grid row &ndash;&gt;-->
+      <!--            <div class="row mt-3">-->
+      <!--            &lt;!&ndash; Grid column &ndash;&gt;-->
+      <!--            <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">-->
+      <!--                &lt;!&ndash; Content &ndash;&gt;-->
+      <!--                <h6 class="text-uppercase fw-bold mb-4">-->
+      <!--                <i class="fas fa-gem me-3"></i>Company name-->
+      <!--                </h6>-->
+      <!--                <p>-->
+      <!--                If you are not willing to learn, no one can help you. If you are determined to learn, no one can stop-->
+      <!--                you.-->
+      <!--                </p>-->
+      <!--            </div>-->
+      <!--            <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">-->
+      <!--                &lt;!&ndash; Links &ndash;&gt;-->
+      <!--                <h6 class="text-uppercase fw-bold mb-4">-->
+      <!--                Contact-->
+      <!--                </h6>-->
+      <!--                <p><i class="bi bi-house-door"></i> Hà Nội , Việt Nam</p>-->
+      <!--                <p>-->
+      <!--                <i class="bi bi-mailbox2 me-3"></i>-->
+      <!--                info@example.com-->
+      <!--                </p>-->
+      <!--                <p><i class="bi bi-phone me-3"></i> +84 382399283</p>-->
+      <!--                <p><i class="bi bi-phone-fill me-3"></i> +84 738288283</p>-->
+      <!--            </div>-->
+      <!--            &lt;!&ndash; Grid column &ndash;&gt;-->
+      <!--            </div>-->
+      <!--            &lt;!&ndash; Grid row &ndash;&gt;-->
+      <!--        </div>-->
+      <!--        </section>-->
+
+      <div class="text-center p-4" style="background-color: rgba(14, 183, 212, 0.05);">
         © 2023 Copyright:
         <a class="text-reset fw-bold" href="#">By N3T SHOP</a>
-        </div>
-        <!-- Copyright -->
+      </div>
+      <!-- Copyright -->
     </footer>
     <!-- Footer -->
   </div>
@@ -206,51 +208,33 @@
     <!-- top navigation bar -->
     <nav id="navbar-top" class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color: #87CEEB">
       <div class="container-fluid">
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="offcanvas"
-          data-bs-target="#sidebar"
-          aria-controls="offcanvasExample"
-        >
+        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+          aria-controls="offcanvasExample">
           <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
         </button>
-        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#" >
+        <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">
           <h4 style="color: black">N3T SHOP</h4>
-        </a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#topNavBar"
-          aria-controls="topNavBar"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#topNavBar"
+          aria-controls="topNavBar" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="topNavBar">
           <form class="d-flex ms-auto my-3 my-lg-0">
             <div class="input-group">
-              
+
             </div>
           </form>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle ms-2"
-                href="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
+              <a class="nav-link dropdown-toggle ms-2" href="#" role="button" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 <i class="bi bi-person-fill" style="color: black"></i>
                 {{user.fullname}}
               </a>
               <ul class="dropdown-menu dropdown-menu-end bg-light">
                 <li><a class="dropdown-item" href="#user-personal">Thông tin cá nhân </a></li>
-                <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>                
+                <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
               </ul>
             </li>
             <li class="nav-item dropdown" ng-controller="controllerLogout">
@@ -265,17 +249,14 @@
     </nav>
     <!-- top navigation bar -->
     <!-- offcanvas -->
-    <div
-      class="offcanvas offcanvas-start sidebar-nav"
-      tabindex="-1"
-      id="sidebar"
-      style="background-color: #87CEEB"
-    >
+    <div class="offcanvas offcanvas-start sidebar-nav" tabindex="-1" id="sidebar" style="background-color: #87CEEB">
       <div class="offcanvas-body p-0">
         <nav class="navbar-light">
           <ul class="navbar-nav">
 
-            <li class="my-4"><hr class="dropdown-divider bg-dark" /></li>
+            <li class="my-4">
+              <hr class="dropdown-divider bg-dark" />
+            </li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3" style="color: black">
                 Quản lý
@@ -283,21 +264,21 @@
             </li>
             <li>
               <b>
-                  <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#orderManagement" >
+                <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#orderManagement">
                   <span class="me-2"><i class="bi bi-table"></i></span>
                   <span style="color: black">Đơn hàng</span>
                   <span class="ms-auto">
-                      <span class="right-icon">
+                    <span class="right-icon">
                       <i class="bi bi-chevron-down"></i>
-                      </span>
+                    </span>
                   </span>
-                  </a>
+                </a>
               </b>
               <div class="collapse" id="orderManagement">
                 <ul class="navbar-nav ps-3">
                   <li>
                     <a href="#order/create-order" class="nav-link px-3">
-                      <span class="me-2" >
+                      <span class="me-2">
                         <i class="bi bi-file-earmark-plus"></i>
                       </span>
                       <span style="color: black">Tạo mới đơn hàng</span>
@@ -353,9 +334,7 @@
                   </li>
                   <li>
                     <a href="#order-management" class="nav-link px-3">
-                      <span class="me-2"
-                        ><i class="bi bi-speedometer2"></i
-                      ></span>
+                      <span class="me-2"><i class="bi bi-speedometer2"></i></span>
                       <span style="color: black">Tất cả đơn hàng</span>
                     </a>
                   </li>
@@ -364,15 +343,15 @@
             </li>
             <li>
               <b>
-                  <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#product" >
+                <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#product">
                   <span class="me-2"><i class="bi bi-layout-split"></i></span>
                   <span style="color: black">Sản phẩm</span>
                   <span class="ms-auto">
-                      <span class="right-icon">
+                    <span class="right-icon">
                       <i class="bi bi-chevron-down"></i>
-                      </span>
+                    </span>
                   </span>
-                  </a>
+                </a>
               </b>
               <div class="collapse" id="product">
                 <ul class="navbar-nav ps-3">
@@ -401,15 +380,15 @@
             </li>
             <li>
               <b>
-                  <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#promotion" >
+                <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#promotion">
                   <span class="me-2"><i class="bi bi-journal-plus"></i></span>
                   <span style="color: black">Khuyến mãi</span>
                   <span class="ms-auto">
-                      <span class="right-icon">
+                    <span class="right-icon">
                       <i class="bi bi-chevron-down"></i>
-                      </span>
+                    </span>
                   </span>
-                  </a>
+                </a>
               </b>
               <div class="collapse" id="promotion">
                 <ul class="navbar-nav ps-3">
@@ -433,21 +412,21 @@
             </li>
             <li>
               <b>
-                  <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#account" >
+                <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#account">
                   <span class="me-2"><i class="bi bi-people"></i></span>
                   <span style="color: black">Tài khoản</span>
                   <span class="ms-auto">
-                      <span class="right-icon">
+                    <span class="right-icon">
                       <i class="bi bi-chevron-down"></i>
-                      </span>
+                    </span>
                   </span>
-                  </a>
+                </a>
               </b>
               <div class="collapse" id="account">
                 <ul class="navbar-nav ps-3">
                   <li>
                     <a href="#admin-account-customer" class="nav-link px-3">
-                      <span class="me-2" >
+                      <span class="me-2">
 
                       </span>
                       <span style="color: black">Tất cả các khách hàng</span>
@@ -455,7 +434,7 @@
                   </li>
                   <li>
                     <a href="#admin-account-employee" class="nav-link px-3">
-                      <span class="me-2" >
+                      <span class="me-2">
 
                       </span>
                       <span style="color: black">Quản lý nhân viên</span>
@@ -464,8 +443,10 @@
                 </ul>
               </div>
             </li>
-            
-            <li class="my-4"><hr class="dropdown-divider bg-dark" /></li>
+
+            <li class="my-4">
+              <hr class="dropdown-divider bg-dark" />
+            </li>
             <li>
               <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
                 Thống kê
@@ -473,26 +454,26 @@
             </li>
             <li>
               <b>
-                  <a class="nav-link px-3 sidebar-link" href="#">
+                <a class="nav-link px-3 sidebar-link" href="#">
                   <span class="me-2"><i class="bi bi-chat-left-dots"></i></i></span>
                   <span style="color: black">Đánh giá sản phẩm</span>
-                  </a>
+                </a>
               </b>
             </li>
             <li>
               <b>
-                  <a class="nav-link px-3 sidebar-link" href="#admin-sales-report">
+                <a class="nav-link px-3 sidebar-link" href="#admin-sales-report">
                   <span class="me-2"><i class="bi bi-bar-chart"></i></span>
                   <span style="color: black">Doanh số bán hàng</span>
-                  </a>
+                </a>
               </b>
             </li>
             <li>
               <b>
-                  <a class="nav-link px-3 sidebar-link" href="#doanhThu">
+                <a class="nav-link px-3 sidebar-link" href="#doanhThu">
                   <span class="me-2"><i class="bi bi-graph-up"></i></span>
                   <span style="color: black">Doanh thu</span>
-                  </a>
+                </a>
               </b>
             </li>
           </ul>
@@ -501,13 +482,13 @@
     </div>
     <!-- offcanvas -->
     <main class="mt-5 pt-3">
-        <div ng-view>
-        </div>
+      <div ng-view>
+      </div>
     </main>
   </div>
   <!-- end admin display -->
 
-    
+
   <script src="/js/utils/jquery.min.js"></script>
   <script src="/js/utils/popper.min.js"></script>
   <script src="/js/utils/bootstrap.min.js"></script>
@@ -524,7 +505,9 @@
   <script src="/js/app/user/product/ProductDetail.js"></script>
   <script src="/js/app/user/personal/Personal.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+    integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+    crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
 
   <script src="/js/app/admin/HomeAdmin.js"></script>
@@ -548,38 +531,38 @@
   <script src="/js/app/common/ChangePassword.js"></script>
   <script src="/js/app/admin/account/Customer.js"></script>
 
-   <!-- <script src="/js/app/admin/SaleReport_chart.js"></script> -->
+  <!-- <script src="/js/app/admin/SaleReport_chart.js"></script> -->
 
   <script src="https://www.gstatic.com/firebasejs/8.2.8/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.2.8/firebase-storage.js"></script>
 
   <script>
-      // Your web app's Firebase configuration
-      var firebaseConfig = {
-        apiKey: "AIzaSyDg9ebOECkrMi4pkLZF7-ueRcmLG1324i4",
-        authDomain: "n3ts-8ba37.firebaseapp.com",
-        projectId: "n3ts-8ba37",
-        storageBucket: "n3ts-8ba37.appspot.com",
-        messagingSenderId: "997263560522",
-        appId: "1:997263560522:web:04df8f2ba20c6e7d0afbb3",
-        measurementId: "G-Q4K23ELNSP"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyDg9ebOECkrMi4pkLZF7-ueRcmLG1324i4",
+      authDomain: "n3ts-8ba37.firebaseapp.com",
+      projectId: "n3ts-8ba37",
+      storageBucket: "n3ts-8ba37.appspot.com",
+      messagingSenderId: "997263560522",
+      appId: "1:997263560522:web:04df8f2ba20c6e7d0afbb3",
+      measurementId: "G-Q4K23ELNSP"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
   </script>
 
   <!-- <script src="/js/app/admin/chart.js"></script> -->
 
   <script>
-    const app = angular.module("app", ["ngRoute", "angular-jwt", "chart.js"]);      
+    const app = angular.module("app", ["ngRoute", "angular-jwt", "chart.js"]);
     app.config(function ($routeProvider, $locationProvider, $httpProvider, jwtOptionsProvider) {
       $locationProvider.hashPrefix("");
 
       const token = localStorage.getItem('x-auth-token');
-      if(token && token != null){
-        $httpProvider.interceptors.push(function($q) {
+      if (token && token != null) {
+        $httpProvider.interceptors.push(function ($q) {
           return {
-            'request': function(config) {
+            'request': function (config) {
               config.headers['x-auth-token'] = localStorage.getItem('x-auth-token') || 'eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJkaXNwbGF5TmFtZSI6IiIsInJvbGVzIjpbIlVTRVIiXSwiZXhwIjoxNjcyMzc3MDY4fQ.gA4fxrSricIpgi2nNgSzHFtfHy_ELnwhUS38RQeniAv8GyYaxE1-D19hR-jiuBfSAZeJVcYGlDCVIU2PBJ7Jjg';
               return config;
             }
@@ -614,102 +597,102 @@
         })
         /** admin*/
         .when("/admin-dashboard", {
-            templateUrl: "views/admin/main/HomeAdmin.html",
-            controller: "homeAdmin"
+          templateUrl: "views/admin/main/HomeAdmin.html",
+          controller: "homeAdmin"
         })
         .when("/product", {
-            templateUrl: "views/admin/product/Product.html",
-            controller: "product"
+          templateUrl: "views/admin/product/Product.html",
+          controller: "product"
         })
         .when("/admin/product-detail/:productId", {
-            templateUrl: "views/admin/product/ProductDetail.html",
-            controller: "productDetail"
+          templateUrl: "views/admin/product/ProductDetail.html",
+          controller: "productDetail"
         })
         .when("/order/create-order", {
-            templateUrl: "/views/admin/order/CreateOrder.html",
-            controller: "createOrder"
+          templateUrl: "/views/admin/order/CreateOrder.html",
+          controller: "createOrder"
         })
         .when("/return-order", {
-            templateUrl: "/views/admin/order/ReturnOrder.html",
-            controller: "returnOrder"
+          templateUrl: "/views/admin/order/ReturnOrder.html",
+          controller: "returnOrder"
         })
         .when("/wait-for-confirmation", {
-            templateUrl: "views/admin/order/Wait_for_confirmation.html",
-            controller: "orderWaitConfirm"
+          templateUrl: "views/admin/order/Wait_for_confirmation.html",
+          controller: "orderWaitConfirm"
         })
         .when("/order-management", {
-            templateUrl: "views/admin/order/OrderManagement.html",
-            controller: "orderManagement"
+          templateUrl: "views/admin/order/OrderManagement.html",
+          controller: "orderManagement"
         })
         .when("/admin-sales-report", {
-            templateUrl: "views/admin/statistic/Admin_SalesReport.html",
-            controller: "adminSaleReport"
+          templateUrl: "views/admin/statistic/Admin_SalesReport.html",
+          controller: "adminSaleReport"
         })
         .when("/admin-product-properties", {
-            templateUrl: "views/admin/product/Properties.html",
-            controller: "properties_product"
+          templateUrl: "views/admin/product/Properties.html",
+          controller: "properties_product"
         })
         .when("/admin-account-customer", {
-            templateUrl: "views/admin/account/CustomerAccount.html",
+          templateUrl: "views/admin/account/CustomerAccount.html",
         })
         .when("/admin-account-employee", {
-            templateUrl: "views/admin/product/EmployeeAccount.html",
+          templateUrl: "views/admin/product/EmployeeAccount.html",
         })
         .when("/brand-and-category", {
-            templateUrl: "views/admin/category/ManageCategory.html",
-            controller: "category"
+          templateUrl: "views/admin/category/ManageCategory.html",
+          controller: "category"
         })
         .when("/DELIVERING", {
-            templateUrl: "views/admin/order/DELIVERING.html",
-            controller: "DELIVERING"
+          templateUrl: "views/admin/order/DELIVERING.html",
+          controller: "DELIVERING"
         })
         .when("/CONFIRMED", {
-            templateUrl: "views/admin/order/CONFIRMED.html",
-            controller: "CONFIRMED"
+          templateUrl: "views/admin/order/CONFIRMED.html",
+          controller: "CONFIRMED"
         })
         .when("/WAIT_FOR_THE_SHIPPER_TO_PICK_UP", {
-            templateUrl: "views/admin/order/WAIT_FOR_THE_SHIPPER_TO_PICK_UP.html",
-            controller: "WAIT_FOR_THE_SHIPPER_TO_PICK_UP"
+          templateUrl: "views/admin/order/WAIT_FOR_THE_SHIPPER_TO_PICK_UP.html",
+          controller: "WAIT_FOR_THE_SHIPPER_TO_PICK_UP"
         })
         .when("/DELIVERED", {
-            templateUrl: "views/admin/order/DELIVERED.html",
-            controller: "DELIVERED"
+          templateUrl: "views/admin/order/DELIVERED.html",
+          controller: "DELIVERED"
         })
         .when("/NO_DELIVERY", {
-            templateUrl: "views/admin/order/NO_DELIVERY.html",
-            controller: "NO_DELIVERY"
+          templateUrl: "views/admin/order/NO_DELIVERY.html",
+          controller: "NO_DELIVERY"
         })
         .when("/CANCELLED", {
-            templateUrl: "views/admin/order/CANCELLED.html",
-            controller: "CANCELLED"
+          templateUrl: "views/admin/order/CANCELLED.html",
+          controller: "CANCELLED"
         })
         .when("/promotion", {
-            templateUrl: "views/admin/promotion/Promotion.html",
-            controller: "promotion"
+          templateUrl: "views/admin/promotion/Promotion.html",
+          controller: "promotion"
         })
         .when("/promotion-detail", {
-            templateUrl: "views/admin/promotion/PromotionDetail.html",
-            // controller: ""
+          templateUrl: "views/admin/promotion/PromotionDetail.html",
+          // controller: ""
         })
         .when("/admin/user-personal", {
-            templateUrl: "views/user/personal/Personal.html",
-            //controller: "personal"
+          templateUrl: "views/user/personal/Personal.html",
+          //controller: "personal"
         })
         .when("/admin-account-customer", {
-            templateUrl: "views/admin/account/CustomerAccount.html",
-            controller: "customer"
+          templateUrl: "views/admin/account/CustomerAccount.html",
+          controller: "customer"
         })
         .when("/admin-account-employee", {
-            templateUrl: "views/admin/account/EmployeeAccount.html",
-            controller: "user"
+          templateUrl: "views/admin/account/EmployeeAccount.html",
+          controller: "user"
         })
         .when("/change-password", {
-            templateUrl: "views/common/ChangePassword.html",
-            controller: "changePassword"
+          templateUrl: "views/common/ChangePassword.html",
+          controller: "changePassword"
         })
         .when("/register", {
-            templateUrl: "views/common/Register.html",
-            // controller: "changePassword"
+          templateUrl: "views/common/Register.html",
+          // controller: "changePassword"
         })
         .otherwise({
           templateUrl: "views/user/Home.html",
@@ -718,18 +701,18 @@
 
     });
 
-    app.run(['$rootScope', function($rootScope){
+    app.run(['$rootScope', function ($rootScope) {
       $rootScope.isAdmin = false;
       const userLocal = localStorage.getItem("user");
       const user = userLocal ? JSON.parse(userLocal) : null;
-      
-      if(user) {
-          $rootScope.isLogin = true;
-          user.roles.map(item => {
-              if(item == "ADMIN"){
-                  $rootScope.isAdmin = true;            
-              } 
-          })
+
+      if (user) {
+        $rootScope.isLogin = true;
+        user.roles.map(item => {
+          if (item == "ADMIN") {
+            $rootScope.isAdmin = true;
+          }
+        })
       }
     }])
 
@@ -761,14 +744,14 @@
     app.controller("changePassword", changePassword);
     app.controller("customer", customer);
 
-    app.controller("controllerLogout", function($scope, $rootScope){
-        
+    app.controller("controllerLogout", function ($scope, $rootScope) {
+
       $scope.logout = () => {
         localStorage.removeItem("x-auth-token");
         localStorage.setItem("user", null);
         document.location.href = "#home";
         $rootScope.isLogin = false;
-        $rootScope.isAdmin = false; 
+        $rootScope.isAdmin = false;
         $rootScope.user = null
       }
 

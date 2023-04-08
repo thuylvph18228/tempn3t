@@ -277,11 +277,40 @@ function product($scope, $http, $rootScope) {
 
     }
 
+    getAllProductByName = (api) => {
+        $http.get(api)
+            .then(function (response) {
+                $scope.products = response.data[0];
+                $scope.products.forEach((element, index) => {
+                    // element.index = index + 1;
+                    element.quantity = 0;
+                    element.sold = 0;
+                    element.productDetails.forEach(item => {
+                        element.quantity += Number(item.quantity);
+                        item.orderDetail.forEach(orderDetail => {
+                            element.sold += Number(orderDetail.quantity);
+
+                        })
+                    })
+                });
+                if (response.data[2] && response.data[2] != null) {
+                    $scope.totalProduct = response.data[2];
+                }
+                $scope.productsList = $scope.products;
+                $scope.count = response.data[1];
+                $scope.isLoading = false;
+            })
+            .catch(function (error) {
+                console.log(error);
+                $scope.isLoading = false;
+            });
+    }
+
     /**search product by name */
     $scope.searchProduct = () => {
         $scope.page.page = 0;
         if ($scope.productName) {
-            getAllProduct(api + "/get-by-name/" + $scope.productName, $scope.page.page, $scope.page.size);
+            getAllProductByName(api + "/get-by-name/" + $scope.productName);
         } else {
             $scope.productName = "";
             getAllProduct(api, 0, 10);
@@ -564,7 +593,7 @@ function product($scope, $http, $rootScope) {
                     $scope.showErrName = false;
                 }
             }).catch(err => {
-        })
+            })
     }
 
 }

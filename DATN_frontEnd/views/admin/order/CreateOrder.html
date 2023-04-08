@@ -67,11 +67,17 @@
             <form name="createOrderForm">
                 <div id="order">
                     <div class="mt-3 mb-3 d-flex justify-content-end">
-                        <button class="btn" data-bs-toggle="modal" data-bs-target="#createOrder{{$index}}" 
+                        <button class="btn" data-bs-toggle="modal" ng-show="order.orderType != 'ONLINE'" data-bs-target="#createOrder{{$index}}"
                             ng-disabled="createOrderForm.customerName.$invalid || createOrderForm.phone.$invalid || !order.orderDetails[0].product.id" 
                             style="height: 60px; background-color: rgb(7, 185, 225);">
-                            Tạo đơn hàng
+                            Tạo đơn hàng offline
                         </button>
+<!--                        <button type="button" ng-show="order.orderType != 'ONLINE' " class="btn btn-primary" ng-click="pay()"-->
+<!--                        >Offline</button>-->
+                        <button class="btn" data-bs-toggle="modal" ng-show="order.orderType == 'ONLINE'" data-bs-target="#createOrder{{$index}}"
+                                style="height: 60px; background-color: rgb(7, 185, 225);"
+                                ng-disabled="createOrderForm.province.$invalid ||  createOrderForm.district.$invalid || createOrderForm.ward.$invalid || createOrderForm.address.$invalid || !order.orderDetails[0].product.id"
+                        >Tạo đơn hàng online</button>
                         
                         <!-- Modal -->
                         <div class="modal fade" id="createOrder{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
