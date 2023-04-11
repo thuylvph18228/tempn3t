@@ -69,7 +69,7 @@
     
                                     </td>
                                     <td>
-                                        {{orderDetail.price | currency : "" : 0}}
+                                        {{orderDetail.price | currency : "" : 0}}₫
     
                                     </td>
                                     <td>
@@ -481,7 +481,7 @@
                                                                                     <div id="productDetail" ng-repeat="productDetail in product.productDetails" >
                                                                                         <p ng-click="chooseProduct(product, productDetail, $parent.$parent.$index)">
                                                                                             <a href="" style="text-decoration: none; color: black;"> 
-                                                                                                {{product.name}} - {{product.price | currency : "" : 0}}
+                                                                                                {{product.name}} - {{product.price | currency : "" : 0}}₫
                                                                                             </a><br>
                                                                                             <a href="" style="text-decoration: none; color: black;">
                                                                                                 Size{{productDetail.size.name}} - Màu: {{productDetail.color.name}} - Độ cao đế: {{productDetail.height.height}}cm - Chất liệu: {{productDetail.material.name}}

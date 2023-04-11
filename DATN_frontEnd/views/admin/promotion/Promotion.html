@@ -258,7 +258,7 @@
                             <td>{{$index + 1}}</td>
                             <td>{{voucher.name}}</td>
                             <td>{{voucher.code}}</td>
-                            <td>{{voucher.promotion}}</td>
+                            <td>{{voucher.promotion | currency : "" : 0}}₫</td>
                             <td>{{voucher.quantity | currency : "" : 0}}</td>
                             <td>{{voucher.beginDate}} -> {{voucher.endDate}}</td>
                             <td>{{voucher.createBy.username}}</td>

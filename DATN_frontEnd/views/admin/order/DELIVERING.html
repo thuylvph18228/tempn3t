@@ -51,7 +51,7 @@
                                                 {{order.ward}}, {{order.district}}, {{order.province}}
                                             </td>
                                             <td>
-                                                {{order.totalMoney | currency : "" : 0}}
+                                                {{order.totalMoney | currency : "" : 0}}₫
                                             </td>
                                             <td>
                                                 Đơn đang giao hàng
@@ -191,7 +191,7 @@
                                                                                     <div id="productDetail" ng-repeat="productDetail in product.productDetails" >
                                                                                         <p ng-click="chooseProduct(product, productDetail, $parent.$parent.$index)">
                                                                                             <a href="" style="text-decoration: none; color: black;"> 
-                                                                                                {{product.name}} - {{product.price | currency : "" : 0}}
+                                                                                                {{product.name}} - {{product.price | currency : "" : 0}}₫
                                                                                             </a><br>
                                                                                             <a href="" style="text-decoration: none; color: black;">
                                                                                                 Size{{productDetail.size.name}} - Màu: {{productDetail.color.name}} - Độ cao đế: {{productDetail.height.height}}cm - Chất liệu: {{productDetail.material.name}}
@@ -232,7 +232,7 @@
 
                                                                             </td>
                                                                             <td>
-                                                                                {{orderDetail.price | currency : "" : 0}}
+                                                                                {{orderDetail.price | currency : "" : 0}}₫
 
                                                                             </td>
                                                                             <td>
@@ -241,7 +241,7 @@
                                                                                 </div>
                                                                             </td>
                                                                             <td>
-                                                                                {{orderDetail.price * orderDetail.quantity | currency : "" : 0}}
+                                                                                {{orderDetail.price * orderDetail.quantity | currency : "" : 0}}₫
                                                                             </td>
                                                                             <td>
                                                                                 <!-- <div class="row">
@@ -256,7 +256,7 @@
                                                                     </tbody>
                                                                 </table>
                                                                 <div class="d-flex justify-content-end">
-                                                                    <h5>Tổng tiền đơn hàng: <b>{{ totalMoney | currency : "" : 0}}</b></h5>
+                                                                    <h5>Tổng tiền đơn hàng: <b>{{ totalMoney | currency : "" : 0}}₫</b></h5>
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">

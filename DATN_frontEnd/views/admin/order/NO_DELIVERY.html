@@ -51,7 +51,7 @@
                                                 {{order.ward}}, {{order.district}}, {{order.province}}
                                             </td>
                                             <td>
-                                                tổng tiền
+                                                {{orderDetail.price * orderDetail.quantity}}₫
                                             </td>
                                             <td>
                                                 Đơn đã giao thành công
@@ -118,18 +118,14 @@
                                                                             </td>
                                                                             <td>
                                                                                 {{orderDetail.productDetail.color.name}}
-
                                                                             </td>
                                                                             <td>
-                                                                                {{orderDetail.price}}
-
+                                                                                {{orderDetail.price}}₫
                                                                             </td>
                                                                             <td>
-                                                                                {{orderDetail.quantity}}
-
-                                                                            </td>
+                                                                                {{orderDetail.quantity}}                                                                          </td>
                                                                             <td>
-                                                                                {{orderDetail.price * orderDetail.quantity}}
+                                                                                {{orderDetail.price * orderDetail.quantity}}₫
                                                                             </td>
                                                                         
                                                                         </tr>
@@ -240,7 +236,7 @@
                                                                                     <div id="productDetail" ng-repeat="productDetail in product.productDetails" >
                                                                                         <p ng-click="chooseProduct(product, productDetail, $parent.$parent.$index)">
                                                                                             <a href="" style="text-decoration: none; color: black;"> 
-                                                                                                {{product.name}} - {{product.price | currency : "" : 0}}
+                                                                                                {{product.name}} - {{product.price | currency : "" : 0}}₫
                                                                                             </a><br>
                                                                                             <a href="" style="text-decoration: none; color: black;">
                                                                                                 Size{{productDetail.size.name}} - Màu: {{productDetail.color.name}} - Độ cao đế: {{productDetail.height.height}}cm - Chất liệu: {{productDetail.material.name}}

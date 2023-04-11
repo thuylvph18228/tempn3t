@@ -34,7 +34,7 @@
                     </td>
                     <td style="text-align: center;">{{product.name}}</td>
                     <td>Màu: {{product.productDetail.color.name}} - Size: {{product.productDetail.size.name}}</td>
-                    <td>{{product.price | currency : '' : 0}}</td>
+                    <td>{{product.price | currency : '' : 0}}₫</td>
                     <td>
                         <div>
                             <input type="number" ng-model="product.quantity" min="1" oninput="this.value = Math.abs(this.value)" ng-change="changeQuantity($parent.$index, $index)"
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                     </td>
-                    <td>{{product.quantity * product.price | currency : '' : 0}}</td>
+                    <td>{{product.quantity * product.price | currency : '' : 0}}₫</td>
                     <td>
                         <h4>
                             <a href="" style="color: red ;" ng-click="delete($index)"><i class="bi bi-trash"></i></a>
@@ -58,7 +58,7 @@
                         <h4 style=" margin-right: 15px; text-align: end; ">TỔNG TIỀN:</h4>
                     </td>
                     <td colspan="2">
-                        <h3 style="color: red; text-align: center;">{{orderNew.totalMoney | currency : '' : 0}}</h3>
+                        <h3 style="color: red; text-align: center;">{{orderNew.totalMoney | currency : '' : 0}}₫</h3>
                     </td>
                 </tr>
             </tfoot>
@@ -195,12 +195,12 @@
                                             </td>
                                             <td>{{orderDetail.product.name}}</td>
                                             <td>Màu: {{orderDetail.productDetail.color.name}} - Size: {{orderDetail.productDetail.size.name}}</td>
-                                            <td>{{orderDetail.product.price}}</td>
+                                            <td>{{orderDetail.product.price | currency : '' : 0}}₫</td>
                                             <td>
                                                 <!-- <input type="number" class="col-2" ng-change="changeQuantityOrder()" ng-model="orderDetail.quantity"> -->
                                                 {{orderDetail.quantity}}
                                             </td>
-                                            <td>{{orderDetail.quantity * orderDetail.product.price | currency : '' : 0}}</td>
+                                            <td>{{orderDetail.quantity * orderDetail.product.price | currency : '' : 0}}₫</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -219,7 +219,7 @@
                                         </div>
                                     </div>
                                     <div class="col-6">
-                                        <p>Phí ship <img src="/images/img/logoGHN.jpg" alt="" style="max-width: 50px; max-height: 50px;">  <b>{{ totalShipFee | currency: "" : 0 }}</b></p>
+                                        <p>Phí ship <img src="/images/img/logoGHN.jpg" alt="" style="max-width: 50px; max-height: 50px;">  <b>{{ totalShipFee | currency: "" : 0 }}₫</b></p>
                                     </div>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                         <div class="modal-footer">
                             <div class="d-flex justify-content-between" style="width: 100%;">
                                 <div> 
-                                    Tổng tiền đơn hàng: <b>{{orderNew.totalMoney | currency: "" : 0}}</b>
+                                    Tổng tiền đơn hàng: <b>{{orderNew.totalMoney | currency: "" : 0}}₫</b>
                                 </div>
                                 <div></div>
                                 <div>

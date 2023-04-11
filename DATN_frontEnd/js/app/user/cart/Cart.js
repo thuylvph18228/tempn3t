@@ -290,6 +290,7 @@ function cart($scope, $http, $routeParams) {
     $scope.totalShipFee = 0;
     shipFee = (changeQuantity = true) => {
         if ($scope.wardCode && $scope.districtId) {
+
             ship = {
                 service_type_id: 2,
                 to_ward_code: $scope.wardCode + "",

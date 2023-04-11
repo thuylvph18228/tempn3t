@@ -1,4 +1,7 @@
 function personal ($scope, $http){
+    $scope.provinceId = null;
+    $scope.districtId = null;
+    $scope.wardCode = null;
     
     //get all tinh, thanh pho
     $http({
@@ -90,6 +93,56 @@ function personal ($scope, $http){
         $scope.orders[indexOrder].ward = $scope.ward.WardName;
     }
 
+    /**tinh phí ship */
+    $scope.totalShipFee = 0;
+    shipFee = (changeQuantity = true) => {
+        if ($scope.wardCode && $scope.districtId) {
+
+            ship = {
+                service_type_id: 2,
+                to_ward_code: $scope.wardCode + "",
+                to_district_id: Number($scope.districtId),
+                weight: 0,
+                length: 33,
+                width: 22,
+                height: 0
+            }
+
+            var weightShip = 0;
+            var heightShip = 0;
+            $scope.orderNew.orderDetails.map(item => {
+                weightShip += item.quantity * item.product.weight.weight;
+                heightShip += item.quantity * 12;
+            })
+            ship.weight = weightShip;
+            ship.height = heightShip;
+
+            $http({
+                method: 'POST',
+                url: "https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+                headers: {
+                    Token: '9e4591da-c66a-11ed-bcba-eac62dba9bd9',
+                    ShopId: '3928266',
+                    'Content-Type': 'application/json'
+                },
+                data: ship
+            })
+                .then(response => {
+                    if ($scope.totalShipFee != 0 && changeQuantity) {
+                        $scope.orderNew.totalMoney -= $scope.totalShipFee
+                    }
+                    $scope.totalShipFee = response.data.data.total;
+                    $scope.orderNew.totalMoney += $scope.totalShipFee;
+                })
+                .catch(error => {
+                    console.log(error);
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra khi tính phí ship!!";
+                    alertShow();
+                })
+        }
+    }
+
 
     $scope.orderDetail = {
         id: '',
@@ -147,7 +200,12 @@ function personal ($scope, $http){
         $http.get(apiOrder + "/user/" + username) 
             .then(function (response) {      
                 $scope.orders = response.data;
+                console.log($scope.orders);            
                 $scope.orders.map(order => {
+                    $scope.provinceId = order.provinceId;
+                    $scope.districtId = order.districtId;
+                    $scope.wardCode = order.wardCode; 
+                    console.log(order.provinceId);
                     var totalMoney = 0;
                     if(order.orderDetails){
                         order.orderDetails.map(item => {

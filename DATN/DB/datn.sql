@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS `brands` (
   `name` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.brands: ~16 rows (approximately)
+-- Dumping data for table datn.brands: ~17 rows (approximately)
 INSERT INTO `brands` (`id`, `name`, `status`) VALUES
 	(1, 'Adidas', 'AVAILABLE'),
 	(2, 'Vans', 'AVAILABLE'),
@@ -38,13 +38,14 @@ INSERT INTO `brands` (`id`, `name`, `status`) VALUES
 	(10, 'Sandal', 'AVAILABLE'),
 	(11, 'Cao gót', 'AVAILABLE'),
 	(12, 'Dior', 'AVAILABLE'),
-	(13, 'nhãn hiệu 1', 'AVAILABLE'),
+	(13, 'nhãn hiệuuuu', 'AVAILABLE'),
 	(14, 'nhãn hiệu B', 'AVAILABLE'),
 	(15, 'Juno', 'AVAILABLE'),
 	(16, 'Biti’s Hunter', 'AVAILABLE'),
-	(17, 'HM', 'AVAILABLE'),
-	(18, 'dungna', 'AVAILABLE'),
-	(19, 'dungna', 'AVAILABLE');
+	(17, 'mmmm', 'AVAILABLE'),
+	(18, 'thuy', 'AVAILABLE'),
+	(19, 'thuy', 'AVAILABLE'),
+	(20, 'Balenciaca', 'AVAILABLE');
 
 -- Dumping structure for table datn.brand_category
 CREATE TABLE IF NOT EXISTS `brand_category` (
@@ -75,10 +76,10 @@ CREATE TABLE IF NOT EXISTS `categories` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   `status` varchar(255) NOT NULL,
-  `create_by` int NOT NULL,
+  `create_by` int DEFAULT NULL,
   `update_by` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- Dumping data for table datn.categories: ~6 rows (approximately)
 INSERT INTO `categories` (`id`, `name`, `status`, `create_by`, `update_by`) VALUES
@@ -108,7 +109,7 @@ INSERT INTO `colors` (`id`, `name`) VALUES
 	(8, 'Trắng hồng'),
 	(9, 'Vàng nhạt'),
 	(10, 'Xanh hồng'),
-	(15, 'Vân ANh');
+	(15, 'Ghi');
 
 -- Dumping structure for table datn.feedbacks
 CREATE TABLE IF NOT EXISTS `feedbacks` (
@@ -129,7 +130,7 @@ CREATE TABLE IF NOT EXISTS `height` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.height: ~3 rows (approximately)
+-- Dumping data for table datn.height: ~10 rows (approximately)
 INSERT INTO `height` (`id`, `height`) VALUES
 	(1, 'Bệt'),
 	(3, '2'),
@@ -148,9 +149,9 @@ CREATE TABLE IF NOT EXISTS `images` (
   `path` varchar(255) NOT NULL,
   `product_id` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.images: ~56 rows (approximately)
+-- Dumping data for table datn.images: ~52 rows (approximately)
 INSERT INTO `images` (`id`, `path`, `product_id`) VALUES
 	(1, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 24),
 	(2, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 25),
@@ -179,12 +180,6 @@ INSERT INTO `images` (`id`, `path`, `product_id`) VALUES
 	(68, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 5),
 	(69, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 5),
 	(70, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 5),
-	(71, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 6),
-	(72, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 6),
-	(73, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 6),
-	(74, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 6),
-	(75, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 6),
-	(76, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 6),
 	(77, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 8),
 	(78, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 8),
 	(79, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 8),
@@ -207,7 +202,9 @@ INSERT INTO `images` (`id`, `path`, `product_id`) VALUES
 	(96, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 33),
 	(97, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 33),
 	(98, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 33),
-	(99, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 39);
+	(99, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 39),
+	(100, 'https://firebasestorage.googleapis.com/v0/b/n3ts-8ba37.appspot.com/o/images%2F75.43825562995643Balence1.jpg?alt=media&token=aef4ffb4-d988-495e-8b84-537f083422b7', 40),
+	(101, 'https://firebasestorage.googleapis.com/v0/b/n3ts-8ba37.appspot.com/o/images%2F48.07929834864317Balence2.jpg?alt=media&token=5092c294-eeb4-481d-a204-461e79fdc100', 40);
 
 -- Dumping structure for table datn.materials
 CREATE TABLE IF NOT EXISTS `materials` (
@@ -224,7 +221,7 @@ INSERT INTO `materials` (`id`, `name`) VALUES
 	(4, 'Da thật'),
 	(5, 'Vải Canvas'),
 	(6, 'Vải tổng hợp'),
-	(11, 'Vân Anh');
+	(11, 'Polime');
 
 -- Dumping structure for table datn.notifications
 CREATE TABLE IF NOT EXISTS `notifications` (
@@ -261,9 +258,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `code` (`code`),
   KEY `code_ghn` (`code_ghn`),
   KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.orders: ~61 rows (approximately)
+-- Dumping data for table datn.orders: ~79 rows (approximately)
 INSERT INTO `orders` (`id`, `code`, `code_ghn`, `customer_name`, `created_date`, `update_date`, `phone`, `address`, `province`, `district`, `ward`, `description`, `order_type`, `payment_type`, `voucher_id`, `status`, `create_by`, `update_by`, `is_pay`) VALUES
 	(1, 'abc', NULL, 'Trần Minh Ng', '2022-10-05 19:06:51', '2022-10-21 17:30:18', '0961932630', 'Số 1 ', 'Hà nội', 'Từ Liêm', 'Mỹ Đình', NULL, 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
 	(2, 'aaa', NULL, 'Trần Minh Ng', '2022-10-05 19:08:21', '2022-10-20 16:37:31', '0961932630', 'Số 2', 'Hà Nội', 'Từ Liêm', 'Mỹ Đình', NULL, 'OFFLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
@@ -310,11 +307,11 @@ INSERT INTO `orders` (`id`, `code`, `code_ghn`, `customer_name`, `created_date`,
 	(94, '16936840', NULL, 'Trần Minh Ng', '2022-11-29 22:05:54', '2022-11-29 22:50:35', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE', 'OFFLINE', NULL, 'DELIVERING', 1, NULL, 0),
 	(95, '18734039', NULL, 'Trần Minh Ng', '2022-11-29 22:22:40', NULL, '0961932630', '', '', '', '', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 0),
 	(96, '19809544', NULL, 'Trần Minh Ng', '2022-11-29 23:18:43', '2022-11-29 23:20:43', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0),
-	(99, '12884057', NULL, 'Trần Minh Ng', '2022-12-04 12:16:34', NULL, '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
+	(99, '12884057', 'LLW8RQ', 'Trần Minh Ng', '2022-12-04 12:16:34', '2023-04-08 16:12:11', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, 0),
 	(100, '12041744', NULL, 'Trần Minh Ng', '2022-12-04 14:20:12', '2022-12-04 14:33:01', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0),
 	(101, '19843497', NULL, 'Trần Minh Ng', '2022-12-10 12:04:15', NULL, '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 0),
 	(102, '14346130', NULL, 'Trần Minh Ng', '2022-12-10 14:07:53', '2022-12-10 14:12:18', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0),
-	(113, '16440333', 'LLU49Q', 'Trần Minh Ng', '2022-12-15 21:42:28', '2022-12-23 14:47:06', '0961932630', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'VNPAY', NULL, 'CONFIRMED', 3, NULL, 1),
+	(113, '16440333', 'LLU49Q', 'Trần Minh Ng', '2022-12-15 21:42:28', '2023-04-08 15:49:48', '0961932630', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'VNPAY', NULL, 'NO_DELIVERY', 3, NULL, 1),
 	(114, '10720868', 'LLUBXE', 'Trần Minh Ng', '2022-12-20 08:01:35', '2022-12-20 08:03:28', '0961932630', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Tây Mỗ', '', 'ONLINE_WEB', 'VNPAY', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 3, NULL, 1),
 	(115, '12607427', NULL, 'Trần Minh Ng', '2022-12-20 08:05:35', '2022-12-20 08:07:05', '0961932630', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 1),
 	(116, '12921360', 'LLU3VD', 'Trần Minh Ng', '2022-12-21 08:06:49', '2022-12-21 08:08:42', '0961932638', 'Số 123', 'Hà Nội', 'Huyện Phú Xuyên', 'Xã Nam Tiến', '', 'ONLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 1),
@@ -322,10 +319,28 @@ INSERT INTO `orders` (`id`, `code`, `code_ghn`, `customer_name`, `created_date`,
 	(118, '10639449', NULL, 'Trần Minh Ng', '2022-12-22 21:00:44', '2022-12-22 21:06:20', '0962987225', 'số 123', 'Hồ Chí Minh', 'Thành Phố Thủ Đức', 'Phường An Khánh', '', 'ONLINE_WEB', 'VNPAY', NULL, 'DELIVERED', 3, NULL, 1),
 	(119, '15555665', NULL, 'Trần Minh Ng', '2022-12-23 14:39:44', '2022-12-23 14:49:09', '0962987225', 'số 123', 'Hồ Chí Minh', 'Thành Phố Thủ Đức', 'Phường An Khánh', '', 'ONLINE_WEB', 'VNPAY', NULL, 'DELIVERED', 3, NULL, 1),
 	(120, '16140412', NULL, 'Trần Minh Ng', '2022-12-23 14:41:32', '2022-12-23 14:47:05', '0961932999', 'Số 123', 'Hà Nội', 'Huyện Ứng Hòa', 'Xã Viên Nội', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', NULL, NULL, NULL),
-	(121, '19610356', NULL, 'Trần Minh Ng', '2022-12-23 14:54:55', NULL, '0961962333', 'Số 1', 'Hà Nội', 'Quận Cầu Giấy', 'Phường Yên Hoà', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
+	(121, '19610356', 'LLPW6T', 'Trần Minh Ng', '2022-12-23 14:54:55', '2023-04-05 12:34:07', '0961962333', 'Số 1', 'Hà Nội', 'Quận Cầu Giấy', 'Phường Yên Hoà', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, NULL),
 	(122, '16764759', NULL, 'Tạ Quỳnh Trang', '2023-03-26 18:25:58', NULL, '0962987225', 'số 123', 'Hòa Bình', 'Huyện Mai Châu', 'Xã Tân Thành', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, NULL),
 	(123, '15926165', 'LLNVP3', 'Trần Minh Nghĩa', '2023-03-26 18:29:49', '2023-03-26 18:38:21', '0393883934', 'Số 4A', 'Hà Nội', 'Quận Cầu Giấy', 'Phường Trung Hoà', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', NULL, NULL, NULL),
-	(124, '15874245', 'LLNVP4', 'Tạ Quỳnh Trang', '2023-03-26 18:47:36', '2023-03-26 19:57:19', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', NULL, NULL, NULL);
+	(124, '15874245', 'LLNVP4', 'Tạ Quỳnh Trang', '2023-03-26 18:47:36', '2023-03-26 19:57:19', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', NULL, NULL, NULL),
+	(125, '16354520', NULL, 'Tạ Quỳnh Trang', '2023-04-04 09:28:06', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 1, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL),
+	(126, '17379082', 'LLDA4F', 'Tạ Quỳnh Trang', '2023-04-04 10:42:04', '2023-04-05 10:56:36', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 1, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 3, NULL, NULL),
+	(127, '17705187', NULL, 'Tạ Quỳnh Trang', '2023-04-06 10:06:55', '2023-04-06 10:20:24', '0962987225', 'số 123456', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 1, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1),
+	(128, '17491753', NULL, 'Tạ Quỳnh Trang', '2023-04-06 10:13:03', '2023-04-08 16:11:03', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 1, 'DELIVERING', 3, NULL, 1),
+	(129, '17490814', NULL, '', '2023-04-06 15:53:54', '2023-04-06 16:02:33', '', '', '', '', '', 'nnnnn', 'ONLINE_WEB', 'OFFLINE', NULL, 'UNCONFIRM', NULL, NULL, NULL),
+	(130, '10029604', NULL, '', '2023-04-06 21:25:44', '2023-04-06 21:40:21', '', '', '', '', '', 'k nhận', 'ONLINE_WEB', 'OFFLINE', NULL, 'UNCONFIRM', NULL, NULL, NULL),
+	(131, '17462530', NULL, 'iuh', '2023-04-06 21:48:19', '2023-04-06 21:48:49', '0000000000', '', '', '', '', '', 'ONLINE', 'ONLINE', NULL, 'CANCELLED', 1, NULL, NULL),
+	(132, '16842341', NULL, '0239', '2023-04-06 22:05:53', '2023-04-10 09:33:23', '92830239029', '1231', 'Hà Nội', 'Huyện Ứng Hòa', 'Xã Viên An', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, NULL),
+	(133, '15809428', NULL, 'admka', '2023-04-08 09:54:31', NULL, '0928333999', '', '', '', '', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 1),
+	(134, '11879875', NULL, 'oạidqdop', '2023-04-08 09:59:00', '2023-04-08 15:49:13', '0929333111', '2112', 'Sơn La', 'Huyện Vân Hồ', 'Xã Tân Xuân', '', 'ONLINE', 'OFFLINE', NULL, 'DELIVERING', 1, NULL, NULL),
+	(135, '13194175', NULL, 'Tạ Quỳnh Trang', '2023-04-10 09:28:00', '2023-04-10 09:55:38', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 1),
+	(136, '13506393', NULL, 'qiwu', '2023-04-10 09:38:05', NULL, '0912388222', '123', 'Sơn La', 'Huyện Yên Châu', 'Xã Tú Nang', '', 'ONLINE', 'ONLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
+	(137, '17392147', 'LLWYVF', 'Tạ Quỳnh Trang', '2023-04-10 14:54:37', '2023-04-10 14:59:53', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 1, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 3, NULL, 1),
+	(138, '13181327', NULL, 'Lê Văn Luyện', '2023-04-10 15:03:22', NULL, '0982333124', '', '', '', '', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 1),
+	(139, '17194979', NULL, 'oại', '2023-04-10 15:04:13', NULL, '0922483712', '123', 'Hưng Yên', 'Huyện Phù Cừ', 'Xã Tống Phan', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
+	(140, '11420643', NULL, 'oại', '2023-04-10 15:04:28', NULL, '0922483712', '123', 'Hưng Yên', 'Huyện Phù Cừ', 'Xã Tống Phan', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
+	(141, '14483518', NULL, 'oqiw', '2023-04-10 15:05:35', NULL, '0921483211', '122', 'Hưng Yên', 'Huyện Tiên Lữ', 'Xã Thủ Sỹ', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
+	(142, '10561665', NULL, 'Tạ Quỳnh Trang', '2023-04-10 22:12:39', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 2, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL);
 
 -- Dumping structure for table datn.order_details
 CREATE TABLE IF NOT EXISTS `order_details` (
@@ -337,9 +352,9 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `price` int NOT NULL,
   `status` int DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=184 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.order_details: ~98 rows (approximately)
+-- Dumping data for table datn.order_details: ~118 rows (approximately)
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_detail_id`, `quantity`, `price`, `status`) VALUES
 	(2, 1, 2, 3, 2, 839000, 1),
 	(3, 44, 1, 1, 1, 682000, 1),
@@ -438,7 +453,27 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_detail_id`
 	(159, 121, 4, 15, 2, 700000, NULL),
 	(160, 122, 4, 15, 1, 700000, NULL),
 	(161, 123, 7, 50, 1, 4000000, NULL),
-	(162, 124, 1, 1, 1, 8200000, NULL);
+	(162, 124, 1, 1, 1, 8200000, NULL),
+	(164, 125, 1, 1, 1, 820000, NULL),
+	(165, 126, 1, 1, 1, 800000, NULL),
+	(166, 127, 1, 1, 1, 500000, NULL),
+	(167, 128, 1, 1, 1, 500000, NULL),
+	(168, 127, 1, 2, 1, 500000, NULL),
+	(169, 129, 6, 48, 1, 550000, NULL),
+	(170, 130, 1, 1, 1, 500000, NULL),
+	(171, 131, 1, 1, 1, 500000, NULL),
+	(172, 132, 1, 1, 1, 500000, NULL),
+	(173, 133, 1, 1, 1, 500000, NULL),
+	(174, 134, 1, 1, 1, 500000, NULL),
+	(175, 135, 7, 50, 1, 4000000, NULL),
+	(176, 135, 3, 5, 0, 700000, 0),
+	(177, 136, 1, 1, 1, 500000, NULL),
+	(178, 137, 1, 1, 1, 500000, NULL),
+	(179, 138, 1, 2, 1, 500000, NULL),
+	(180, 139, 2, 3, 1, 839000, NULL),
+	(181, 140, 2, 3, 1, 839000, NULL),
+	(182, 141, 1, 1, 1, 500000, NULL),
+	(183, 142, 1, 1, 1, 500000, NULL);
 
 -- Dumping structure for table datn.order_history
 CREATE TABLE IF NOT EXISTS `order_history` (
@@ -458,9 +493,9 @@ CREATE TABLE IF NOT EXISTS `order_history` (
   KEY `order_id_2` (`order_id`),
   KEY `order_detail_id` (`order_detail_id`),
   KEY `order_detail_id_2` (`order_detail_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.order_history: ~22 rows (approximately)
+-- Dumping data for table datn.order_history: ~21 rows (approximately)
 INSERT INTO `order_history` (`id`, `order_id`, `order_detail_id`, `product_detail_id`, `create_by`, `update_by`, `action`, `quantity`, `description`, `status`, `created_date`) VALUES
 	(10, 1, 2, 3, 1, 1, 'DOI', 1, NULL, 'DONE', NULL),
 	(11, 41, 55, 38, 1, NULL, 'DOI', 1, NULL, 'DONE', NULL),
@@ -480,10 +515,9 @@ INSERT INTO `order_history` (`id`, `order_id`, `order_detail_id`, `product_detai
 	(33, 116, 146, 1, 1, NULL, 'TRA', 1, NULL, 'DONE', '2022-12-21 08:09:42'),
 	(34, 117, 148, 1, NULL, 1, 'DOI', 1, NULL, 'DONE', '2022-12-21 08:13:49'),
 	(35, 117, 149, 5, NULL, 1, 'TRA', 1, NULL, 'DONE', '2022-12-21 08:13:49'),
-	(48, 118, 150, 1, NULL, 1, 'TRA', 1, NULL, 'DONE', '2022-12-22 22:08:08'),
-	(49, 118, 151, 5, NULL, 1, 'DOI', 1, NULL, 'WAIT', '2022-12-22 22:08:08'),
 	(50, 119, 152, 56, 1, NULL, 'TRA', 2, NULL, 'DONE', '2022-12-23 14:53:08'),
-	(51, 119, 153, 57, 1, NULL, 'DOI', 1, NULL, 'DONE', '2022-12-23 14:53:08');
+	(51, 119, 153, 57, 1, NULL, 'DOI', 1, NULL, 'DONE', '2022-12-23 14:53:08'),
+	(52, 135, 176, 5, NULL, 1, 'TRA', 1, 'Sản phẩm lỗi!', 'DONE', '2023-04-10 14:55:58');
 
 -- Dumping structure for table datn.origin
 CREATE TABLE IF NOT EXISTS `origin` (
@@ -519,11 +553,11 @@ CREATE TABLE IF NOT EXISTS `products` (
   `update_by` int DEFAULT NULL,
   `listed_price` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.products: ~24 rows (approximately)
+-- Dumping data for table datn.products: ~25 rows (approximately)
 INSERT INTO `products` (`id`, `code`, `name`, `price`, `image`, `sex`, `created_date`, `update_date`, `description`, `brand_id`, `category_id`, `weight_id`, `origin_id`, `status`, `create_by`, `update_by`, `listed_price`) VALUES
-	(1, '17269865', 'Giày Thể Thao Biti’s Hunter Street White', 820000, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 'UNISEX', '2022-10-02 14:49:31', '2022-12-23 10:58:02', 'Giày Thể Thao Biti’s Hunter Street White(Trắng) \n- Đế Eva cao su - nhẹ như bay - Độ nhẹ tối đa 300g/chiếc \n- Đàn hồi tốt mà vẫn chịu được mài mòn, chịu lực cao \n- Đế lót EVA Kháng khuẩn, hút ẩm tốt và êm ái. \n- Mũ quai si nubuck: Cao cấp, bóng mịn, êm nhờ cấu trúc chặt chẽ theo từng sợi của lớp si. \n- Lót quai thun cá sấu & vải tricot êm mềm\n- Có dây buộc \n- Do màn hình và điều kiện ánh sáng khác nhau, màu sắc thực tế của sản phẩm có thể chênh lệch khoảng 3-5%.\nĐiều kiện và thời gian bảo hành:\nThời gian hỗ trợ bảo hành kể từ ngày mua hàng: 3 tháng kể từ ngày mua hàng.\nĐiều kiện áp dụng:\nKhách hàng mua sản phẩm Biti’s sẽ được bảo hành miễn phí đối với các trường hợp sau: Hở keo, dứt chỉ, gãy móc khoá, bung hoạ tiết trang trí (nơ, nút, hoa, …)', 16, 3, 2, 1, 'AVAILABLE', 1, 1, 850000),
+	(1, '17269865', 'Giày Thể Thao Biti’s Hunter Street White', 500000, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 'UNISEX', '2022-10-02 14:49:31', '2023-04-05 10:39:10', 'Giày Thể Thao Biti’s Hunter Street White(Trắng) \n- Đế Eva cao su - nhẹ như bay - Độ nhẹ tối đa 300g/chiếc \n- Đàn hồi tốt mà vẫn chịu được mài mòn, chịu lực cao \n- Đế lót EVA Kháng khuẩn, hút ẩm tốt và êm ái. \n- Mũ quai si nubuck: Cao cấp, bóng mịn, êm nhờ cấu trúc chặt chẽ theo từng sợi của lớp si. \n- Lót quai thun cá sấu & vải tricot êm mềm\n- Có dây buộc \n- Do màn hình và điều kiện ánh sáng khác nhau, màu sắc thực tế của sản phẩm có thể chênh lệch khoảng 3-5%.\nĐiều kiện và thời gian bảo hành:\nThời gian hỗ trợ bảo hành kể từ ngày mua hàng: 3 tháng kể từ ngày mua hàng.\nĐiều kiện áp dụng:\nKhách hàng mua sản phẩm Biti’s sẽ được bảo hành miễn phí đối với các trường hợp sau: Hở keo, dứt chỉ, gãy móc khoá, bung hoạ tiết trang trí (nơ, nút, hoa, …)', 16, 3, 2, 1, 'AVAILABLE', 1, NULL, 850000),
 	(2, '78269851', 'Sneaker Royal', 839000, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 'UNISEX', '2022-10-02 09:52:06', '2022-12-04 12:43:21', NULL, 3, 5, 2, 1, 'AVAILABLE', 1, 1, 885000),
 	(3, '17766985', 'Nike Air Force 1', 700000, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 'UNISEX', '2022-10-03 23:24:22', '2022-12-23 11:09:29', '- Size: 36-43\n🖋Giày đầy đủ phụ kiện (hộp, giấy gói, giấy tờ, tất tặng kèm)  được đóng gói cẩn thận.\n🖋Chất liệu: da thật 100%, da nhăn mềm mại không bám bẩn rất dễ vệ sinh.\n🖋Đế: Đế đúc liền khối phần dưới có các đường họa tiết (chống trơn trượt) và in logo thương hiệu giày.\n🖋Form: Form dáng chuẩn 1:1 , được gia công tỉ mỉ tạo độ hài hòa giữa phần thân và phần đế\n🖋Giày hot trend, kiểu dáng đẹp sang chảnh dễ phối đồ có thể mang đi chơi, đi học dự tiệc , đi làm...', 8, 3, 1, 1, 'AVAILABLE', 1, 1, 739000),
 	(4, '17290985', 'Sneaker Nữ', 700000, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 'FEMALE', '2022-10-05 10:24:30', '2022-12-23 11:26:11', 'Giày Thể Thao Nữ cá tính\nGiày đầy đủ phụ kiện (hộp, giấy gói, giấy tờ, tất tặng kèm) được đóng gói cẩn thận. 🖋Chất liệu: da thật 100%, da nhăn mềm mại không bám bẩn rất dễ vệ sinh. 🖋Đế: Đế đúc liền khối phần dưới có các đường họa tiết (chống trơn trượt) và in logo thương hiệu giày. 🖋Form: Form dáng chuẩn 1:1 , được gia công tỉ mỉ tạo độ hài hòa giữa phần thân và phần đế 🖋Giày hot trend, kiểu dáng đẹp sang chảnh dễ phối đồ có thể mang đi chơi, đi học dự tiệc , đi làm...', 1, 3, 1, 1, 'AVAILABLE', 1, 1, 739000),
@@ -546,7 +580,8 @@ INSERT INTO `products` (`id`, `code`, `name`, `price`, `image`, `sex`, `created_
 	(34, '14828495', 'test', 200000, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 'FEMALE', '2022-12-20 07:56:01', NULL, 'Mô tả sản phẩm', 10, 3, 1, 3, 'AVAILABLE', 1, NULL, 222222),
 	(35, '17269851', 'test 12345', 200000, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 'MALE', '2022-12-20 07:57:51', '2022-12-23 13:41:03', 'Mô tả sản phẩm', 11, 3, 1, 3, 'AVAILABLE', 1, 1, 222222),
 	(36, '15215507', 'Boot', 200000, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 'FEMALE', '2022-12-21 08:04:02', '2022-12-23 13:41:21', 'Mô tả sản phẩm', 1, 3, 1, 3, 'AVAILABLE', 1, 1, 222222),
-	(39, '15374283', 'rrrr', 200000, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 'MALE', '2022-12-21 08:04:02', '2022-12-23 13:41:21', 'Mô tả sản phẩm', 1, 3, 1, 3, 'AVAILABLE', 1, 1, 222222);
+	(39, '15374283', 'rrrr', 200000, 'https://cf.shopee.vn/file/b739792b2d1d833fbd7f0a2ec6a692e4', 'MALE', '2022-12-21 08:04:02', '2022-12-23 13:41:21', 'Mô tả sản phẩm', 1, 3, 1, 3, 'AVAILABLE', 1, 1, 222222),
+	(40, '10812795', 'Balenciaca', 799000, 'https://firebasestorage.googleapis.com/v0/b/n3ts-8ba37.appspot.com/o/images%2F24.011210793497884Balence3.jpg?alt=media&token=fc4a31b2-c3b4-4854-bd0f-8bda17474d59', 'UNISEX', '2023-04-06 10:31:15', NULL, 'Giày đẹp! Hàng rep 1:1', 20, 3, 3, 1, 'AVAILABLE', 1, NULL, 0);
 
 -- Dumping structure for table datn.product_details
 CREATE TABLE IF NOT EXISTS `product_details` (
@@ -562,11 +597,11 @@ CREATE TABLE IF NOT EXISTS `product_details` (
 
 -- Dumping data for table datn.product_details: ~33 rows (approximately)
 INSERT INTO `product_details` (`id`, `product_id`, `size_id`, `color_id`, `height_id`, `material_id`, `quantity`) VALUES
-	(1, 1, 2, 1, 3, 2, 14),
-	(2, 1, 3, 1, 4, 2, 20),
-	(3, 2, 3, 4, 4, 1, 50),
+	(1, 1, 2, 1, 3, 2, 133),
+	(2, 1, 3, 1, 4, 2, 19),
+	(3, 2, 3, 4, 4, 1, 48),
 	(4, 2, 4, 4, 4, 1, 7),
-	(5, 3, 2, 2, 4, 2, 11),
+	(5, 3, 2, 2, 4, 2, 12),
 	(6, 3, 1, 2, 5, 3, 21),
 	(8, 1, 3, 3, 4, 2, 10),
 	(11, 15, 3, 2, 5, 1, 10),
@@ -636,12 +671,13 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.roles: ~2 rows (approximately)
+-- Dumping data for table datn.roles: ~3 rows (approximately)
 INSERT INTO `roles` (`id`, `name`) VALUES
 	(1, 'ADMIN'),
-	(2, 'USER');
+	(2, 'USER'),
+	(3, 'EMPLOYEE');
 
 -- Dumping structure for table datn.shop
 CREATE TABLE IF NOT EXISTS `shop` (
@@ -657,7 +693,7 @@ CREATE TABLE IF NOT EXISTS `shop` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.shop: ~1 rows (approximately)
+-- Dumping data for table datn.shop: ~0 rows (approximately)
 INSERT INTO `shop` (`id`, `owner_name`, `address`, `province`, `district`, `ward`, `tel`, `email`, `password_email`) VALUES
 	(1, 'Nguyễn Thành Trung', 'Số 1, Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Phú Đô', '0961932630', 'laclacshop.info@gmail.com', 'zsodopqtkmuborwz');
 
@@ -696,13 +732,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `ward_code` varchar(255) DEFAULT NULL,
   `district_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.users: ~3 rows (approximately)
+-- Dumping data for table datn.users: ~4 rows (approximately)
 INSERT INTO `users` (`id`, `username`, `fullname`, `email`, `password`, `phone`, `address`, `status`, `avatar`, `province`, `district`, `ward`, `province_id`, `ward_code`, `district_id`) VALUES
-	(1, 'thuylv', 'Lê Văn Thuỷ', 'thuylv@gmail.com', '$2a$10$ZKnu4mb9erOxn3LJBg4lkODL8POItZQFHf.5TLu2h5y/KJhZjln4q', '0705925361', 'Hà Nội', 'ACTIVE', NULL, 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Xuân Phương', '201', '13010', '3440'),
-	(2, 'nghiatm', 'Trần Minh Nghĩa', 'nghiatm@gmail.com', '$2a$12$Jxa.32bExx8hXWRpi4hte.0cA2cF4Cj1.oM4IdObxmKkpIiojoGHG', '0393883934', '4a', 'BLOCKED', NULL, 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '201', '907557', '3440'),
-	(3, 'trangtq', 'Tạ Quỳnh Trang', 'trangtq@gmail.com', '$2a$10$L9so50cGDMrWi21CmPhtoes5PyEp7BsOPJD7yDnD7xx7C4/PJ6qpe', '0962987225', 'số 123', 'BLOCKED', NULL, 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '268', '220909', '2046');
+	(1, 'thuylv', 'Lê Văn Thuỷ', 'anhthuy03072002@gmail.com', '$2a$10$ZKnu4mb9erOxn3LJBg4lkODL8POItZQFHf.5TLu2h5y/KJhZjln4q', '0705925361', 'Thôn 3', 'ACTIVE', NULL, 'Thanh Hóa', 'Thành phố Thanh Hóa', 'Xã Quảng Cát', '234', '280130', '1616'),
+	(2, 'nghiatm', 'Trần Minh Nghĩa', 'nghiatm@gmail.com', '$2a$12$Jxa.32bExx8hXWRpi4hte.0cA2cF4Cj1.oM4IdObxmKkpIiojoGHG', '0393883934', '4a', 'ACTIVE', NULL, 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '201', '907557', '3440'),
+	(3, 'trangtq', 'Tạ Quỳnh Trang', 'thuylvph18228@fpt.edu.vn', '$2a$10$WPSgbqnX5pyvnn5c.qefxuPUYVnKmqK7uVAa6odpNsID/Bki2f9F.', '0962987225', 'số 123', 'BLOCKED', NULL, 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '268', '220909', '2046'),
+	(4, 'thu', 'sdqưd', 'qư', '$2a$10$ZKnu4mb9erOxn3LJBg4lkODL8POItZQFHf.5TLu2h5y/KJhZjln4q', '0962987225', 'số 123', 'ACTIVE', NULL, 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '201', '907557', '3440');
 
 -- Dumping structure for table datn.user_roles
 CREATE TABLE IF NOT EXISTS `user_roles` (
@@ -710,13 +747,14 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   `user_id` int NOT NULL,
   `role_id` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.user_roles: ~3 rows (approximately)
+-- Dumping data for table datn.user_roles: ~4 rows (approximately)
 INSERT INTO `user_roles` (`id`, `user_id`, `role_id`) VALUES
 	(1, 1, 1),
 	(2, 2, 2),
-	(3, 3, 2);
+	(3, 3, 2),
+	(4, 4, 1);
 
 -- Dumping structure for table datn.vouchers
 CREATE TABLE IF NOT EXISTS `vouchers` (
@@ -737,13 +775,13 @@ CREATE TABLE IF NOT EXISTS `vouchers` (
 
 -- Dumping data for table datn.vouchers: ~7 rows (approximately)
 INSERT INTO `vouchers` (`id`, `name`, `code_voucher`, `min_money`, `begin_date`, `end_date`, `promotion`, `quantity`, `create_by`, `update_by`, `status`, `is_delete`) VALUES
-	(1, '', 'F3CFY01CA', 50000, '2022-11-10 00:00:00', '2022-11-15 00:00:00', 10000, 20, 1, NULL, 'AVAILABLE', 0),
-	(2, '', 'YFGI0S012', 50000, '2022-11-10 00:00:00', '2022-11-16 00:00:00', 20000, 20, 1, 1, 'AVAILABLE', 1),
-	(3, '', 'Q26DHHZVR', 500000, '2022-12-20 00:00:00', '2022-12-22 00:00:00', 100000, 20, 1, 1, 'AVAILABLE', 0),
-	(4, 'khuyến mãi', 'K7KPQKG18', 500000, '2022-12-21 00:00:00', '2022-12-31 00:00:00', 200000, 20, 1, NULL, 'UNAVAILABLE', 0),
-	(5, 'Khuyến mãi 1', 'G5YI3A528', 500000, '2022-12-22 00:00:00', '2022-12-31 00:00:00', 20000, 20, 1, NULL, 'AVAILABLE', 0),
-	(6, 'test', 'KXFVBXBWV', 11111, '2022-12-22 00:00:00', '2022-12-23 00:00:00', 11111, 11, 1, 1, 'UNAVAILABLE', 1),
-	(7, 'fpoly1', '60DONQKHY', 500000, '2022-12-23 00:00:00', '2022-12-20 00:00:00', 20000, 10, 1, 1, 'UNAVAILABLE', 0);
+	(1, '10k cho đơn tối thiểu 500k', 'F3CFY01CA', 500000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 10000, 9, 1, 3, 'AVAILABLE', 0),
+	(2, '20k cho đơn tối thiểu 500k', 'YFGI0S012', 500000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 20000, 19, 1, 3, 'AVAILABLE', 0),
+	(3, '100k cho đơn tối thiểu 900k', 'Q26DHHZVR', 900000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 100000, 20, 1, 3, 'AVAILABLE', 0),
+	(4, '20k cho đơn tối thiểu 500k', 'K7KPQKG18', 500000, '2022-12-21 00:00:00', '2022-12-31 00:00:00', 200000, 20, 1, 3, 'UNAVAILABLE', 0),
+	(5, '20k  cho đơn tối thiểu 500k', 'G5YI3A528', 500000, '2022-12-22 00:00:00', '2022-12-31 00:00:00', 20000, 20, 1, 3, 'UNAVAILABLE', 0),
+	(6, 'test', 'KXFVBXBWV', 11111, '2022-12-22 00:00:00', '2022-12-23 00:00:00', 11111, 11, 1, 3, 'UNAVAILABLE', 1),
+	(7, 'fpoly1', '60DONQKHY', 500000, '2022-12-23 00:00:00', '2022-12-20 00:00:00', 20000, 10, 1, 3, 'UNAVAILABLE', 1);
 
 -- Dumping structure for table datn.weight
 CREATE TABLE IF NOT EXISTS `weight` (
