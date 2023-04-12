@@ -82,18 +82,31 @@ function NO_DELIVERY ($scope, $http, $rootScope){
     getAllOrder = (page, status) => {
         $scope.isLoading = true;
         $http.get(apiOrder + "/status" + "?page=" + page + "&status=" + status) 
-            .then(function (response) {                    
-                $scope.orders = response.data[0];
-                $scope.totalPage = response.data[1];
-                $scope.isLoading = false;
+        .then(function (response) {                    
+            $scope.orders = response.data[0];
+            $scope.totalPage = response.data[1];
+            $scope.isLoading = false;
+
+            $scope.orders.map(order => {
+                var totalMoney = 0;
+                if(order.orderDetails && order.orderDetails.length ){
+                    order.orderDetails.forEach(orderDetail => {
+                        totalMoney += orderDetail.price * orderDetail.quantity;
+                    })
+                }
+                if(order.voucher){
+                    totalMoney -= order.voucher.promotion;
+                }
+                order.totalMoney = totalMoney;
             })
-            .catch(function (error) {
-                console.log(error);
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại";
-                alertShow();
-                $scope.isLoading = false;
-            });
+        })
+        .catch(function (error) {
+            console.log(error);
+            $scope.isSuccess = false;
+            $scope.message = "Có lỗi xảy ra, vui lòng thử lại";
+            alertShow();
+            $scope.isLoading = false;
+        });
     }
 
     getAllOrder(0, $scope.status);

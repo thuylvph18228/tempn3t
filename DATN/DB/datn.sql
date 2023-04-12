@@ -258,9 +258,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `code` (`code`),
   KEY `code_ghn` (`code_ghn`),
   KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.orders: ~79 rows (approximately)
+-- Dumping data for table datn.orders: ~86 rows (approximately)
 INSERT INTO `orders` (`id`, `code`, `code_ghn`, `customer_name`, `created_date`, `update_date`, `phone`, `address`, `province`, `district`, `ward`, `description`, `order_type`, `payment_type`, `voucher_id`, `status`, `create_by`, `update_by`, `is_pay`) VALUES
 	(1, 'abc', NULL, 'Trần Minh Ng', '2022-10-05 19:06:51', '2022-10-21 17:30:18', '0961932630', 'Số 1 ', 'Hà nội', 'Từ Liêm', 'Mỹ Đình', NULL, 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
 	(2, 'aaa', NULL, 'Trần Minh Ng', '2022-10-05 19:08:21', '2022-10-20 16:37:31', '0961932630', 'Số 2', 'Hà Nội', 'Từ Liêm', 'Mỹ Đình', NULL, 'OFFLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
@@ -340,7 +340,14 @@ INSERT INTO `orders` (`id`, `code`, `code_ghn`, `customer_name`, `created_date`,
 	(139, '17194979', NULL, 'oại', '2023-04-10 15:04:13', NULL, '0922483712', '123', 'Hưng Yên', 'Huyện Phù Cừ', 'Xã Tống Phan', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
 	(140, '11420643', NULL, 'oại', '2023-04-10 15:04:28', NULL, '0922483712', '123', 'Hưng Yên', 'Huyện Phù Cừ', 'Xã Tống Phan', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
 	(141, '14483518', NULL, 'oqiw', '2023-04-10 15:05:35', NULL, '0921483211', '122', 'Hưng Yên', 'Huyện Tiên Lữ', 'Xã Thủ Sỹ', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
-	(142, '10561665', NULL, 'Tạ Quỳnh Trang', '2023-04-10 22:12:39', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 2, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL);
+	(142, '10561665', NULL, 'Tạ Quỳnh Trang', '2023-04-10 22:12:39', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 2, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL),
+	(143, '16448154', NULL, 'Tạ Quỳnh Trang', '2023-04-11 12:32:30', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 1, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL),
+	(145, '16532825', NULL, 'Tạ Quỳnh Trang', '2023-04-11 17:56:04', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1),
+	(146, '13196626', 'LLWYX4', 'Tạ Quỳnh Trang', '2023-04-11 23:37:27', '2023-04-11 23:39:15', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 3, NULL, NULL),
+	(147, '12754327', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:00:43', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 2, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1),
+	(148, '12352373', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:04:50', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1),
+	(149, '10279520', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:08:29', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'CONFIRMED', 3, NULL, 1),
+	(150, '14507811', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:13:30', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'CONFIRMED', 3, NULL, 1);
 
 -- Dumping structure for table datn.order_details
 CREATE TABLE IF NOT EXISTS `order_details` (
@@ -352,9 +359,9 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `price` int NOT NULL,
   `status` int DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=184 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.order_details: ~118 rows (approximately)
+-- Dumping data for table datn.order_details: ~125 rows (approximately)
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_detail_id`, `quantity`, `price`, `status`) VALUES
 	(2, 1, 2, 3, 2, 839000, 1),
 	(3, 44, 1, 1, 1, 682000, 1),
@@ -473,7 +480,14 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_detail_id`
 	(180, 139, 2, 3, 1, 839000, NULL),
 	(181, 140, 2, 3, 1, 839000, NULL),
 	(182, 141, 1, 1, 1, 500000, NULL),
-	(183, 142, 1, 1, 1, 500000, NULL);
+	(183, 142, 1, 1, 1, 500000, NULL),
+	(184, 143, 1, 1, 1, 500000, NULL),
+	(186, 145, 1, 1, 1, 500000, NULL),
+	(187, 146, 1, 1, 1, 500000, NULL),
+	(188, 147, 2, 3, 1, 839000, NULL),
+	(189, 148, 2, 4, 1, 839000, NULL),
+	(190, 149, 1, 2, 1, 500000, NULL),
+	(191, 150, 3, 5, 1, 700000, NULL);
 
 -- Dumping structure for table datn.order_history
 CREATE TABLE IF NOT EXISTS `order_history` (
@@ -598,10 +612,10 @@ CREATE TABLE IF NOT EXISTS `product_details` (
 -- Dumping data for table datn.product_details: ~33 rows (approximately)
 INSERT INTO `product_details` (`id`, `product_id`, `size_id`, `color_id`, `height_id`, `material_id`, `quantity`) VALUES
 	(1, 1, 2, 1, 3, 2, 133),
-	(2, 1, 3, 1, 4, 2, 19),
+	(2, 1, 3, 1, 4, 2, 18),
 	(3, 2, 3, 4, 4, 1, 48),
 	(4, 2, 4, 4, 4, 1, 7),
-	(5, 3, 2, 2, 4, 2, 12),
+	(5, 3, 2, 2, 4, 2, 11),
 	(6, 3, 1, 2, 5, 3, 21),
 	(8, 1, 3, 3, 4, 2, 10),
 	(11, 15, 3, 2, 5, 1, 10),
@@ -775,8 +789,8 @@ CREATE TABLE IF NOT EXISTS `vouchers` (
 
 -- Dumping data for table datn.vouchers: ~7 rows (approximately)
 INSERT INTO `vouchers` (`id`, `name`, `code_voucher`, `min_money`, `begin_date`, `end_date`, `promotion`, `quantity`, `create_by`, `update_by`, `status`, `is_delete`) VALUES
-	(1, '10k cho đơn tối thiểu 500k', 'F3CFY01CA', 500000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 10000, 9, 1, 3, 'AVAILABLE', 0),
-	(2, '20k cho đơn tối thiểu 500k', 'YFGI0S012', 500000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 20000, 19, 1, 3, 'AVAILABLE', 0),
+	(1, '10k cho đơn tối thiểu 500k', 'F3CFY01CA', 500000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 10000, 8, 1, 3, 'AVAILABLE', 0),
+	(2, '20k cho đơn tối thiểu 500k', 'YFGI0S012', 500000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 20000, 18, 1, 3, 'AVAILABLE', 0),
 	(3, '100k cho đơn tối thiểu 900k', 'Q26DHHZVR', 900000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 100000, 20, 1, 3, 'AVAILABLE', 0),
 	(4, '20k cho đơn tối thiểu 500k', 'K7KPQKG18', 500000, '2022-12-21 00:00:00', '2022-12-31 00:00:00', 200000, 20, 1, 3, 'UNAVAILABLE', 0),
 	(5, '20k  cho đơn tối thiểu 500k', 'G5YI3A528', 500000, '2022-12-22 00:00:00', '2022-12-31 00:00:00', 20000, 20, 1, 3, 'UNAVAILABLE', 0),

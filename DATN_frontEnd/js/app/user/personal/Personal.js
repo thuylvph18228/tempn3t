@@ -214,7 +214,7 @@ function personal ($scope, $http){
                     }
                     order.totalMoney = totalMoney;
                     order.showEdit = false;
-                    if(order.status == "WAIT_FOR_CONFIRMATION" ){ //|| order.status == "CONFIRMED"
+                    if(order.status == "WAIT_FOR_CONFIRMATION" && order.paymentType == "OFFLINE"){ //|| order.status == "CONFIRMED"
                         order.showEdit = true;
                     }
                     if(order.voucher){

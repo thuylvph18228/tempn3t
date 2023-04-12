@@ -160,7 +160,7 @@
                                                     <th>Ngày nhận</th>
                                                     <th>Địa chỉ</th>
                                                     <th>Tổng tiền</th>
-                                                    <!-- <th>Phương thức thanh toán</th> -->
+                                                    <th>Thanh toán</th>
                                                     <th>Trạng thái</th>
                                                     <th>Thao tác</th>
                                                 </tr>
@@ -183,7 +183,9 @@
                                                     <td>
                                                         {{order.totalMoney | currency : "" : 0}}₫
                                                     </td>
-                                                    <!-- <td>{{order.paymentType == "VNPAY" ? "VNPay" : "Khi nhận hàng"}}</td> -->
+                                                    <td ng-if="order.paymentType == 'VNPAY' ">Đã thanh toán online</td>
+                                                    <td ng-if="order.paymentType != 'VNPAY' ">Thanh toán khi nhận hàng
+                                                    </td>
                                                     <td>
                                                         {{order.status == "WAIT_FOR_CONFIRMATION" ? "Đang chờ xác nhận" : order.status == "CONFIRMED" ? "Đang xử lý" : 
                                                             order.status == "UNCONFIRM" ? "Không được xác nhận" : order.status == "DELIVERING" ? "Đang giao hàng": 
@@ -300,11 +302,7 @@
                                                                                 <p ng-if="order.voucher">
                                                                                     <small>Đã sử dụng voucher {{order.voucher.code}}, giá trị: <b>{{order.voucher.promotion | currency : "" : 0}}₫</b></small>
                                                                                 </p>
-                                                                            <!-- </div>
-                                                                            <div class="d-flex justify-content-center"> -->
-                                                                                <p>Phí ship <img src="/images/img/logoGHN.jpg" alt="" style="max-width: 50px; max-height: 50px;">  <b>{{ totalShipFee | currency: "" : 0 }}₫</b></p>
-                                                                            <!-- </div>
-                                                                            <div class="d-flex justify-content-end"> -->
+                                                                                <p>Phí ship <img src="/images/img/logoGHN.jpg" alt="" style="max-width: 50px; max-height: 50px;">  <b>{{ totalShipFee | currency: "" : 0 }}₫</b></p>                                                                            
                                                                                 <h5>Tổng tiền đơn hàng: <b>{{ order.totalMoney | currency : "" : 0 }}₫</b></h5>
                                                                             </div>
                                                                         </div>

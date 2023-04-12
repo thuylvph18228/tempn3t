@@ -105,7 +105,13 @@ public class OrderServiceImpl implements OrderService {
             } else if(orderDto.getOrderType().equalsIgnoreCase("ONLINE")) {
                 orderDto.setStatus(OrderStatus.CONFIRMED.toString());
             }  else if(orderDto.getOrderType().equalsIgnoreCase("ONLINE_WEB")){
-                orderDto.setStatus(OrderStatus.WAIT_FOR_CONFIRMATION.toString());
+                if (orderDto.getPaymentType().equalsIgnoreCase("VNPAY")){
+                    System.out.println("vnpay");
+                    orderDto.setStatus(OrderStatus.CONFIRMED.toString());
+                }else {
+                    System.out.println("offline");
+                    orderDto.setStatus(OrderStatus.WAIT_FOR_CONFIRMATION.toString());
+                }
             }
         }
         if(orderDto.getStatus().equalsIgnoreCase("DELIVERED")){

@@ -253,7 +253,6 @@ function cart($scope, $http, $routeParams) {
     $scope.chooseDistrict = function (DistrictID) {
         $scope.listWard = [];
         $scope.orderNew.ward = '',
-
             $scope.district = $scope.listDistrict.filter(item => {
                 return item.DistrictID == DistrictID;
             })[0];
