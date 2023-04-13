@@ -14,5 +14,6 @@ public interface VoucherService {
     VoucherDto save(VoucherDto voucherDto);
     Voucher delete(int id);
     List<Voucher> getByMoney(int money);
+    List<Voucher> getByStatus();
 
 }

@@ -158,6 +158,49 @@
       </div>
     </div>
   </div>
+  <div class="mt-2 row d-flex justify-content-center" style="height: 120px; overflow-x: scroll">
+    <div class="d-flex flex-row">
+      <div style="display: flex; border: 2px solid black; background-color: #4083ff; border-radius: 16px; cursor: pointer; transition: all .2s;"
+    class="col-3 mt-2 me-4 " id="voucherActips" aria-labelledby="codeVoucher{{$index}}" ng-repeat="voucher in listVoucher" >
+        <div style="flex: 1; border-right: 2px dashed black; min-width: 20px; max-width: 20px; position: relative;">
+            <div style="content: '';
+            display: block;
+            width: 1.3rem;
+            height: 1.3rem;
+            background: white;
+            top: 50%;
+            left: -2px;
+            transform: translate(-50%, -50%) rotate(45deg);
+            position: absolute;
+            border-top: 2px solid #000;
+            border-right: 2px solid #000;
+            border-bottom: 2px solid #0000;
+            border-left: 2px solid #0000;
+            border-radius: 100em;"></div>
+        </div>
+        <div style="flex: 2;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        position: relative; color: white;">
+            <b>{{ voucher.code }} </b><i>(Còn {{voucher.quantity}})</i><br>
+            <span>Giảm {{ voucher.promotion | currency : "" : 0 }}₫ cho đơn hàng từ {{ voucher.minMoney | currency : "" : 0}}₫</span>
+            <span style="content: '';
+            display: block;
+            width: 1.3rem;
+            height: 1.3rem;
+            background: white;
+            top: 50%;
+            right: -2px;
+            transform: translate(48.5%, -50%) rotate(45deg);
+            position: absolute;
+            border-top: 2px solid #0000;
+            border-right: 2px solid #0000;
+            border-bottom: 2px solid black;
+            border-left: 2px solid black;
+            border-radius: 100em;"></span>
+        </div>
+    </div>
+    </div>
+</div>
 </div>
 <div class="row">
   <div ng-repeat="product in productst" class="col-3 p-2 mt-5" style="text-align: center; max-height: auto; min-height: auto;">

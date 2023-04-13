@@ -45,10 +45,12 @@ function home ($scope, $http, $rootScope) {
         path: ''
     }
 
+    $scope.listVoucher = [];
     $scope.products = [];
     $scope.productst = [];
     $scope.isLoading = false;
 
+    const apiVoucher = 'http://localhost:8080/n3t/voucher';
     const apiProduct = "http://localhost:8080/n3t/product";
     const apiProductt = "http://localhost:8080/n3t/product/get-page";
     const apiUser = "http://localhost:8080/n3t/user";
@@ -85,6 +87,16 @@ function home ($scope, $http, $rootScope) {
     }
     $scope.getAllProductt(apiProduct, $scope.productt);
 
+    $http.get(apiVoucher+"/byStatus")
+        .then(function (response) {
+            $scope.listVoucher = response.data;
+            console.log($scope.listVoucher);
+            $scope.isLoading = false;
+        })
+        .catch(function (error) {
+            console.log(error);
+            $scope.isLoading = false;
+        });
 
     
     $scope.addToCard = (product, index) => {

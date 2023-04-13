@@ -450,7 +450,15 @@ function cart($scope, $http, $routeParams) {
     const apiVoucher = 'http://localhost:8080/n3t/voucher';
     $scope.codeVoucher = "";
     $scope.changeVoucher = (code) => {
-        $scope.codeVoucher = code;
+        // lấy danh sách tất cả các phần tử có lớp CSS "actips"
+        var voucherActipsList = document.getElementsByClassName("actips");
+        
+        // xoá lớp CSS "actips" khỏi tất cả các phần tử trên danh sách
+        for (var i = 0; i < voucherActipsList.length; i++) {
+        voucherActipsList[i].classList.remove("actips");
+        }
+
+        $scope.codeVoucher = code;    
         if ($scope.codeVoucher.length == 9) {
             $http.get(apiVoucher + "/" + $scope.codeVoucher)
                 .then(res => {
@@ -469,6 +477,11 @@ function cart($scope, $http, $routeParams) {
                             $scope.orderNew.voucher = $scope.voucher;
                             $scope.orderNew.totalMoney -= $scope.voucher.promotion;
                         }
+                        var voucherActips = document.getElementById(code);
+                        voucherActips.classList.add("actips");
+                        $scope.isSuccess = true;
+                        $scope.message = "Đã được sử dụng voucher!!!"
+                        alertShow();
                     }
                 })
                 .catch(err => {

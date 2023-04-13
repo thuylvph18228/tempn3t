@@ -66,4 +66,9 @@ public class VoucherServiceImpl implements VoucherService {
     public List<Voucher> getByMoney(int money) {
         return this.voucherRepo.findByMinMoney(money);
     }
+
+    @Override
+    public List<Voucher> getByStatus() {
+        return this.voucherRepo.findByStatus();
+    }
 }
