@@ -80,8 +80,8 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-                <h5>TRẺ EM</h5>
+              <a class="nav-link" href="#introduce">
+                <h5>GIỚI THIỆU</h5>
               </a>
             </li>
           </ul>
@@ -573,6 +573,10 @@
       $routeProvider
         .when("/home", {
           templateUrl: "/views/user/Home.html",
+          controller: "home"
+        })
+        .when("/introduce", {
+          templateUrl: "/views/user/introduce.html",
           controller: "home"
         })
         .when("/doanhThu", {
