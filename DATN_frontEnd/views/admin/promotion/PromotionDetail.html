@@ -52,89 +52,120 @@
         background-color: #8FBE00;
     }
 </style>
-<div class="row">
-    <div class="col-3"> <a class="nav-link text-danger text-center "><strong class="mauchu">Các sản phẩm được khuyễn mãi</strong></a></div>
-</div>
-<div class="row">
-    <hr>
-    <div class=" d-flex justify-content-end">
-        <div class="col-3"> 
-            <div class=""> 
-                <div class="search-box"> 
-                    <form class="search-form" action=""> <input class="form-control" placeholder="Search" type="text" > 
-                        <button class="btn btn-link search-btn">  
-                        </button> 
-                    </form> 
-                </div> 
-            </div> 
-        </div>
-        <!-- <div class="col-12">
-            <div class="panel panel-default  ">
-                <div class="panel-heading card ">
-                    <div class="card-header text-nowrap btn btn-outline-success">
-                        <h5 data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample"
-                            class="fas fa-list ">Danh Mục
-                        </h5>
-                    </div>
-                </div>
-                <ul class="list-group collapse" id="collapseExample">
-                </ul>
-            </div>
-        </div> -->
+<div class="container">
+    <!--alert-->
+    <div ng-include="'/views/common/Alert.html'"></div>
+    <!--end alert-->
+    <div class="row">
+        <div class="col-3"> <a class="nav-link text-danger text-center "><strong class="mauchu">Các sản phẩm được khuyễn mãi</strong></a></div>
     </div>
-    <div class="mt-1">
-        <table class="table table-bordered table-hover">
-            <thead class="table table-danger">
-                <tr>
-                    <!-- <th class="text-center ">DA</th> -->
-                    <th class="text-center">Sản Phẩm</th>
-                    <th class="text-center">Giá Sản Phẩm</th>
-                    <th class="text-center">Số Lượng</th>
-                    
-                    <th  class="text-center">Thao Tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <!-- <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style=" margin: 20px -20px 20px 20px; padding: 15px;"></td> -->
-                    <td>{{  }}</td>
-                    <td>{{  }}</td>
-                    <td>{{  }}</td>
-                    <td class="text-center">
-                        <button data-bs-toggle="modal" data-bs-target="#modal_delete_{{ student.id }}"
-                            class="btn btn-danger" ng-click="edit($index)"> xóa</button>
-                        <div class="modal fade" id="modal_delete_{{ student.id }}" tabindex="-1"
-                            aria-hidden="true">
-                            <div class="modal-dialog modal-lg">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Xóa</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                            aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Xác nhận xóa?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-bs-dismiss="modal">Đóng</button>
-                                        <button type="button" class="btn btn-danger"
-                                            ng-click="onDelete($index)" data-bs-dismiss="modal">Xóa</button>
+    <div class="row">
+        <hr>
+        <div class=" d-flex justify-content-end">
+            <div class="col-3"> 
+                <div class=""> 
+                    <div class="search-box"> 
+                        <form class="search-form" action=""> <input class="form-control" placeholder="Search" type="text" > 
+                            <button class="btn btn-link search-btn">  
+                            </button> 
+                        </form> 
+                    </div> 
+                </div> 
+            </div>
+            <!-- <div class="col-12">
+                <div class="panel panel-default  ">
+                    <div class="panel-heading card ">
+                        <div class="card-header text-nowrap btn btn-outline-success">
+                            <h5 data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                aria-expanded="false" aria-controls="collapseExample"
+                                class="fas fa-list ">Danh Mục
+                            </h5>
+                        </div>
+                    </div>
+                    <ul class="list-group collapse" id="collapseExample">
+                    </ul>
+                </div>
+            </div> -->
+        </div>
+        <div class="mt-1">
+            <table class="table table-bordered table-hover">
+                <thead class="table table-danger">
+                    <tr>
+                        <th class="text-center ">DA</th>
+                        <th class="text-center">Sản Phẩm</th>
+                        <th class="text-center">Giá Sản Phẩm</th>
+                        <th class="text-center">Số Lượng</th>
+                        
+                        <th  class="text-center">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="product in productList">
+                        <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" style=" margin: 20px -20px 20px 20px; padding: 15px;"></td>
+                        <td>{{ product.name }}</td>
+                        <td>{{product.price | currency : "" : 0}}₫</td>
+                        <td>{{ product.quantity }}</td>
+                        <td class="text-center">
+                            <button data-bs-toggle="modal" data-bs-target="#modal_delete_{{ student.id }}"
+                                class="btn btn-danger" ng-click="edit($index)"> xóa</button>
+                            <div class="modal fade" id="modal_delete_{{ student.id }}" tabindex="-1"
+                                aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Xóa</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Xác nhận xóa?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Đóng</button>
+                                            <button type="button" class="btn btn-danger"
+                                                ng-click="onDelete($index)" data-bs-dismiss="modal">Xóa</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class=" mt-4">
+            <div class="d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a class="page-link" ng-click="prev()" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <!-- <li class="page-item">
+                            <input type="number" ng-model="page.page" ng-keyup="changePage()"
+                            ng-value="page.page" class="form-control" style="text-align: center; max-width: 50px;">
+                        </li> -->
+                        <li class="page-item">
+                            <a class="page-link" ng-click="next()" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="d-flex justify-content-end" style="margin-top: -50px;">
+                <p style="background-color: rgb(228, 226, 226);">
+                    {{page.page + 1}}/{{count}}
+                </p>
+            </div>
+        </div>
     </div>
+    <div class="button">
+        <button type="submit" class="btn btn-outline-success" >Lưu</button>
+        <button class="btn btn-outline-danger" ng-click="clear()" type="">Xóa form</button>
     
+    </div>
+    <hr>
 </div>
-<div class="button">
-    <button type="submit" class="btn btn-outline-success" >Lưu</button>
-    <button class="btn btn-outline-danger" ng-click="clear()" type="">Xóa form</button>
-
-</div>
-<hr>

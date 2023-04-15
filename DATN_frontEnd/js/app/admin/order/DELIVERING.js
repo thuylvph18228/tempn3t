@@ -343,6 +343,38 @@ function DELIVERING ($scope, $http, $rootScope){
         shipFee($scope.orders[indexOrder]);
     }
 
+    /**cập nhật trạng thái đơn hàng */
+    updateStatus = (order, message, index) => {
+        $http.put(apiOrder + "/update-status", order)
+        .then( (response) => {
+            $scope.orders.splice(index, 1);
+            // console.log(response.data);
+            $scope.isLoading = false;
+            $scope.isSuccess = true;
+            $scope.message = message;
+            alertShow();
+        })
+        .catch((error) => {
+            console.log(error);
+            $scope.isSuccess = false;
+            $scope.isLoading = false;
+            $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+            alertShow();
+        })
+    }
+
+    $scope.updateStatusOrder = (order, index) => {
+        var message = "Đơn hàng đã giao thành công!"
+        order.status = "DELIVERED";
+        updateStatus(order, message, index);
+    }
+    
+    $scope.noDeliveryOrder = (order, index) => {
+        var message = "Đơn hàng đã chuyển vào không giao được!"
+        order.status = "NO_DELIVERY";
+        updateStatus(order, message, index);
+    }
+
     /**cập nhật đơn hàng */
     $scope.updateOrder = (indexOrder) => {
         $scope.isLoading = true;

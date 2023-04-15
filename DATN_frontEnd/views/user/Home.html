@@ -158,6 +158,7 @@
       </div>
     </div>
   </div>
+  <span><h4 style="color: red;">Các voucher của shop</h4></span>
   <div class="mt-2 row d-flex justify-content-center" style="height: 120px; overflow-x: scroll">
     <div class="d-flex flex-row">
       <div style="display: flex; border: 2px solid black; background-color: #4083ff; border-radius: 16px; cursor: pointer; transition: all .2s;"
@@ -203,7 +204,8 @@
 </div>
 </div>
 <div class="row">
-  <div ng-repeat="product in productst" class="col-3 p-2 mt-5" style="text-align: center; max-height: auto; min-height: auto;">
+  <span><h4 class=" mt-4" style="color: red;">Tất cả sản phẩm hiện có của shop</h4></span>
+  <div ng-repeat="product in productst" class="col-3 p-2" style="text-align: center; max-height: auto; min-height: auto;">
     <div id="card-product" class="bg-light" style="height: 100%;">
       <a href="#product-detail/{{product.id}}">
         <div class="">

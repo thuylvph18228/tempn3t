@@ -28,6 +28,7 @@
                                             <th>Khách hàng</th>
                                             <th>Địa chỉ</th>
                                             <th>Tổng tiền</th>
+                                            <th>Thanh toán</th>
                                             <th>Trạng thái</th>
                                             <th>Thao tác</th>
                                         </tr>
@@ -53,6 +54,8 @@
                                             <td>
                                                 {{order.totalMoney | currency : "" : 0}}₫
                                             </td>
+                                            <td ng-if="order.paymentType == 'VNPAY' ">Đã thanh toán online</td>
+                                            <td ng-if="order.paymentType != 'VNPAY' ">Thanh toán khi nhận hàng</td>
                                             <td>
                                                 Đang chờ xác nhận
                                             </td>
@@ -146,7 +149,8 @@
                                                             <!--table model-->
                                                             <div class="modal-body row">
                                                                 <div class="col-11">
-                                                                    Mã đơn hàng: <b> {{order.code}} </b> - Ngày tạo: <b>{{order.createdDate | date:"dd/MM/yyyy ' - ' h:mma"}}</b> <br>
+                                                                    Mã đơn hàng: <b> {{order.code}} </b> - Ngày tạo: <b>{{order.createdDate | date:"dd/MM/yyyy ' - ' h:mma"}}</b> - 
+                                                                    {{order.paymentType == "VNPAY"?"Đã thanh toán online" : "Thanh toán khi nhận hàng"}}<br>
                                                                     
                                                                     <div class="row mt-3">
                                                                         <div class="col-1">

@@ -537,6 +537,7 @@
   <script src="/js/app/admin/order/CANCELLED.js"></script>
   <script src="/js/app/admin/order/OrderWaitConfirm.js"></script>
   <script src="/js/app/admin/promotion/Promotion.js"></script>
+  <script src="/js/app/admin/promotion/PromotionDetail.js"></script>
   <script src="/js/app/admin/statictic/SaleReport_chart.js"></script>
   <script src="/js/app/admin/account/user.js"></script>
   <script src="/js/app/common/ChangePassword.js"></script>
@@ -683,7 +684,7 @@
         })
         .when("/promotion-detail", {
           templateUrl: "views/admin/promotion/PromotionDetail.html",
-          // controller: ""
+          controller: "promotionDetail"
         })
         .when("/admin/user-personal", {
           templateUrl: "views/user/personal/Personal.html",
@@ -750,6 +751,7 @@
     app.controller("CANCELLED", CANCELLED);
     app.controller("returnOrder", returnOrder);
     app.controller("promotion", promotion);
+    app.controller("promotionDetail", promotionDetail);
     app.controller("user", user);
     app.controller("adminSaleReport", adminSaleReport);
     app.controller("changePassword", changePassword);
