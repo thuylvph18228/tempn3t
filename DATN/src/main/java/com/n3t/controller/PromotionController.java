@@ -1,6 +1,7 @@
 package com.n3t.controller;
 
 import com.n3t.DTO.PromotionDto;
+import com.n3t.DTO.VoucherDto;
 import com.n3t.service.PromotionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,13 @@ public class PromotionController {
     @PostMapping
     private ResponseEntity save(@RequestBody PromotionDto promotionDto){
         return ResponseEntity.ok(this.promotionService.save(promotionDto));
+    }
+
+    @PutMapping()
+    private void delete (@RequestBody PromotionDto promotionDto) {
+        promotionDto.setIsDelete(1);
+        promotionDto.setStatus("UNAVAILABLE");
+        this.save(promotionDto);
     }
 
 }

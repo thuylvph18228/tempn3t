@@ -30,6 +30,7 @@
                                             <th>Khách hàng</th>
                                             <th>Địa chỉ</th>
                                             <th>Tổng tiền</th>
+                                            <th>Thanh toán</th>
                                             <th>Trạng thái</th>
                                             <th>Thao tác</th>
                                         </tr>
@@ -53,6 +54,8 @@
                                             <td>
                                                 {{order.totalMoney | currency : "" : 0}}₫
                                             </td>
+                                            <td ng-if="order.paymentType == 'VNPAY' ">Đã thanh toán online</td>
+                                            <td ng-if="order.paymentType != 'VNPAY' ">Thanh toán khi nhận hàng</td>
                                             <td>
                                                 Đơn đang giao hàng
                                             </td>
@@ -60,34 +63,60 @@
                                                 <div class="row">
                                                     <div class="col-1 pt-1">
                                                         <h5>
-                                                            <a href="#" ng-click="showOrder($index)" data-bs-toggle="modal" data-bs-target="#update{{$index}}" style="color: rgb(29, 201, 231);">
+                                                            <a href="#" data-bs-toggle="modal" data-bs-target="#confirm{{$index}}" style="color: rgb(29, 201, 231);">
+                                                                <i class="bi bi-check2-square"></i>
+                                                            </a>
+                                                        </h5>
+                                                    </div>
+                                                    <div class="col-1 pt-1">
+                                                        <h5>
+                                                            <a href="#" ng-click="showOrder($index)" data-bs-toggle="modal" data-bs-target="#update{{$index}}" style="color: rgb(198, 198, 18);">
                                                                 <i class="bi bi-pencil-square"></i>
                                                             </a>
                                                         </h5>
                                                     </div>
                                                     <div class="col-1 pt-1">
                                                         <h5>
-                                                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#deleteOrder{{order.id}}" class="ps-3" style="color: red ;">
+                                                            <a href="#" type="button" data-bs-toggle="modal" data-bs-target="#deleteOrder{{$index}}" style="color: red ;">
                                                                 <i class="bi bi-x-circle"></i>
                                                             </a>
                                                             <!-- modal xóa đơn hàng -->
-                                                            <div class="modal fade" id="deleteOrder{{order.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal fade" id="deleteOrder{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                                 <div class="modal-dialog modal-dialog-centered">
                                                                     <div class="modal-content">
                                                                         <div class="modal-header">
                                                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                          </div>
                                                                         <div class="modal-body">
-                                                                            Xóa đơn hàng này
+                                                                            Xác nhận không giao được đơn hàng này
                                                                         </div>
                                                                         <div class="modal-footer">
                                                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" ng-click="deleteOrder(order.id, $index)">Xóa</button>
+                                                                            <button type="button" data-bs-dismiss="modal" class="btn btn-danger" ng-click="noDeliveryOrder(order, $index)">Xác nhận</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </h5>
+                                                    </div>
+                                                </div>
+
+                                                <!-- modal confirm -->
+                                                <div class="modal fade" id="confirm{{$index}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <!-- <h5 class="modal-title" id="exampleModalLabel">Xác đơn hàng</h5> -->
+                                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                Xác nhận đơn hàng này ?
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" ng-click="updateStatusOrder(order, $index)">Xác nhận</button>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -107,7 +136,7 @@
                                                             <div class="modal-body row">
                                                                 <div class="">
                                                                     <div class="col-11">
-                                                                        Mã đơn hàng: <b> {{order.code}} </b> - Ngày tạo: <b>{{order.createdDate}}</b> <br>
+                                                                        Mã đơn hàng: <b> {{order.code}} </b> - Ngày tạo: <b>{{order.createdDate}}</b> - {{order.paymentType == "VNPAY"?"Đã thanh toán online" : "Thanh toán khi nhận hàng"}}<br>
                                                                         
                                                                         <div class="row mt-3">
                                                                             <div class="col-1">

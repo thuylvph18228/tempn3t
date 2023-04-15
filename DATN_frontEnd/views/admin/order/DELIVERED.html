@@ -30,6 +30,7 @@
                                             <th>Khách hàng</th>
                                             <th>Địa chỉ</th>
                                             <th>Tổng tiền</th>
+                                            <th>Thanh toán</th>
                                             <th>Trạng thái</th>
                                             <th>Thao tác</th>
                                         </tr>
@@ -53,6 +54,8 @@
                                             <td>
                                                 {{order.totalMoney | currency : "" : 0}}₫
                                             </td>
+                                            <td ng-if="order.paymentType == 'VNPAY' ">Đã thanh toán online</td>
+                                            <td ng-if="order.paymentType != 'VNPAY' ">Thanh toán khi nhận hàng</td>
                                             <td>
                                                 Đơn đã giao thành công
                                             </td>
@@ -90,7 +93,8 @@
                                                             <!--table model-->
                                                             <div class="modal-body">
                                                                 <div>
-                                                                    Mã đơn hàng: <b> {{order.code}} </b> - Ngày tạo: <b>{{order.createdDate | date:"dd/MM/yyyy ' - ' h:mma"}}</b> <br>
+                                                                    Mã đơn hàng: <b> {{order.code}} </b> - Ngày tạo: <b>{{order.createdDate | date:"dd/MM/yyyy ' - ' h:mma"}}</b> 
+                                                                    - {{order.paymentType == "VNPAY"?"Đã thanh toán online" : "Thanh toán khi nhận hàng"}}<br>
                                                                     Tên khách hàng: <b>{{order.customerName}} - SĐT: {{order.phone}}</b> <br>
                                                                     Địa chỉ: <b>{{order.address}} {{order.ward ? " ," : ""}} {{order.ward}} {{order.district ? " ," : ""}} {{order.district}} {{order.province ? " ," : ""}} {{order.province}}</b> <br>
                                                                 </div>

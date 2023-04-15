@@ -44,6 +44,8 @@ public class Promotion implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    private Integer isDelete;
+
     @ManyToOne
     @JoinColumn(name = "create_by", referencedColumnName = "id")
     private User createBy;
@@ -65,6 +67,7 @@ public class Promotion implements Serializable {
                 .beginDate(promotionDto.getBeginDate())
                 .endDate(promotionDto.getEndDate())
                 .status(Status.valueOf(promotionDto.getStatus()))
+                .isDelete(promotionDto.getIsDelete() != null ? promotionDto.getIsDelete() : null)
                 .updateBy(promotionDto.getId() != null ? CurrentUser.getCurrentUser().get() : null)
                 .build();
         if(promotionDto.getId() != null){
@@ -84,6 +87,7 @@ public class Promotion implements Serializable {
                 .beginDate(this.beginDate)
                 .endDate(this.endDate)
                 .status(this.status.toString())
+                .isDelete(this.isDelete)
                 .createBy(this.createBy)
                 .updateBy(this.updateBy)
                 .promotionCategories(this.promotionCategories)

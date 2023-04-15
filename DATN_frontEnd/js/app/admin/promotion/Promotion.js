@@ -24,6 +24,7 @@ function promotion ($scope, $http, $rootScope) {
         beginDate: new Date(),
         endDate: new Date(),
         status: 'AVAILABLE',
+        isDelete: 0
     }
 
     $scope.voucher = {
@@ -74,10 +75,13 @@ function promotion ($scope, $http, $rootScope) {
     $scope.savePromotion = () => {
         $http.post(apiPromotion, $scope.promotion)
             .then(res => {
-                $scope.promotions.push(angular.copy(res.data));
-                $scope.isLoading = false;
+                if(!$scope.promotion.id){
+                    $scope.promotions.push(angular.copy(res.data));
+                }
+                $scope.isLoading = true;
                 $scope.isSuccess = true;
-                $scope.message = "Tạo khuyến mãi thành công";
+                $scope.message = "Lưu khuyến mãi thành công";
+                $scope.clearPromotion();
             })
             .catch(err => {
                 console.log(err);
@@ -87,6 +91,70 @@ function promotion ($scope, $http, $rootScope) {
             })
         alertShow();
     }
+
+    $scope.clearPromotion = () => {
+        $scope.promotion = {
+            id: '',
+            name: '',
+            quantity: '',
+            beginDate: new Date(),
+            endDate: new Date(),
+            status: 'AVAILABLE',
+            isDelete: 0
+        }
+    }
+
+    $scope.checkEndDatePromotion = (promotion) => {
+        if(new Date(promotion.endDate).getTime() <= new Date().getTime()){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $scope.updateStatusPromotion = (promotion, index) => {
+        if(promotion.status == 'AVAILABLE'){
+            promotion.status = "UNAVAILABLE";
+        } else {
+            promotion.status = "AVAILABLE"
+        }
+
+        $http.post(apiPromotion, promotion)
+            .then(res => {
+                $scope.isLoading = true;
+                $scope.isSuccess = true;
+                $scope.message = "Đã cập nhật trạng thái";
+            })
+            .catch(err => {
+                console.log(err);
+                $scope.isLoading = false;
+                $scope.isSuccess = false;
+                $scope.message = "Có lỗi xảy ra khi cập nhật promotion";
+            })
+        alertShow();
+    }
+
+    $scope.editPromotion = (index) => {
+        $scope.promotion = angular.copy($scope.promotions[index]);
+        $scope.promotion.beginDate = new Date(angular.copy($scope.promotions[index]).beginDate);
+        $scope.promotion.endDate = new Date(angular.copy($scope.promotions[index]).endDate);
+    }
+
+    $scope.deletePromotion = (index, promotion) => {
+        $http.put(apiPromotion, promotion)
+            .then(res => {
+                $scope.promotions.splice(index, 1);
+                $scope.isSuccess = true;
+                $scope.message = "Đã xóa promotion"
+            })
+            .catch(err => {
+                console.log(err);
+                $scope.isSuccess = false;
+                $scope.message = "Có lỗi xảy ra !!!"
+            })
+        alertShow();
+    }
+
 
     //get all voucher
     $http.get(apiVoucher)
@@ -137,7 +205,7 @@ function promotion ($scope, $http, $rootScope) {
         }
     }
 
-    $scope.checkEndDate = ( voucher) => {
+    $scope.checkEndDate = (voucher) => {
         if(new Date(voucher.endDate).getTime() <= new Date().getTime()){
             return true;
         } else {

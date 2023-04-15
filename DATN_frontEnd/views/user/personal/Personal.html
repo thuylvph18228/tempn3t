@@ -184,8 +184,7 @@
                                                         {{order.totalMoney | currency : "" : 0}}₫
                                                     </td>
                                                     <td ng-if="order.paymentType == 'VNPAY' ">Đã thanh toán online</td>
-                                                    <td ng-if="order.paymentType != 'VNPAY' ">Thanh toán khi nhận hàng
-                                                    </td>
+                                                    <td ng-if="order.paymentType != 'VNPAY' ">Thanh toán khi nhận hàng</td>
                                                     <td>
                                                         {{order.status == "WAIT_FOR_CONFIRMATION" ? "Đang chờ xác nhận" : order.status == "CONFIRMED" ? "Đang xử lý" : 
                                                             order.status == "UNCONFIRM" ? "Không được xác nhận" : order.status == "DELIVERING" ? "Đang giao hàng": 

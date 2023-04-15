@@ -31,6 +31,8 @@ public class PromotionDto {
 
     private String status;
 
+    private Integer isDelete;
+
     private User createBy;
 
     private User updateBy;

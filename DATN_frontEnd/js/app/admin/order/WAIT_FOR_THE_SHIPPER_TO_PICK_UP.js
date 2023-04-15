@@ -318,6 +318,32 @@ function WAIT_FOR_THE_SHIPPER_TO_PICK_UP ($scope, $http, $rootScope){
         shipFee($scope.orders[indexOrder]);
     }
 
+    /**cập nhật trạng thái đơn hàng */
+    updateStatus = (order, message, index) => {
+        $http.put(apiOrder + "/update-status", order)
+        .then( (response) => {
+            $scope.orders.splice(index, 1);
+            // console.log(response.data);
+            $scope.isLoading = false;
+            $scope.isSuccess = true;
+            $scope.message = message;
+            alertShow();
+        })
+        .catch((error) => {
+            console.log(error);
+            $scope.isSuccess = false;
+            $scope.isLoading = false;
+            $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+            alertShow();
+        })
+    }
+
+    $scope.updateStatusOrder = (order, index) => {
+        var message = "Đơn hàng đang được giao!"
+        order.status = "DELIVERING";
+        updateStatus(order, message, index);
+    }
+
     /**cập nhật đơn hàng */
     $scope.updateOrder = (indexOrder) => {
         $scope.isLoading = true;
