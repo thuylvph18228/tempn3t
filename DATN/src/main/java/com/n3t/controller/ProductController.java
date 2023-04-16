@@ -29,6 +29,10 @@ public class ProductController {
     public ResponseEntity getAll(){
         return ResponseEntity.ok(this.productRepo.findAll().stream().map(Product :: toDto).collect(Collectors.toList()));
     }
+    @GetMapping("/hotproduct")
+    public ResponseEntity hotproduct(){
+        return ResponseEntity.ok(this.productRepo.findBySellingTop5().stream().map(Product :: toDto).collect(Collectors.toList()));
+    }
     @GetMapping("/index")
     public ResponseEntity<?> getAllProduct(
             @RequestParam(name = "page", defaultValue = "0") int page,

@@ -46,6 +46,7 @@ function home ($scope, $http, $rootScope) {
     }
 
     $scope.listVoucher = [];
+    $scope.topProduct = [];
     $scope.products = [];
     $scope.productst = [];
     $scope.isLoading = false;
@@ -83,9 +84,22 @@ function home ($scope, $http, $rootScope) {
                 console.log(error);
                 $scope.isLoading = false;
             });
-            
+
     }
     $scope.getAllProductt(apiProduct, $scope.productt);
+
+
+    $http.get(apiProduct+"/hotproduct")
+    .then(function (response) {
+        $scope.topProduct = response.data;
+        console.log($scope.topProduct);
+        $scope.isLoading = true;
+    })
+    .catch(function (error) {
+        console.log(error);
+        $scope.isLoading = false;
+    });
+
 
     $http.get(apiVoucher+"/byStatus")
         .then(function (response) {

@@ -34,6 +34,12 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> topProduct() {
+
+        return this.productRepository.findBySellingTop5();
+    }
+
+    @Override
     @Transactional
     public List<ProductDto> getAllByCreatedDate(String date) {
         return null;

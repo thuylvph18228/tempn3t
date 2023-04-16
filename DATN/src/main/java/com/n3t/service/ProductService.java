@@ -9,6 +9,7 @@ import java.util.List;
 public interface ProductService {
 
     Page<Product> getAll(Integer page, Integer size);
+    List<Product> topProduct();
     List<ProductDto> getAllByCreatedDate(String date);
     List<ProductDto> getAllByUserId(int userId);
     List<ProductDto> getAllByStatus(String status);

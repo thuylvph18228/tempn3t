@@ -65,4 +65,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Object> getProduct();
 
     Product findByName(String name);
+    @Query(value = "select * from products join order_details on products.id = order_details.product_id\n" +
+            "                       join order_history oh on order_details.id = oh.order_detail_id\n" +
+            "                        group by products.id order by sum(order_details.product_id) desc LIMIT 8"  ,nativeQuery = true)
+    List<Product> findBySellingTop5( );
 }
