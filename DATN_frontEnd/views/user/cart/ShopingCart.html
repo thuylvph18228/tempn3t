@@ -1,283 +1,322 @@
-<div class="container mt-3 mb-3">
+<div class="mt-3 mb-3">
     <div style="height: 30px;"></div>
     <!--alert-->
     <div class="mt-5" ng-include="'/views/common/Alert.html'"></div>
     <!--end alert-->
     <div style="height: 10px;"></div>
-    <h4 class="mt-5" style="text-align: center;">Giỏ hàng của bạn</h4> 
+    <h4 class="mt-5" style="text-align: center;">Giỏ hàng của bạn</h4>
     <hr>
-    <div class="mt-5 mb-5">
+    <div class="row mt-5 mb-5">
         <div ng-if="!products.length || !products" class="d-flex justify-content-center">
             <h5>Chưa có sản phẩm nào</h5>
         </div>
-        <table class="table table-bordered mt-3" ng-if="products.length > 0">
-            <thead style="text-align: center;">
-                <th>
-                    <!-- <input type="checkbox" class="form-check-input"> -->
-                </th>
-                <th>Ảnh sản phẩm</th>
-                <th>Tên sản phẩm</th>
-                <th>Màu - Size</th>
-                <th>Giá</th>
-                <th>Số lượng</th>
-                <th>Thành tiền</th>
-                <th></th>
-            </thead>
-            <tbody style="text-align: center;">
-                <tr ng-repeat="product in products">
-                    <td>
-                        <input type="checkbox" name="product" ng-model="product.selected" ng-checked="product.selected" class="form-check-input" ng-click="check($index)">
-                    </td>
-                    <td>
-                        <!-- <img src="{{orderDetail.product.avatar ? orderDetail.product.avatar : '/images/img/default.jfif' }}" class="fimg-fluid" style="height: 100px; width: 100px;"> -->
-                        <img ng-src="{{product.avatar}}" class="fimg-fluid" style="height: 100px; width: 100px;">
-                    </td>
-                    <td style="text-align: center;">{{product.name}}</td>
-                    <td>Màu: {{product.productDetail.color.name}} - Size: {{product.productDetail.size.name}}</td>
-                    <td>{{product.price | currency : '' : 0}}₫</td>
-                    <td>
-                        <div>
-                            <input type="number" ng-model="product.quantity" min="1" oninput="this.value = Math.abs(this.value)" ng-change="changeQuantity($parent.$index, $index)"
-                                style="border:1px solid #ddd; width: 60px; text-align: center;">
-                            <div ng-show="showErrQuantity{{$index}}">
-                                <small class="text-danger">Số lượng không được vượt quá số lượng trong kho, trong kho: {{quantityInventory}}</small>
+        <div class="row">
+            <div class="col-6 table-responsive">
+                <h5 class="text-center">SẢN PHẨM</h5>
+                <div class="mt-3" ng-if="products.length > 0">
+                    <!-- <div style="text-align: center;"> -->
+                    <div ng-repeat="product in products" class="row border mt-3" style="border-radius: 20px;">
+                        <div class="row col-4">
+                            <div class="col-2 position-relative">
+                                <input type="checkbox" name="product" ng-model="product.selected"
+                                    ng-checked="product.selected" class="form-check-input position-absolute top-50 start-50 translate-middle" ng-click="check($index)">
+                            </div>
+                            <div class="col-10 pt-3">
+                                <!-- <img src="{{orderDetail.product.avatar ? orderDetail.product.avatar : '/images/img/default.jfif' }}" class="fimg-fluid" style="height: 100px; width: 100px;"> -->
+                                <img ng-src="{{product.avatar}}" class="fimg-fluid"
+                                    style="height: 90%; width: 100%;">
                             </div>
                         </div>
-                    </td>
-                    <td>{{product.quantity * product.price | currency : '' : 0}}₫</td>
-                    <td>
-                        <h4>
-                            <a href="" style="color: red ;" ng-click="delete($index)"><i class="bi bi-trash"></i></a>
-                        </h4>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot ng-if="orderNew.orderDetails.length > 0 ">
-                <tr>
-                    <td colspan="6">
-                        <h4 style=" margin-right: 15px; text-align: end; ">TỔNG TIỀN:</h4>
-                    </td>
-                    <td colspan="2">
-                        <h3 style="color: red; text-align: center;">{{orderNew.totalMoney | currency : '' : 0}}₫</h3>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-        <div ng-if=" orderNew.orderDetails.length > 0 " class="btn mt-3 d-flex justify-content-end">
-            <button style="width: 200px;" type="button" class="btn btn-dark " data-bs-toggle="modal" data-bs-target="#buyproduct" ng-click="buy()" ng-disabled="error">
-                THANH TOÁN
-            </button>
-        </div>
-        <div class="modal fade" id="buyproduct" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <form name="formUserOder">
-                <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Xem lại đơn hàng</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <div class="container col-7 pt-3">
+                            <p class="fw-bold text-start">{{product.name}}</p>
+                            <div class="row">
+                                <p class="col-6 text-start">
+                                    {{product.productDetail.color.name}}/{{product.productDetail.size.name}}</p>
+                                <p class="col-6">{{product.price | currency : '' : 0}}₫</p>
+                                <p>
+                            </div>
+                            <div class="row">
+                                <p class="col-6 text-start">Số lượng</p>
+                                <input class="col-6" type="number" ng-model="product.quantity" min="1"
+                                    oninput="this.value = Math.abs(this.value)"
+                                    ng-change="changeQuantity($parent.$index, $index)"
+                                    style="border:1px solid #ddd; width: 60px; height: 35px; text-align: center;">
+                                <div ng-show="showErrQuantity{{$index}}">
+                                    <small class="text-danger">Số lượng không được vượt quá số lượng trong kho,
+                                        trong
+                                        kho: {{quantityInventory}}</small>
+                                </div>
+                                
+                            </div>
+                            </p>
+                            <div class="row">
+                                <p class="col-6"> Tổng tiền:</p>
+                                <p class=" col-6 fw-bold text-danger text-start">{{product.quantity * product.price | currency
+                                    : '' :
+                                    0}}₫</p>
+                            </div>
+                            
                         </div>
-                        <div class="modal-body">
-                            <b>Thông tin cá nhân</b>
-                            <div class="row mt-2">
-                                <div class="col-1">
+                        <div class="col-1 position-relative">
+                            <p>
+                            <h4>
+                                <a href="" style="color: red ;" ng-click="delete($index)"><i
+                                        class="bi bi-trash position-absolute top-50 start-50 translate-middle"></i></a>
+                            </h4>
+                            </p>
+                        </div>
 
+                    </div>
+                    <!-- </div> -->
+                    <!-- <tfoot ng-if="orderNew.orderDetails.length > 0 ">
+                        <tr>
+                            <td colspan="6">
+                                <h4 style=" margin-right: 15px; text-align: end; ">TỔNG TIỀN:</h4>
+                            </td>
+                            <td colspan="2">
+                                <h3 style="color: red; text-align: center;">{{orderNew.totalMoney | currency : '' : 0}}₫
+                                </h3>
+                            </td>
+                        </tr>
+                    </tfoot> -->
+                </div>
+            </div>
+            <div class="col-6 ps-3">
+                <h5 class="text-center">HÓA ĐƠN</h5>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <input type="text" class="form-control" ng-model="orderNew.customerName" id="fullname"
+                                    placeholder="Họ và tên*" required>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control" ng-model="orderNew.phone" id="phone"
+                                    placeholder="Số điện thoại*" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <input class="form-control dropdown-toggle" type="text" id="orderProvince{{$index}}"
+                                    ng-model="orderNew.province" ng-focus="showProvince()"
+                                    placeholder="Tỉnh, thành phố...*" data-bs-toggle="dropdown" aria-expanded="false"
+                                    autocomplete="off" name="province" ng-required="true" ng-trim="true" minlength="5"
+                                    maxlength="255" />
+                                <div class="dropdown-menu" aria-labelledby="orderProvince{{$index}}"
+                                    style="width: 486px; height: 200px; overflow-y: scroll">
+                                    <p id="province" ng-repeat="province in listProvince"
+                                        ng-click="chooseProvince(province.ProvinceID)">
+                                        <a href=""
+                                            style="text-decoration: none; color: black;">{{province.ProvinceName}}</a>
+                                    </p>
                                 </div>
-                                <div class="col-11">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <input type="text" class="form-control" ng-model="orderNew.customerName" id="fullname" placeholder="Họ và tên*" required>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" class="form-control" ng-model="orderNew.phone" id="phone" placeholder="Số điện thoại*" required>
-                                        </div>
-                                    </div>
+                                <div class="text-danger"
+                                    ng-hide="formUserOder.province.$untouched || formUserOder.province.$valid">
+                                    <small class="text-danger" ng-show="formUserOder.province.$error.required"> Không
+                                        được để trống thông tin!</small>
+                                    <small class="text-danger" ng-show="formUserOder.province.$error.minlength">Hãy nhập
+                                        thông tin hợp lệ!</small>
+                                    <small class="text-danger" ng-show="formUserOder.province.$error.maxlength">Không
+                                        được nhập quá 255 ký tự!</small>
                                 </div>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-1">
-                                    <label for=""><h2><i class="bi bi-geo-alt"></i></h2></label>
+                            <div class="col-6">
+                                <input class="form-control dropdown-toggle" type="text" id="orderDistrict{{$index}}"
+                                    ng-model="orderNew.district" ng-focus="showDistrict()" placeholder="Quận/Huyện...*"
+                                    data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off" name="district"
+                                    ng-required="true" ng-trim="true" minlength="5" maxlength="255" />
+                                <div ng-show="orderNew.province || $scope.provinceId" class="dropdown-menu"
+                                    aria-labelledby="orderDistrict{{$index}}"
+                                    style="width: 486px; height: 200px; overflow-y: scroll">
+                                    <p id="district" ng-repeat="district in listDistrict"
+                                        ng-click="chooseDistrict(district.DistrictID)">
+                                        <a href=""
+                                            style="text-decoration: none; color: black;">{{district.DistrictName}}</a>
+                                    </p>
                                 </div>
-                                <div class="col-11">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <input class="form-control dropdown-toggle" type="text" id="orderProvince{{$index}}" ng-model="orderNew.province" 
-                                                ng-focus="showProvince()" placeholder="Tỉnh, thành phố...*"  data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off"
-                                                name="province" ng-required="true" ng-trim="true" minlength="5" maxlength="255"/>
-                                            <div class="dropdown-menu" aria-labelledby="orderProvince{{$index}}" style="width: 486px; height: 200px; overflow-y: scroll">
-                                                <p id="province" ng-repeat="province in listProvince" ng-click="chooseProvince(province.ProvinceID)">
-                                                    <a  href="" style="text-decoration: none; color: black;">{{province.ProvinceName}}</a>
-                                                </p>
-                                            </div>
-                                            <div class="text-danger" ng-hide="formUserOder.province.$untouched || formUserOder.province.$valid">
-                                                <small class="text-danger" ng-show="formUserOder.province.$error.required"> Không được để trống thông tin!</small>
-                                                <small class="text-danger" ng-show="formUserOder.province.$error.minlength">Hãy nhập thông tin hợp lệ!</small>
-                                                <small class="text-danger" ng-show="formUserOder.province.$error.maxlength">Không được nhập quá 255 ký tự!</small>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <input class="form-control dropdown-toggle" type="text" id="orderDistrict{{$index}}" ng-model="orderNew.district" 
-                                                ng-focus="showDistrict()" placeholder="Quận/Huyện...*"  data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off"
-                                                name="district" ng-required="true" ng-trim="true" minlength="5" maxlength="255"/>
-                                            <div ng-show="orderNew.province || $scope.provinceId" class="dropdown-menu" aria-labelledby="orderDistrict{{$index}}" style="width: 486px; height: 200px; overflow-y: scroll">
-                                                <p id="district" ng-repeat="district in listDistrict" ng-click="chooseDistrict(district.DistrictID)">
-                                                    <a href="" style="text-decoration: none; color: black;">{{district.DistrictName}}</a>
-                                                </p>
-                                            </div>
-                                            <div class="text-danger" ng-hide="formUserOder.district.$untouched || formUserOder.district.$valid">
-                                                <small class="text-danger" ng-show="formUserOder.district.$error.required"> Không được để trống thông tin!</small>
-                                                <small class="text-danger" ng-show="formUserOder.district.$error.minlength">Hãy nhập thông tin hợp lệ!</small>
-                                                <small class="text-danger" ng-show="formUserOder.district.$error.maxlength">Không được nhập quá 255 ký tự!</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row mt-2">
-                                        <div class="col-6">
-                                            <input class="form-control dropdown-toggle" type="text" id="orderWard{{$index}}" ng-model="orderNew.ward" 
-                                                ng-focus="showWard()" placeholder="Phường, xã...*"  data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off"
-                                                name="ward" ng-required="true" ng-trim="true" minlength="5" maxlength="255"/>
-                                            <div ng-show="orderNew.district || $scope.districtId" class="dropdown-menu" aria-labelledby="orderWard{{$index}}" style="width: 486px; height: 200px; overflow-y: scroll">
-                                                <p id="ward" ng-repeat="ward in listWard" ng-click="chooseWard(ward.WardCode)">
-                                                    <a  href="" style="text-decoration: none; color: black;">{{ward.WardName}}</a>
-                                                </p>
-                                            </div>  
-                                            <div class="text-danger" ng-hide="formUserOder.ward.$untouched || formUserOder.ward.$valid">
-                                                <small class="text-danger" ng-show="formUserOder.ward.$error.required"> Không được để trống thông tin!</small>
-                                                <small class="text-danger" ng-show="formUserOder.ward.$error.minlength">Hãy nhập thông tin hợp lệ!</small>
-                                                <small class="text-danger" ng-show="formUserOder.ward.$error.maxlength">Không được nhập quá 255 ký tự!</small>
-                                            </div>
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" class="form-control" ng-model="orderNew.address" placeholder="Địa chỉ chi tiết*" autocomplete="off"
-                                            name="address" ng-required="true" ng-trim="true" minlength="5" maxlength="255">
-                                            <div class="text-danger" ng-hide="formUserOder.address.$untouched || formUserOder.address.$valid">
-                                                <small class="text-danger" ng-show="formUserOder.address.$error.required"> Không được để trống thông tin!</small>
-                                                <small class="text-danger" ng-show="formUserOder.address.$error.minlength">Hãy nhập thông tin hợp lệ!</small>
-                                                <small class="text-danger" ng-show="formUserOder.address.$error.maxlength">Không được nhập quá 255 ký tự!</small>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 row">
-                                        <div class="col-6">
-                                            <input class="form-control dropdown-toggle" type="text" id="codeVoucher{{$index}}" ng-model="codeVoucher"
-                                                   ng-focus="showProvince()" placeholder="Mã giảm giá"  data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off"
-                                                   name="voucher" ng-required="true" ng-trim="true" minlength="5" maxlength="255"/>                                            
-                                        </div>
-                                        <div class="col-6">
-                                            <input type="text" class="form-control" ng-nodel="orderNew.description" placeholder="Ghi chú đơn hàng" autocomplete="off">
-                                        </div>
-                                    </div>
-                                    <div class="mt-2 row d-flex justify-content-center" style="height: 100px; overflow-y: scroll">
-                                        <div style="display: flex; border: 2px solid black; border-radius: 16px; cursor: pointer; transition: all .2s;"
-                                        class="col-3 mt-2 me-3 " aria-labelledby="codeVoucher{{$index}}" ng-repeat="voucher in listVoucher" id="{{ voucher.code }}" ng-click="changeVoucher(voucher.code)">
-                                            <div style="flex: 1; border-right: 2px dashed black; min-width: 20px; max-width: 20px; position: relative;">
-                                                <div style="content: '';
-                                                display: block;
-                                                width: 1.3rem;
-                                                height: 1.3rem;
-                                                background: white;
-                                                top: 50%;
-                                                left: -14px;
-                                                transform: translate(-50%, -50%) rotate(45deg);
-                                                position: absolute;
-                                                border-top: 2px solid #000;
-                                                border-right: 2px solid #000;
-                                                border-bottom: 2px solid #0000;
-                                                border-left: 2px solid #0000;
-                                                border-radius: 100em;"></div>
-                                            </div>
-                                            <div style="flex: 2;
-                                            padding: 0.5rem 1rem 0.5rem 1rem;
-                                            position: relative;">
-                                                <b>{{ voucher.code }} </b><i>(Còn {{voucher.quantity}})</i><br>
-                                                <span>Giảm {{ voucher.promotion | currency : "" : 0 }}₫ cho đơn hàng từ {{ voucher.minMoney | currency : "" : 0}}₫</span>
-                                                <span style="content: '';
-                                                display: block;
-                                                width: 1.3rem;
-                                                height: 1.3rem;
-                                                background: white;
-                                                top: 50%;
-                                                right: -14px;
-                                                transform: translate(48.5%, -50%) rotate(45deg);
-                                                position: absolute;
-                                                border-top: 2px solid #0000;
-                                                border-right: 2px solid #0000;
-                                                border-bottom: 2px solid black;
-                                                border-left: 2px solid black;
-                                                border-radius: 100em;"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div>
-                                <b>Thông tin sản phẩm</b>
-                                <table class="table table-bordered table-responsive">
-                                    <thead>
-                                        <tr class="text-center align-center">
-                                            <td></td>
-                                            <td>Tên sản phẩm</td>
-                                            <td>Chi tiết</td>
-                                            <td>Giá</td>
-                                            <td>Số lượng</td>
-                                            <td>Tổng tiền</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="orderDetail in orderNew.orderDetails" class="text-center align-center">
-                                            <td class="d-flex justify-content-center">
-                                                <img ng-src="{{orderDetail.product.avatar}}" class="img-fluid" style="width: 100px; height: 100px;">
-                                            </td>
-                                            <td>{{orderDetail.product.name}}</td>
-                                            <td>Màu: {{orderDetail.productDetail.color.name}} - Size: {{orderDetail.productDetail.size.name}}</td>
-                                            <td>{{orderDetail.product.price | currency : '' : 0}}₫</td>
-                                            <td>
-                                                <!-- <input type="number" class="col-2" ng-change="changeQuantityOrder()" ng-model="orderDetail.quantity"> -->
-                                                {{orderDetail.quantity}}
-                                            </td>
-                                            <td>{{orderDetail.quantity * orderDetail.product.price | currency : '' : 0}}₫</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <p>Hình thức thanh toán</p>
-                                        <div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" ng-model="orderNew.paymentType" name="paymentType" id="OFFLINE" value="OFFLINE">
-                                                <label class="form-check-label" for="OFFLINE">Thanh toán khi nhận hàng</label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" ng-model="orderNew.paymentType" name="paymentType" id="VNPAY" value="VNPAY">
-                                                <label class="form-check-label" for="VNPAY">Thanh toán VNPAY</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-6">
-                                        <p>Phí ship <img src="/images/img/logoGHN.jpg" alt="" style="max-width: 50px; max-height: 50px;">  <b>{{ totalShipFee | currency: "" : 0 }}₫</b></p>
-                                    </div>
+                                <div class="text-danger"
+                                    ng-hide="formUserOder.district.$untouched || formUserOder.district.$valid">
+                                    <small class="text-danger" ng-show="formUserOder.district.$error.required"> Không
+                                        được để trống thông tin!</small>
+                                    <small class="text-danger" ng-show="formUserOder.district.$error.minlength">Hãy nhập
+                                        thông tin hợp lệ!</small>
+                                    <small class="text-danger" ng-show="formUserOder.district.$error.maxlength">Không
+                                        được nhập quá 255 ký tự!</small>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <div class="d-flex justify-content-between" style="width: 100%;">
-                                <div> 
-                                    Tổng tiền đơn hàng: <b>{{orderNew.totalMoney | currency: "" : 0}}₫</b>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <input class="form-control dropdown-toggle" type="text" id="orderWard{{$index}}"
+                                    ng-model="orderNew.ward" ng-focus="showWard()" placeholder="Phường, xã...*"
+                                    data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off" name="ward"
+                                    ng-required="true" ng-trim="true" minlength="5" maxlength="255" />
+                                <div ng-show="orderNew.district || $scope.districtId" class="dropdown-menu"
+                                    aria-labelledby="orderWard{{$index}}"
+                                    style="width: 486px; height: 200px; overflow-y: scroll">
+                                    <p id="ward" ng-repeat="ward in listWard" ng-click="chooseWard(ward.WardCode)">
+                                        <a href="" style="text-decoration: none; color: black;">{{ward.WardName}}</a>
+                                    </p>
                                 </div>
-                                <div></div>
-                                <div>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
-                                    <button type="button" ng-show="orderNew.paymentType != 'OFFLINE' " class="btn btn-primary" ng-click="pay()"
-                                    >Thanh toán</button>
-                                    <button type="button" ng-show="orderNew.paymentType == 'OFFLINE' " data-bs-dismiss="modal" ng-click="createOrder()" class="btn btn-primary"
-                                    ng-disabled="formUserOder.province.$invalid ||  formUserOder.district.$invalid || formUserOder.ward.$invalid || formUserOder.address.$invalid"
-                                    >Đặt hàng</button>
+                                <div class="text-danger"
+                                    ng-hide="formUserOder.ward.$untouched || formUserOder.ward.$valid">
+                                    <small class="text-danger" ng-show="formUserOder.ward.$error.required"> Không được
+                                        để trống thông tin!</small>
+                                    <small class="text-danger" ng-show="formUserOder.ward.$error.minlength">Hãy nhập
+                                        thông tin hợp lệ!</small>
+                                    <small class="text-danger" ng-show="formUserOder.ward.$error.maxlength">Không được
+                                        nhập quá 255 ký tự!</small>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control" ng-model="orderNew.address"
+                                    placeholder="Địa chỉ chi tiết*" autocomplete="off" name="address" ng-required="true"
+                                    ng-trim="true" minlength="5" maxlength="255">
+                                <div class="text-danger"
+                                    ng-hide="formUserOder.address.$untouched || formUserOder.address.$valid">
+                                    <small class="text-danger" ng-show="formUserOder.address.$error.required"> Không
+                                        được để trống thông tin!</small>
+                                    <small class="text-danger" ng-show="formUserOder.address.$error.minlength">Hãy nhập
+                                        thông tin hợp lệ!</small>
+                                    <small class="text-danger" ng-show="formUserOder.address.$error.maxlength">Không
+                                        được nhập quá 255 ký tự!</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-2 row">
+                            <div class="col-6">
+                                <input class="form-control dropdown-toggle" type="text" id="codeVoucher{{$index}}"
+                                    ng-model="codeVoucher" ng-focus="showProvince()" placeholder="Mã giảm giá"
+                                    data-bs-toggle="dropdown" aria-expanded="false" autocomplete="off" name="voucher"
+                                    ng-required="true" ng-trim="true" minlength="5" maxlength="255" />
+                            </div>
+                            <div class="col-6">
+                                <input type="text" class="form-control" ng-nodel="orderNew.description"
+                                    placeholder="Ghi chú đơn hàng" autocomplete="off">
+                            </div>
+                        </div>
+                        <div class="mt-2 row d-flex justify-content-center" style="height: 100px; overflow-y: scroll">
+                            <div style="display: flex; border: 2px solid black; border-radius: 16px; cursor: pointer; transition: all .2s;"
+                                class="col-3 mt-2 me-3 " aria-labelledby="codeVoucher{{$index}}"
+                                ng-repeat="voucher in listVoucher" id="{{ voucher.code }}"
+                                ng-click="changeVoucher(voucher.code)">
+                                <div
+                                    style="flex: 1; border-right: 2px dashed black; min-width: 20px; max-width: 20px; position: relative;">
+                                    <div style="content: '';
+                                    display: block;
+                                    width: 1.3rem;
+                                    height: 1.3rem;
+                                    background: white;
+                                    top: 50%;
+                                    left: -14px;
+                                    transform: translate(-50%, -50%) rotate(45deg);
+                                    position: absolute;
+                                    border-top: 2px solid #000;
+                                    border-right: 2px solid #000;
+                                    border-bottom: 2px solid #0000;
+                                    border-left: 2px solid #0000;
+                                    border-radius: 100em;"></div>
+                                </div>
+                                <div style="flex: 2;
+                                padding: 0.5rem 1rem 0.5rem 1rem;
+                                position: relative;">
+                                    <b>{{ voucher.code }} </b><i>(Còn {{voucher.quantity}})</i><br>
+                                    <span>Giảm {{ voucher.promotion | currency : "" : 0 }}₫ cho đơn hàng từ {{
+                                        voucher.minMoney | currency : "" : 0}}₫</span>
+                                    <span style="content: '';
+                                    display: block;
+                                    width: 1.3rem;
+                                    height: 1.3rem;
+                                    background: white;
+                                    top: 50%;
+                                    right: -14px;
+                                    transform: translate(48.5%, -50%) rotate(45deg);
+                                    position: absolute;
+                                    border-top: 2px solid #0000;
+                                    border-right: 2px solid #0000;
+                                    border-bottom: 2px solid black;
+                                    border-left: 2px solid black;
+                                    border-radius: 100em;"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+                <hr>
+                <!-- <div>
+                    <b>Thông tin sản phẩm</b>
+                    <table class="table table-bordered table-responsive">
+                        <thead>
+                            <tr class="text-center align-center">
+                                <td></td>
+                                <td>Tên sản phẩm</td>
+                                <td>Chi tiết</td>
+                                <td>Giá</td>
+                                <td>Số lượng</td>
+                                <td>Tổng tiền</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="orderDetail in orderNew.orderDetails" class="text-center align-center">
+                                <td class="d-flex justify-content-center">
+                                    <img ng-src="{{orderDetail.product.avatar}}" class="img-fluid" style="width: 100px; height: 100px;">
+                                </td>
+                                <td>{{orderDetail.product.name}}</td>
+                                <td>Màu: {{orderDetail.productDetail.color.name}} - Size: {{orderDetail.productDetail.size.name}}</td>
+                                <td>{{orderDetail.product.price | currency : '' : 0}}₫</td>
+                                <td>
+                                    {{orderDetail.quantity}}
+                                </td>
+                                <td>{{orderDetail.quantity * orderDetail.product.price | currency : '' : 0}}₫</td>
+                            </tr>
+                        </tbody>
+                    </table></div> -->
+                <div class="row">
+                    <div class="col-6">
+                        <p>Hình thức thanh toán</p>
+                        <div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" ng-model="orderNew.paymentType"
+                                    name="paymentType" id="OFFLINE" value="OFFLINE">
+                                <label class="form-check-label" for="OFFLINE">Thanh toán khi nhận hàng</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" ng-model="orderNew.paymentType"
+                                    name="paymentType" id="VNPAY" value="VNPAY">
+                                <label class="form-check-label" for="VNPAY">Thanh toán VNPAY</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <p>Phí ship <img src="/images/img/logoGHN.jpg" alt=""
+                                style="max-width: 50px; max-height: 50px;"> <b>{{ totalShipFee | currency: "" : 0
+                                }}₫</b></p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mt-5">
+                <div class=" text-end" style="width: 100%;">
+                    <div style="font-size: xx-large;">
+                        Tổng tiền đơn hàng: <b style="color: red;">{{orderNew.totalMoney | currency: "" : 0}}₫</b>
+                    </div>
+                    <div></div>
+                    <div class="mt-5">
+                        <button type="button" ng-show="orderNew.paymentType != 'OFFLINE' " class="btn btn-primary"
+                            ng-click="pay()">Thanh toán</button>
+                        <button type="button" ng-show="orderNew.paymentType == 'OFFLINE' " data-bs-dismiss="modal"
+                            ng-click="createOrder()" class="btn btn-primary"
+                            ng-disabled="formUserOder.province.$invalid ||  formUserOder.district.$invalid || formUserOder.ward.$invalid || formUserOder.address.$invalid">Đặt
+                            hàng</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+</div>
 </div>
