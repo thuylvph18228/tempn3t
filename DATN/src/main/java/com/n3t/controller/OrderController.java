@@ -131,6 +131,15 @@ public class OrderController {
         return ResponseEntity.ok(this.orderService.findByTime(beginDate, endDate));
     }
 
+    @GetMapping("/findByTimeAndStatus")
+    public ResponseEntity findOrderByTimeAndStatus(
+            @RequestParam(name = "beginDate") String beginDate,
+            @RequestParam(name = "endDate") String endDate,
+            @RequestParam(name = "status") String status
+    ){
+        return ResponseEntity.ok(this.orderService.findByTimeAndStatus(beginDate, endDate, status));
+    }
+
     /**
      * get all order return by action
      * @param status

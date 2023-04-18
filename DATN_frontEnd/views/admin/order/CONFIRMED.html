@@ -4,9 +4,45 @@
     <!--end alert-->
     <div class="row mt-3">
         <h2 class="text-center mb-3"> <b> Đơn hàng đang chờ xử lý </b></h2>
-        <div class="d-flex justify-content-end">
+        <div class="row mt-4">
             <div class="col-12 col-sm-6 col-xl-3">
-                <input class="form-control" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                <input class="form-control" type="search" placeholder="Tìm kiếm đơn hàng..." ng-focus="searchOrder()" ng-model="orderCode" ng-keyup="searchOrder()" >
+            </div>
+            <div class="col-12 col-sm-6 col-xl-5">
+                <form class="d-flex">
+                    <input class="form-control me-2" type="date" ng-model="beginDate" ng-change="changeBeginDate()">
+                    <div class="mt-2"><i class="bi bi-arrow-right"></i></div>
+                    <input class="form-control me-2" type="date" ng-model="endDate" ng-change="changeEndDate()">
+                </form>
+            </div>
+            <div class="col-12 col-sm-6 col-xl-2">
+                <div type="button" class="col-12 btn dropdown-toggle border" data-bs-toggle="dropdown" aria-expanded="false">
+                    Giá tiền
+                </div>
+                <ul class="dropdown-menu" style="max-width: 244px;">
+                    <li>
+                        <select class="form-select dropdown-item filter" ng-change="findOrderByTotalMoney()" ng-model="findByTotal">
+                            <option selected disabled>Gợi ý</option>
+                            <option value="1">0 - 1,000,000</option>
+                            <option value="2">1,000,000 - 3,000,000</option>
+                            <option value="3">3,000,000 - 5,000,000</option>
+                        </select>    
+                    </li>
+                    <li>
+                        <b class="ps-3">Tùy chỉnh</b>
+                        <div class="mt-2">
+                            <div class="mt-2 ps-3 pe-3">
+                                <input type="number" class="form-control" placeholder="Từ" ng-model="findByTotalBegin" ng-change="findOrderByTotalMoney()">
+                            </div>
+                            <div class="mt-2 ps-3 pe-3">
+                                <input type="number" class="form-control" placeholder="Đến" ng-model="findByTotalEnd" ng-change="findOrderByTotalMoney()">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>            
+            <div class="col-1">
+                <button ng-click="resetOrder()" class="btn btn-primary">Reset</button>
             </div>
         </div>
     </div>
@@ -344,7 +380,7 @@
                                                                             <small>Đã sử dụng voucher {{order.voucher.code}}, giá trị: <b>{{order.voucher.promotion | currency : "" : 0}}₫</b></small>
                                                                         </p>
                                                                         <p>Phí ship <img src="/images/img/logoGHN.jpg" alt="" style="max-width: 50px; max-height: 50px;">  <b>{{ totalShipFee | currency: "" : 0 }}₫</b></p>                                                                            
-                                                                        <h5>Tổng tiền đơn hàng: <b>{{ totalMoney | currency : "" : 0 }}₫</b></h5>
+                                                                        <h5>Tổng tiền đơn hàng: <b>{{ order.totalMoney | currency : "" : 0 }}₫</b></h5>
                                                                     </div>
                                                                 </div>
                                                             </div>

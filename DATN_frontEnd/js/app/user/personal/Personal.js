@@ -169,7 +169,8 @@ function personal ($scope, $http){
         status: '',
         orderDetails: [angular.copy($scope.orderDetail)],
         orderType: '',
-        totalMoney: 0
+        totalMoney: 0,
+        totalShip: 0
     };
 
     $scope.orders = [];
@@ -212,7 +213,7 @@ function personal ($scope, $http){
                             totalMoney += item.quantity * item.price;
                         })
                     }
-                    order.totalMoney = totalMoney;
+                    order.totalMoney = totalMoney + order.totalShip;
                     order.showEdit = false;
                     if(order.status == "WAIT_FOR_CONFIRMATION" && order.paymentType == "OFFLINE"){ //|| order.status == "CONFIRMED"
                         order.showEdit = true;
@@ -220,7 +221,7 @@ function personal ($scope, $http){
                     if(order.voucher){
                         totalMoney -= order.voucher.promotion;
                     }
-                    order.totalMoney = totalMoney;
+                    order.totalMoney = totalMoney + order.totalShip;
                     if(genDayRental(order.updateDate) > 10){
                         order.isReturn = false;
                     } else {

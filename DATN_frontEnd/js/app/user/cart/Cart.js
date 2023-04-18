@@ -44,7 +44,7 @@ function cart($scope, $http, $routeParams) {
         product: $scope.product,
         productDetail: $scope.productDetail,
         quantity: 1,
-        price: ''
+        price: ''        
     }
 
     $scope.orderDetails = [];
@@ -80,7 +80,8 @@ function cart($scope, $http, $routeParams) {
         orderDetails: angular.copy($scope.orderDetails),
         orderType: 'ONLINE_WEB',
         totalMoney: totalMoney,
-        isPay: ''
+        isPay: '',
+        totalShip: 0
     };
 
     $scope.image = {
@@ -324,7 +325,8 @@ function cart($scope, $http, $routeParams) {
                         $scope.orderNew.totalMoney -= $scope.totalShipFee
                     }
                     $scope.totalShipFee = response.data.data.total;
-                    $scope.orderNew.totalMoney += $scope.totalShipFee;
+                    $scope.orderNew.totalShip = response.data.data.total;
+                    $scope.orderNew.totalMoney += $scope.totalShipFee;                
                 })
                 .catch(error => {
                     console.log(error);
@@ -348,11 +350,11 @@ function cart($scope, $http, $routeParams) {
     /**nut thanh toán */
     $scope.buy = () => {
         shipFee();
-        console.log('kk', $scope.product.quantity);
     }
 
     /**tạo đơn hàng mới */
     $scope.createOrder = () => {
+        console.log($scope.orderNew);
         $http.post(apiOrder, $scope.orderNew)
             .then(function (response) {
                 $scope.isLoading = false;
@@ -504,7 +506,6 @@ function cart($scope, $http, $routeParams) {
     $http.get(apiVoucher + "/money/"+ $scope.orderNew.totalMoney)
         .then(function (response) {
             $scope.listVoucher = response.data;
-            console.log($scope.listVoucher);
             $scope.isLoading = false;
         })
         .catch(function (error) {

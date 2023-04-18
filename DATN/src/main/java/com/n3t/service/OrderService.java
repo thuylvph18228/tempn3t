@@ -37,6 +37,8 @@ public interface OrderService {
     //tìm kiếm đơn hàng theo khoảng thời gian
     List<OrderDto> findByTime(String begin, String end);
 
+    List<OrderDto> findByTimeAndStatus(String begin, String end, String status);
+
     // lọc các hóa đơn theo tổng tiền
     List<OrderDto> getBytotalMoney(String beginMoney, String endMoney);
 

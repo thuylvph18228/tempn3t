@@ -106,10 +106,8 @@ public class OrderServiceImpl implements OrderService {
                 orderDto.setStatus(OrderStatus.CONFIRMED.toString());
             }  else if(orderDto.getOrderType().equalsIgnoreCase("ONLINE_WEB")){
                 if (orderDto.getPaymentType().equalsIgnoreCase("VNPAY")){
-                    System.out.println("vnpay");
                     orderDto.setStatus(OrderStatus.CONFIRMED.toString());
                 }else {
-                    System.out.println("offline");
                     orderDto.setStatus(OrderStatus.WAIT_FOR_CONFIRMATION.toString());
                 }
             }
@@ -274,6 +272,11 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDto> findByTime(String begin, String end) {
         return this.orderRepo.findByTime(begin, end).stream().map(Order::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderDto> findByTimeAndStatus(String begin, String end, String status) {
+        return this.orderRepo.findByTimeAndStatus(begin, end, status).stream().map(Order::toDto).collect(Collectors.toList());
     }
 
     @Override

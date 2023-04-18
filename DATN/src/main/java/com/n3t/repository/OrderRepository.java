@@ -71,8 +71,13 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "where orders.status= 'DELIVERED');", nativeQuery = true)
     Long countByDaBan();
 
-    @Query(value = "SELECT * FROM orders WHERE CONVERT(created_date, date) >= CONVERT(:beginDate, date) and CONVERT(created_date, date) <= CONVERT(:endDate, date)", nativeQuery = true)
+    @Query(value = "SELECT * FROM orders WHERE CONVERT(created_date, date) >= CONVERT(:beginDate, date) " +
+            "and CONVERT(created_date, date) <= CONVERT(:endDate, date)", nativeQuery = true)
     List<Order> findByTime(String beginDate, String endDate);
+
+    @Query(value = "SELECT * FROM orders WHERE CONVERT(created_date, date) >= CONVERT(:beginDate, date) " +
+            "and CONVERT(created_date, date) <= CONVERT(:endDate, date) and status LIKE :status", nativeQuery = true)
+    List<Order> findByTimeAndStatus(String beginDate, String endDate, String status);
 
     @Query(value = "SELECT * FROM orders o\n" +
             "WHERE(\n" +

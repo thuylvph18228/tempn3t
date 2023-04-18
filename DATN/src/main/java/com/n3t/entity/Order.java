@@ -97,6 +97,9 @@ public class Order{
     @Column(name = "is_pay")
     private Integer isPay;
 
+    @Column(name = "total_ship")
+    private Integer totalShip;
+
     public static Order toEntity(OrderDto orderDto) {
         Order order = Order.builder()
                 .customerName(orderDto.getCustomerName())
@@ -111,6 +114,7 @@ public class Order{
                 .orderType(OrderType.valueOf(orderDto.getOrderType()))
                 .description(orderDto.getDescription())
                 .isPay(orderDto.getIsPay())
+                .totalShip(orderDto.getTotalShip())
                 .build();
         if(orderDto.getId() != null){
             order.setId(orderDto.getId());
@@ -160,6 +164,7 @@ public class Order{
                 .description(this.description)
                 .orderType(this.orderType.toString())
                 .isPay(this.isPay)
+                .totalShip(this.totalShip)
                 .build();
         if(this.orderDetails == null || this.orderDetails.isEmpty()){
         } else {
