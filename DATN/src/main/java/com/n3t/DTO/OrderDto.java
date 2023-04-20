@@ -57,9 +57,12 @@ public class OrderDto {
 
     private List<OrderHistoryDto> orderHistories;
 
+    private Product image;
+
     private Integer totalMoney;
 
     private Integer isPay;
 
     private Integer totalShip;
+
 }

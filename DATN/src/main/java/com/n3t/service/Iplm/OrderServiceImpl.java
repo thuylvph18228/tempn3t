@@ -150,6 +150,9 @@ public class OrderServiceImpl implements OrderService {
 
         // gửi mail khi khách hàng đặt hàng trên website
         if(orderDto.getOrderType().equalsIgnoreCase("ONLINE_WEB")){
+            if(orderDto.getVoucher() == null) {
+
+            }
             orderDto.setCode(orderDto.getCode());
             Optional<User> user = CurrentUser.getCurrentUser();
             if(user.isPresent()){
