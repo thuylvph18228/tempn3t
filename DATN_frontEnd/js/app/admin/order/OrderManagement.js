@@ -103,7 +103,7 @@ function orderManagement ($scope, $http, $rootScope, $filter){
                     if(order.voucher){
                         totalMoney -= order.voucher.promotion;
                     }
-                    order.totalMoney = totalMoney;
+                    order.totalMoney = totalMoney + order.totalShip;
 
                     if(genDayRental(order.updateDate) > 10){
                         order.isReturn = false;
@@ -869,6 +869,18 @@ function orderManagement ($scope, $http, $rootScope, $filter){
                     $scope.isLoading = false;
                     // $scope.orderSearch = response.data;
                     $scope.orders = response.data;
+                    $scope.orders.map(order => {
+                        var totalMoney = 0;
+                        if(order.orderDetails && order.orderDetails.length ){
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if(order.voucher){
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney;
+                    })
                 })
                 .catch(error => {
                     console.log(error);
@@ -891,7 +903,18 @@ function orderManagement ($scope, $http, $rootScope, $filter){
                 $scope.isLoading = false;
                 // $scope.orderSearch = response.data;
                 $scope.orders = response.data;
-                console.log(response.data);
+                $scope.orders.map(order => {
+                    var totalMoney = 0;
+                    if(order.orderDetails && order.orderDetails.length ){
+                        order.orderDetails.forEach(orderDetail => {
+                            totalMoney += orderDetail.price * orderDetail.quantity;
+                        })
+                    }
+                    if(order.voucher){
+                        totalMoney -= order.voucher.promotion;
+                    }
+                    order.totalMoney = totalMoney;
+                })
             })
             .catch(error => {
                 console.log(error);

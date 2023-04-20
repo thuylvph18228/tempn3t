@@ -60,4 +60,6 @@ public class OrderDto {
     private Integer totalMoney;
 
     private Integer isPay;
+
+    private Integer totalShip;
 }

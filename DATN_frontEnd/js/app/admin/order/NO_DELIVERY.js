@@ -1,4 +1,4 @@
-function NO_DELIVERY ($scope, $http, $rootScope){
+function NO_DELIVERY ($scope, $http, $rootScope, $filter){
     
     $rootScope.isAdmin = false;
 
@@ -97,7 +97,7 @@ function NO_DELIVERY ($scope, $http, $rootScope){
                 if(order.voucher){
                     totalMoney -= order.voucher.promotion;
                 }
-                order.totalMoney = totalMoney;
+                order.totalMoney = totalMoney + order.totalShip;
             })
         })
         .catch(function (error) {
@@ -371,4 +371,143 @@ function NO_DELIVERY ($scope, $http, $rootScope){
         console.log($scope.orderStatus);
     }
 
+    //tìm kiếm đơn hàng
+    $scope.searchOrder = () => {
+        $scope.isLoading = true;
+        if($scope.orderCode && $scope.orderCode.length > 1){
+            $http.get(apiOrder + "/search?orderCode=" + $scope.orderCode)
+                .then(response => {
+                    $scope.isLoading = false;
+                    // $scope.orderSearch = response.data;
+                    $scope.orders = response.data;
+                    $scope.orders.map(order => {
+                        var totalMoney = 0;
+                        if(order.orderDetails && order.orderDetails.length ){
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if(order.voucher){
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney;
+                    })
+                })
+                .catch(error => {
+                    console.log(error);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại"
+                    alertShow();
+                })
+        } else {
+            // console.log("a");
+            getAllOrder(0, '');
+        }
+    }
+
+    // tìm kiếm theo khoảng thời gian
+    findByTime = (beginDate, endDate) => {
+        $scope.isLoading = true;
+        $http.get(apiOrder + "/findByTimeAndStatus?beginDate=" + beginDate + "&endDate=" + endDate + "&status=NO_DELIVERY")
+            .then(response => {
+                $scope.isLoading = false;
+                // $scope.orderSearch = response.data;
+                $scope.orders = response.data;
+                $scope.orders.map(order => {
+                    var totalMoney = 0;
+                    if(order.orderDetails && order.orderDetails.length ){
+                        order.orderDetails.forEach(orderDetail => {
+                            totalMoney += orderDetail.price * orderDetail.quantity;
+                        })
+                    }
+                    if(order.voucher){
+                        totalMoney -= order.voucher.promotion;
+                    }
+                    order.totalMoney = totalMoney;
+                })
+            })
+            .catch(error => {
+                console.log(error);
+                $scope.isLoading = false;
+                $scope.isSuccess = false;
+                $scope.message = "Có lỗi xảy ra, vui lòng thử lại"
+                alertShow();
+            })
+        
+    }
+
+    // tìm kiếm theo khoảng thời gian
+    $scope.changeBeginDate = () => {
+        $scope.beginDatea = $filter('date')($scope.beginDate, 'yyyy-MM-dd');
+        if($scope.endDatea){
+            findByTime($scope.beginDatea + "", $scope.endDatea + "");
+        }
+    }
+
+    // tìm kiếm theo khoảng thời gian
+    $scope.changeEndDate = () => {
+        $scope.endDatea = $filter('date')($scope.endDate, 'yyyy-MM-dd');
+        if($scope.beginDatea){
+            findByTime($scope.beginDatea, $scope.endDatea);
+        }
+    }
+
+    $scope.findByTotal = '';
+    //tìm kiếm theo khoảng giá tổng tiền đơn hàng
+    findBytotal = (beginMoney, endMoney) => {
+        $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+            .then(res => {
+                $scope.orders = res.data;
+                $scope.orders.map(order => {
+                    var totalMoney = 0;
+                    if(order.orderDetails && order.orderDetails.length ){
+                        order.orderDetails.forEach(orderDetail => {
+                            totalMoney += orderDetail.price * orderDetail.quantity;
+                        })
+                    }
+                    if(order.voucher){
+                        totalMoney -= order.voucher.promotion;
+                    }
+                    order.totalMoney = totalMoney;
+                })
+            })
+            .catch(err => {
+                console.log(err);
+                $scope.isSuccess = false;
+                $scope.message = "Có lỗi xảy ra khi lọc đơn hàng";
+                alertShow();
+            })
+    }
+    $scope.findOrderByTotalMoney = () => {
+        if($scope.findByTotal){
+            if($scope.findByTotal == 1){
+                //tìm các đơn hàng từ 0-> 1tr
+                findBytotal(0, 1000000);
+            } else if($scope.findByTotal == 2){
+                //tìm các đơn hàng từ 1-> 3tr
+                findBytotal(1000000, 3000000);
+            }else if($scope.findByTotal == 3){
+                //tìm các đơn hàng từ 3-> 5tr
+                findBytotal(3000000, 5000000);
+            }
+        } 
+        if($scope.findByTotalBegin && $scope.findByTotalEnd){
+            findBytotal($scope.findByTotalBegin, $scope.findByTotalEnd);
+        }
+    }
+
+    $scope.resetOrder = () => {
+        $scope.beginDate = null;
+        $scope.endDate = null;
+        $scope.findByTotalBegin = $scope.findByTotalEnd = '';
+        $scope.findByTotal = '';
+        getAllOrder(0, "");
+    }
+
+    $('select:not(.filter)').each(function () {
+        $(this).select2({
+            dropdownParent: $(this).parent()
+        });
+    });
 }

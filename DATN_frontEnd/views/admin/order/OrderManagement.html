@@ -6,20 +6,6 @@
     <div class="row mt-4">
         <div class="col-12 col-sm-6 col-xl-3">
             <input class="form-control" type="search" placeholder="Tìm kiếm đơn hàng..." ng-focus="searchOrder()" ng-model="orderCode" ng-keyup="searchOrder()" >
-            <!-- <input class="form-control dropdown-toggle" type="search" placeholder="Tìm kiếm đơn hàng..." aria-label="Search" 
-                id="searchOrder" ng-focus="searchOrder()" ng-model="orderCode" ng-keyup="searchOrder()" data-bs-toggle="dropdown" aria-expanded="false"> -->
-            <!-- <div class="dropdown-menu" aria-labelledby="searchOrder" style="width: 379px; height: 200px; overflow-y: scroll">
-                <p ng-repeat="order in orderSearch" ng-click="chooseOrder(order, $index)">
-                    <a href="" style="text-decoration: none; color: black;">
-                        Mã đơn hàng: <b>{{order.code}}</b> <br>
-                        Khách hàng: <b>{{order.customerName}}</b> - SĐT: <b>{{order.phone}}</b> <br>
-                        Sản phẩm: 
-                        <a ng-repeat="orderDetail in order.orderDetails" style="text-decoration: none; color: black;">
-                            {{orderDetail.product.name}} - size: {{orderDetail.productDetail.size.name}} - màu: {{orderDetail.productDetail.color.name}}
-                        </a>
-                    </a>
-                </p>
-            </div> -->
         </div>
         <div class="col-12 col-sm-6 col-xl-3">
             <form class="d-flex">

@@ -77,6 +77,10 @@ public class User implements Serializable {
     @JsonIgnore
     private List<Order> orders;
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Address> addresses;
+
     @OneToMany(mappedBy = "updateBy")
     @JsonIgnore
     private List<Order> orderList;
