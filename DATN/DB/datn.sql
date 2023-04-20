@@ -19,6 +19,29 @@
 CREATE DATABASE IF NOT EXISTS `datn` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `datn`;
 
+-- Dumping structure for table datn.address
+CREATE TABLE IF NOT EXISTS `address` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) DEFAULT NULL,
+  `province` varchar(255) DEFAULT NULL,
+  `district` varchar(255) DEFAULT NULL,
+  `ward` varchar(255) DEFAULT NULL,
+  `province_id` varchar(255) DEFAULT NULL,
+  `ward_code` varchar(255) DEFAULT NULL,
+  `district_id` varchar(255) DEFAULT NULL,
+  `default_address` int DEFAULT '0',
+  `user_id` int DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `phone` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Dumping data for table datn.address: ~3 rows (approximately)
+INSERT INTO `address` (`id`, `address`, `province`, `district`, `ward`, `province_id`, `ward_code`, `district_id`, `default_address`, `user_id`, `name`, `phone`) VALUES
+	(1, '123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '201', '907557', '3440', 1, 3, 'Trang db', '0923708222'),
+	(2, 'Khu phố 3, thôn 3', 'Thanh Hoá', 'Thành phố Thanh Hóa', 'Xã Quảng Cát', '234', '280130', '1616', 0, 3, 'Cụt', '0397827373'),
+	(6, 'số 22', 'Điện Biên', 'Huyện Mường Ảng', 'Xã Ngối Cáy', '265', '620909', '2170', 0, 3, 'Ta Quynh Trang', '0705925361');
+
 -- Dumping structure for table datn.brands
 CREATE TABLE IF NOT EXISTS `brands` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -254,100 +277,107 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `create_by` int DEFAULT NULL,
   `update_by` int DEFAULT NULL,
   `is_pay` int DEFAULT '0',
+  `total_ship` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `code` (`code`),
   KEY `code_ghn` (`code_ghn`),
   KEY `phone` (`phone`)
-) ENGINE=InnoDB AUTO_INCREMENT=151 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.orders: ~83 rows (approximately)
-INSERT INTO `orders` (`id`, `code`, `code_ghn`, `customer_name`, `created_date`, `update_date`, `phone`, `address`, `province`, `district`, `ward`, `description`, `order_type`, `payment_type`, `voucher_id`, `status`, `create_by`, `update_by`, `is_pay`) VALUES
-	(1, 'abc', NULL, 'Trần Minh Ng', '2022-10-05 19:06:51', '2022-10-21 17:30:18', '0961932630', 'Số 1 ', 'Hà nội', 'Từ Liêm', 'Mỹ Đình', NULL, 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(2, 'aaa', NULL, 'Trần Minh Ng', '2022-10-05 19:08:21', '2022-10-20 16:37:31', '0961932630', 'Số 2', 'Hà Nội', 'Từ Liêm', 'Mỹ Đình', NULL, 'OFFLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(41, '1234567', NULL, 'Trần Minh Ng', '2022-10-12 21:17:33', '2022-10-20 17:22:54', '0961932630', 'số 1', 'Thành phố Hà Nội', 'Quận Ba Đình', 'Phường Phúc Xá', NULL, 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(42, '12345678', NULL, 'Trần Minh Ng', '2022-10-12 21:19:03', '2022-10-21 16:48:47', '0961932630', 'số 1', 'Thành phố Hà Nội', 'Quận Ba Đình', 'Phường Phúc Xá', NULL, 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(43, '1235434', NULL, 'Trần Minh Ng', '2022-10-12 21:48:58', '2022-10-21 21:03:34', '0961932630', 'Số 1', 'Thành phố Hà Nội', 'Quận Long Biên', 'Phường Giang Biên', NULL, 'ONLINE', 'ONLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, 0),
-	(44, '105865', NULL, 'Trần Minh Ng', '2022-10-13 11:29:25', '2022-10-20 16:48:06', '0961932630', 'Số 1', 'Thành phố Hà Nội', 'Quận Tây Hồ', 'Phường Xuân La', NULL, 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 1, NULL, 0),
-	(46, '100000001', NULL, 'Trần Minh Ng', '2022-10-13 14:28:28', '2022-10-13 15:05:13', '0961932630', 'Số 2', 'Thành phố Hà Nội', 'Quận Hai Bà Trưng', 'Phường Bạch Đằng', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CANCELLED', 1, NULL, 0),
-	(48, '13369231', NULL, 'Trần Minh Ng', '2022-10-13 14:31:58', '2022-10-20 17:19:22', '0961932630', 'Số 1', 'Tỉnh Điện Biên', 'Huyện Điện Biên', 'Xã Sam Mứn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(49, '13791216', NULL, 'Trần Minh Ng', '2022-10-13 16:20:02', '2022-10-20 16:34:34', '0961932630', 'Số 3', 'Thành phố Hà Nội', 'Quận Hoàn Kiếm', 'Phường Đồng Xuân', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 1, NULL, 0),
-	(50, '12251366', NULL, 'Trần Minh Ng', '2022-10-17 22:21:09', '2022-11-30 22:53:38', '0961932630', 'Số 2', 'Tỉnh Hà Giang', 'Huyện Yên Minh', 'Xã Phú Lũng', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(51, '10964079', NULL, 'Trần Minh Ng', '2022-10-17 22:29:41', '2022-10-17 22:45:19', '0961932630', 'Số 3', 'Tỉnh Cao Bằng', 'Huyện Bảo Lâm', 'Xã Lý Bôn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(54, '11865681', '', 'Trần Minh Ng', '2022-10-19 10:15:08', '2022-10-19 11:25:24', '0961932630', 'Số 123', 'Hà Nội', 'Quận Cầu Giấy', 'Phường Dịch Vọng Hậu', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(55, '16837828', 'LLGBET', 'Trần Minh Ng', '2022-10-19 11:08:06', '2022-10-21 21:31:43', '0961930630', 'Số 12', 'Hà Nội', 'Quận Đống Đa', 'Phường Hàng Bột', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, 0),
-	(56, '18546794', NULL, 'Trần Minh Ng', '2022-10-19 11:45:06', '2022-10-20 17:16:41', '0961932630', 'Số 12', 'Hà Nội', 'Quận Tây Hồ', 'Phường Yên Phụ', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 1, NULL, 0),
-	(57, '14411613', NULL, 'Trần Minh Ng', '2022-10-19 15:47:36', NULL, '0961932630', 'Số 1234', 'Hà Nội', 'Quận Bắc Từ Liêm', 'Phường Xuân Đỉnh', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(58, '16922928', NULL, 'Trần Minh Ng', '2022-10-19 15:55:38', NULL, '0961932630', 'Số 123', 'Hà Nội', 'Quận Hai Bà Trưng', 'Phường Bạch Mai', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(59, '16681783', NULL, 'Trần Minh Ng', '2022-10-20 23:31:07', NULL, '0961932630', 'Số 123', 'Hà Nội', 'Quận Hoàn Kiếm', 'Phường Tràng Tiền', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(60, '19374338', 'LLGBEW', 'Trần Minh Ng', '2022-10-21 16:46:32', '2022-10-21 21:13:50', '0961932630', 'Số 123', 'Hà Nội', 'Quận Thanh Xuân', 'Phường Thanh Xuân Nam', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, 0),
-	(61, '17610674', NULL, 'Trần Minh Ng', '2022-10-22 20:45:06', '2022-10-28 14:31:58', '0598578484', '6655', 'Hưng Yên', 'Huyện Phù Cừ', 'Xã Tống Phan', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', 1, 1, 0),
-	(62, '19302808', NULL, 'Trần Minh Ng', '2022-10-22 20:49:36', NULL, '09765443333', 'ffr', 'Điện Biên', 'Huyện Tuần Giáo', 'Xã Quài Tở', '', 'ONLINE', 'ONLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(63, '12676417', NULL, 'Trần Minh Ng', '2022-10-22 20:52:16', NULL, '097666666666', 'rrrrtr', 'Hòa Bình', 'Huyện Lạc Sơn', 'Xã Xuất Hóa', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0),
-	(64, '12563911', NULL, 'Trần Minh Ng', '2022-10-22 21:02:38', '2022-10-28 14:30:56', '0598578484', 'hhttttt', 'Lào Cai', 'Huyện Mường Khương', 'Xã Thanh Bình', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 1, 1, 0),
-	(65, '10538605', NULL, 'Trần Minh Ng', '2022-10-28 11:50:13', '2022-10-28 14:53:39', '04939333887', 'so1', 'Phú Thọ', 'Huyện Thanh Ba', 'Xã Quảng Yên', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, 1, 0),
-	(69, '16469505', NULL, 'Trần Minh Ng', '2022-10-31 14:55:14', '2022-11-23 23:30:35', '0961932630', 'số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', NULL, NULL, 0),
-	(70, '18166507', NULL, 'Trần Minh Ng', '2022-10-31 15:46:35', '2022-10-31 23:16:37', '0961932630', 'Số 1', 'Hà Nội', 'Quận Tây Hồ', 'Phường Tứ Liên', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, 1, 0),
-	(73, '18600119', 'LLGHWR', 'Trần Minh Ng', '2022-11-01 14:17:06', '2022-11-01 14:18:05', '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 3, 1, 0),
-	(74, '11809232', NULL, 'Trần Minh Ng', '2022-11-02 13:24:17', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0),
-	(75, '14098326', NULL, 'Trần Minh Ng', '2022-11-02 13:30:14', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0),
-	(77, '11710250', NULL, 'Trần Minh Ng', '2022-11-02 13:57:58', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0),
-	(79, '11311402', NULL, 'Trần Minh Ng', '2022-11-16 22:21:29', NULL, '0961932630', 'số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0),
-	(80, '14113035', NULL, 'Trần Minh Ng', '2022-11-17 21:17:42', NULL, '0961932630', 'số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0),
-	(81, '11859170', NULL, 'Trần Minh Ng', '2022-11-18 15:25:16', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0),
-	(82, '11226978', NULL, 'Trần Minh Ng', '2022-11-21 20:29:03', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Xuân Phương', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0),
-	(83, '11566030', NULL, 'Trần Minh Ng', '2022-11-21 20:56:34', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0),
-	(84, '16451862', NULL, 'Trần Minh Ng', '2022-11-21 20:59:48', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0),
-	(86, '13471154', NULL, 'Trần Minh Ng', '2022-11-21 22:09:29', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0),
-	(87, '15187611', NULL, 'Trần Minh Ng', '2022-11-21 22:15:18', '2023-03-26 18:52:03', '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'UNCONFIRM', NULL, NULL, 0),
-	(88, '15396251', NULL, 'Trần Minh Ng', '2022-11-23 09:48:54', '2022-12-21 08:02:52', '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', NULL, NULL, 0),
-	(89, '14678583', 'LLUL3U', 'Trần Minh Ng', '2022-11-23 09:52:53', '2022-11-23 23:39:59', '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0),
-	(90, '14250674', NULL, 'Trần Minh Ng', '2022-11-24 23:13:03', '2022-11-30 22:55:42', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', NULL, NULL, 0),
-	(91, '12940658', NULL, 'Trần Minh Ng', '2022-11-24 23:27:58', '2022-11-30 22:54:56', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', NULL, NULL, 0),
-	(93, '17557900', 'LLUGDH', 'Trần Minh Ng', '2022-11-29 21:23:25', '2022-11-29 21:27:09', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 3, NULL, 0),
-	(94, '16936840', NULL, 'Trần Minh Ng', '2022-11-29 22:05:54', '2022-11-29 22:50:35', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE', 'OFFLINE', NULL, 'DELIVERING', 1, NULL, 0),
-	(95, '18734039', NULL, 'Trần Minh Ng', '2022-11-29 22:22:40', NULL, '0961932630', '', '', '', '', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 0),
-	(96, '19809544', NULL, 'Trần Minh Ng', '2022-11-29 23:18:43', '2022-11-29 23:20:43', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0),
-	(99, '12884057', 'LLW8RQ', 'Trần Minh Ng', '2022-12-04 12:16:34', '2023-04-08 16:12:11', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, 0),
-	(100, '12041744', NULL, 'Trần Minh Ng', '2022-12-04 14:20:12', '2022-12-04 14:33:01', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0),
-	(101, '19843497', NULL, 'Trần Minh Ng', '2022-12-10 12:04:15', NULL, '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 0),
-	(102, '14346130', NULL, 'Trần Minh Ng', '2022-12-10 14:07:53', '2022-12-10 14:12:18', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0),
-	(113, '16440333', 'LLU49Q', 'Trần Minh Ng', '2022-12-15 21:42:28', '2023-04-08 15:49:48', '0961932630', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'VNPAY', NULL, 'NO_DELIVERY', 3, NULL, 1),
-	(114, '10720868', 'LLUBXE', 'Trần Minh Ng', '2022-12-20 08:01:35', '2023-04-15 10:16:14', '0961932630', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Tây Mỗ', '', 'ONLINE_WEB', 'VNPAY', NULL, 'DELIVERING', 3, NULL, 1),
-	(115, '12607427', NULL, 'Trần Minh Ng', '2022-12-20 08:05:35', '2022-12-20 08:07:05', '0961932630', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 1),
-	(116, '12921360', 'LLU3VD', 'Trần Minh Ng', '2022-12-21 08:06:49', '2022-12-21 08:08:42', '0961932638', 'Số 123', 'Hà Nội', 'Huyện Phú Xuyên', 'Xã Nam Tiến', '', 'ONLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 1),
-	(117, '19339931', NULL, 'Trần Minh Ng', '2022-12-21 08:11:17', '2022-12-21 08:13:04', '0962987225', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '', 'ONLINE_WEB', 'VNPAY', NULL, 'DELIVERED', 3, NULL, 1),
-	(118, '10639449', NULL, 'Trần Minh Ng', '2022-12-22 21:00:44', '2022-12-22 21:06:20', '0962987225', 'số 123', 'Hồ Chí Minh', 'Thành Phố Thủ Đức', 'Phường An Khánh', '', 'ONLINE_WEB', 'VNPAY', NULL, 'DELIVERED', 3, NULL, 1),
-	(119, '15555665', NULL, 'Trần Minh Ng', '2022-12-23 14:39:44', '2022-12-23 14:49:09', '0962987225', 'số 123', 'Hồ Chí Minh', 'Thành Phố Thủ Đức', 'Phường An Khánh', '', 'ONLINE_WEB', 'VNPAY', NULL, 'DELIVERED', 3, NULL, 1),
-	(120, '16140412', NULL, 'Trần Minh Ng', '2022-12-23 14:41:32', '2022-12-23 14:47:05', '0961932999', 'Số 123', 'Hà Nội', 'Huyện Ứng Hòa', 'Xã Viên Nội', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', NULL, NULL, NULL),
-	(121, '19610356', 'LLPW6T', 'Trần Minh Ng', '2022-12-23 14:54:55', '2023-04-05 12:34:07', '0961962333', 'Số 1', 'Hà Nội', 'Quận Cầu Giấy', 'Phường Yên Hoà', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, NULL),
-	(122, '16764759', NULL, 'Tạ Quỳnh Trang', '2023-03-26 18:25:58', NULL, '0962987225', 'số 123', 'Hòa Bình', 'Huyện Mai Châu', 'Xã Tân Thành', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, NULL),
-	(123, '15926165', 'LLNVP3', 'Trần Minh Nghĩa', '2023-03-26 18:29:49', '2023-03-26 18:38:21', '0393883934', 'Số 4A', 'Hà Nội', 'Quận Cầu Giấy', 'Phường Trung Hoà', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', NULL, NULL, NULL),
-	(124, '15874245', 'LLNVP4', 'Tạ Quỳnh Trang', '2023-03-26 18:47:36', '2023-03-26 19:57:19', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', NULL, NULL, NULL),
-	(125, '16354520', NULL, 'Tạ Quỳnh Trang', '2023-04-04 09:28:06', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 1, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL),
-	(126, '17379082', 'LLDA4F', 'Tạ Quỳnh Trang', '2023-04-04 10:42:04', '2023-04-05 10:56:36', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 1, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 3, NULL, NULL),
-	(127, '17705187', NULL, 'Tạ Quỳnh Trang', '2023-04-06 10:06:55', '2023-04-06 10:20:24', '0962987225', 'số 123456', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 1, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1),
-	(128, '17491753', NULL, 'Tạ Quỳnh Trang', '2023-04-06 10:13:03', '2023-04-08 16:11:03', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 1, 'DELIVERING', 3, NULL, 1),
-	(129, '17490814', NULL, '', '2023-04-06 15:53:54', '2023-04-06 16:02:33', '', '', '', '', '', 'nnnnn', 'ONLINE_WEB', 'OFFLINE', NULL, 'UNCONFIRM', NULL, NULL, NULL),
-	(130, '10029604', NULL, '', '2023-04-06 21:25:44', '2023-04-06 21:40:21', '', '', '', '', '', 'k nhận', 'ONLINE_WEB', 'OFFLINE', NULL, 'UNCONFIRM', NULL, NULL, NULL),
-	(131, '17462530', NULL, 'iuh', '2023-04-06 21:48:19', '2023-04-06 21:48:49', '0000000000', '', '', '', '', '', 'ONLINE', 'ONLINE', NULL, 'CANCELLED', 1, NULL, NULL),
-	(132, '16842341', NULL, '0239', '2023-04-06 22:05:53', '2023-04-15 10:17:43', '92830239029', '1231', 'Hà Nội', 'Huyện Ứng Hòa', 'Xã Viên An', '', 'ONLINE', 'OFFLINE', NULL, 'DELIVERING', 1, NULL, NULL),
-	(133, '15809428', NULL, 'admka', '2023-04-08 09:54:31', NULL, '0928333999', '', '', '', '', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 1),
-	(134, '11879875', NULL, 'oạidqdop', '2023-04-08 09:59:00', '2023-04-08 15:49:13', '0929333111', '2112', 'Sơn La', 'Huyện Vân Hồ', 'Xã Tân Xuân', '', 'ONLINE', 'OFFLINE', NULL, 'DELIVERING', 1, NULL, NULL),
-	(135, '13194175', NULL, 'Tạ Quỳnh Trang', '2023-04-10 09:28:00', '2023-04-10 09:55:38', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 1),
-	(136, '13506393', NULL, 'qiwu', '2023-04-10 09:38:05', NULL, '0912388222', '123', 'Sơn La', 'Huyện Yên Châu', 'Xã Tú Nang', '', 'ONLINE', 'ONLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
-	(137, '17392147', 'LLWYVF', 'Tạ Quỳnh Trang', '2023-04-10 14:54:37', '2023-04-15 11:24:29', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 1, 'NO_DELIVERY', 3, NULL, 1),
-	(138, '13181327', NULL, 'Lê Văn Luyện', '2023-04-10 15:03:22', NULL, '0982333124', '', '', '', '', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 1),
-	(139, '17194979', NULL, 'oại', '2023-04-10 15:04:13', NULL, '0922483712', '123', 'Hưng Yên', 'Huyện Phù Cừ', 'Xã Tống Phan', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
-	(140, '11420643', NULL, 'oại', '2023-04-10 15:04:28', NULL, '0922483712', '123', 'Hưng Yên', 'Huyện Phù Cừ', 'Xã Tống Phan', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
-	(141, '14483518', NULL, 'oqiw', '2023-04-10 15:05:35', NULL, '0921483211', '122', 'Hưng Yên', 'Huyện Tiên Lữ', 'Xã Thủ Sỹ', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL),
-	(142, '10561665', NULL, 'Tạ Quỳnh Trang', '2023-04-10 22:12:39', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 2, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL),
-	(143, '16448154', NULL, 'Tạ Quỳnh Trang', '2023-04-11 12:32:30', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 1, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL),
-	(145, '16532825', NULL, 'Tạ Quỳnh Trang', '2023-04-11 17:56:04', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1),
-	(146, '13196626', 'LLWYX4', 'Tạ Quỳnh Trang', '2023-04-11 23:37:27', '2023-04-15 11:00:41', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, NULL),
-	(147, '12754327', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:00:43', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 2, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1),
-	(148, '12352373', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:04:50', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1),
-	(149, '10279520', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:08:29', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'CONFIRMED', 3, NULL, 1),
-	(150, '14507811', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:13:30', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'CONFIRMED', 3, NULL, 1);
+-- Dumping data for table datn.orders: ~90 rows (approximately)
+INSERT INTO `orders` (`id`, `code`, `code_ghn`, `customer_name`, `created_date`, `update_date`, `phone`, `address`, `province`, `district`, `ward`, `description`, `order_type`, `payment_type`, `voucher_id`, `status`, `create_by`, `update_by`, `is_pay`, `total_ship`) VALUES
+	(1, 'abc', NULL, 'Trần Minh Ng', '2022-10-05 19:06:51', '2022-10-21 17:30:18', '0961932630', 'Số 1 ', 'Hà nội', 'Từ Liêm', 'Mỹ Đình', NULL, 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(2, 'aaa', NULL, 'Trần Minh Ng', '2022-10-05 19:08:21', '2022-10-20 16:37:31', '0961932630', 'Số 2', 'Hà Nội', 'Từ Liêm', 'Mỹ Đình', NULL, 'OFFLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(41, '1234567', NULL, 'Trần Minh Ng', '2022-10-12 21:17:33', '2022-10-20 17:22:54', '0961932630', 'số 1', 'Thành phố Hà Nội', 'Quận Ba Đình', 'Phường Phúc Xá', NULL, 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(42, '12345678', NULL, 'Trần Minh Ng', '2022-10-12 21:19:03', '2022-10-21 16:48:47', '0961932630', 'số 1', 'Thành phố Hà Nội', 'Quận Ba Đình', 'Phường Phúc Xá', NULL, 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(43, '1235434', NULL, 'Trần Minh Ng', '2022-10-12 21:48:58', '2022-10-21 21:03:34', '0961932630', 'Số 1', 'Thành phố Hà Nội', 'Quận Long Biên', 'Phường Giang Biên', NULL, 'ONLINE', 'ONLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, 0, 30000),
+	(44, '105865', NULL, 'Trần Minh Ng', '2022-10-13 11:29:25', '2022-10-20 16:48:06', '0961932630', 'Số 1', 'Thành phố Hà Nội', 'Quận Tây Hồ', 'Phường Xuân La', NULL, 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 1, NULL, 0, 30000),
+	(46, '100000001', NULL, 'Trần Minh Ng', '2022-10-13 14:28:28', '2022-10-13 15:05:13', '0961932630', 'Số 2', 'Thành phố Hà Nội', 'Quận Hai Bà Trưng', 'Phường Bạch Đằng', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CANCELLED', 1, NULL, 0, 30000),
+	(48, '13369231', NULL, 'Trần Minh Ng', '2022-10-13 14:31:58', '2022-10-20 17:19:22', '0961932630', 'Số 1', 'Tỉnh Điện Biên', 'Huyện Điện Biên', 'Xã Sam Mứn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(49, '13791216', NULL, 'Trần Minh Ng', '2022-10-13 16:20:02', '2022-10-20 16:34:34', '0961932630', 'Số 3', 'Thành phố Hà Nội', 'Quận Hoàn Kiếm', 'Phường Đồng Xuân', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 1, NULL, 0, 30000),
+	(50, '12251366', NULL, 'Trần Minh Ng', '2022-10-17 22:21:09', '2022-11-30 22:53:38', '0961932630', 'Số 2', 'Tỉnh Hà Giang', 'Huyện Yên Minh', 'Xã Phú Lũng', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(51, '10964079', NULL, 'Trần Minh Ng', '2022-10-17 22:29:41', '2022-10-17 22:45:19', '0961932630', 'Số 3', 'Tỉnh Cao Bằng', 'Huyện Bảo Lâm', 'Xã Lý Bôn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(54, '11865681', '', 'Trần Minh Ng', '2022-10-19 10:15:08', '2022-10-19 11:25:24', '0961932630', 'Số 123', 'Hà Nội', 'Quận Cầu Giấy', 'Phường Dịch Vọng Hậu', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(55, '16837828', 'LLGBET', 'Trần Minh Ng', '2022-10-19 11:08:06', '2022-10-21 21:31:43', '0961930630', 'Số 12', 'Hà Nội', 'Quận Đống Đa', 'Phường Hàng Bột', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, 0, 30000),
+	(56, '18546794', NULL, 'Trần Minh Ng', '2022-10-19 11:45:06', '2022-10-20 17:16:41', '0961932630', 'Số 12', 'Hà Nội', 'Quận Tây Hồ', 'Phường Yên Phụ', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 1, NULL, 0, 30000),
+	(57, '14411613', NULL, 'Trần Minh Ng', '2022-10-19 15:47:36', NULL, '0961932630', 'Số 1234', 'Hà Nội', 'Quận Bắc Từ Liêm', 'Phường Xuân Đỉnh', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(58, '16922928', NULL, 'Trần Minh Ng', '2022-10-19 15:55:38', NULL, '0961932630', 'Số 123', 'Hà Nội', 'Quận Hai Bà Trưng', 'Phường Bạch Mai', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(59, '16681783', NULL, 'Trần Minh Ng', '2022-10-20 23:31:07', NULL, '0961932630', 'Số 123', 'Hà Nội', 'Quận Hoàn Kiếm', 'Phường Tràng Tiền', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(60, '19374338', 'LLGBEW', 'Trần Minh Ng', '2022-10-21 16:46:32', '2022-10-21 21:13:50', '0961932630', 'Số 123', 'Hà Nội', 'Quận Thanh Xuân', 'Phường Thanh Xuân Nam', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, 0, 30000),
+	(61, '17610674', NULL, 'Trần Minh Ng', '2022-10-22 20:45:06', '2022-10-28 14:31:58', '0598578484', '6655', 'Hưng Yên', 'Huyện Phù Cừ', 'Xã Tống Phan', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', 1, 1, 0, 30000),
+	(62, '19302808', NULL, 'Trần Minh Ng', '2022-10-22 20:49:36', NULL, '09765443333', 'ffr', 'Điện Biên', 'Huyện Tuần Giáo', 'Xã Quài Tở', '', 'ONLINE', 'ONLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(63, '12676417', NULL, 'Trần Minh Ng', '2022-10-22 20:52:16', NULL, '097666666666', 'rrrrtr', 'Hòa Bình', 'Huyện Lạc Sơn', 'Xã Xuất Hóa', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, 0, 30000),
+	(64, '12563911', NULL, 'Trần Minh Ng', '2022-10-22 21:02:38', '2022-10-28 14:30:56', '0598578484', 'hhttttt', 'Lào Cai', 'Huyện Mường Khương', 'Xã Thanh Bình', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 1, 1, 0, 30000),
+	(65, '10538605', NULL, 'Trần Minh Ng', '2022-10-28 11:50:13', '2022-10-28 14:53:39', '04939333887', 'so1', 'Phú Thọ', 'Huyện Thanh Ba', 'Xã Quảng Yên', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, 1, 0, 30000),
+	(69, '16469505', NULL, 'Trần Minh Ng', '2022-10-31 14:55:14', '2022-11-23 23:30:35', '0961932630', 'số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', NULL, NULL, 0, 30000),
+	(70, '18166507', NULL, 'Trần Minh Ng', '2022-10-31 15:46:35', '2022-10-31 23:16:37', '0961932630', 'Số 1', 'Hà Nội', 'Quận Tây Hồ', 'Phường Tứ Liên', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, 1, 0, 30000),
+	(73, '18600119', 'LLGHWR', 'Trần Minh Ng', '2022-11-01 14:17:06', '2022-11-01 14:18:05', '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 3, 1, 0, 30000),
+	(74, '11809232', NULL, 'Trần Minh Ng', '2022-11-02 13:24:17', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0, 30000),
+	(75, '14098326', NULL, 'Trần Minh Ng', '2022-11-02 13:30:14', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0, 30000),
+	(77, '11710250', NULL, 'Trần Minh Ng', '2022-11-02 13:57:58', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0, 30000),
+	(79, '11311402', NULL, 'Trần Minh Ng', '2022-11-16 22:21:29', NULL, '0961932630', 'số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0, 30000),
+	(80, '14113035', NULL, 'Trần Minh Ng', '2022-11-17 21:17:42', NULL, '0961932630', 'số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0, 30000),
+	(81, '11859170', NULL, 'Trần Minh Ng', '2022-11-18 15:25:16', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0, 30000),
+	(82, '11226978', NULL, 'Trần Minh Ng', '2022-11-21 20:29:03', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Xuân Phương', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0, 30000),
+	(83, '11566030', NULL, 'Trần Minh Ng', '2022-11-21 20:56:34', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0, 30000),
+	(84, '16451862', NULL, 'Trần Minh Ng', '2022-11-21 20:59:48', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0, 30000),
+	(86, '13471154', NULL, 'Trần Minh Ng', '2022-11-21 22:09:29', NULL, '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, 0, 30000),
+	(87, '15187611', NULL, 'Trần Minh Ng', '2022-11-21 22:15:18', '2023-03-26 18:52:03', '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'UNCONFIRM', NULL, NULL, 0, 30000),
+	(88, '15396251', NULL, 'Trần Minh Ng', '2022-11-23 09:48:54', '2022-12-21 08:02:52', '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', NULL, NULL, 0, 30000),
+	(89, '14678583', 'LLUL3U', 'Trần Minh Ng', '2022-11-23 09:52:53', '2022-11-23 23:39:59', '0961932630', 'Số 1', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0, 30000),
+	(90, '14250674', NULL, 'Trần Minh Ng', '2022-11-24 23:13:03', '2022-11-30 22:55:42', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', NULL, NULL, 0, 30000),
+	(91, '12940658', NULL, 'Trần Minh Ng', '2022-11-24 23:27:58', '2022-11-30 22:54:56', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'CONFIRMED', NULL, NULL, 0, 30000),
+	(93, '17557900', 'LLUGDH', 'Trần Minh Ng', '2022-11-29 21:23:25', '2022-11-29 21:27:09', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 3, NULL, 0, 30000),
+	(94, '16936840', NULL, 'Trần Minh Ng', '2022-11-29 22:05:54', '2022-11-29 22:50:35', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE', 'OFFLINE', NULL, 'DELIVERING', 1, NULL, 0, 30000),
+	(95, '18734039', NULL, 'Trần Minh Ng', '2022-11-29 22:22:40', NULL, '0961932630', '', '', '', '', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 0, 30000),
+	(96, '19809544', NULL, 'Trần Minh Ng', '2022-11-29 23:18:43', '2022-11-29 23:20:43', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0, 30000),
+	(99, '12884057', 'LLW8RQ', 'Trần Minh Ng', '2022-12-04 12:16:34', '2023-04-08 16:12:11', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, 0, 30000),
+	(100, '12041744', NULL, 'Trần Minh Ng', '2022-12-04 14:20:12', '2022-12-04 14:33:01', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0, 30000),
+	(101, '19843497', NULL, 'Trần Minh Ng', '2022-12-10 12:04:15', NULL, '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 0, 30000),
+	(102, '14346130', NULL, 'Trần Minh Ng', '2022-12-10 14:07:53', '2022-12-10 14:12:18', '0961932630', 'Số 123', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 0, 30000),
+	(113, '16440333', 'LLU49Q', 'Trần Minh Ng', '2022-12-15 21:42:28', '2023-04-08 15:49:48', '0961932630', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'VNPAY', NULL, 'NO_DELIVERY', 3, NULL, 1, 30000),
+	(114, '10720868', 'LLUBXE', 'Trần Minh Ng', '2022-12-20 08:01:35', '2023-04-15 10:16:14', '0961932630', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Tây Mỗ', '', 'ONLINE_WEB', 'VNPAY', NULL, 'DELIVERING', 3, NULL, 1, 30000),
+	(115, '12607427', NULL, 'Trần Minh Ng', '2022-12-20 08:05:35', '2022-12-20 08:07:05', '0961932630', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Trung Văn', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 1, 30000),
+	(116, '12921360', 'LLU3VD', 'Trần Minh Ng', '2022-12-21 08:06:49', '2022-12-21 08:08:42', '0961932638', 'Số 123', 'Hà Nội', 'Huyện Phú Xuyên', 'Xã Nam Tiến', '', 'ONLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 1, 30000),
+	(117, '19339931', NULL, 'Trần Minh Ng', '2022-12-21 08:11:17', '2022-12-21 08:13:04', '0962987225', 'Số 1 Lê Quang Đạo', 'Hà Nội', 'Quận Nam Từ Liêm', 'Phường Mễ Trì', '', 'ONLINE_WEB', 'VNPAY', NULL, 'DELIVERED', 3, NULL, 1, 30000),
+	(118, '10639449', NULL, 'Trần Minh Ng', '2022-12-22 21:00:44', '2022-12-22 21:06:20', '0962987225', 'số 123', 'Hồ Chí Minh', 'Thành Phố Thủ Đức', 'Phường An Khánh', '', 'ONLINE_WEB', 'VNPAY', NULL, 'DELIVERED', 3, NULL, 1, 30000),
+	(119, '15555665', NULL, 'Trần Minh Ng', '2022-12-23 14:39:44', '2022-12-23 14:49:09', '0962987225', 'số 123', 'Hồ Chí Minh', 'Thành Phố Thủ Đức', 'Phường An Khánh', '', 'ONLINE_WEB', 'VNPAY', NULL, 'DELIVERED', 3, NULL, 1, 30000),
+	(120, '16140412', NULL, 'Trần Minh Ng', '2022-12-23 14:41:32', '2022-12-23 14:47:05', '0961932999', 'Số 123', 'Hà Nội', 'Huyện Ứng Hòa', 'Xã Viên Nội', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', NULL, NULL, NULL, 30000),
+	(121, '19610356', 'LLPW6T', 'Trần Minh Ng', '2022-12-23 14:54:55', '2023-04-05 12:34:07', '0961962333', 'Số 1', 'Hà Nội', 'Quận Cầu Giấy', 'Phường Yên Hoà', '', 'ONLINE', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 1, NULL, NULL, 30000),
+	(122, '16764759', NULL, 'Tạ Quỳnh Trang', '2023-03-26 18:25:58', NULL, '0962987225', 'số 123', 'Hòa Bình', 'Huyện Mai Châu', 'Xã Tân Thành', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', NULL, NULL, NULL, 30000),
+	(123, '15926165', 'LLNVP3', 'Trần Minh Nghĩa', '2023-03-26 18:29:49', '2023-03-26 18:38:21', '0393883934', 'Số 4A', 'Hà Nội', 'Quận Cầu Giấy', 'Phường Trung Hoà', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', NULL, NULL, NULL, 30000),
+	(124, '15874245', 'LLNVP4', 'Tạ Quỳnh Trang', '2023-03-26 18:47:36', '2023-03-26 19:57:19', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', NULL, NULL, NULL, 30000),
+	(125, '16354520', NULL, 'Tạ Quỳnh Trang', '2023-04-04 09:28:06', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 1, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL, 30000),
+	(126, '17379082', 'LLDA4F', 'Tạ Quỳnh Trang', '2023-04-04 10:42:04', '2023-04-17 21:22:08', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 1, 'DELIVERING', 3, NULL, NULL, 30000),
+	(127, '17705187', NULL, 'Tạ Quỳnh Trang', '2023-04-06 10:06:55', '2023-04-06 10:20:24', '0962987225', 'số 123456', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 1, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1, 30000),
+	(128, '17491753', NULL, 'Tạ Quỳnh Trang', '2023-04-06 10:13:03', '2023-04-08 16:11:03', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 1, 'DELIVERING', 3, NULL, 1, 30000),
+	(129, '17490814', NULL, '', '2023-04-06 15:53:54', '2023-04-06 16:02:33', '', '', '', '', '', 'nnnnn', 'ONLINE_WEB', 'OFFLINE', NULL, 'UNCONFIRM', NULL, NULL, NULL, 30000),
+	(130, '10029604', NULL, '', '2023-04-06 21:25:44', '2023-04-06 21:40:21', '', '', '', '', '', 'k nhận', 'ONLINE_WEB', 'OFFLINE', NULL, 'UNCONFIRM', NULL, NULL, NULL, 30000),
+	(131, '17462530', NULL, 'iuh', '2023-04-06 21:48:19', '2023-04-06 21:48:49', '0000000000', '', '', '', '', '', 'ONLINE', 'ONLINE', NULL, 'CANCELLED', 1, NULL, NULL, 30000),
+	(132, '16842341', NULL, '0239', '2023-04-06 22:05:53', '2023-04-15 10:17:43', '92830239029', '1231', 'Hà Nội', 'Huyện Ứng Hòa', 'Xã Viên An', '', 'ONLINE', 'OFFLINE', NULL, 'DELIVERING', 1, NULL, NULL, 30000),
+	(133, '15809428', NULL, 'admka', '2023-04-08 09:54:31', NULL, '0928333999', '', '', '', '', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 1, 30000),
+	(134, '11879875', NULL, 'oạidqdop', '2023-04-08 09:59:00', '2023-04-17 21:26:23', '0929333111', '2112', 'Sơn La', 'Huyện Vân Hồ', 'Xã Tân Xuân', '', 'ONLINE', 'OFFLINE', NULL, 'NO_DELIVERY', 1, NULL, NULL, 30000),
+	(135, '13194175', NULL, 'Tạ Quỳnh Trang', '2023-04-10 09:28:00', '2023-04-10 09:55:38', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, 1, 30000),
+	(136, '13506393', NULL, 'qiwu', '2023-04-10 09:38:05', NULL, '0912388222', '123', 'Sơn La', 'Huyện Yên Châu', 'Xã Tú Nang', '', 'ONLINE', 'ONLINE', NULL, 'CONFIRMED', 1, NULL, NULL, 30000),
+	(137, '17392147', 'LLWYVF', 'Tạ Quỳnh Trang', '2023-04-10 14:54:37', '2023-04-15 11:24:29', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 1, 'NO_DELIVERY', 3, NULL, 1, 30000),
+	(138, '13181327', NULL, 'Lê Văn Luyện', '2023-04-10 15:03:22', NULL, '0982333124', '', '', '', '', '', 'OFFLINE', 'OFFLINE', NULL, 'DELIVERED', 1, NULL, 1, 30000),
+	(139, '17194979', NULL, 'oại', '2023-04-10 15:04:13', NULL, '0922483712', '123', 'Hưng Yên', 'Huyện Phù Cừ', 'Xã Tống Phan', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL, 30000),
+	(140, '11420643', NULL, 'oại', '2023-04-10 15:04:28', NULL, '0922483712', '123', 'Hưng Yên', 'Huyện Phù Cừ', 'Xã Tống Phan', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL, 30000),
+	(141, '14483518', NULL, 'oqiw', '2023-04-10 15:05:35', NULL, '0921483211', '122', 'Hưng Yên', 'Huyện Tiên Lữ', 'Xã Thủ Sỹ', '', 'ONLINE', 'OFFLINE', NULL, 'CONFIRMED', 1, NULL, NULL, 30000),
+	(142, '10561665', NULL, 'Tạ Quỳnh Trang', '2023-04-10 22:12:39', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 2, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL, 30000),
+	(143, '16448154', NULL, 'Tạ Quỳnh Trang', '2023-04-11 12:32:30', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 1, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL, 30000),
+	(145, '16532825', NULL, 'Tạ Quỳnh Trang', '2023-04-11 17:56:04', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1, 30000),
+	(146, '13196626', 'LLWYX4', 'Tạ Quỳnh Trang', '2023-04-11 23:37:27', '2023-04-15 11:00:41', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'DELIVERED', 3, NULL, NULL, 30000),
+	(147, '12754327', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:00:43', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', 2, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1, 30000),
+	(148, '12352373', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:04:50', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'WAIT_FOR_CONFIRMATION', 3, NULL, 1, 30000),
+	(149, '10279520', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:08:29', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'CONFIRMED', 3, NULL, 1, 30000),
+	(150, '14507811', NULL, 'Tạ Quỳnh Trang', '2023-04-12 09:13:30', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'VNPAY', NULL, 'CONFIRMED', 3, NULL, 1, 30000),
+	(151, '11019537', 'LLWMYV', 'Tạ Quỳnh Trang', '2023-04-17 21:23:26', '2023-04-17 21:25:37', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 2, 'DELIVERED', 3, NULL, NULL, 30000),
+	(152, '10324459', 'LLWMYP', 'Tạ Quỳnh Trang', '2023-04-17 21:41:15', '2023-04-17 21:56:38', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 1, 'DELIVERED', 3, NULL, NULL, 30000),
+	(153, '18739348', NULL, 'Tạ Quỳnh Trang', '2023-04-17 22:17:39', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL, 30000),
+	(154, '19143117', NULL, 'Tạ Quỳnh Trang', '2023-04-17 23:37:36', NULL, '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL, 30000),
+	(155, '10080636', NULL, 'Tạ Quỳnh Trang', '2023-04-17 23:56:15', '2023-04-18 15:44:59', '0962987225', 'số 123', 'Hưng Yên', 'Huyện Văn Lâm', 'Xã Tân Quang', '', 'ONLINE_WEB', 'OFFLINE', 2, 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP', 3, NULL, NULL, 42000),
+	(156, '13450394', NULL, 'Tạ Quỳnh Trang', '2023-04-20 21:05:52', NULL, '0962987225', 'Khu phố 3, thôn 3', 'Thanh Hoá', 'Thành phố Thanh Hóa', 'Xã Quảng Cát', '', 'ONLINE_WEB', 'OFFLINE', NULL, 'WAIT_FOR_CONFIRMATION', 3, NULL, NULL, 30000);
 
 -- Dumping structure for table datn.order_details
 CREATE TABLE IF NOT EXISTS `order_details` (
@@ -359,9 +389,9 @@ CREATE TABLE IF NOT EXISTS `order_details` (
   `price` int NOT NULL,
   `status` int DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=192 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.order_details: ~125 rows (approximately)
+-- Dumping data for table datn.order_details: ~129 rows (approximately)
 INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_detail_id`, `quantity`, `price`, `status`) VALUES
 	(2, 1, 2, 3, 2, 839000, 1),
 	(3, 44, 1, 1, 1, 682000, 1),
@@ -487,7 +517,13 @@ INSERT INTO `order_details` (`id`, `order_id`, `product_id`, `product_detail_id`
 	(188, 147, 2, 3, 1, 839000, NULL),
 	(189, 148, 2, 4, 1, 839000, NULL),
 	(190, 149, 1, 2, 1, 500000, NULL),
-	(191, 150, 3, 5, 1, 700000, NULL);
+	(191, 150, 3, 5, 1, 700000, NULL),
+	(192, 151, 1, 1, 2, 500000, NULL),
+	(193, 152, 3, 5, 1, 700000, NULL),
+	(194, 153, 1, 1, 2, 500000, NULL),
+	(195, 154, 1, 1, 1, 500000, NULL),
+	(196, 155, 1, 1, 2, 500000, NULL),
+	(197, 156, 1, 1, 1, 500000, NULL);
 
 -- Dumping structure for table datn.order_history
 CREATE TABLE IF NOT EXISTS `order_history` (
@@ -659,7 +695,7 @@ CREATE TABLE IF NOT EXISTS `promotions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table datn.promotions: ~4 rows (approximately)
+-- Dumping data for table datn.promotions: ~3 rows (approximately)
 INSERT INTO `promotions` (`id`, `name`, `quantity`, `begin_date`, `end_date`, `status`, `create_by`, `update_by`, `is_delete`) VALUES
 	(1, 'giảm 10% cho toàn bộ', 10, '2023-04-14 00:00:00', '2023-04-20 00:00:00', 'AVAILABLE', 1, 1, 0),
 	(2, 'sknd', 20, '2023-04-14 00:00:00', '2023-04-14 00:00:00', 'UNAVAILABLE', 1, 1, 1),
@@ -795,8 +831,8 @@ CREATE TABLE IF NOT EXISTS `vouchers` (
 
 -- Dumping data for table datn.vouchers: ~7 rows (approximately)
 INSERT INTO `vouchers` (`id`, `name`, `code_voucher`, `min_money`, `begin_date`, `end_date`, `promotion`, `quantity`, `create_by`, `update_by`, `status`, `is_delete`) VALUES
-	(1, '10k cho đơn tối thiểu 500k', 'F3CFY01CA', 500000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 10000, 30, 1, 1, 'AVAILABLE', 0),
-	(2, '20k cho đơn tối thiểu 500k', 'YFGI0S012', 500000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 20000, 18, 1, 3, 'AVAILABLE', 0),
+	(1, '10k cho đơn tối thiểu 500k', 'F3CFY01CA', 500000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 10000, 28, 1, 3, 'AVAILABLE', 0),
+	(2, '20k cho đơn tối thiểu 500k', 'YFGI0S012', 500000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 20000, 14, 1, 3, 'AVAILABLE', 0),
 	(3, '100k cho đơn tối thiểu 900k', 'Q26DHHZVR', 900000, '2023-04-04 00:00:00', '2023-04-30 00:00:00', 100000, 20, 1, 3, 'AVAILABLE', 0),
 	(4, '20k cho đơn tối thiểu 500k', 'K7KPQKG18', 500000, '2022-12-21 00:00:00', '2022-12-31 00:00:00', 200000, 20, 1, 3, 'UNAVAILABLE', 0),
 	(5, '20k  cho đơn tối thiểu 500k', 'G5YI3A528', 500000, '2022-12-22 00:00:00', '2022-12-31 00:00:00', 20000, 20, 1, 1, 'UNAVAILABLE', 0),
