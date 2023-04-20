@@ -92,7 +92,6 @@ function home ($scope, $http, $rootScope) {
     $http.get(apiProduct+"/hotproduct")
     .then(function (response) {
         $scope.topProduct = response.data;
-        console.log($scope.topProduct);
         $scope.isLoading = true;
     })
     .catch(function (error) {
@@ -104,7 +103,6 @@ function home ($scope, $http, $rootScope) {
     $http.get(apiVoucher+"/byStatus")
         .then(function (response) {
             $scope.listVoucher = response.data;
-            console.log($scope.listVoucher);
             $scope.isLoading = false;
         })
         .catch(function (error) {

@@ -103,7 +103,7 @@ function orderManagement ($scope, $http, $rootScope, $filter){
                     if(order.voucher){
                         totalMoney -= order.voucher.promotion;
                     }
-                    order.totalMoney = totalMoney;
+                    order.totalMoney = totalMoney + order.totalShip;
 
                     if(genDayRental(order.updateDate) > 10){
                         order.isReturn = false;

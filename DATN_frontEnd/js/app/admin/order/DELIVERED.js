@@ -99,7 +99,7 @@ function DELIVERED ($scope, $http, $rootScope, $filter){
                     if(order.voucher){
                         totalMoney -= order.voucher.promotion;
                     }
-                    order.totalMoney = totalMoney;
+                    order.totalMoney = totalMoney + order.totalShip;
                 })
             })
             .catch(function (error) {

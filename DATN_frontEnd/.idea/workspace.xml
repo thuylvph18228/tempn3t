@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="51b066b7-505a-4de3-b98c-51ff275aa246" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/DTO/OrderDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/DTO/OrderDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/entity/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/entity/Order.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/repository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/service/Iplm/OrderServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/service/Iplm/OrderServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/service/OrderService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/DTO/AddressDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/controller/AddressController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/entity/Address.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/repository/AddressRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/service/AddressService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/service/Iplm/AddressServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DATN/src/main/java/com/n3t/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DATN/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../DATN/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app/admin/order/CANCELLED.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app/admin/order/CANCELLED.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app/admin/order/CONFIRMED.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app/admin/order/CONFIRMED.js" afterDir="false" />
@@ -16,18 +18,17 @@
       <change beforePath="$PROJECT_DIR$/js/app/admin/order/NO_DELIVERY.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app/admin/order/NO_DELIVERY.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app/admin/order/OrderManagement.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app/admin/order/OrderManagement.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app/admin/order/OrderWaitConfirm.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app/admin/order/OrderWaitConfirm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/app/admin/order/WAIT_FOR_THE_SHIPPER_TO_PICK_UP.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app/admin/order/WAIT_FOR_THE_SHIPPER_TO_PICK_UP.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/app/user/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app/user/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/app/user/cart/Cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app/user/cart/Cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/app/user/personal/Personal.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/app/user/personal/Personal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/admin/order/CANCELLED.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/order/CANCELLED.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/admin/order/CONFIRMED.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/order/CONFIRMED.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/admin/order/DELIVERED.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/order/DELIVERED.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/admin/order/DELIVERING.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/order/DELIVERING.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/admin/order/NO_DELIVERY.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/order/NO_DELIVERY.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/admin/order/OrderManagement.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/order/OrderManagement.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/admin/order/WAIT_FOR_THE_SHIPPER_TO_PICK_UP.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/order/WAIT_FOR_THE_SHIPPER_TO_PICK_UP.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/admin/order/Wait_for_confirmation.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/order/Wait_for_confirmation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/user/personal/Personal.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/user/personal/Personal.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/user/Home.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/user/Home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/user/cart/ShopingCart.html" beforeDir="false" afterPath="$PROJECT_DIR$/views/user/cart/ShopingCart.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +116,9 @@
       <workItem from="1681693138766" duration="4464000" />
       <workItem from="1681740121524" duration="110000" />
       <workItem from="1681741102232" duration="4509000" />
-      <workItem from="1681780545344" duration="595000" />
+      <workItem from="1681780545344" duration="1797000" />
+      <workItem from="1681890036962" duration="3655000" />
+      <workItem from="1681993205054" duration="1309000" />
     </task>
     <servers />
   </component>
