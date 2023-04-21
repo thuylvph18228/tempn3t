@@ -1,18 +1,48 @@
 <!--alert-->
-<div class="position-fixed top-30 end-0 p-3" style="z-index: 1; width: 300px; position: absolute; ">
-    <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1; position: absolute; ">
-        <div class="d-flex justify-content-between toast-body {{isSuccess ? 'text-info' : 'text-danger'}}">
+<div class="position-fixed top-30 end-0 p-3" style="z-index: 1100; width: 370px; position: absolute; ">
+    <div id="myToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+        style="z-index: 1; position: absolute; ">
+        <div class="toast-header bg-primary text-white" style="border-bottom: none;">
+            <strong class="me-auto">Thông báo</strong>
+            <button type="button" class="pe-0 btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="d-flex justify-content-between toast-body {{isSuccess ? 'text-info' : 'text-danger'}} border-0" role="alert" aria-live="assertive" aria-atomic="true">
             <div>
                 <Strong>
                     {{message}}
                 </Strong>
             </div>
             <div></div>
-            <div class="d-flex align-items-center">
+            <!-- <div class="d-flex align-items-center">
                 <button type="button" class="pe-0 btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
-<!--end alert-->
+<!-- <style>
+    #myToast {
+        min-width: 300px;
+        max-width: 500px;
+        border-radius: 8px;
+    }
 
+    .toast-header {
+        border-bottom: none;
+    }
+
+    .toast-body {
+        padding: 15px;
+    }
+</style>
+<div class="position-fixed top-0 end-0 p-3" style="z-index: 10000">
+    <div id="myToast" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-primary text-white">
+            <strong class="me-auto">Thông báo</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body text-white bg-secondary">
+            {{message}}
+        </div>
+    </div>
+</div> -->
+<!--end alert-->
