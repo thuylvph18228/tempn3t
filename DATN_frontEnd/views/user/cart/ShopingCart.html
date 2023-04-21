@@ -8,8 +8,11 @@
     <hr>
     <div ng-if="!products.length || !products" class="mt-4">
         <div class="col-12">
-            <div class="d-flex justify-content-center"><h5 style="color: red;">Chưa có sản phẩm nào trong giỏ hàng</h5></div>
-            <div class="d-flex justify-content-center"><a href="/" class="mt-2 btn btn-primary">Thêm vào giỏ ngay</a></div>
+            <div class="d-flex justify-content-center">
+                <h5 style="color: red;">Chưa có sản phẩm nào trong giỏ hàng</h5>
+            </div>
+            <div class="d-flex justify-content-center"><a href="/" class="mt-2 btn btn-primary">Thêm vào giỏ ngay</a>
+            </div>
         </div>
     </div>
     <div ng-if="products.length > 0" class="row mt-3 mb-5">
@@ -98,7 +101,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="addressModalLabel">Địa chỉ của tôi</h5>
+                                        <h5 class="modal-title" id="addressModalLabel">Danh sách địa chỉ</h5>
                                     </div>
                                     <div class="modal-body">
                                         <div ng-repeat="address in listAddress">
@@ -117,7 +120,8 @@
                                                 </div>
                                                 <div class="col-3 d-flex justify-content-end">
                                                     <button class="btn" style="border: 0; background: none; outline: none; 
-                                                    padding: 4px; color: rgb(198, 198, 18);" ng-click="confirmAddress($index)">Dùng
+                                                    padding: 4px; color: rgb(198, 198, 18);"
+                                                        ng-click="confirmAddress($index)">Dùng
                                                     </button>
                                                     <button class="btn" style="border: 0; background: none; outline: none; 
                                                     padding: 4px; color: #08f;" ng-click="editAddress($index)">Cập nhật
@@ -125,180 +129,27 @@
                                                     <button class="btn" style="border: 0; background: none; outline: none; 
                                                     padding: 4px; color: red;" ng-click="deleteAddress(address.id, $index)">Xoá
                                                     </button>
-                                                </div>
-                                                <div class="modal fade" id="editAddress{{$index}}" tabindex="-1"
-                                                    role="dialog" aria-labelledby="confirmModalLabel"
-                                                    aria-hidden="true">
-                                                    <div class="modal-dialog" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="confirmModalLabel">Cập nhật
-                                                                    địa chỉ</h5>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                <div class="col-12">
-                                                                    <div class="row">
-                                                                        <div class="col-6">
-                                                                            <label for="">Họ và tên</label>
-                                                                            <input type="text" class="form-control"
-                                                                                ng-model="address.name" id="fullname"
-                                                                                placeholder="Họ và tên*" required>
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            <label for="">Số điện thoại</label>
-                                                                            <input type="text" class="form-control"
-                                                                                ng-model="address.phone" id="phone"
-                                                                                placeholder="Số điện thoại*" required>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mt-2">
-                                                                        <div class="col-6">
-                                                                            <input class="form-control dropdown-toggle"
-                                                                                type="text"
-                                                                                id="addressProvince{{$index}}"
-                                                                                ng-model="address.province"
-                                                                                ng-focus="showProvince()"
-                                                                                placeholder="Tỉnh, thành phố...*"
-                                                                                data-bs-toggle="dropdown"
-                                                                                aria-expanded="false" autocomplete="off"
-                                                                                name="province" ng-required="true"
-                                                                                ng-trim="true" minlength="5"
-                                                                                maxlength="255" />
-                                                                            <div class="dropdown-menu"
-                                                                                aria-labelledby="addressProvince{{$index}}"
-                                                                                style="width: 486px; height: 200px; overflow-y: scroll">
-                                                                                <p id="province"
-                                                                                    ng-repeat="province in listProvince"
-                                                                                    ng-click="chooseProvinceAddress(province.ProvinceID)">
-                                                                                    <a href=""
-                                                                                        style="text-decoration: none; color: black;">{{province.ProvinceName}}</a>
-                                                                                </p>
-                                                                            </div>
-                                                                            <div class="text-danger"
-                                                                                ng-hide="formUserOder.province.$untouched || formUserOder.province.$valid">
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.province.$error.required">
-                                                                                    Không
-                                                                                    được để trống thông tin!</small>
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.province.$error.minlength">Hãy
-                                                                                    nhập
-                                                                                    thông tin hợp lệ!</small>
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.province.$error.maxlength">Không
-                                                                                    được nhập quá 255 ký tự!</small>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            <input class="form-control dropdown-toggle"
-                                                                                type="text"
-                                                                                id="addressDistrict{{$index}}"
-                                                                                ng-model="address.district"
-                                                                                ng-focus="showDistrict()"
-                                                                                placeholder="Quận/Huyện...*"
-                                                                                data-bs-toggle="dropdown"
-                                                                                aria-expanded="false" autocomplete="off"
-                                                                                name="district" ng-required="true"
-                                                                                ng-trim="true" minlength="5"
-                                                                                maxlength="255" />
-                                                                            <div ng-show="address.province || $scope.provinceId"
-                                                                                class="dropdown-menu"
-                                                                                aria-labelledby="addressDistrict{{$index}}"
-                                                                                style="width: 486px; height: 200px; overflow-y: scroll">
-                                                                                <p id="district"
-                                                                                    ng-repeat="district in listDistrict"
-                                                                                    ng-click="chooseDistrictAddress(district.DistrictID)">
-                                                                                    <a href=""
-                                                                                        style="text-decoration: none; color: black;">{{district.DistrictName}}</a>
-                                                                                </p>
-                                                                            </div>
-                                                                            <div class="text-danger"
-                                                                                ng-hide="formUserOder.district.$untouched || formUserOder.district.$valid">
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.district.$error.required">
-                                                                                    Không
-                                                                                    được để trống thông tin!</small>
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.district.$error.minlength">Hãy
-                                                                                    nhập
-                                                                                    thông tin hợp lệ!</small>
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.district.$error.maxlength">Không
-                                                                                    được nhập quá 255 ký tự!</small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="row mt-2">
-                                                                        <div class="col-6">
-                                                                            <input class="form-control dropdown-toggle"
-                                                                                type="text" id="addressWard{{$index}}"
-                                                                                ng-model="address.ward"
-                                                                                ng-focus="showWard()"
-                                                                                placeholder="Phường, xã...*"
-                                                                                data-bs-toggle="dropdown"
-                                                                                aria-expanded="false" autocomplete="off"
-                                                                                name="ward" ng-required="true"
-                                                                                ng-trim="true" minlength="5"
-                                                                                maxlength="255" />
-                                                                            <div ng-show="address.district || $scope.districtId"
-                                                                                class="dropdown-menu"
-                                                                                aria-labelledby="addressWard{{$index}}"
-                                                                                style="width: 486px; height: 200px; overflow-y: scroll">
-                                                                                <p id="ward"
-                                                                                    ng-repeat="ward in listWard"
-                                                                                    ng-click="chooseWardAddress(ward.WardCode)">
-                                                                                    <a href=""
-                                                                                        style="text-decoration: none; color: black;">{{ward.WardName}}</a>
-                                                                                </p>
-                                                                            </div>
-                                                                            <div class="text-danger"
-                                                                                ng-hide="formUserOder.ward.$untouched || formUserOder.ward.$valid">
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.ward.$error.required">
-                                                                                    Không được
-                                                                                    để trống thông tin!</small>
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.ward.$error.minlength">Hãy
-                                                                                    nhập
-                                                                                    thông tin hợp lệ!</small>
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.ward.$error.maxlength">Không
-                                                                                    được
-                                                                                    nhập quá 255 ký tự!</small>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-6">
-                                                                            <input type="text" class="form-control"
-                                                                                ng-model="address.address"
-                                                                                placeholder="Địa chỉ chi tiết*"
-                                                                                autocomplete="off" name="address"
-                                                                                ng-required="true" ng-trim="true"
-                                                                                minlength="5" maxlength="255">
-                                                                            <div class="text-danger"
-                                                                                ng-hide="formUserOder.address.$untouched || formUserOder.address.$valid">
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.address.$error.required">
-                                                                                    Không
-                                                                                    được để trống thông tin!</small>
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.address.$error.minlength">Hãy
-                                                                                    nhập
-                                                                                    thông tin hợp lệ!</small>
-                                                                                <small class="text-danger"
-                                                                                    ng-show="formUserOder.address.$error.maxlength">Không
-                                                                                    được nhập quá 255 ký tự!</small>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="deleteAddress{{$index}}" tabindex="-1"
+                                                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Thao tác này k thể khôi phục!</h5>
+                                                                    <button type="button" class="btn-close"
+                                                                        data-bs-dismiss="modal"
+                                                                        aria-label="Close"></button>
                                                                 </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal"
-                                                                    ng-click="closeModalNewAddress()">Trở
-                                                                    lại</button>
-                                                                <button type="button" class="btn btn-primary"
-                                                                    ng-click="submit()">Lưu</button>
+                                                                <div class="modal-body">
+                                                                    Bạn chắc chắn muốn xoá chứ?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary"
+                                                                        data-bs-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-outline-danger"
+                                                                        ng-click="deleteAddress(address.id, $index)">Xác
+                                                                        nhận</button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -320,13 +171,13 @@
                             </div>
                         </div>
 
-                        <!-- Confirm Address -->
+                        <!-- Create And Update Address -->
                         <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
                             aria-labelledby="confirmModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="confirmModalLabel">Địa chỉ mới</h5>
+                                        <h5 class="modal-title" id="confirmModalLabel">Địa chỉ của bạn</h5>
                                     </div>
                                     <div class="modal-body">
                                         <div class="col-12">
@@ -457,7 +308,10 @@
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
                                             ng-click="closeModalNewAddress()">Trở lại</button>
-                                        <button type="button" class="btn btn-primary" ng-click="submit()">Lưu</button>
+                                        <button type="button" class="btn btn-primary" ng-if="!address.id"
+                                            ng-click="submit()">Lưu</button>
+                                        <button type="button" class="btn btn-primary" ng-if="address.id"
+                                            ng-click="submit()">Cập nhật</button>
                                     </div>
                                 </div>
                             </div>
