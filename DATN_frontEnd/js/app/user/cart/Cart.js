@@ -146,18 +146,9 @@ function cart($scope, $http, $routeParams) {
             $http.get(apiUser + "/get-by-username?username=" + user.username)
                 .then(response => {
                     $scope.user = response.data;
+                    localStorage.setItem("idUser", $scope.user.id);
                     $scope.address.user = $scope.user;
                     $scope.orderNew.user = $scope.user;
-                    $scope.orderNew.customerName = $scope.user.fullname;
-                    $scope.orderNew.phone = $scope.user.phone;
-                    $scope.orderNew.province = $scope.user.province;
-                    $scope.orderNew.district = $scope.user.district;
-                    $scope.orderNew.ward = $scope.user.ward;
-                    $scope.orderNew.address = $scope.user.address;
-
-                    $scope.provinceId = $scope.user.provinceId;
-                    $scope.districtId = $scope.user.districtId;
-                    $scope.wardCode = $scope.user.wardCode;
 
                     if ($scope.provinceId) {
                         $http({
@@ -373,18 +364,29 @@ function cart($scope, $http, $routeParams) {
     }
 
     //get all dia chi theo userid
-    $http.get(apiAddress + "/get-by-userid/" + 3)
+    $http.get(apiAddress + "/get-by-userid/" + localStorage.getItem("idUser"))
         .then(function (response) {
             $scope.listAddress = response.data;
+            $scope.listAddress.map(item => {
+                if (item.defaultAdd == 1) {                
+                    $scope.orderNew.customerName = item.name;
+                    $scope.orderNew.phone = item.phone;
+                    $scope.orderNew.province = item.province;
+                    $scope.orderNew.district = item.district;
+                    $scope.orderNew.ward = item.ward;
+                    $scope.orderNew.address = item.address;
+
+                    $scope.provinceId = item.provinceId;
+                    $scope.districtId = item.districtId;
+                    $scope.wardCode = item.wardCode;
+                }
+            })
             $scope.isLoading = true;
         })
         .catch(function (error) {
             console.log(error);
             $scope.isLoading = false;
         });
-    // $scope.getAllAddress = () =>{
-
-    // }
 
     /**tinh phí ship */
     $scope.totalShipFee = 0;
@@ -504,7 +506,6 @@ function cart($scope, $http, $routeParams) {
             }).catch(err => {
                 console.log(err);
             })
-        shipFee();
     }
 
     /**xóa sản phẩm trong giỏ hàng, index: vị trí sản phẩm trong giỏ hàng*/
@@ -536,6 +537,8 @@ function cart($scope, $http, $routeParams) {
         })
         $scope.orderNew.orderDetails = $scope.orderDetails;
         $scope.orderNew.totalMoney = totalMoney;
+        shipFee();
+        getVoucherByMoney();
     }
 
     $scope.check = (index) => {
@@ -610,7 +613,18 @@ function cart($scope, $http, $routeParams) {
             console.log(error);
             $scope.isLoading = false;
         });
-
+    getVoucherByMoney = function () {
+        console.log($scope.orderNew.totalMoney);
+        $http.get(apiVoucher + "/money/" + $scope.orderNew.totalMoney)
+            .then(function (response) {
+                $scope.listVoucher = response.data;
+                $scope.isLoading = false;
+            })
+            .catch(function (error) {
+                console.log(error);
+                $scope.isLoading = false;
+            });
+    }
     // $scope.vnpayDto = {
     //     vnp_OrderInfo: 'Thanh toan don hang',
     //     vnp_Amount: '',
@@ -685,11 +699,10 @@ function cart($scope, $http, $routeParams) {
         $('#addressModal').modal('show');
     };
 
-    $scope.editAddress = function ($index) {
-        edit = '#editAddres' + $index;
-        console.log(edit);
-        // $('#addressModal').modal('hide');
-        $(edit).modal('show');
+    $scope.editAddress = (index) => {
+        $('#addressModal').modal('hide');
+        $('#confirmModal').modal('show');
+        $scope.address = angular.copy($scope.listAddress[index]);
     };
 
     $scope.closeModalAddress = function () {
@@ -709,9 +722,11 @@ function cart($scope, $http, $routeParams) {
     $scope.submit = function () {
         $http.post(apiAddress, $scope.address)
             .then(function (response) {
-                $scope.isLoading = false;
+                $scope.isLoading = true;
                 $scope.isSuccess = true;
-                $scope.message = "Thêm địa chỉ thành công"
+                $scope.message = "Lưu địa chỉ thành công"
+                $('#confirmModal').modal('hide');
+                $('#addressModal').modal('show');
                 alertShow();
             })
             .catch(function (error) {
@@ -743,12 +758,13 @@ function cart($scope, $http, $routeParams) {
 
     $scope.confirmAddress = ($index) => {
         $scope.listAddress.map(item => {
-            item.selected = true;
             if (item.id == $index + 1) {
                 $scope.provinceId = item.provinceId;
                 $scope.districtId = item.districtId;
                 $scope.wardCode = item.wardCode;
 
+                $scope.orderNew.customerName = item.name;
+                $scope.orderNew.phone = item.phone;
                 $scope.orderNew.province = item.province;
                 $scope.orderNew.district = item.district;
                 $scope.orderNew.ward = item.ward;
