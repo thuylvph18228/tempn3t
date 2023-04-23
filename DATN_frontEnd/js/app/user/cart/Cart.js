@@ -368,7 +368,7 @@ function cart($scope, $http, $routeParams) {
         .then(function (response) {
             $scope.listAddress = response.data;
             $scope.listAddress.map(item => {
-                if (item.defaultAdd == 1) {                
+                if (item.defaultAdd == 1) {
                     $scope.orderNew.customerName = item.name;
                     $scope.orderNew.phone = item.phone;
                     $scope.orderNew.province = item.province;
@@ -381,7 +381,9 @@ function cart($scope, $http, $routeParams) {
                     $scope.wardCode = item.wardCode;
                 }
             })
+            // if ($scope.products.length>0) {
             shipFee();
+            // }
             $scope.isLoading = true;
         })
         .catch(function (error) {
@@ -392,50 +394,52 @@ function cart($scope, $http, $routeParams) {
     /**tinh phí ship */
     $scope.totalShipFee = 0;
     shipFee = (changeQuantity = true) => {
-        if ($scope.wardCode && $scope.districtId) {
-            ship = {
-                service_type_id: 2,
-                to_ward_code: $scope.wardCode + "",
-                to_district_id: Number($scope.districtId),
-                weight: 0,
-                length: 33,
-                width: 22,
-                height: 0
+        if ($scope.products.length > 0) {
+            if ($scope.wardCode && $scope.districtId) {
+                ship = {
+                    service_type_id: 2,
+                    to_ward_code: $scope.wardCode + "",
+                    to_district_id: Number($scope.districtId),
+                    weight: 0,
+                    length: 33,
+                    width: 22,
+                    height: 0
+                }
+
+                var weightShip = 0;
+                var heightShip = 0;
+                $scope.orderNew.orderDetails.map(item => {
+                    weightShip += item.quantity * item.product.weight.weight;
+                    heightShip += item.quantity * 12;
+                })
+                ship.weight = weightShip;
+                ship.height = heightShip;
+
+                $http({
+                    method: 'POST',
+                    url: "https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+                    headers: {
+                        Token: '9e4591da-c66a-11ed-bcba-eac62dba9bd9',
+                        ShopId: '3928266',
+                        'Content-Type': 'application/json'
+                    },
+                    data: ship
+                })
+                    .then(response => {
+                        if ($scope.totalShipFee != 0 && changeQuantity) {
+                            $scope.orderNew.totalMoney -= $scope.totalShipFee
+                        }
+                        $scope.totalShipFee = response.data.data.total;
+                        $scope.orderNew.totalShip = response.data.data.total;
+                        $scope.orderNew.totalMoney += $scope.totalShipFee;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        $scope.isSuccess = false;
+                        $scope.message = "Có lỗi xảy ra khi tính phí ship!!";
+                        alertShow();
+                    })
             }
-
-            var weightShip = 0;
-            var heightShip = 0;
-            $scope.orderNew.orderDetails.map(item => {
-                weightShip += item.quantity * item.product.weight.weight;
-                heightShip += item.quantity * 12;
-            })
-            ship.weight = weightShip;
-            ship.height = heightShip;
-
-            $http({
-                method: 'POST',
-                url: "https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
-                headers: {
-                    Token: '9e4591da-c66a-11ed-bcba-eac62dba9bd9',
-                    ShopId: '3928266',
-                    'Content-Type': 'application/json'
-                },
-                data: ship
-            })
-                .then(response => {
-                    if ($scope.totalShipFee != 0 && changeQuantity) {
-                        $scope.orderNew.totalMoney -= $scope.totalShipFee
-                    }
-                    $scope.totalShipFee = response.data.data.total;
-                    $scope.orderNew.totalShip = response.data.data.total;
-                    $scope.orderNew.totalMoney += $scope.totalShipFee;
-                })
-                .catch(error => {
-                    console.log(error);
-                    $scope.isSuccess = false;
-                    $scope.message = "Có lỗi xảy ra khi tính phí ship!!";
-                    alertShow();
-                })
         }
     }
 
@@ -615,7 +619,6 @@ function cart($scope, $http, $routeParams) {
             $scope.isLoading = false;
         });
     getVoucherByMoney = function () {
-        console.log($scope.orderNew.totalMoney);
         $http.get(apiVoucher + "/money/" + $scope.orderNew.totalMoney)
             .then(function (response) {
                 $scope.listVoucher = response.data;
@@ -723,7 +726,7 @@ function cart($scope, $http, $routeParams) {
     $scope.submit = function () {
         $http.post(apiAddress, $scope.address)
             .then(function (response) {
-                if(!$scope.address.id){
+                if (!$scope.address.id) {
                     $scope.listAddress.push(angular.copy(response.data));
                 }
                 $scope.isLoading = true;
