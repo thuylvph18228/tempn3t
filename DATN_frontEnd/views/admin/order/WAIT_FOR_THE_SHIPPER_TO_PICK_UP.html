@@ -334,12 +334,17 @@
                                                                             </tbody>
                                                                         </table>
                                                                         <div>
-                                                                            <div class="d-flex justify-content-around">
-                                                                                <p ng-if="order.voucher">
-                                                                                    <small>Đã sử dụng voucher {{order.voucher.code}}, giá trị: <b>{{order.voucher.promotion | currency : "" : 0}}₫</b></small>
-                                                                                </p>
-                                                                                <p>Phí ship <img src="/images/img/logoGHN.jpg" alt="" style="max-width: 50px; max-height: 50px;">  <b>{{ order.totalShip | currency: "" : 0 }}₫</b></p>                                                                            
-                                                                                <h5>Tổng tiền đơn hàng: <b>{{ order.totalMoney | currency : "" : 0 }}₫</b></h5>
+                                                                            <div class="d-flex justify-content-end">
+                                                                                <div>
+                                                                                  <p>Giảm giá:
+                                                                                    <b ng-if="!order.voucher">0₫</b>
+                                                                                    <b ng-if="order.voucher">-{{order.voucher.promotion | currency : "" : 0}}₫</b>
+                                                                                  </p>
+                                                                                  <p>Phí ship:
+                                                                                    <b>+{{ order.totalShip | currency: "" : 0 }}₫</b>
+                                                                                  </p>
+                                                                                  <h5>Tổng tiền: <b>{{ order.totalMoney | currency : "" : 0}}₫</b></h5>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>

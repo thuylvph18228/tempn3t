@@ -127,7 +127,8 @@
                                                     padding: 4px; color: #08f;" ng-click="editAddress($index)">Cập nhật
                                                     </button>
                                                     <button class="btn" style="border: 0; background: none; outline: none; 
-                                                    padding: 4px; color: red;" ng-click="deleteAddress(address.id, $index)">Xoá
+                                                    padding: 4px; color: red;"
+                                                        ng-click="deleteAddress(address.id, $index)">Xoá
                                                     </button>
                                                     <!-- Modal -->
                                                     <div class="modal fade" id="deleteAddress{{$index}}" tabindex="-1"
@@ -135,7 +136,8 @@
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLabel">Thao tác này k thể khôi phục!</h5>
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Thao
+                                                                        tác này k thể khôi phục!</h5>
                                                                     <button type="button" class="btn-close"
                                                                         data-bs-dismiss="modal"
                                                                         aria-label="Close"></button>
@@ -483,38 +485,11 @@
                         </div>
                     </div>
                 </div>
-                <hr>
-                <!-- <div>
-                    <b>Thông tin sản phẩm</b>
-                    <table class="table table-bordered table-responsive">
-                        <thead>
-                            <tr class="text-center align-center">
-                                <td></td>
-                                <td>Tên sản phẩm</td>
-                                <td>Chi tiết</td>
-                                <td>Giá</td>
-                                <td>Số lượng</td>
-                                <td>Tổng tiền</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="orderDetail in orderNew.orderDetails" class="text-center align-center">
-                                <td class="d-flex justify-content-center">
-                                    <img ng-src="{{orderDetail.product.avatar}}" class="img-fluid" style="width: 100px; height: 100px;">
-                                </td>
-                                <td>{{orderDetail.product.name}}</td>
-                                <td>Màu: {{orderDetail.productDetail.color.name}} - Size: {{orderDetail.productDetail.size.name}}</td>
-                                <td>{{orderDetail.product.price | currency : '' : 0}}₫</td>
-                                <td>
-                                    {{orderDetail.quantity}}
-                                </td>
-                                <td>{{orderDetail.quantity * orderDetail.product.price | currency : '' : 0}}₫</td>
-                            </tr>
-                        </tbody>
-                    </table></div> -->
-                <div class="row">
+                <div class="row mt-2">
                     <div class="col-6">
                         <p>Hình thức thanh toán</p>
+                    </div>
+                    <div class="col-6">
                         <div>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" ng-model="orderNew.paymentType"
@@ -528,20 +503,34 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-init="shipFee()" class="col-6">
-                        <p>Phí ship <img src="/images/img/logoGHN.jpg" alt=""
-                                style="max-width: 50px; max-height: 50px;">
-                            <b>{{ totalShipFee | currency: "" : 0}}₫</b>
-                        </p>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">Giảm giá</div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <b ng-if="!orderNew.voucher">0₫</b>
+                        <b ng-if="orderNew.voucher">-{{orderNew.voucher.promotion | currency : "" : 0}}₫</b>
                     </div>
                 </div>
-
+                <div class="row">
+                    <div class="col-6">
+                        <p>Phí ship 
+                        </p>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <b>+{{ totalShipFee | currency: "" : 0}}₫</b>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-6">Tổng tiền đơn hàng</div>
+                    <div class="col-6 d-flex justify-content-end" style="font-size: x-large;">
+                        <b style="color: red;">{{orderNew.totalMoney | currency: "" : 0}}₫</b>
+                    </div>
+                </div>
             </div>
             <div class="mt-3">
                 <div class=" text-end" style="width: 100%;">
-                    <div style="font-size: xx-large;">
-                        Tổng tiền đơn hàng: <b style="color: red;">{{orderNew.totalMoney | currency: "" : 0}}₫</b>
-                    </div>
                     <div class="mt-3">
                         <button type="button" ng-show="orderNew.paymentType != 'OFFLINE' " class="btn btn-primary"
                             ng-click="pay()">Thanh toán</button>

@@ -158,10 +158,14 @@ function homeAdmin ($scope, $http, $rootScope) {
     /**tinh tong tien cua don hang */
     $scope.totalMoney = 0;
     totalOrder = (order) => {
-        $scope.totalMoney = 0;
+        var totalMoney = 0;
         order.orderDetails.map(item => {
-            $scope.totalMoney += item.price * item.quantity;
+            totalMoney += item.price * item.quantity;
         });
+        if(order.voucher){
+            totalMoney -= order.voucher.promotion;
+        }
+        $scope.totalMoney = totalMoney + order.totalShip;
     }
 
     // $scope.labels = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30'];
