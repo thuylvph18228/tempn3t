@@ -23,6 +23,7 @@ function product($scope, $http, $rootScope) {
         name: '',
         avatar: '',
         price: '',
+        listed_price: '',
         sex: '',
         brand: null,
         category: null,

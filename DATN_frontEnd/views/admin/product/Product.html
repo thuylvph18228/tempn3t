@@ -316,6 +316,25 @@
                                         </div>
                                         <div class="mt-3 row">
                                             <div class="col-2">
+                                                <label for="listed_price">Giá niêm yết</label>
+                                            </div>
+                                            <div class="col-9">
+                                                <input class="form-control" type="number" id="listed_price"
+                                                    ng-model="product.listed_price" name="listed_price" ng-required="true"
+                                                    ng-trim="true" ng-maxlength="11">
+                                                <div class="text-danger"
+                                                    ng-hide="form_user.listed_price.$untouched || form_user.listed_price.$valid">
+                                                    <small class="text-danger"
+                                                        ng-show="form_user.listed_price.$error.required"> Vui lòng nhập giá
+                                                        niêm yết! </small>
+                                                    <small class="text-danger"
+                                                        ng-show="form_user.listed_price.$error.maxlength">Không được nhập quá
+                                                        11 ký tự! </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mt-3 row">
+                                            <div class="col-2">
                                                 <label>Giới tính</label>
                                             </div>
                                             <div class="col-9">
