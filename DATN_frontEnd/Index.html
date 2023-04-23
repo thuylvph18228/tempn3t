@@ -39,17 +39,18 @@
       left: 50%;
       position: absolute;
     }
+
     .actips {
-        background-color: #4083ff;
-        border: 2px solid #2f5acf;
-        color: white;
+      background-color: #4083ff;
+      border: 2px solid #2f5acf;
+      color: white;
     }
+
     .unactips {
-        background-color: white;
-        border: 2px solid black;
-        color: black;
+      background-color: white;
+      border: 2px solid black;
+      color: black;
     }
-    
   </style>
 </head>
 
@@ -140,9 +141,9 @@
     <!-- Footer -->
     <footer class="text-center text-lg-start bg-light text-muted responsive">
       <div class="row">
-          <div class="col-4 mt-3 mb-3 ms-5">
-            <p class="fw-bold mt-3" style="font-size: xx-large; color:#63c2e7 ;">N3T SHOES</p>
-          </div>
+        <div class="col-4 mt-3 mb-3 ms-5">
+          <p class="fw-bold mt-3" style="font-size: xx-large; color:#63c2e7 ;">N3T SHOES</p>
+        </div>
       </div>
       <div class="row mt-3 mb-3">
         <div class="col-4 ms-2 ps-5">
@@ -168,30 +169,30 @@
           <a class="text-muted" style="text-decoration: none;" href="#">
             <p>Liên hệ</p>
           </a>
-          
+
         </div>
         <div class="col-4">
           <p class="fw-bold">HỖ TRỢ KHÁCH HÀNG</p>
           <a class="text-muted" style="text-decoration: none;" href="#">
-          <p>Các câu hỏi thường gặp</p>
+            <p>Các câu hỏi thường gặp</p>
           </a>
           <a class="text-muted" style="text-decoration: none;" href="#">
-          <p>Liên hệ chúng tôi</p>
+            <p>Liên hệ chúng tôi</p>
           </a>
           <a class="text-muted" style="text-decoration: none;" href="#">
-          <p>Hệ thống cửa hàng</p>
+            <p>Hệ thống cửa hàng</p>
           </a>
           <a class="text-muted" style="text-decoration: none;" href="#">
-          <p>Tra cứu đơn hàng</p>
+            <p>Tra cứu đơn hàng</p>
           </a>
           <a class="text-muted" style="text-decoration: none;" href="#">
-          <p>Hướng dẫn đo kích thước</p>
+            <p>Hướng dẫn đo kích thước</p>
           </a>
           <a class="text-muted" style="text-decoration: none;" href="#">
-          <p>Chính sách đổi hàng</p>
+            <p>Chính sách đổi hàng</p>
           </a>
           <a class="text-muted" style="text-decoration: none;" href="#">
-          <p>Chính sách giao hàng</p>
+            <p>Chính sách giao hàng</p>
           </a>
         </div>
       </div>
@@ -598,9 +599,19 @@
           templateUrl: "views/user/personal/Personal.html",
           controller: "personal"
         })
-        .when("/cart", {
-          templateUrl: "views/user/cart/ShopingCart.html",
-          controller: "cart"
+        .when('/cart', {
+          templateUrl: 'views/user/cart/ShopingCart.html',
+          controller: 'cart',
+          resolve: {
+            checkUser: ['$window', '$location', function ($window, $location) {
+              const userLocal = localStorage.getItem('user');
+              const user = userLocal ? JSON.parse(userLocal) : null;
+              if (!user) {
+                $window.alert('Bạn cần đăng nhập để truy cập giỏ hàng!');
+                $location.path('/login');
+              }
+            }]
+          }
         })
         /** admin*/
         .when("/admin-dashboard", {
@@ -721,6 +732,12 @@
           }
         })
       }
+
+      $rootScope.$on('$routeChangeError', function (event, current, previous, rejection) {
+        if (rejection === 'not_authenticated') {
+          $location.path('/login');
+        }
+      });
     }])
 
     app.controller("home", home);
