@@ -46,8 +46,8 @@
         <div class="mt-5 mb-3">
             <h5><b>{{product.name}}</b></h5>
             <!-- <p style="color: rgb(143, 141, 141);"><del>Giá cũ: 2.000.000 đ</del></p> -->
-            <p style="color: red;"><b style="color: black;">Giá: </b>{{product.price | currency: "" : 0}}đ
-                <del style="font-size: 12px; margin-left: 12px">{{ product.listed_price | currency: '' : 0 }}₫</del>
+            <p><b style="color: black;">Giá: </b>{{product.price | currency: "" : 0}}đ
+                <del style="font-size: 12px; margin-left: 12px; color: #ec5444;">{{ product.listed_price | currency: '' : 0 }}₫</del>
             </p>
 
             <div>

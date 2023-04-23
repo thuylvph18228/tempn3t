@@ -381,6 +381,7 @@ function cart($scope, $http, $routeParams) {
                     $scope.wardCode = item.wardCode;
                 }
             })
+            shipFee();
             $scope.isLoading = true;
         })
         .catch(function (error) {

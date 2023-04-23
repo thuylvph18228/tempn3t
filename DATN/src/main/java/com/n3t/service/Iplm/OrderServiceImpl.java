@@ -150,11 +150,11 @@ public class OrderServiceImpl implements OrderService {
 
         // gửi mail khi khách hàng đặt hàng trên website
         if(orderDto.getOrderType().equalsIgnoreCase("ONLINE_WEB")){
-            if(orderDto.getVoucher() == null) {
-                Voucher vc = new Voucher();
-                vc.setPromotion(0);
-                orderDto.setVoucher(vc);
-            }
+//            if(orderDto.getVoucher() == null) {
+//                Voucher vc = new Voucher();
+//                vc.setPromotion(0);
+//                orderDto.setVoucher(vc);
+//            }
             orderDto.setCode(orderDto.getCode());
             Optional<User> user = CurrentUser.getCurrentUser();
             if(user.isPresent()){

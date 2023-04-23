@@ -24,53 +24,27 @@
                 <p>Địa chỉ nhận hàng: <strong th:text="${order.address} + ', ' + ${order.ward} + ', ' + ${order.district} + ', ' + ${order.province}"></strong></p>
             </div>
             <h4>Chi tiết các sản phẩm</h4>
-<!--            <div class="row table-responsive">-->
-<!--                <table class="table table-hover table-bordered ">-->
-<!--                    <thead>-->
-<!--                        <th>Tên sản phẩm</th>-->
-<!--                        <th>Màu</th>-->
-<!--                        <th>Size</th>-->
-<!--                        <th>Giá</th>-->
-<!--                        <th>Số lượng</th>-->
-<!--                        <th>Thành tiền</th>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                        <tr class="justify-content-center" th:each="orderDetail, state: ${order.orderDetails}">-->
-<!--                            <td>[[${orderDetail.product.name}]]</td>-->
-<!--                            <td>[[${orderDetail.productDetail.color.name}]]</td>-->
-<!--                            <td>[[${orderDetail.productDetail.size.name}]]</td>-->
-<!--                            <td>[[${{orderDetail.price}}]]</td>-->
-<!--                            <td>[[${orderDetail.quantity}]]</td>-->
-<!--                            <td>[[${{orderDetail.price * orderDetail.quantity}}]]</td>-->
-<!--                        </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
-            <div class="row">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover">
-                        <thead>
-                        <tr>
-                            <th style="border: 1px solid #ddd; background-color: #f2f2f2;">Tên sản phẩm</th>
-                            <th style="border: 1px solid #ddd; background-color: #f2f2f2;">Màu</th>
-                            <th style="border: 1px solid #ddd; background-color: #f2f2f2;">Kích thước</th>
-                            <th style="border: 1px solid #ddd; background-color: #f2f2f2;">Giá</th>
-                            <th style="border: 1px solid #ddd; background-color: #f2f2f2;">Số lượng</th>
-                            <th style="border: 1px solid #ddd; background-color: #f2f2f2;">Thành tiền</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+            <div class="row table-responsive">
+                <table class="table table-hover table-bordered ">
+                    <thead>
+                        <th>Tên sản phẩm</th>
+                        <th>Màu</th>
+                        <th>Size</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Thành tiền</th>
+                    </thead>
+                    <tbody>
                         <tr class="justify-content-center" th:each="orderDetail, state: ${order.orderDetails}">
-                            <td style="border: 1px solid #ddd;">[[${orderDetail.product.name}]]</td>
-                            <td style="border: 1px solid #ddd;">[[${orderDetail.productDetail.color.name}]]</td>
-                            <td style="border: 1px solid #ddd;">[[${orderDetail.productDetail.size.name}]]</td>
-                            <td style="border: 1px solid #ddd;">[[${{orderDetail.price}}]]</td>
-                            <td style="border: 1px solid #ddd;">[[${orderDetail.quantity}]]</td>
-                            <td style="border: 1px solid #ddd;">[[${{orderDetail.price * orderDetail.quantity}}]]</td>
+                            <td>[[${orderDetail.product.name}]]</td>
+                            <td>[[${orderDetail.productDetail.color.name}]]</td>
+                            <td>[[${orderDetail.productDetail.size.name}]]</td>
+                            <td>[[${{orderDetail.price}}]]</td>
+                            <td>[[${orderDetail.quantity}]]</td>
+                            <td>[[${{orderDetail.price * orderDetail.quantity}}]]</td>
                         </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
             <div class="d-flex justify-content-end mt-3">
                 <div th:if="${{order.voucher.promotion}} != null" >
