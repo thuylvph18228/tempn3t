@@ -722,9 +722,13 @@ function cart($scope, $http, $routeParams) {
     $scope.submit = function () {
         $http.post(apiAddress, $scope.address)
             .then(function (response) {
+                if(!$scope.address.id){
+                    $scope.listAddress.push(angular.copy(response.data));
+                }
                 $scope.isLoading = true;
                 $scope.isSuccess = true;
                 $scope.message = "Lưu địa chỉ thành công"
+                $scope.clearAddress();
                 $('#confirmModal').modal('hide');
                 $('#addressModal').modal('show');
                 alertShow();
@@ -737,6 +741,23 @@ function cart($scope, $http, $routeParams) {
                 alertShow();
             });
     };
+
+    $scope.clearAddress = () => {
+        $scope.address = {
+            id: '',
+            name: '',
+            phone: '',
+            province: '',
+            ward: '',
+            district: '',
+            provinceId: '',
+            wardCode: '',
+            districtId: '',
+            defaultAdd: 0,
+            user: null,
+            address: ''
+        }
+    }
 
     $scope.deleteAddress = (addressId, index) => {
         $scope.listAddress.splice(index, 1);
