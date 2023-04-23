@@ -533,7 +533,7 @@ function WAIT_FOR_THE_SHIPPER_TO_PICK_UP ($scope, $http, $rootScope, $filter){
                         if(order.voucher){
                             totalMoney -= order.voucher.promotion;
                         }
-                        order.totalMoney = totalMoney;
+                        order.totalMoney = totalMoney + order.totalShip;
                     })
                 })
                 .catch(error => {
@@ -567,7 +567,7 @@ function WAIT_FOR_THE_SHIPPER_TO_PICK_UP ($scope, $http, $rootScope, $filter){
                     if(order.voucher){
                         totalMoney -= order.voucher.promotion;
                     }
-                    order.totalMoney = totalMoney;
+                    order.totalMoney = totalMoney + order.totalShip;
                 })
             })
             .catch(error => {
@@ -612,7 +612,7 @@ function WAIT_FOR_THE_SHIPPER_TO_PICK_UP ($scope, $http, $rootScope, $filter){
                     if(order.voucher){
                         totalMoney -= order.voucher.promotion;
                     }
-                    order.totalMoney = totalMoney;
+                    order.totalMoney = totalMoney + order.totalShip;
                 })
             })
             .catch(err => {
@@ -645,7 +645,7 @@ function WAIT_FOR_THE_SHIPPER_TO_PICK_UP ($scope, $http, $rootScope, $filter){
         $scope.endDate = null;
         $scope.findByTotalBegin = $scope.findByTotalEnd = '';
         $scope.findByTotal = '';
-        getAllOrder(0, "");
+        getAllOrder(0, $scope.status);
     }
 
     $('select:not(.filter)').each(function () {

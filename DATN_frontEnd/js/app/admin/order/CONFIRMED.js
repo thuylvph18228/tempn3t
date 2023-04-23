@@ -540,7 +540,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
                         if(order.voucher){
                             totalMoney -= order.voucher.promotion;
                         }
-                        order.totalMoney = totalMoney;
+                        order.totalMoney = totalMoney + order.totalShip;
                     })
                 })
                 .catch(error => {
@@ -574,7 +574,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
                     if(order.voucher){
                         totalMoney -= order.voucher.promotion;
                     }
-                    order.totalMoney = totalMoney;
+                    order.totalMoney = totalMoney + order.totalShip;
                 })
             })
             .catch(error => {
@@ -619,7 +619,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
                     if(order.voucher){
                         totalMoney -= order.voucher.promotion;
                     }
-                    order.totalMoney = totalMoney;
+                    order.totalMoney = totalMoney + order.totalShip;
                 })
             })
             .catch(err => {
@@ -652,7 +652,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
         $scope.endDate = null;
         $scope.findByTotalBegin = $scope.findByTotalEnd = '';
         $scope.findByTotal = '';
-        getAllOrder(0, "");
+        getAllOrder(0, $scope.status);
     }
 
     $('select:not(.filter)').each(function () {

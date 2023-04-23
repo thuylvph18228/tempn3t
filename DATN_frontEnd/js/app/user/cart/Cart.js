@@ -777,9 +777,10 @@ function cart($scope, $http, $routeParams) {
             });
     };
 
-    $scope.confirmAddress = ($index) => {
+    $scope.confirmAddress = (index) => {
+        $scope.address = angular.copy($scope.listAddress[index]);
         $scope.listAddress.map(item => {
-            if (item.id == $index + 1) {
+            if (item.id == $scope.address.id) {
                 $scope.provinceId = item.provinceId;
                 $scope.districtId = item.districtId;
                 $scope.wardCode = item.wardCode;
