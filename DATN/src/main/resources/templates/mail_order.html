@@ -39,24 +39,24 @@
                             <td>[[${orderDetail.product.name}]]</td>
                             <td>[[${orderDetail.productDetail.color.name}]]</td>
                             <td>[[${orderDetail.productDetail.size.name}]]</td>
-                            <td>[[${{orderDetail.price}}]]</td>
+                            <td>[[${{orderDetail.price}}]]đ</td>
                             <td>[[${orderDetail.quantity}]]</td>
-                            <td>[[${{orderDetail.price * orderDetail.quantity}}]]</td>
+                            <td>[[${{orderDetail.price * orderDetail.quantity}}]]đ</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="d-flex justify-content-end mt-3">
                 <div th:if="${{order.voucher.promotion}} != null" >
-                    <h3>Giảm giá: <strong th:text="${{order.voucher.promotion}}"></strong></h3>
+                    <h3>Giảm giá: <strong th:text="${{order.voucher.promotion}}">đ</strong></h3>
                 </div>
 
                 <div th:if="${{order.voucher.promotion}} == null" >
-                    <h3>Giảm giá: <strong th:text="0"></strong></h3>
+                    <h3>Giảm giá: <strong th:text="0">đ</strong></h3>
                 </div>
 
-                <h3>Phí ship: <strong th:text="${{order.totalShip}}"></strong></h3>
-                <h4>Tổng tiền: <strong th:text="${{order.totalMoney}}"></strong></h4>
+                <h3>Phí ship: <strong th:text="${{order.totalShip}}">đ</strong></h3>
+                <h4>Tổng tiền: <strong th:text="${{order.totalMoney}}">đ</strong></h4>
             </div>
         </div>
     </div>
