@@ -10,35 +10,36 @@
     </div>
 
     <div class="row">
-        <div class="col-4 mt-3 row ">
+        <!-- <div class="col-4 mt-3 row ">
             <div class="col-6 offset-3">
                 <select class="form-select">
-                    <option selected>Thời gian</option>
-                    <option value="1">Tuần này</option>
-                    <option value="2">Tuần trước</option>
-                    <option value="3">Tháng trước</option>
+                    <option selected disabled>Thống kê theo loại</option>
+                    <option value="1">Ngày</option>
+                    <option value="2">Tháng</option>
+                    <option value="3">Năm</option>
                 </select>
             </div>
-        </div>
-        <div class="col-8 mt-3 row">
+        </div> -->
+        <div class="col-12 mt-3 row">
+            <h4>Doanh số bán hàng theo tháng</h4>
             <div class="col-12 offset-5 row">
                 <form>
                     <div class="row">
                         <div class="col-md-3">
-                          <label for="begin">Ngày bắt đầu:</label>
+                          <label for="begin">Tháng bắt đầu:</label>
                           <div class="input-group">
-                            <input type="date" class="form-control" id="begin" ng-model="beginDate">
+                            <input type="month" class="form-control" id="begin" ng-model="beginDate" ng-change="updateChart()" >
                           </div>
                         </div>
                         <div class="col-md-3">
-                          <label for="end">Ngày kết thúc:</label>
+                          <label for="end">Tháng kết thúc:</label>
                           <div class="input-group">
-                            <input type="date" class="form-control" id="end" ng-model="endDate">
+                            <input type="month" class="form-control" id="end" ng-model="endDate" ng-change="updateChart()" >
                           </div>
                         </div>
-                        <div class="col-md-3 align-self-end">
-                          <button type="button" class="btn btn-primary" ng-click="getChartData()">Thống kê</button>
-                        </div>
+                        <!-- <div class="col-md-3 align-self-end">
+                          <button type="button" class="btn btn-primary" ng-click="getChartDataMonth()">Thống kê</button>
+                        </div> -->
                       </div>
                 </form>
             </div>
@@ -46,7 +47,46 @@
     </div>
     <div class="mt-5 container-fluid">
         <!-- <canvas id="chart" class="chart chart-bar" chart-data="data" chart-labels="labels"></canvas> -->
-        <canvas id="chart" width="800" height="400"></canvas>
+        <canvas id="chartM" width="800" height="400"></canvas>
+    </div>
+
+    <hr>
+
+    <div class="col-12 mt-3 row">
+        <h4>Doanh số bán hàng theo từng ngày</h4>
+        <div class="col-2 offset-5 row">
+            <form ng-submit="submit()">
+                <div class="form-group">
+                    <label for="year">Năm:</label>
+                    <select class="form-control" id="year" ng-model="year" ng-change="updateChartD()" required>
+                      <option value="">Chọn năm</option>
+                      <option ng-repeat="y in years" value="{{ y }}">{{ y }}</option>
+                    </select>
+                  </div>
+                <div class="form-group">
+                    <label for="month">Tháng:</label>
+                    <select class="form-control" id="month" ng-model="month" ng-change="updateChartD()" required>
+                      <option value="">Chọn tháng</option>
+                      <option value="1">Tháng 1</option>
+                      <option value="2">Tháng 2</option>
+                      <option value="3">Tháng 3</option>
+                      <option value="4">Tháng 4</option>
+                      <option value="5">Tháng 5</option>
+                      <option value="6">Tháng 6</option>
+                      <option value="7">Tháng 7</option>
+                      <option value="8">Tháng 8</option>
+                      <option value="9">Tháng 9</option>
+                      <option value="10">Tháng 10</option>
+                      <option value="11">Tháng 11</option>
+                      <option value="12">Tháng 12</option>
+                    </select>
+                  </div>
+              </form>
+        </div>
+    </div>
+
+      <div class="mt-5 container-fluid">
+        <canvas id="chartD" width="800" height="400"></canvas>
     </div>
 
     <!-- <div class="row mt-5">
@@ -117,3 +157,11 @@
         </ul>
     </nav> -->
 </div>
+
+<script>
+    document.addEventListener('keydown', function(event) {
+      if (event.target.type === 'date') {
+        event.preventDefault();
+      }
+    });
+  </script>
