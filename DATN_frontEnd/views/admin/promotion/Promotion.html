@@ -1,4 +1,3 @@
- 
 <link rel="stylesheet" href="/css/Lac.css">
 <div class="container">
     <!--alert-->
@@ -7,17 +6,18 @@
 
     <nav>
         <div class="nav nav-tabs row d-flex active" id="nav-tab" role="tablist">
-            <div class="nav-link active col-6 text-center" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" 
-                type="button" role="tab" aria-controls="nav-profile" aria-selected="false">
+            <div class="nav-link active col-6 text-center" id="nav-profile-tab" data-bs-toggle="tab"
+                data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
+                aria-selected="false">
                 Voucher
             </div>
-            <div class="nav-link col-6 text-center" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" 
+            <div class="nav-link col-6 text-center" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home"
                 type="button" role="tab" aria-controls="nav-home" aria-selected="true">
                 Khuyến Mãi
             </div>
         </div>
-      </nav>
-      <div class="tab-content" id="nav-tabContent">
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="row mt-2">
                 <div class="col-1"></div>
@@ -49,7 +49,8 @@
                             <div class="col-10">
                                 <div class="row">
                                     <div class="col-6">
-                                        <input type="date" id="beginDate" class="form-control" ng-model="promotion.beginDate">
+                                        <input type="date" id="beginDate" class="form-control"
+                                            ng-model="promotion.beginDate">
                                         <!-- <small class="text-danger">Không được để trống </small> -->
                                     </div>
                                     <div class="col-6">
@@ -64,7 +65,7 @@
                                 Trạng thái
                                 <span class="text-danger">*</span></label>
                             <div class="col-10">
-                                <div> 
+                                <div>
                                     <select class="form-select" ng-model="promotion.status">
                                         <option value="AVAILABLE">Áp dụng</option>
                                         <option value="UNAVAILABLE">Không áp dụng</option>
@@ -72,11 +73,13 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="d-flex justify-content-center mt-4">
                             <button class="btn btn-outline-secondary" ng-click="clearPromotion()" type="">Hủy</button>
-                            <button class="btn btn-outline-success ms-3" ng-if="!promotion.id" ng-click="savePromotion()">Tạo khuyến mãi</button>
-                            <button class="btn btn-outline-success ms-3" ng-if="promotion.id" ng-click="savePromotion()">Cập nhật</button>
+                            <button class="btn btn-outline-success ms-3" ng-if="!promotion.id"
+                                ng-click="savePromotion()">Tạo khuyến mãi</button>
+                            <button class="btn btn-outline-success ms-3" ng-if="promotion.id"
+                                ng-click="savePromotion()">Cập nhật</button>
                         </div>
                     </form>
                 </div>
@@ -102,33 +105,112 @@
                             <td>{{promotion.beginDate}} -> {{promotion.endDate}}</td>
                             <td class="d-flex justify-content-center">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" ng-checked="promotion.status == 'AVAILABLE' " 
-                                    ng-click="updateStatusPromotion(promotion, $index)" ng-disabled="checkEndDatePromotion(promotion)">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                                        ng-checked="promotion.status == 'AVAILABLE' "
+                                        ng-click="updateStatusPromotion(promotion, $index)"
+                                        ng-disabled="checkEndDatePromotion(promotion)">
                                     <label class="form-check-label" for="flexSwitchCheckChecked"></label>
                                 </div>
                             </td>
                             <td class="text-center">
-                                <a href="#promotion-detail" class="btn btn-warning btn-sm">Chi tiết</a>
+                                <!-- <a href="#promotion-detail" class="btn btn-warning btn-sm">Chi tiết</a> -->
+                                <button data-bs-toggle="modal" data-bs-target="#modal_properties{{$index}}"
+                                    class="btn btn-warning btn-sm">Chi tiết</button>
+                                <div class="modal fade" id="modal_properties{{$index}}" tabindex="-1"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Chọn loại sản phẩm được
+                                                    khuyễn mãi</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <hr>
+                                                    <div class=" d-flex justify-content-end">
+                                                        <div class="col-3">
+                                                            <div class="">
+                                                                <div class="search-box">
+                                                                    <form class="search-form" action=""> <input
+                                                                            class="form-control" placeholder="Search"
+                                                                            type="text">
+                                                                        <button class="btn btn-link search-btn">
+                                                                        </button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mt-1">
+                                                        <label class="d-flex justify-content-start ms-5"><input ng-model="selectAll"
+                                                                ng-change="toggleAllSelection()"
+                                                                class="form-check-input" type="checkbox" value=""
+                                                                id="flexCheckDefault">
+                                                            Chọn tất cả</label>
+                                                        <table class="table table-bordered table-hover">
+                                                            <thead class="table table-danger">
+                                                                <tr>
+                                                                    <th class="text-center ">DA</th>
+                                                                    <th class="text-center">Loại sản Phẩm</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="cate in listCategory">
+                                                                    <td class="d-flex justify-content-center"><input
+                                                                            ng-model="dummy"
+                                                                            ng-change="toggleSelection($index)"
+                                                                            ng-checked="selectAll || cate.selected"
+                                                                            ng-checked="selectAll"
+                                                                            ng-model="isCheckedAll"
+                                                                            ng-change="isCheckedAll ? checkAll() : uncheckAll()"
+                                                                            class="form-check-input" type="checkbox"
+                                                                            value="" id="flexCheckDefault"></td>
+                                                                    <td>{{ cate.name }}</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <p>Bạn đã chọn: {{getSelectedCategorys()}}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Đóng</button>
+                                                <div class="button">
+                                                    <button type="submit" ng-click="confirm($index, promotion)"
+                                                        class="btn btn-outline-success">Lưu</button>
+                                                    <button class="btn btn-outline-danger" ng-click="clear()"
+                                                        type="">Xóa form</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <button class="btn btn-warning btn-sm">Áp dụng</button>
                             </td>
                             <td class="text-center">
                                 <button class="btn btn-warning btn-sm" ng-click="editPromotion($index)">Sửa</button>
                                 <button data-bs-toggle="modal" data-bs-target="#modal_delete{{$index}}"
                                     class="btn btn-danger btn-sm">Xóa</button>
-                                <div class="modal fade" id="modal_delete{{$index}}" tabindex="-1"
-                                    aria-hidden="true">
+                                <div class="modal fade" id="modal_delete{{$index}}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Xóa</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 Xác nhận xóa?
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                <button type="button" class="btn btn-danger" ng-click="deletePromotion($index, promotion)" data-bs-dismiss="modal">Xóa</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    ng-click="deletePromotion($index, promotion)"
+                                                    data-bs-dismiss="modal">Xóa</button>
                                             </div>
                                         </div>
                                     </div>
@@ -159,7 +241,8 @@
                                 Mã voucher
                             </label>
                             <div class="col-10">
-                                <input type="text" class="form-control" ng-model="voucher.code" readonly placeholder="Mã được tạo tự động">
+                                <input type="text" class="form-control" ng-model="voucher.code" readonly
+                                    placeholder="Mã được tạo tự động">
                             </div>
                         </div>
                         <div class="mt-2 row">
@@ -185,7 +268,8 @@
                                 Số lượng
                                 <span class="text-danger">*</span></label>
                             <div class="col-10">
-                                <input type="number" class="form-control" ng-model="voucher.quantity" min="1" oninput="this.value = Math.abs(this.value)">
+                                <input type="number" class="form-control" ng-model="voucher.quantity" min="1"
+                                    oninput="this.value = Math.abs(this.value)">
                                 <!-- <small class="text-danger">Không được để trống </small> -->
                             </div>
                         </div>
@@ -196,11 +280,13 @@
                             <div class="col-10">
                                 <div class="row">
                                     <div class="col-6">
-                                        <input type="date" id="beginDate" class="form-control" ng-model="voucher.beginDate">
+                                        <input type="date" id="beginDate" class="form-control"
+                                            ng-model="voucher.beginDate">
                                         <!-- <small class="text-danger">Không được để trống </small> -->
                                     </div>
                                     <div class="col-6">
-                                        <input type="date" class="form-control" ng-model="voucher.endDate" min="voucher.beginDate">
+                                        <input type="date" class="form-control" ng-model="voucher.endDate"
+                                            min="voucher.beginDate">
                                         <!-- <small class="text-danger">Không được để trống </small> -->
                                     </div>
                                 </div>
@@ -219,22 +305,27 @@
                         </div>
                         <div class="d-flex justify-content-center mt-4">
                             <button class="btn btn-outline-secondary" ng-click="clearVoucher()" type="">Hủy</button>
-                            <button class="btn btn-outline-success ms-3" ng-if="!voucher.id" data-bs-toggle="modal" data-bs-target="#modal_save_voucher">Tạo Voucher</button>
-                            <button class="btn btn-outline-success ms-3" ng-if="voucher.id" data-bs-toggle="modal" data-bs-target="#modal_save_voucher">Cập nhật</button>
+                            <button class="btn btn-outline-success ms-3" ng-if="!voucher.id" data-bs-toggle="modal"
+                                data-bs-target="#modal_save_voucher">Tạo Voucher</button>
+                            <button class="btn btn-outline-success ms-3" ng-if="voucher.id" data-bs-toggle="modal"
+                                data-bs-target="#modal_save_voucher">Cập nhật</button>
                         </div>
                         <!-- modal save -->
                         <div class="modal fade" id="modal_save_voucher" tabindex="-1" aria-hidden="true">
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        Lưu voucher ? 
+                                        Lưu voucher ?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"  ng-click="saveVoucher()">Xác nhận</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Đóng</button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                            ng-click="saveVoucher()">Xác nhận</button>
                                     </div>
                                 </div>
                             </div>
@@ -270,28 +361,35 @@
                             <td>{{voucher.createBy.username}}</td>
                             <td class="d-flex justify-content-center">
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" ng-checked="voucher.status == 'AVAILABLE' " 
-                                    ng-click="updateStatusVoucher(voucher, $index)" ng-disabled="checkEndDate(voucher)">
+                                    <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked"
+                                        ng-checked="voucher.status == 'AVAILABLE' "
+                                        ng-click="updateStatusVoucher(voucher, $index)"
+                                        ng-disabled="checkEndDate(voucher)">
                                     <label class="form-check-label" for="flexSwitchCheckChecked"></label>
                                 </div>
                             </td>
                             <td class="text-center">
                                 <button class="btn btn-warning btn-sm" ng-click="editVoucher($index)">Sửa</button>
-                                <button data-bs-toggle="modal" data-bs-target="#modal_delete{{$index}}" class="btn btn-danger btn-sm">Xóa</button>
+                                <button data-bs-toggle="modal" data-bs-target="#modal_delete{{$index}}"
+                                    class="btn btn-danger btn-sm">Xóa</button>
                                 <!-- modal xóa -->
                                 <div class="modal fade" id="modal_delete{{$index}}" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Xóa</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 Xác nhận xóa?
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                <button type="button" class="btn btn-danger" ng-click="deleteVoucher($index, voucher)" data-bs-dismiss="modal">Xóa</button>
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-bs-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    ng-click="deleteVoucher($index, voucher)"
+                                                    data-bs-dismiss="modal">Xóa</button>
                                             </div>
                                         </div>
                                     </div>
@@ -302,8 +400,8 @@
                 </table>
             </div>
         </div>
-      </div>
+    </div>
 
 
-    
+
 </div>

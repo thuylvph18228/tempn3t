@@ -197,9 +197,9 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
                         ng-click="cancelSize()">Hủy</button>
                     <button type="button" ng-show="!origin.id" class="btn btn-primary" data-bs-dismiss="modal"
-                        ng-click="saveOrigin()" ng-disabled="form_origin.orrigin.$invalid">Lưu </button>
+                        ng-click="saveOrigin()" ng-disabled="form_origin.origin.$invalid">Lưu </button>
                     <button type="button" ng-show="origin.id" class="btn btn-primary" data-bs-dismiss="modal"
-                        ng-click="updateOrigin()" ng-disabled="form_origin.orrigin.$invalid">Cập nhật </button>
+                        ng-click="updateOrigin()" ng-disabled="form_origin.origin.$invalid">Cập nhật </button>
                 </div>
             </div>
         </div>
@@ -522,7 +522,7 @@
                                         data-bs-target="#origin" style="color: black; text-decoration: none;">
                                         {{origin.origin}}
                                     </a>
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#origin{$index}}" style="color: red;">
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#origin{{$index}}" style="color: red;">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </div>

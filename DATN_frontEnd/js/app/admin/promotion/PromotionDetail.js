@@ -1,14 +1,14 @@
-function promotionDetail ($scope, $http, $rootScope) {
-    
+function promotionDetail($scope, $http, $rootScope) {
+
     $rootScope.isAdmin = false;
 
     const userLocal = localStorage.getItem("user");
     const user = userLocal ? JSON.parse(userLocal) : null;
-    
-    if(user) {
+
+    if (user) {
         user.roles.map(item => {
-            if(item == "ADMIN"){
-                $rootScope.isAdmin = true;            
+            if (item == "ADMIN") {
+                $rootScope.isAdmin = true;
             } else {
                 document.location.href = "#home"
             }
@@ -17,7 +17,7 @@ function promotionDetail ($scope, $http, $rootScope) {
         document.location.href = "#home"
     }
 
-    $scope.productList = []; 
+    $scope.listCategory = [];
 
     /**hien thi thong bao */
     alertShow = () => {
@@ -26,75 +26,87 @@ function promotionDetail ($scope, $http, $rootScope) {
         });
     }
 
-    const api = 'http://localhost:8080/n3t/product';
+    const apiCategory = "http://localhost:8080/n3t/category";
     $scope.isLoading = true;
 
-    /**get all product */
-    getAllProduct = (api, page, size) => {
-        $http.get(api + "/index" + "?page=" + page + "&size=" + size)
-            .then(function (response) {
-                $scope.products = response.data[0];
-                $scope.products.forEach((element, index) => {
-                    // element.index = index + 1;
-                    element.quantity = 0;
-                    element.sold = 0;
-                    element.productDetails.forEach(item => {
-                        element.quantity += Number(item.quantity);
-                        item.orderDetail.forEach(orderDetail => {
-                            element.sold += Number(orderDetail.quantity);
+    //get all category
+    $http.get(apiCategory)
+        .then((res) => {
+            $scope.listCategory = res.data;
+            $scope.isLoading = false;
+        }).catch((err) => {
+            console.log(err);
+            $scope.isLoading = false;
+            $scope.isSuccess = false;
+            $scope.message = "Có lỗi xảy ra, vui lòng thử lại!!!";
+            alertShow();
+        });
 
-                        })
-                    })
-                });
-                if (response.data[2] && response.data[2] != null) {
-                    $scope.totalProduct = response.data[2];
-                }
-                $scope.productList = $scope.products;
-                $scope.count = response.data[1];
-                $scope.isLoading = false;
-            })
-            .catch(function (error) {
-                console.log(error);
-                $scope.isLoading = false;
+    $scope.selectedCategorys = [];
+
+    $scope.toggleAllSelection = function () {
+        if ($scope.selectAll) {
+            $scope.selectedCategorys = $scope.listCategory.slice();
+            angular.forEach($scope.listCategory, function (category) {
+                category.selected = true;
             });
-    }
-    getAllProduct(api, 0, 10);
+        } else {
+            $scope.selectedCategorys = [];
+            angular.forEach($scope.listCategory, function (category) {
+                category.selected = false;
+            });
+        }
+        // Check if any product is not selected
+        var anyUnselectedProduct = $scope.listCategory.some(function (category) {
+            return !category.selected;
+        });
 
-    $scope.page = {
-        page: 0,
-        size: 10,
-    }
+        // Update selectAll checkbox
+        $scope.selectAll = !anyUnselectedProduct;
+    };
 
-    /**phan trang */
-    function pageging() {
-        getAllProduct(api, $scope.page.page, $scope.page.size);
-        $scope.productsList = $scope.products;
-    }
+    $scope.toggleSelection = function (index) {
+        var category = $scope.listCategory[index];
+        var cateIndex = $scope.selectedCategorys.indexOf(category);
+        if (cateIndex > -1) {
+            $scope.selectedCategorys.splice(cateIndex, 1);
+        } else {
+            $scope.selectedCategorys.push(category);
+        }
+    };
 
-    /**trang phia truoc */
-    $scope.prev = function () {
-        $scope.page.page--;
-        if ($scope.page.page < 0) {
-            $scope.page.page = $scope.count - 1;
-        }
-        pageging();
-    }
-    /**trang tiep theo */
-    $scope.next = function () {
-        ++$scope.page.page;
-        if ($scope.page.page >= $scope.count) {
-            $scope.page.page = 0;
-        }
-        pageging();
-    }
-    /**thay doi trong input */
-    $scope.changePage = () => {
-        if ($scope.page.page <= 0 || null || $scope.page.page == undefined) {
-            $scope.page.page = 0;
-        }
-        if ($scope.page.page > $scope.count) {
-            $scope.page.page = $scope.count - 1;
-        }
-        // pageging();
+    $scope.getSelectedCategorys = function () {
+        return $scope.selectedCategorys
+            .map(function (category) {
+                return category.name;
+            });
+    };
+
+    $scope.checkAll = function () {
+        $scope.isCheckedAll = true;
+        angular.forEach($scope.listCategory, function (category) {
+            category.selected = true;
+        });
+    };
+
+    $scope.uncheckAll = function () {
+        $scope.isCheckedAll = false;
+        angular.forEach($scope.listCategory, function (category) {
+            category.selected = false;
+        });
+    };
+
+    $scope.$watch('listCategory', function () {
+        var allSelected = true;
+        angular.forEach($scope.listCategory, function (category) {
+            if (!category.selected) {
+                allSelected = false;
+            }
+        });
+        $scope.isCheckedAll = allSelected;
+    }, true);
+
+    $scope.confirm = () => {
+        
     }
 }
