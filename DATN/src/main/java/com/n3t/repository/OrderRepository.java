@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
@@ -46,12 +47,18 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "ORDER BY MONTH(created_date) ASC", nativeQuery = true)
     List<Object> turnover(String year);
 
-    //thống kê số lượng đơn hàng theo khoản thời gian
-    @Query(value = "SELECT MONTH(o.created_date) as month, SUM(od.quantity * od.price) as total FROM orders o INNER JOIN order_details od on o.id = od.order_id\n" +
+    @Query(value = "SELECT DATE_FORMAT(created_date, '%m/%Y') as month, COUNT(id) as total FROM orders \n" +
             "WHERE CONVERT(created_date, date) >= CONVERT(:begin, date) and CONVERT(created_date, date) <= CONVERT(:end, date)\n" +
-            "GROUP BY MONTH(o.created_date)\n" +
-            "ORDER BY MONTH(created_date) ASC", nativeQuery = true)
-    List<Object> countOrderByTime(String begin, String end);
+            "GROUP BY DATE_FORMAT(created_date, '%m/%Y')\n" +
+            "ORDER BY created_date ASC", nativeQuery = true)
+    List<Map<String, Object>> countOrderByTime(String begin, String end);
+
+//    //thống kê số lượng đơn hàng theo khoản thời gian
+//    @Query(value = "SELECT MONTH(o.created_date) as month, SUM(od.quantity * od.price) as total FROM orders o INNER JOIN order_details od on o.id = od.order_id\n" +
+//            "WHERE CONVERT(created_date, date) >= CONVERT(:begin, date) and CONVERT(created_date, date) <= CONVERT(:end, date)\n" +
+//            "GROUP BY MONTH(o.created_date)\n" +
+//            "ORDER BY MONTH(created_date) ASC", nativeQuery = true)
+//    List<Object> countOrderByTime(String begin, String end);
 
     @Query("select count(e.id) from Order e where e.status = 'WAIT_FOR_CONFIRMATION'")
     long countByCONFIRMATION();
