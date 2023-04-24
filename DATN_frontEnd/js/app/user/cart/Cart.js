@@ -579,8 +579,8 @@ function cart($scope, $http, $routeParams) {
                         $scope.orderNew.totalMoney = 0;
                         $scope.orderNew.orderDetails.map(item => {
                             $scope.orderNew.totalMoney += item.quantity * item.product.price
-                            $scope.orderNew.totalMoney += $scope.totalShipFee;
                         })
+                        $scope.orderNew.totalMoney += $scope.totalShipFee;
                         if ($scope.orderNew.totalMoney >= $scope.voucher.minMoney) {
                             $scope.orderNew.voucher = $scope.voucher;
                             $scope.orderNew.totalMoney -= $scope.voucher.promotion;

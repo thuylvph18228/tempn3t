@@ -77,6 +77,13 @@ function home ($scope, $http, $rootScope) {
         $http.post(apiProductt , $scope.productt )
             .then(function (response) {                    
                 $scope.productst = response.data.content;
+                $scope.productst.map(item => {
+                    if (item.category.id==5) {
+                        item.price = item.price - (item.price * 0,1)
+                        console.log("cate = 5");
+                        console.log(item.price);
+                    }
+                })
                 $scope.count = response.data.totalPages;
                 $scope.isLoading = false;
             })
@@ -87,7 +94,6 @@ function home ($scope, $http, $rootScope) {
 
     }
     $scope.getAllProductt(apiProduct, $scope.productt);
-
 
     $http.get(apiProduct+"/hotproduct")
     .then(function (response) {
