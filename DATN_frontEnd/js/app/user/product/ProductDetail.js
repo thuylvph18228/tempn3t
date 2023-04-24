@@ -551,7 +551,13 @@ function productDetailUser ($scope, $http, $routeParams) {
 
     /**tạo đơn hàng mới */
     $scope.createOrder = () => {
-        $http.post(apiOrder, $scope.orderNew)
+        if (localStorage.getItem('user') == 'null') {
+            $scope.isSuccess = false;
+            $scope.message = "Vui lòng đăng nhập trước khi đặt hàng!"
+            alertShow();
+            return;
+        }else {
+            $http.post(apiOrder, $scope.orderNew)
             .then(function (response) {       
                 // document.location.href = "#all-order/" + response.data.id;
                 $scope.isLoading = false;
@@ -566,6 +572,7 @@ function productDetailUser ($scope, $http, $routeParams) {
                 $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
                 alertShow();
             });
+        }
     }
 
     /**thêm sản phẩm vào giỏ hàng */
