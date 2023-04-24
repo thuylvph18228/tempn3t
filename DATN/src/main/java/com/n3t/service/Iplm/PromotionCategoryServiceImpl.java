@@ -1,7 +1,9 @@
 package com.n3t.service.Iplm;
 
 import com.n3t.entity.PromotionCategory;
+import com.n3t.repository.PromotionCategoryRepository;
 import com.n3t.service.PromotionCategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -9,10 +11,14 @@ import java.util.List;
 
 @Service
 public class PromotionCategoryServiceImpl implements PromotionCategoryService {
+
+    @Autowired
+    PromotionCategoryRepository promotionCategoryRepository;
+
     @Override
     @Transactional
     public List<PromotionCategory> getAll() {
-        return null;
+        return this.promotionCategoryRepository.findAll();
     }
 
     @Override
@@ -36,13 +42,13 @@ public class PromotionCategoryServiceImpl implements PromotionCategoryService {
     @Override
     @Transactional
     public PromotionCategory save(PromotionCategory promotionCategory) {
-        return null;
+        return this.promotionCategoryRepository.save(promotionCategory);
     }
 
     @Override
     @Transactional
     public PromotionCategory update(PromotionCategory promotionCategory) {
-        return null;
+        return this.promotionCategoryRepository.save(promotionCategory);
     }
 
     @Override

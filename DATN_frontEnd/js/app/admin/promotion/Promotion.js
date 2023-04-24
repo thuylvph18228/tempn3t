@@ -26,6 +26,12 @@ function promotion ($scope, $http, $rootScope) {
         status: 'AVAILABLE',
         isDelete: 0
     }
+    
+    $scope.promotionCategory = {
+        id: '',
+        promotion: 5,
+        category: 3
+    }
 
     $scope.voucher = {
         id: '',
@@ -42,14 +48,16 @@ function promotion ($scope, $http, $rootScope) {
 
     $scope.promotions = [];
     $scope.vouchers = [];
-
+    
     $scope.isLoading = false;
     $scope.isSuccess = true;
     $scope.message = "";
 
     const apiPromotion = "http://localhost:8080/n3t/promotion"
     const apiVoucher = "http://localhost:8080/n3t/voucher"
-
+    const apiCategory = "http://localhost:8080/n3t/category"
+    const apiPromotionCategory = "http://localhost:8080/n3t/promotion-category"
+    
     /**hien thi thong bao */
     alertShow = () => {
         $(document).ready(function(){
@@ -155,6 +163,107 @@ function promotion ($scope, $http, $rootScope) {
         alertShow();
     }
 
+    //get all category
+    $http.get(apiCategory)
+        .then((res) => {
+            $scope.listCategory = res.data;
+            $scope.isLoading = false;
+        }).catch((err) => {
+            console.log(err);
+            $scope.isLoading = false;
+            $scope.isSuccess = false;
+            $scope.message = "Có lỗi xảy ra, vui lòng thử lại!!!";
+            alertShow();
+        });
+
+    $scope.selectedCategorys = [];
+
+    $scope.toggleAllSelection = function () {
+        if ($scope.selectAll) {
+            $scope.selectedCategorys = $scope.listCategory.slice();
+            angular.forEach($scope.listCategory, function(category) {
+                category.selected = true;
+            });
+        } else {
+            $scope.selectedCategorys = [];
+            angular.forEach($scope.listCategory, function(category) {
+                category.selected = false;
+            });
+        }
+        // Check if any product is not selected
+        var anyUnselectedProduct = $scope.listCategory.some(function (category) {
+            return !category.selected;
+        });
+
+        // Update selectAll checkbox
+        $scope.selectAll = !anyUnselectedProduct;
+    };
+
+    $scope.toggleSelection = function (index) {
+        var category = $scope.listCategory[index];
+        var cateIndex = $scope.selectedCategorys.indexOf(category);
+        if (cateIndex > -1) {
+            $scope.selectedCategorys.splice(cateIndex, 1);
+        } else {
+            $scope.selectedCategorys.push(category);
+        }
+    };
+
+    $scope.getSelectedCategorys = function () {
+        return $scope.selectedCategorys
+            .map(function (category) {
+                return category.name;
+            });
+    };
+
+    $scope.checkAll = function () {
+        $scope.isCheckedAll = true;
+        angular.forEach($scope.listCategory, function (category) {
+            category.selected = true;
+        });
+    };
+
+    $scope.uncheckAll = function () {
+        $scope.isCheckedAll = false;
+        angular.forEach($scope.listCategory, function (category) {
+            category.selected = false;
+        });
+    };
+
+    $scope.$watch('listCategory', function () {
+        var allSelected = true;
+        angular.forEach($scope.listCategory, function (category) {
+            if (!category.selected) {
+                allSelected = false;
+            }
+        });
+        $scope.isCheckedAll = allSelected;
+    }, true);
+
+    $scope.idCates = [];
+    $scope.confirm = (index, promotion) => {
+        // $scope.promotionCategory.promotion = promotion.id;
+        // $scope.idCates = angular.copy($scope.selectedCategorys).map(function(proCate){
+        //     return proCate.id;
+        // });
+        // $scope.promotionCategory.category = 3;
+
+        console.log($scope.promotionCategory);
+        $http.post(apiPromotionCategory, $scope.promotionCategory)
+            .then(function (response) {
+                $scope.isLoading = true;
+                $scope.isSuccess = true;
+                $scope.message = "Thành công"
+                alertShow();
+            })
+            .catch(function (error) {
+                console.log(error);
+                $scope.isLoading = false;
+                $scope.isSuccess = false;
+                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                alertShow();
+            });
+    }
 
     //get all voucher
     $http.get(apiVoucher)
