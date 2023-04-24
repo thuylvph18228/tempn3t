@@ -88,11 +88,11 @@
                             <div class="mt-2">
                                 <div class="mt-2 ps-3 pe-3">
                                     <input type="number" class="form-control" placeholder="Từ"
-                                        ng-change="filterBySold()" ng-model="beginSold">
+                                        ng-change="filterBySold()" ng-model="beginSold" min="1" oninput="this.value = Math.abs(this.value)">
                                 </div>
                                 <div class="mt-2 ps-3 pe-3">
                                     <input type="number" class="form-control" placeholder="Đến"
-                                        ng-change="filterBySold()" ng-model="endSold">
+                                        ng-change="filterBySold()" ng-model="endSold" min="1" oninput="this.value = Math.abs(this.value)">
                                 </div>
                             </div>
                         </li>
@@ -119,11 +119,11 @@
                             <div class="mt-2">
                                 <div class="mt-2 ps-3 pe-3">
                                     <input type="number" class="form-control" placeholder="Từ"
-                                        ng-change="filterByQuantity()" ng-model="beginQuantity">
+                                        ng-change="filterByQuantity()" ng-model="beginQuantity" min="1" oninput="this.value = Math.abs(this.value)">
                                 </div>
                                 <div class="mt-2 ps-3 pe-3">
                                     <input type="number" class="form-control" placeholder="Đến"
-                                        ng-change="filterByQuantity()" ng-model="endQuantity">
+                                        ng-change="filterByQuantity()" ng-model="endQuantity" min="1" oninput="this.value = Math.abs(this.value)">
                                 </div>
                             </div>
                         </li>
@@ -139,11 +139,11 @@
                             <div class="mt-2">
                                 <div class="mt-2 ps-3 pe-3">
                                     <input type="number" class="form-control" placeholder="Từ"
-                                        ng-keyup="filterByPrice()" ng-model="beginPrice">
+                                        ng-keyup="filterByPrice()" ng-model="beginPrice" min="1" oninput="this.value = Math.abs(this.value)">
                                 </div>
                                 <div class="mt-2 ps-3 pe-3">
                                     <input type="number" class="form-control" placeholder="Đến"
-                                        ng-keyup="filterByPrice()" ng-model="endPrice">
+                                        ng-keyup="filterByPrice()" ng-model="endPrice" min="1" oninput="this.value = Math.abs(this.value)">
                                 </div>
                             </div>
                         </li>
@@ -302,7 +302,7 @@
                                             <div class="col-9">
                                                 <input class="form-control" type="number" id="price"
                                                     ng-model="product.price" name="price" ng-required="true"
-                                                    ng-trim="true" ng-maxlength="11">
+                                                    ng-trim="true" ng-maxlength="11" min="1" oninput="this.value = Math.abs(this.value)">
                                                 <div class="text-danger"
                                                     ng-hide="form_user.price.$untouched || form_user.price.$valid">
                                                     <small class="text-danger"
@@ -321,7 +321,7 @@
                                             <div class="col-9">
                                                 <input class="form-control" type="number" id="listed_price"
                                                     ng-model="product.listed_price" name="listed_price" ng-required="true"
-                                                    ng-trim="true" ng-maxlength="11">
+                                                    ng-trim="true" ng-maxlength="11" min="1" oninput="this.value = Math.abs(this.value)">
                                                 <div class="text-danger"
                                                     ng-hide="form_user.listed_price.$untouched || form_user.listed_price.$valid">
                                                     <small class="text-danger"

@@ -227,9 +227,9 @@ function WAIT_FOR_THE_SHIPPER_TO_PICK_UP ($scope, $http, $rootScope, $filter){
     $scope.totalMoney = 0;
     /**tinh tong tien cua don hang */
     totalOrder = (order) => {
-        $scope.totalMoney = 0;
+        order.totalMoney = 0;
         order.orderDetails.map(item => {
-            $scope.totalMoney += item.price * item.quantity;
+            order.totalMoney += item.price * item.quantity;
         });
     }
 

@@ -200,7 +200,7 @@
                     <button type="button" class="btn-close"  aria-label="Close" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#modalReturnOrder"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="number" class="form-control" ng-model="orderReturnWaitQuantityReturn" placeholder="Nhập số lượng">
+                    <input type="number" class="form-control" ng-model="orderReturnWaitQuantityReturn" placeholder="Nhập số lượng" min="1" oninput="this.value = Math.abs(this.value)">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#modalReturnOrder">Hủy</button>
@@ -220,7 +220,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" data-bs-toggle="modal"  data-bs-target="#modalReturnOrder"></button>
                 </div>
                 <div class="modal-body">
-                    <input type="number" class="form-control" ng-model="orderReturnWaitQuantityChange" placeholder="Nhập số lượng">
+                    <input type="number" class="form-control" ng-model="orderReturnWaitQuantityChange" placeholder="Nhập số lượng" min="1" oninput="this.value = Math.abs(this.value)">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-toggle="modal"  data-bs-target="#modalReturnOrder">Hủy</button>
