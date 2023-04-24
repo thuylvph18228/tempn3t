@@ -253,9 +253,9 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
     $scope.totalMoney = 0;
     /**tinh tong tien cua don hang */
     totalOrder = (order) => {
-        $scope.totalMoney = 0;
+        order.totalMoney = 0;
         order.orderDetails.map(item => {
-            $scope.totalMoney += item.price * item.quantity;
+            order.totalMoney += item.price * item.quantity;
         });
     }
 

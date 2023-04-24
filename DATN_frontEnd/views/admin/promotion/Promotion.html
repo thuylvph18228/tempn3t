@@ -38,7 +38,7 @@
                                 Giá trị
                                 <span class="text-danger">*</span></label>
                             <div class="col-10">
-                                <input type="text" class="form-control" ng-model="promotion.quantity" placeholder="%">
+                                <input type="text" class="form-control" ng-model="promotion.quantity" placeholder="%" min="1" oninput="this.value = Math.abs(this.value)">
                                 <!-- <small class="text-danger">Không được để trống </small> -->
                             </div>
                         </div>
@@ -167,7 +167,7 @@
                                 Giá trị
                                 <span class="text-danger">*</span></label>
                             <div class="col-10">
-                                <input type="text" class="form-control" ng-model="voucher.promotion" placeholder="VNĐ">
+                                <input type="text" class="form-control" ng-model="voucher.promotion" placeholder="VNĐ" min="1" oninput="this.value = Math.abs(this.value)">
                                 <!-- <small class="text-danger">Không được để trống </small> -->
                             </div>
                         </div>
@@ -176,7 +176,7 @@
                                 Số tiền tối thiểu
                                 <span class="text-danger">*</span></label>
                             <div class="col-10">
-                                <input type="text" class="form-control" ng-model="voucher.minMoney" placeholder="VNĐ">
+                                <input type="text" class="form-control" ng-model="voucher.minMoney" placeholder="VNĐ" min="1" oninput="this.value = Math.abs(this.value)">
                                 <!-- <small class="text-danger">Không được để trống </small> -->
                             </div>
                         </div>
@@ -185,7 +185,7 @@
                                 Số lượng
                                 <span class="text-danger">*</span></label>
                             <div class="col-10">
-                                <input type="number" class="form-control" ng-model="voucher.quantity" min="1" oninput="this.value = Math.abs(this.value)" >
+                                <input type="number" class="form-control" ng-model="voucher.quantity" min="1" oninput="this.value = Math.abs(this.value)">
                                 <!-- <small class="text-danger">Không được để trống </small> -->
                             </div>
                         </div>

@@ -32,10 +32,10 @@
                         <b class="ps-3">Tùy chỉnh</b>
                         <div class="mt-2">
                             <div class="mt-2 ps-3 pe-3">
-                                <input type="number" class="form-control" placeholder="Từ" ng-model="findByTotalBegin" ng-change="findOrderByTotalMoney()">
+                                <input type="number" class="form-control" placeholder="Từ" ng-model="findByTotalBegin" ng-change="findOrderByTotalMoney()" min="1" oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="mt-2 ps-3 pe-3">
-                                <input type="number" class="form-control" placeholder="Đến" ng-model="findByTotalEnd" ng-change="findOrderByTotalMoney()">
+                                <input type="number" class="form-control" placeholder="Đến" ng-model="findByTotalEnd" ng-change="findOrderByTotalMoney()" min="1" oninput="this.value = Math.abs(this.value)">
                             </div>
                         </div>
                     </li>
@@ -339,7 +339,7 @@
                                                                             </td>
                                                                             <td>
                                                                                 <div class="d-flex justify-content-center align-center">
-                                                                                    <input type="number" ng-change="changeQuantity($parent.$index)" class="col-2" ng-model="orderDetail.quantity">
+                                                                                    <input type="number" ng-change="changeQuantity($parent.$index)" class="col-2" ng-model="orderDetail.quantity" min="1" oninput="this.value = Math.abs(this.value)">
                                                                                 </div>
                                                                             </td>
                                                                             <td>
