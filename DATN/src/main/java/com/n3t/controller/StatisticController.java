@@ -66,4 +66,18 @@ public class StatisticController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/count-by-day")
+    public ResponseEntity<List<Map<String, Object>>> countOrderByDay(@RequestParam("month") int month, @RequestParam("year") int year) {
+        List<Map<String, Object>> result = orderRepository.countOrderByMonthAndYear(year, month);
+        System.out.println(result);
+        List<Map<String, Object>> response = new ArrayList<>();
+        for (Map<String, Object> map : result) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("dd", map.get("dd"));
+            data.put("total", map.get("total"));
+            response.add(data);
+        }
+        return ResponseEntity.ok(response);
+    }
+
 }

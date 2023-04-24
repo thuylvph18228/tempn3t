@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,11 +48,26 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "ORDER BY MONTH(created_date) ASC", nativeQuery = true)
     List<Object> turnover(String year);
 
-    @Query(value = "SELECT DATE_FORMAT(created_date, '%m/%Y') as month, COUNT(id) as total FROM orders \n" +
-            "WHERE CONVERT(created_date, date) >= CONVERT(:begin, date) and CONVERT(created_date, date) <= CONVERT(:end, date)\n" +
-            "GROUP BY DATE_FORMAT(created_date, '%m/%Y')\n" +
-            "ORDER BY created_date ASC", nativeQuery = true)
+    @Query(value = "SELECT DATE_FORMAT(o.created_date, '%m/%Y') as month, COUNT(o.id) as total\n" +
+            "FROM orders o\n" +
+            "WHERE CONVERT(o.created_date, date) BETWEEN CONVERT(:begin, date) AND CONVERT(:end, date)\n" +
+            "AND o.status IN ('DELIVERING', 'DELIVERED')\n" +
+            "GROUP BY DATE_FORMAT(o.created_date, '%m/%Y')\n" +
+            "ORDER BY o.created_date ASC", nativeQuery = true)
     List<Map<String, Object>> countOrderByTime(String begin, String end);
+
+
+    @Query(value = "SELECT DATE_FORMAT(created_date, '%Y-%m-%d') as dd,\n" +
+            "       COUNT(id) as total\n" +
+            "FROM orders\n" +
+            "WHERE status IN ('DELIVERING', 'DELIVERED')\n" +
+            "  AND YEAR(created_date) = :year\n" +
+            "  AND MONTH(created_date) = :month\n" +
+            "GROUP BY dd\n" +
+            "ORDER BY dd ASC", nativeQuery = true)
+    List<Map<String, Object>> countOrderByMonthAndYear(@Param("year") int year, @Param("month") int month);
+
+
 
 //    //thống kê số lượng đơn hàng theo khoản thời gian
 //    @Query(value = "SELECT MONTH(o.created_date) as month, SUM(od.quantity * od.price) as total FROM orders o INNER JOIN order_details od on o.id = od.order_id\n" +
