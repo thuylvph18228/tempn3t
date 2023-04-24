@@ -1,15 +1,24 @@
 package com.n3t.controller;
 
+import com.n3t.repository.OrderRepository;
 import com.n3t.service.OrderService;
 import com.n3t.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/n3t/statistic")
 @CrossOrigin("*")
 public class StatisticController {
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Autowired
     private OrderService orderService;
@@ -42,6 +51,19 @@ public class StatisticController {
     @GetMapping("/get-product")
     public ResponseEntity getProduct(){
         return ResponseEntity.ok(this.productService.getProduct());
+    }
+
+    @GetMapping("/countOrderByTime")
+    public ResponseEntity<List<Map<String, Object>>> countOrderByTime(@RequestParam("begin") String begin, @RequestParam("end") String end) {
+        List<Map<String, Object>> result = orderRepository.countOrderByTime(begin, end);
+        List<Map<String, Object>> response = new ArrayList<>();
+        for (Map<String, Object> map : result) {
+            Map<String, Object> data = new HashMap<>();
+            data.put("month", map.get("month"));
+            data.put("total", map.get("total"));
+            response.add(data);
+        }
+        return ResponseEntity.ok(response);
     }
 
 }

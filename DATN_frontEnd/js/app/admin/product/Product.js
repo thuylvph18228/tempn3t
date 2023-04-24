@@ -205,7 +205,9 @@ function product($scope, $http, $rootScope) {
         // $scope.product.code = brandName + "_" + categoryName + "_"  
 
         console.log($scope.product);
+        event.stopImmediatePropagation();
         event.preventDefault();
+
         $http.post(api, $scope.product)
             .then(function (response) {
                 $scope.products.push(response.data);
@@ -213,15 +215,16 @@ function product($scope, $http, $rootScope) {
                 $scope.isLoading = false;
                 $scope.isSuccess = true;
                 alertShow();
-                $rootScope.message = "Lưu sản phẩm thành công"
+                $rootScope.message = "Lưu sản phẩm thành công";
             })
-            .catch(function (error) {
+            .catch(function (error) {     
                 console.log(error);
                 $scope.isLoading = false;
                 $scope.isSuccess = false;
                 alertShow();
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !";
             });
+
     }
 
 
@@ -335,7 +338,7 @@ function product($scope, $http, $rootScope) {
                 $scope.isLoading = false;
                 $scope.isSuccess = false;
                 alertShow();
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !";
             });
     }
 
