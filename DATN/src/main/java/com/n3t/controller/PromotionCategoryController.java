@@ -20,6 +20,7 @@ public class PromotionCategoryController {
 
     @PostMapping
     private ResponseEntity save(@RequestBody PromotionCategory promotionCategory){
+        System.out.println(promotionCategory);
         return ResponseEntity.ok(this.promotionCategoryService.save(promotionCategory));
     }
 

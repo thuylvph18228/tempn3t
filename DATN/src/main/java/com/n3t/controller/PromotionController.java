@@ -19,6 +19,11 @@ public class PromotionController {
         return ResponseEntity.ok(this.promotionService.getAll());
     }
 
+    @GetMapping("/getAllPromotionByStatusPromotion")
+    private ResponseEntity getAllPromotionByStatusPromotion() {
+        return ResponseEntity.ok(this.promotionService.getAllPromotionByStatusPromotion());
+    }
+
     @PostMapping
     private ResponseEntity save(@RequestBody PromotionDto promotionDto){
         return ResponseEntity.ok(this.promotionService.save(promotionDto));

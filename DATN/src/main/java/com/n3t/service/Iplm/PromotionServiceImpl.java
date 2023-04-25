@@ -25,6 +25,12 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Override
     @Transactional
+    public List<PromotionDto> getAllPromotionByStatusPromotion() {
+        return this.promotionRepo.findAllPromotionByStatusPromotion().stream().map(Promotion :: toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
     public List<PromotionDto> getAllByStatus(String status) {
         return null;
     }

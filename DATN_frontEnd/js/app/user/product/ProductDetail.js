@@ -1,4 +1,4 @@
-function productDetailUser ($scope, $http, $routeParams) {
+function productDetailUser($scope, $http, $routeParams) {
 
     window.scrollTo(0, 0);
 
@@ -11,13 +11,13 @@ function productDetailUser ($scope, $http, $routeParams) {
         name: '',
         avatar: '',
         price: '',
-        sex:'',
+        sex: '',
         brand: null,
         category: null,
         origin: null,
         weight: null,
         status: 'AVAILABLE',
-        description:'',
+        description: '',
         createBy: null,
         updateBy: null,
         createDate: null,
@@ -103,6 +103,7 @@ function productDetailUser ($scope, $http, $routeParams) {
     $scope.heights = [];
 
     $scope.listVoucher = [];
+    $scope.listPromotion = [];
     $scope.listAddress = [];
     $scope.listProvince = [];
     $scope.listDistrict = [];
@@ -117,23 +118,24 @@ function productDetailUser ($scope, $http, $routeParams) {
     const apiOrder = 'http://localhost:8080/n3t/order';
     const apiUser = 'http://localhost:8080/n3t/user';
     const apiAddress = 'http://localhost:8080/n3t/address';
+    const apiPromotion = "http://localhost:8080/n3t/promotion"
 
     /**hien thi thong bao */
     alertShow = () => {
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('.toast').toast('show');
         });
     }
 
     //get all tinh, thanh pho
     $http({
-            method: 'GET',
-            url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
-            headers: {
-                Token: '8572ee07-c663-11ed-ab31-3eeb4194879e',
-            }
-        })
-        .then(function (response) {                    
+        method: 'GET',
+        url: "https://dev-online-gateway.ghn.vn/shiip/public-api/master-data/province",
+        headers: {
+            Token: '8572ee07-c663-11ed-ab31-3eeb4194879e',
+        }
+    })
+        .then(function (response) {
             $scope.listProvince = response.data.data;
             $scope.isLoading = false;
         })
@@ -145,13 +147,13 @@ function productDetailUser ($scope, $http, $routeParams) {
     /**lay thong tin user đăng nhập */
     getInfoUser = () => {
         $scope.isLoading = true;
-        if(user){
-            $http.get(apiUser + "/get-by-username?username=" + user.username) 
-                .then(response => {    
+        if (user) {
+            $http.get(apiUser + "/get-by-username?username=" + user.username)
+                .then(response => {
                     $scope.user = response.data;
                     localStorage.setItem("idUser", $scope.user.id);
                     $scope.address.user = $scope.user;
-                    $scope.orderNew.user = $scope.user;                
+                    $scope.orderNew.user = $scope.user;
                 })
                 .catch(error => {
                     console.log(error);
@@ -167,8 +169,8 @@ function productDetailUser ($scope, $http, $routeParams) {
     /**lay thong tin shop */
     getInfoShop = () => {
         $scope.isLoading = true;
-        $http.get(apiShop) 
-            .then(response => {                    
+        $http.get(apiShop)
+            .then(response => {
                 $scope.shopInfo = response.data;
             })
             .catch(error => {
@@ -180,26 +182,42 @@ function productDetailUser ($scope, $http, $routeParams) {
         $scope.isLoading = false;
     }
 
+    $http.get(apiPromotion + "/getAllPromotionByStatusPromotion")
+        .then(function (response) {
+            $scope.listPromotion = response.data;
+            $scope.isLoading = false;
+        })
+        .catch(function (error) {
+            console.log(error);
+            $scope.isLoading = false;
+        });
+
     /** lấy tất cả sản phẩm chi tiết theo id sản phẩm */
     $scope.isLoading = true;
     $http.get(apiProduct + "/" + $scope.product.id)
-        .then(function (response) {    
+        .then(function (response) {
             $scope.product = response.data;
-            // console.log($scope.product);
+            $scope.listPromotion.map(itemPromo => {
+                itemPromo.promotionCategories.map(itemPromoCate => {
+                    if ($scope.product.category.id == itemPromoCate.category.id) {
+                        $scope.product.price = $scope.product.price - ($scope.product.price * itemPromo.quantity / 100)
+                    }
+                })
+            })
             $scope.newProduct.code = $scope.product.code;
             $scope.newProduct.name = $scope.product.name;
             $scope.newProduct.avatar = $scope.product.avatar;
-            $scope.newProduct.price = response.data.price;
+            $scope.newProduct.price = $scope.product.price;
             $scope.newProduct.weight = response.data.weight;
-            
+
             $scope.product.productDetails.forEach(item => {
-                
+
                 /**kiểm tra xem đã có size này chưa, nếu chưa thì thêm vào mảng */
-                if($scope.sizes.length > 0){
+                if ($scope.sizes.length > 0) {
                     var result = $scope.sizes.find(a => {
                         return a.id == item.size.id
                     });
-                    if(!result) {
+                    if (!result) {
                         $scope.sizes.push(angular.copy(item.size));
                     }
                 } else {
@@ -208,13 +226,13 @@ function productDetailUser ($scope, $http, $routeParams) {
 
                 /**nếu số lượng sp còn lại = 0, disable */
                 item.color.disable = false;
-                if(item.quantity == 0) {
+                if (item.quantity == 0) {
                     item.color.disable = true;
                 }
                 /**kiểm tra xem đã có màu này chưa, nếu chưa thì thêm vào mảng */
-                if($scope.colors.length > 0){
+                if ($scope.colors.length > 0) {
                     var result = $scope.colors.find(a => a.id == item.color.id);
-                    if(!result){
+                    if (!result) {
                         $scope.colors.push(angular.copy(item.color));
                     }
                 } else {
@@ -224,8 +242,8 @@ function productDetailUser ($scope, $http, $routeParams) {
             });
 
             /**chọn mặc định màu */
-            for(var i = 0; i < $scope.colors.length; i++){
-                if($scope.colors[i].disable == false){
+            for (var i = 0; i < $scope.colors.length; i++) {
+                if ($scope.colors[i].disable == false) {
                     $scope.newProduct.productDetail.color = $scope.colors[i];
                     break;
                 }
@@ -241,22 +259,22 @@ function productDetailUser ($scope, $http, $routeParams) {
             $scope.sizes.forEach(size => {
                 size.disable = true;
                 result.map(item => {
-                    if(size.id == item.size.id) {
+                    if (size.id == item.size.id) {
                         size.disable = false;
                     }
                 })
             })
 
             /**chọn mặc định size */
-            for(var i = 0; i < $scope.sizes.length; i++){
-                if($scope.sizes[i].disable == false){
+            for (var i = 0; i < $scope.sizes.length; i++) {
+                if ($scope.sizes[i].disable == false) {
                     $scope.newProduct.productDetail.size = $scope.sizes[i];
                     break;
                 }
             }
 
             $scope.newProduct.productDetail = angular.copy($scope.product.productDetails).filter(item => {
-                return item.color.id == $scope.newProduct.productDetail.color.id &&  item.size.id == $scope.newProduct.productDetail.size.id;
+                return item.color.id == $scope.newProduct.productDetail.color.id && item.size.id == $scope.newProduct.productDetail.size.id;
             })[0];
 
             $scope.productDetail = $scope.newProduct.productDetail;
@@ -273,7 +291,7 @@ function productDetailUser ($scope, $http, $routeParams) {
 
     $scope.changeSize = (size) => {
         $scope.newProduct.productDetail.size = size;
-        if($scope.newProduct.productDetail.color){
+        if ($scope.newProduct.productDetail.color) {
             $scope.productDetail = angular.copy($scope.product.productDetails).filter(item => {
                 return $scope.newProduct.productDetail.size.id == item.size.id && $scope.newProduct.productDetail.color.id == item.color.id;
             })[0];
@@ -282,16 +300,16 @@ function productDetailUser ($scope, $http, $routeParams) {
     }
 
     $scope.changeColor = (color) => {
-        
+
         const result = angular.copy($scope.product.productDetails).filter(item => {
             return item.color.id == color.id && item.quantity > 0;
         })
-        
+
         /** kiếm tra nếu màu không có size này, hoặc hết, disable */
         $scope.sizes.map(size => {
             size.disable = true;
             result.forEach(item => {
-                if(size.id == item.size.id) {
+                if (size.id == item.size.id) {
                     size.disable = false;
                 }
             })
@@ -302,15 +320,15 @@ function productDetailUser ($scope, $http, $routeParams) {
     }
 
     // chọn tỉnh thành phố
-    $scope.chooseProvince = function(ProvinceID){
+    $scope.chooseProvince = function (ProvinceID) {
         $scope.listDistrict = [];
         $scope.orderNew.district = '',
-        $scope.listWard = [];
+            $scope.listWard = [];
         $scope.orderNew.ward = '',
 
-        $scope.province = $scope.listProvince.filter(item => {
-            return item.ProvinceID == ProvinceID;
-        })[0];  
+            $scope.province = $scope.listProvince.filter(item => {
+                return item.ProvinceID == ProvinceID;
+            })[0];
         $scope.orderNew.province = $scope.province.ProvinceName;
         //lấy các quận huyện theo thành phố
         $http({
@@ -321,15 +339,15 @@ function productDetailUser ($scope, $http, $routeParams) {
             },
             data: { province_id: ProvinceID },
         })
-        .then(function (response) {                    
-            $scope.listDistrict = response.data.data;
-            if($scope.orderNew.province == "Hà Nội"){
-                $scope.listDistrict.splice(0, 2);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                $scope.listDistrict = response.data.data;
+                if ($scope.orderNew.province == "Hà Nội") {
+                    $scope.listDistrict.splice(0, 2);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
     }
 
@@ -367,13 +385,13 @@ function productDetailUser ($scope, $http, $routeParams) {
     }
 
     // chon quan, huyện
-    $scope.chooseDistrict = function(DistrictID){
+    $scope.chooseDistrict = function (DistrictID) {
         $scope.listWard = [];
         $scope.orderNew.ward = '',
 
-        $scope.district = $scope.listDistrict.filter(item => {
-            return item.DistrictID == DistrictID;
-        })[0];  
+            $scope.district = $scope.listDistrict.filter(item => {
+                return item.DistrictID == DistrictID;
+            })[0];
         $scope.orderNew.district = $scope.district.DistrictName;
         //lấy các phường, xã theo thành quận, huyện
         $http({
@@ -384,12 +402,12 @@ function productDetailUser ($scope, $http, $routeParams) {
             },
             data: { district_id: DistrictID }
         })
-        .then(function (response) {                    
-            $scope.listWard = response.data.data;
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                $scope.listWard = response.data.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     // chon quan, huyện của địa chỉ
@@ -419,10 +437,10 @@ function productDetailUser ($scope, $http, $routeParams) {
     }
 
     //chon phuong, xa
-    $scope.chooseWard = function(WardCode){
+    $scope.chooseWard = function (WardCode) {
         $scope.ward = $scope.listWard.filter(item => {
             return item.WardCode == WardCode;
-        })[0];  
+        })[0];
         $scope.orderNew.ward = $scope.ward.WardName;
         shipFee();
     }
@@ -441,7 +459,7 @@ function productDetailUser ($scope, $http, $routeParams) {
         .then(function (response) {
             $scope.listAddress = response.data;
             $scope.listAddress.map(item => {
-                if (item.defaultAdd == 1) {                
+                if (item.defaultAdd == 1) {
                     $scope.orderNew.customerName = item.name;
                     $scope.orderNew.phone = item.phone;
                     $scope.orderNew.province = item.province;
@@ -465,7 +483,7 @@ function productDetailUser ($scope, $http, $routeParams) {
     /**tinh phí ship */
     $scope.totalShipFee = 0;
     shipFee = (changeQuantity = true) => {
-        if($scope.district && $scope.ward){
+        if ($scope.district && $scope.ward) {
 
             var ship = {
                 service_type_id: 2,
@@ -476,16 +494,16 @@ function productDetailUser ($scope, $http, $routeParams) {
                 width: 22,
                 height: 0
             }
-        
+
             var weightShip = 0;
             var heightShip = 0;
-            $scope.orderNew.orderDetails.map(item=> {
+            $scope.orderNew.orderDetails.map(item => {
                 weightShip += item.quantity * item.product.weight.weight;
                 heightShip += item.quantity * 12;
             })
             ship.weight = weightShip;
             ship.height = heightShip;
-        
+
             $http({
                 method: 'POST',
                 url: "https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
@@ -496,28 +514,28 @@ function productDetailUser ($scope, $http, $routeParams) {
                 },
                 data: ship
             })
-            .then(response => {
-                if($scope.totalShipFee != 0 && changeQuantity){
-                    $scope.orderNew.totalMoney -= $scope.totalShipFee
-                } 
-                $scope.totalShipFee = response.data.data.total;
-                $scope.orderNew.totalMoney += $scope.totalShipFee;
-            })
-            .catch(error => {
-                console.log(error);
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra khi tính phí ship!!";
-                alertShow();
-            })
+                .then(response => {
+                    if ($scope.totalShipFee != 0 && changeQuantity) {
+                        $scope.orderNew.totalMoney -= $scope.totalShipFee
+                    }
+                    $scope.totalShipFee = response.data.data.total;
+                    $scope.orderNew.totalMoney += $scope.totalShipFee;
+                })
+                .catch(error => {
+                    console.log(error);
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra khi tính phí ship!!";
+                    alertShow();
+                })
         }
     }
 
     /**thay đổi số lượng sp */
     $scope.changeQuantity = (quantity) => {
-        if(quantity < 0){
+        if (quantity < 0) {
             $scope.orderNew.orderDetails[0].quantity = 1;
-        } 
-        
+        }
+
         /**tinh tong tien cua don hang */
         $scope.orderNew.orderDetails.map(item => {
             $scope.orderNew.totalMoney = item.quantity * item.product.price;
@@ -525,24 +543,24 @@ function productDetailUser ($scope, $http, $routeParams) {
         shipFee(false);
     }
     $scope.focusQuantity = (quantity) => {
-        if(quantity <= 0 || !quantity){
+        if (quantity <= 0 || !quantity) {
             $scope.orderNew.orderDetails[0].quantity = 1;
         }
-        
+
         /**tinh tong tien cua don hang */
         $scope.orderNew.orderDetails.map(item => {
             $scope.orderNew.totalMoney = item.quantity * item.product.price;
         })
         shipFee(false);
     }
-    
+
     /**nut mua ngay */
     $scope.buy = () => {
         $scope.orderNew.orderDetails[0].product = $scope.newProduct;
         $scope.orderNew.orderDetails[0].price = $scope.newProduct.price;
         $scope.orderNew.orderDetails[0].productDetail = $scope.productDetail;
         /**tinh tong tien cua don hang */
-        $scope.orderNew.orderDetails.map(item=> {
+        $scope.orderNew.orderDetails.map(item => {
             $scope.orderNew.totalMoney = item.quantity * item.product.price;
         })
         shipFee();
@@ -556,22 +574,22 @@ function productDetailUser ($scope, $http, $routeParams) {
             $scope.message = "Vui lòng đăng nhập trước khi đặt hàng!"
             alertShow();
             return;
-        }else {
+        } else {
             $http.post(apiOrder, $scope.orderNew)
-            .then(function (response) {       
-                // document.location.href = "#all-order/" + response.data.id;
-                $scope.isLoading = false;
-                $scope.isSuccess = true;
-                $scope.message = "Đặt hàng thành công"
-                alertShow();
-            })
-            .catch(function (error) {
-                console.log(error);
-                $scope.isLoading = false;
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
-                alertShow();
-            });
+                .then(function (response) {
+                    // document.location.href = "#all-order/" + response.data.id;
+                    $scope.isLoading = false;
+                    $scope.isSuccess = true;
+                    $scope.message = "Đặt hàng thành công"
+                    alertShow();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                    alertShow();
+                });
         }
     }
 
@@ -793,7 +811,7 @@ function productDetailUser ($scope, $http, $routeParams) {
     $scope.submit = function () {
         $http.post(apiAddress, $scope.address)
             .then(function (response) {
-                if(!$scope.address.id){
+                if (!$scope.address.id) {
                     $scope.listAddress.push(angular.copy(response.data));
                 }
                 $scope.isLoading = true;

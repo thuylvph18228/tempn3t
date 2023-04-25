@@ -3,6 +3,7 @@
 package com.n3t.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.n3t.DTO.CategoryDto;
 import com.n3t.DTO.CurrentUser;
 import lombok.AllArgsConstructor;
@@ -45,7 +46,6 @@ public class Category implements Serializable {
     private User updateBy;
 
     @OneToMany(mappedBy = "category")
-    @JsonIgnore
     private List<PromotionCategory> promotionCategories;
 
     @OneToMany(mappedBy = "category")
