@@ -12,4 +12,9 @@ import java.util.List;
 public interface PromotionRepository extends JpaRepository<Promotion, Integer> {
     @Query(value = "select o from Promotion o where o.isDelete = 0")
     List<Promotion> findAll();
+
+    @Query(value = "SELECT * FROM promotions\n" +
+            "WHERE begin_date <= CURRENT_DATE() AND end_date >= CURRENT_DATE()\n" +
+            "AND status = 'AVAILABLE' AND is_delete = 0\n", nativeQuery = true)
+    List<Promotion> findAllPromotionByStatusPromotion();
 }

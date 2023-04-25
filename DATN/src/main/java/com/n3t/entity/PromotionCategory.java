@@ -1,8 +1,6 @@
-// Generated with g9.
-
 package com.n3t.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,12 +26,11 @@ public class PromotionCategory implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "promotion_id", referencedColumnName = "id")
-    @JsonIgnore
+    @JsonIgnoreProperties("promotionCategories")
     private Promotion promotion;
 
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
-    @JsonIgnore
+    @JsonIgnoreProperties("promotionCategories")
     private Category category;
-
 }

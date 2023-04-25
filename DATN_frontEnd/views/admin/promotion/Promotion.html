@@ -113,9 +113,9 @@
                                 </div>
                             </td>
                             <td class="text-center">
-                                <!-- <a href="#promotion-detail" class="btn btn-warning btn-sm">Chi tiết</a> -->
+                                <!-- <a href="#promotion-detail/{{promotion.id}}" class="btn btn-warning btn-sm">Chi tiết</a> -->
                                 <button data-bs-toggle="modal" data-bs-target="#modal_properties{{$index}}"
-                                    class="btn btn-warning btn-sm">Chi tiết</button>
+                                    class="btn btn-warning btn-sm">Áp dụng</button>
                                 <div class="modal fade" id="modal_properties{{$index}}" tabindex="-1"
                                     aria-hidden="true">
                                     <div class="modal-dialog">
@@ -188,7 +188,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button class="btn btn-warning btn-sm">Áp dụng</button>
                             </td>
                             <td class="text-center">
                                 <button class="btn btn-warning btn-sm" ng-click="editPromotion($index)">Sửa</button>

@@ -2,6 +2,7 @@
 
 package com.n3t.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.n3t.DTO.CurrentUser;
 import com.n3t.DTO.PromotionDto;
 import lombok.AllArgsConstructor;

@@ -29,8 +29,8 @@ function promotion ($scope, $http, $rootScope) {
     
     $scope.promotionCategory = {
         id: '',
-        promotion: 5,
-        category: 3
+        promotion: null,
+        category: null
     }
 
     $scope.voucher = {
@@ -240,29 +240,27 @@ function promotion ($scope, $http, $rootScope) {
         $scope.isCheckedAll = allSelected;
     }, true);
 
-    $scope.idCates = [];
     $scope.confirm = (index, promotion) => {
-        // $scope.promotionCategory.promotion = promotion.id;
-        // $scope.idCates = angular.copy($scope.selectedCategorys).map(function(proCate){
-        //     return proCate.id;
-        // });
-        // $scope.promotionCategory.category = 3;
-
-        console.log($scope.promotionCategory);
-        $http.post(apiPromotionCategory, $scope.promotionCategory)
-            .then(function (response) {
-                $scope.isLoading = true;
-                $scope.isSuccess = true;
-                $scope.message = "Thành công"
-                alertShow();
-            })
-            .catch(function (error) {
-                console.log(error);
-                $scope.isLoading = false;
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
-                alertShow();
-            });
+        $scope.selectedCategorys.forEach(item => {
+            const p = {...$scope.promotionCategory};
+            p.promotion = promotion;
+            p.category = item;
+            console.log(p);            
+            $http.post(apiPromotionCategory, p)
+                .then(function (response) {
+                    $scope.isLoading = true;
+                    $scope.isSuccess = true;
+                    $scope.message = "Thành công"
+                    alertShow();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                    alertShow();
+                });
+    })
     }
 
     //get all voucher
