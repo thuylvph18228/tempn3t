@@ -58,7 +58,8 @@ function createOrder ($scope, $http, $rootScope){
         voucher: null,
         orderDetails: [angular.copy($scope.orderDetail)],
         orderType: 'OFFLINE',
-        totalMoney: 0
+        totalMoney: 0,
+        totalShip: 0
     };
 
     /**danh sách các hóa đơn*/
@@ -350,6 +351,7 @@ function createOrder ($scope, $http, $rootScope){
             .then(response => {
                 console.log(response.data.data);
                 $scope.totalShipFee = response.data.data.total;
+                order.totalShip = response.data.data.total;
                 order.totalMoney += $scope.totalShipFee;
             })
             .catch(error => {
