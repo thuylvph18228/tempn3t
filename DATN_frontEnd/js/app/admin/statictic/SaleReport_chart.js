@@ -122,8 +122,10 @@ function adminSaleReport($scope, $http, $rootScope) {
       params: {
         month: $scope.month,
         year: $scope.year
-      }
+      },
+      cache: false
     }).then(function (response) {
+      console.log(response);
       // Create a list of dates for the month
       var daysInMonth = moment($scope.year + '-' + $scope.month, "YYYY-MM").daysInMonth();
       var labels = [];
@@ -138,13 +140,15 @@ function adminSaleReport($scope, $http, $rootScope) {
         var total = response.data[i].total;
         data[date - 1] = total;
       }
+     
 
       // Fill in missing data with zeros
       for (var i = 0; i < data.length; i++) {
         if (data[i] === undefined) {
           data[i] = 0;
         }
-      }
+      } 
+      console.log(data);
 
       var ctx = document.getElementById('chartD').getContext('2d');
       var chart = new Chart(ctx, {

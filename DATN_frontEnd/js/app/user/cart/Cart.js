@@ -426,18 +426,18 @@ function cart($scope, $http, $routeParams) {
                     data: ship
                 })
                     .then(response => {
-                        if ($scope.totalShipFee != 0 && changeQuantity) {
-                            $scope.orderNew.totalMoney -= $scope.totalShipFee
-                        }
+                        // if ($scope.totalShipFee != 0 && changeQuantity) {
+                        //     $scope.orderNew.totalMoney -= $scope.totalShipFee
+                        // }
                         $scope.totalShipFee = response.data.data.total;
                         $scope.orderNew.totalShip = response.data.data.total;
                         $scope.orderNew.totalMoney += $scope.totalShipFee;
                     })
                     .catch(error => {
                         console.log(error);
-                        $scope.isSuccess = false;
-                        $scope.message = "Có lỗi xảy ra khi tính phí ship!!";
-                        alertShow();
+                        // $scope.isSuccess = false;
+                        // $scope.message = "Có lỗi xảy ra khi tính phí ship!!";
+                        // alertShow();
                     })
             }
         }

@@ -106,8 +106,8 @@
                                                     </div>
                                                     <div class="col-1 pt-1">
                                                         <h5>
-                                                            <a href="#" ng-click="showOrder($index)" data-bs-toggle="modal" data-bs-target="#update{{$index}}" style="color: rgb(198, 198, 18);">
-                                                                <i class="bi bi-pencil-square"></i>
+                                                            <a href="#" ng-click="showOrder($index)" data-bs-toggle="modal" data-bs-target="#update{{$index}}" style="color: rgb(8, 159, 41);">
+                                                                <i class="bi bi-eye"></i>
                                                             </a>
                                                         </h5>
                                                     </div>
@@ -301,9 +301,7 @@
 
                                                                             </td>
                                                                             <td>
-                                                                                <div class="d-flex justify-content-center align-center">
-                                                                                    <input type="number" ng-change="changeQuantity($parent.$index)" class="col-2" ng-model="orderDetail.quantity" min="1" oninput="this.value = Math.abs(this.value)">
-                                                                                </div>
+                                                                                {{orderDetail.quantity}}
                                                                             </td>
                                                                             <td>
                                                                                 {{orderDetail.price * orderDetail.quantity | currency : "" : 0}}₫

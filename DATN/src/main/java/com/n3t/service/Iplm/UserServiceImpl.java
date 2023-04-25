@@ -103,6 +103,7 @@ public class UserServiceImpl implements UserService {
     public UserDto save(UserDto userDto) {
         String password = new BCryptPasswordEncoder().encode(userDto.getPassword());
         userDto.setPassword(password);
+        userDto.setStatus("ACTIVE");
         UserDto u = this.userRepo.saveAndFlush(User.toEntity(userDto)).toDto();
         return u;
     }

@@ -45,7 +45,7 @@
                             <div class="row">
                                 <p class="col-6 text-start">Số lượng</p>
                                 <input class="col-6" type="number" ng-model="product.quantity" min="1"
-                                    oninput="this.value = Math.abs(this.value)"
+                                    oninput="this.value = this.value.replace(/^0+/, '')"
                                     ng-change="changeQuantity($parent.$index, $index)"
                                     style="border:1px solid #ddd; width: 60px; height: 35px; text-align: center;">
                                 <div ng-show="showErrQuantity{{$index}}">
