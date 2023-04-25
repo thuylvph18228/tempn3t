@@ -53,8 +53,85 @@
                     <label for="email" class="bi bi-mailbox2"> Email *</label>
                 </div>
                 <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="address" placeholder="Address *" required>
-                    <label for="address" class="bi bi-map-fill"> Địa chỉ *</label>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <input class="form-control dropdown-toggle" type="text"
+                                id="addressProvince{{$index}}" ng-model="address.province"
+                                ng-focus="showProvince()" placeholder="Tỉnh, thành phố...*"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                autocomplete="off" name="province" ng-required="true"
+                                ng-trim="true" minlength="5" maxlength="255" />
+                            <div class="dropdown-menu"
+                                aria-labelledby="addressProvince{{$index}}"
+                                style="width: 486px; height: 200px; overflow-y: scroll">
+                                <p id="province" ng-repeat="province in listProvince"
+                                    ng-click="chooseProvinceAddress(province.ProvinceID)">
+                                    <a href=""
+                                        style="text-decoration: none; color: black;">{{province.ProvinceName}}</a>
+                                </p>
+                            </div>
+                            <div class="text-danger"
+                                ng-hide="formUserOder.province.$untouched || formUserOder.province.$valid">
+                                <small class="text-danger"
+                                    ng-show="formUserOder.province.$error.required"> Không
+                                    được để trống thông tin!</small>
+                                <small class="text-danger"
+                                    ng-show="formUserOder.province.$error.minlength">Hãy nhập
+                                    thông tin hợp lệ!</small>
+                                <small class="text-danger"
+                                    ng-show="formUserOder.province.$error.maxlength">Không
+                                    được nhập quá 255 ký tự!</small>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <input class="form-control dropdown-toggle" type="text"
+                                id="addressDistrict{{$index}}" ng-model="address.district"
+                                ng-focus="showDistrict()" placeholder="Quận/Huyện...*"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                autocomplete="off" name="district" ng-required="true"
+                                ng-trim="true" minlength="5" maxlength="255" />
+                            <div ng-show="address.province || $scope.provinceId"
+                                class="dropdown-menu"
+                                aria-labelledby="addressDistrict{{$index}}"
+                                style="width: 486px; height: 200px; overflow-y: scroll">
+                                <p id="district" ng-repeat="district in listDistrict"
+                                    ng-click="chooseDistrictAddress(district.DistrictID)">
+                                    <a href=""
+                                        style="text-decoration: none; color: black;">{{district.DistrictName}}</a>
+                                </p>
+                            </div>
+                            <div class="text-danger"
+                                ng-hide="formUserOder.district.$untouched || formUserOder.district.$valid">
+                                <small class="text-danger"
+                                    ng-show="formUserOder.district.$error.required"> Không
+                                    được để trống thông tin!</small>
+                                <small class="text-danger"
+                                    ng-show="formUserOder.district.$error.minlength">Hãy nhập
+                                    thông tin hợp lệ!</small>
+                                <small class="text-danger"
+                                    ng-show="formUserOder.district.$error.maxlength">Không
+                                    được nhập quá 255 ký tự!</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <input class="form-control dropdown-toggle" type="text"
+                                id="addressWard{{$index}}" ng-model="address.ward"
+                                ng-focus="showWard()" placeholder="Phường, xã...*"
+                                data-bs-toggle="dropdown" aria-expanded="false"
+                                autocomplete="off" name="ward" ng-required="true" ng-trim="true"
+                                minlength="5" maxlength="255" />
+                            <div ng-show="address.district || $scope.districtId"
+                                class="dropdown-menu" aria-labelledby="addressWard{{$index}}"
+                                style="width: 486px; height: 200px; overflow-y: scroll">
+                                <p id="ward" ng-repeat="ward in listWard"
+                                    ng-click="chooseWardAddress(ward.WardCode)">
+                                    <a href=""
+                                        style="text-decoration: none; color: black;">{{ward.WardName}}</a>
+                                </p>
+                            </div>
+                        </div>
                 </div>
                 <div class=" mt-3"></div>
                 <div class="d-flex justify-content-center">

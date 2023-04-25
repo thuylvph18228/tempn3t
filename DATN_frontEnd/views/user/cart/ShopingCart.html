@@ -297,8 +297,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
-                                            ng-click="closeModalNewAddress()">Trở lại</button>
-                                        <button type="button" class="btn btn-primary checkmobile" ng-if="!address.id"
+                                            ng-click="on type="button" class="btn btn-primary checkmobile" ng-if="!address.id"
                                             ng-click="submit()">Lưu</button>
                                         <button type="button" class="btn btn-primary checkmobile" ng-if="address.id"
                                             ng-click="submit()">Cập nhật</button>
@@ -523,7 +522,7 @@
                         <button type="button" ng-show="orderNew.paymentType != 'OFFLINE' " class="btn btn-primary"
                             ng-click="pay()">Thanh toán</button>
                         <button type="button" ng-show="orderNew.paymentType == 'OFFLINE' " data-bs-dismiss="modal"
-                            ng-click="createOrder()" class="btn btn-primary"
+                            ng-click="createOrder()" class="btn btn-primary checkmobile"
                             ng-disabled="formUserOder.province.$invalid ||  formUserOder.district.$invalid || formUserOder.ward.$invalid || formUserOder.address.$invalid">Đặt
                             hàng</button>
                     </div>

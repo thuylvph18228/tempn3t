@@ -459,30 +459,47 @@ function cart($scope, $http, $routeParams) {
     }
 
     /**tạo đơn hàng mới */
-    $scope.createOrder = () => {
-        $http.post(apiOrder, $scope.orderNew)
-            .then(function (response) {
-                $scope.isLoading = false;
-                $scope.isSuccess = true;
-                $scope.message = "Đặt hàng thành công"
-                alertShow();
 
-                /**xóa các sp đã mua trong giỏ hàng */
-                var list = angular.copy($scope.products).filter((item) => {
-                    return item.selected == false;
-                })
-                $scope.products = list;
-                const json = JSON.stringify(list);
-                localStorage.setItem("products", json);
-                updateOrder();
-            })
-            .catch(function (error) {
-                console.log(error);
-                $scope.isLoading = false;
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
-                alertShow();
+
+    $scope.createOrder = () => {
+        $(document).ready(function () {
+            $('body').on('click', '.checkmobile', function () {
+                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+                var mobile = $('#phone').val();
+                if (mobile !== '') {
+                    if (vnf_regex.test(mobile) == false) {
+                        alert('Số điện thoại của bạn không đúng định dạng!');
+                    } else {
+                        $http.post(apiOrder, $scope.orderNew)
+                            .then(function (response) {
+                                $scope.isLoading = false;
+                                $scope.isSuccess = true;
+                                $scope.message = "Đặt hàng thành công"
+                                alertShow();
+
+                                /**xóa các sp đã mua trong giỏ hàng */
+                                var list = angular.copy($scope.products).filter((item) => {
+                                    return item.selected == false;
+                                })
+                                $scope.products = list;
+                                const json = JSON.stringify(list);
+                                localStorage.setItem("products", json);
+                                updateOrder();
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                                $scope.isLoading = false;
+                                $scope.isSuccess = false;
+                                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                                alertShow();
+                            });
+                    }
+                } else {
+                    alert('Bạn chưa điền số điện thoại!');
+                }
             });
+        });
+
     }
 
     /**thay đổi số lượng trong giỏ hàng, index: vị trí sản phẩm trong mảng products */
@@ -724,82 +741,81 @@ function cart($scope, $http, $routeParams) {
     };
 
     $scope.submit = function () {
-    $(document).ready(function() {
-        $('body').on('click','.checkmobile', function() {
-        var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-        var mobile = $('#phone').val();
-        if(mobile !==''){
-            if (vnf_regex.test(mobile) == false) 
-            {
-                alert('Số điện thoại của bạn không đúng định dạng!');
-                return;
-            }else{
-                
-               $http.post(apiAddress, $scope.address)
-            .then(function (response) {
-                if (!$scope.address.id) {
-                    $scope.listAddress.push(angular.copy(response.data));
+        $(document).ready(function () {
+            $('body').on('click', '.checkmobile', function () {
+                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+                var mobile = $('#phone').val();
+                if (mobile !== '') {
+                    if (vnf_regex.test(mobile) == false) {
+                        alert('Số điện thoại của bạn không đúng định dạng!');
+                        return;
+                    } else {
+
+                        $http.post(apiAddress, $scope.address)
+                            .then(function (response) {
+                                if (!$scope.address.id) {
+                                    $scope.listAddress.push(angular.copy(response.data));
+                                }
+                                $scope.isLoading = true;
+                                $scope.isSuccess = true;
+                                $scope.message = "Lưu địa chỉ thành công"
+                                $scope.clearAddress();
+                                $('#confirmModal').modal('hide');
+                                $('#addressModal').modal('show');
+                                alertShow();
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                                $scope.isLoading = false;
+                                $scope.isSuccess = false;
+                                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                                alertShow();
+                            });
+                    };
+
+                    $scope.clearAddress = () => {
+                        $scope.address = {
+                            id: '',
+                            name: '',
+                            phone: '',
+                            province: '',
+                            ward: '',
+                            district: '',
+                            provinceId: '',
+                            wardCode: '',
+                            districtId: '',
+                            defaultAdd: 0,
+                            user: null,
+                            address: ''
+                        }
+                    }
+
+                    $scope.deleteAddress = (addressId, index) => {
+                        $scope.listAddress.splice(index, 1);
+                        $http.delete(apiAddress + '/' + addressId)
+                            .then(function (response) {
+                                $scope.isLoading = true;
+                                $scope.isSuccess = true;
+                                $scope.message = "Xoá địa chỉ thành công"
+                                alertShow();
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                                $scope.isLoading = false;
+                                $scope.isSuccess = false;
+                                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                                alertShow();
+                            });
+                    }
+                } else {
+                    alert('Bạn chưa điền số điện thoại!');
+                    return;
                 }
-                $scope.isLoading = true;
-                $scope.isSuccess = true;
-                $scope.message = "Lưu địa chỉ thành công"
-                $scope.clearAddress();
-                $('#confirmModal').modal('hide');
-                $('#addressModal').modal('show');
-                alertShow();
-            })
-            .catch(function (error) {
-                console.log(error);
-                $scope.isLoading = false;
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
-                alertShow();
             });
-    };
-
-    $scope.clearAddress = () => {
-        $scope.address = {
-            id: '',
-            name: '',
-            phone: '',
-            province: '',
-            ward: '',
-            district: '',
-            provinceId: '',
-            wardCode: '',
-            districtId: '',
-            defaultAdd: 0,
-            user: null,
-            address: ''
-        }
-    }
-
-    $scope.deleteAddress = (addressId, index) => {
-        $scope.listAddress.splice(index, 1);
-        $http.delete(apiAddress + '/' + addressId)
-            .then(function (response) {
-                $scope.isLoading = true;
-                $scope.isSuccess = true;
-                $scope.message = "Xoá địa chỉ thành công"
-                alertShow();
-            })
-            .catch(function (error) {
-                console.log(error);
-                $scope.isLoading = false;
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
-                alertShow();
-            });
-            }
-        }else{
-            alert('Bạn chưa điền số điện thoại!');
-            return;
-        }
         });
-    });
 
 
-        
+
     };
 
     $scope.confirmAddress = (index) => {
