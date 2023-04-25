@@ -724,7 +724,18 @@ function cart($scope, $http, $routeParams) {
     };
 
     $scope.submit = function () {
-        $http.post(apiAddress, $scope.address)
+    $(document).ready(function() {
+        $('body').on('click','.checkmobile', function() {
+        var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+        var mobile = $('#phone').val();
+        if(mobile !==''){
+            if (vnf_regex.test(mobile) == false) 
+            {
+                alert('Số điện thoại của bạn không đúng định dạng!');
+                return;
+            }else{
+                
+               $http.post(apiAddress, $scope.address)
             .then(function (response) {
                 if (!$scope.address.id) {
                     $scope.listAddress.push(angular.copy(response.data));
@@ -779,6 +790,16 @@ function cart($scope, $http, $routeParams) {
                 $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
                 alertShow();
             });
+            }
+        }else{
+            alert('Bạn chưa điền số điện thoại!');
+            return;
+        }
+        });
+    });
+
+
+        
     };
 
     $scope.confirmAddress = (index) => {
