@@ -201,7 +201,8 @@ function returnOrder ($scope, $http, $rootScope){
 
     /**đổi 1 phần */
     $scope.changeMultipleProduct = () => {
-        const a = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
+        if ($scope.orderReturnWaitQuantityReturn < a.quantity && a.action == "DOI" ? "Đổi" : "Trả" ) {
+            const a = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
         a.quantity = $scope.orderReturnWaitQuantityChange;
         a.action = "DOI";
         a.status = "DONE";
@@ -221,6 +222,8 @@ function returnOrder ($scope, $http, $rootScope){
         } else {
             $scope.orderReturnHistory.push(a);
         }
+        }
+        
     }
 
     /**đổi tất cả */
