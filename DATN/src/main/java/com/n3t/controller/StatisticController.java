@@ -59,8 +59,9 @@ public class StatisticController {
         List<Map<String, Object>> response = new ArrayList<>();
         for (Map<String, Object> map : result) {
             Map<String, Object> data = new HashMap<>();
-            data.put("month", map.get("month"));
+            data.put("dd", map.get("dd"));
             data.put("total", map.get("total"));
+            System.out.println(data);
             response.add(data);
         }
         return ResponseEntity.ok(response);

@@ -17,26 +17,8 @@ function adminSaleReport($scope, $http, $rootScope) {
     document.location.href = "#home"
   }
 
-  // $scope.labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
-  // // $scope.series = ['Series A'];
-
-  // $scope.data = [
-  //   [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-  // ];
-
   const apiStatistic = 'http://localhost:8080/n3t/statistic';
 
-  // $scope.year = new Date().getFullYear();
-
-  // $http.get(apiStatistic + "/countOrder?year=" + $scope.year)
-  //   .then(res => {
-  //     res.data.forEach(item => {
-  //       $scope.data[0][item[0] - 1] = item[1];
-  //     })
-  //   })
-  //   .catch(err => {
-  //     console.log(err);
-  //   })
 
   $scope.beginDate = '';
   $scope.endDate = '';
@@ -68,14 +50,14 @@ function adminSaleReport($scope, $http, $rootScope) {
       var data = [];
 
       while (current <= end) {
-        labels.push(current.format('MM-YYYY'));
+        labels.push(current.format('YYYY-MM-DD'));
         data.push(0);
         current.add(1, 'month');
       }
 
       // Update the data array with chart data
       for (var i = 0; i < chartData.length; i++) {
-        var month = moment(chartData[i].month, 'M').format('MM-YYYY');
+        var month = moment(chartData[i].dd, 'M').format('YYYY-MM-DD');
         var index = labels.indexOf(month);
         if (index > -1) {
           data[index] = chartData[i].total;
@@ -134,10 +116,7 @@ function adminSaleReport($scope, $http, $rootScope) {
   };
 
   $scope.getChartDataDay = function () {
-    // Get begin and end date from form
-    var beginDate = $scope.beginDate;
-    var endDate = $scope.endDate;
-  
+
     // Send request to server to get chart data
     $http.get(apiStatistic + '/count-by-day', {
       params: {
@@ -151,7 +130,7 @@ function adminSaleReport($scope, $http, $rootScope) {
       for (var i = 1; i <= daysInMonth; i++) {
         labels.push(i.toString());
       }
-  
+
       // Add data for each date in the response
       var data = [];
       for (var i = 0; i < response.data.length; i++) {
@@ -159,14 +138,14 @@ function adminSaleReport($scope, $http, $rootScope) {
         var total = response.data[i].total;
         data[date - 1] = total;
       }
-  
+
       // Fill in missing data with zeros
       for (var i = 0; i < data.length; i++) {
         if (data[i] === undefined) {
           data[i] = 0;
         }
       }
-  
+
       var ctx = document.getElementById('chartD').getContext('2d');
       var chart = new Chart(ctx, {
         type: 'bar',
@@ -219,7 +198,7 @@ function adminSaleReport($scope, $http, $rootScope) {
 
   $scope.years = [];
   var currentYear = new Date().getFullYear();
-  for (var i = currentYear; i >= 2002; i--) {
+  for (var i = currentYear; i >= 2021; i--) {
     $scope.years.push(i);
   }
 

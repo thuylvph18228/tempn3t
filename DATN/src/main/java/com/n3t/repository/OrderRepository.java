@@ -48,17 +48,22 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "ORDER BY MONTH(created_date) ASC", nativeQuery = true)
     List<Object> turnover(String year);
 
-    @Query(value = "SELECT DATE_FORMAT(o.created_date, '%m/%Y') as month, COUNT(o.id) as total\n" +
-            "FROM orders o\n" +
-            "WHERE CONVERT(o.created_date, date) BETWEEN CONVERT(:begin, date) AND CONVERT(:end, date)\n" +
-            "AND o.status IN ('DELIVERING', 'DELIVERED')\n" +
-            "GROUP BY DATE_FORMAT(o.created_date, '%m/%Y')\n" +
-            "ORDER BY o.created_date ASC", nativeQuery = true)
-    List<Map<String, Object>> countOrderByTime(String begin, String end);
+
+//    @Query(value = "SELECT DATE_FORMAT(created_date, '%Y-%m') as dd, COUNT(id) as total\n" +
+//            "FROM orders\n" +
+//            "WHERE created_date >= STR_TO_DATE(:begin, '%Y-%m-%d %H:%i:%s') \n" +
+//            "  and created_date <= STR_TO_DATE(:end, '%Y-%m-%d %H:%i:%s')\n" +
+//            "  AND status IN ('DELIVERING', 'DELIVERED')\n" +
+//            "GROUP BY DATE_FORMAT(created_date, '%Y-%m')\n" +
+//            "ORDER BY created_date ASC", nativeQuery = true)
+    @Query(value = "SELECT MONTH(o.created_date) as dd, COUNT(id) as total FROM orders o INNER JOIN order_details od on o.id = od.order_id\n" +
+            "WHERE CONVERT(created_date, date) >= CONVERT(:begin, date) and CONVERT(created_date, date) <= CONVERT(:end, date)\n" +
+            "GROUP BY MONTH(o.created_date)\n" +
+            "ORDER BY MONTH(created_date) ASC", nativeQuery = true)
+    List<Map<String, Object>> countOrderByTime(@Param("begin") String begin, @Param("end") String end);
 
 
-    @Query(value = "SELECT DATE_FORMAT(created_date, '%Y-%m-%d') as dd,\n" +
-            "       COUNT(id) as total\n" +
+    @Query(value = "SELECT DATE(created_date) as dd, COUNT(id) as total\n" +
             "FROM orders\n" +
             "WHERE status IN ('DELIVERING', 'DELIVERED')\n" +
             "  AND YEAR(created_date) = :year\n" +
