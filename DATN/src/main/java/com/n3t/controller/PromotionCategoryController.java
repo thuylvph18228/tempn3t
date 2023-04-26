@@ -25,6 +25,11 @@ public class PromotionCategoryController {
     }
 
     @PutMapping()
+    public ResponseEntity<?> update(@RequestBody PromotionCategory promotionCategory) {
+        return ResponseEntity.ok(this.promotionCategoryService.update(promotionCategory));
+    }
+
+    @DeleteMapping ()
     private void delete (@RequestBody PromotionCategory promotionCategory) {
         this.delete(promotionCategory);
     }

@@ -33,6 +33,10 @@ public class ProductController {
     public ResponseEntity hotproduct(){
         return ResponseEntity.ok(this.productRepo.findBySellingTop5().stream().map(Product :: toDto).collect(Collectors.toList()));
     }
+    @GetMapping("/productPromotion")
+    public ResponseEntity productPromotion(){
+        return ResponseEntity.ok(this.productRepo.findByPromotion().stream().map(Product :: toDto).collect(Collectors.toList()));
+    }
     @GetMapping("/index")
     public ResponseEntity<?> getAllProduct(
             @RequestParam(name = "page", defaultValue = "0") int page,

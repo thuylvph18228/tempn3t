@@ -59,7 +59,7 @@ function home($scope, $http, $rootScope) {
     const apiUser = "http://localhost:8080/n3t/user";
     const apiPromotion = "http://localhost:8080/n3t/promotion"
 
-    $http.get(apiPromotion+"/getAllPromotionByStatusPromotion")
+    $http.get(apiPromotion + "/getAllPromotionByStatusPromotion")
         .then(function (response) {
             $scope.listPromotion = response.data;
             $scope.isLoading = false;
@@ -94,31 +94,27 @@ function home($scope, $http, $rootScope) {
     }
     $scope.getAllProductt(apiProduct, $scope.productt);
 
-    $scope.getAllProducttKM = (apiProduct, productt) => {
-        $scope.isLoading = true;
-        $http.post(apiProductt, $scope.productt)
-            .then(function (response) {
-                $scope.listPromotion.map(itemPromo => {
-                    itemPromo.promotionCategories.map(itemPromoCate => {
-                        response.data.content.map(item => {
-                            if (item.category.id == itemPromoCate.category.id) {
-                                $scope.productstKM = item;
-                                console.log($scope.productstKM);
-                                item.price = item.price - (item.price * itemPromo.quantity / 100)
-                            }
-                        })
+    $http.get(apiProduct + '/productPromotion')
+        .then(function (response) {
+            $scope.productstKM = response.data;
+            $scope.listPromotion.map(itemPromo => {
+                itemPromo.promotionCategories.map(itemPromoCate => {
+                    $scope.productstKM.map(item => {
+                        if (item.category.id == itemPromoCate.category.id) {
+                            item.price = item.price - (item.price * itemPromo.quantity / 100)
+                        }
                     })
                 })
-                $scope.count = response.data.totalPages;
-                $scope.isLoading = false;
-            })
-            .catch(function (error) {
-                console.log(error);
-                $scope.isLoading = false;
-            });
-
-    }
-    $scope.getAllProducttKM(apiProduct, $scope.productt);
+            }) 
+            console.log($scope.productstKM);
+            // $scope.productstKM = response.data;
+            // console.log($scope.productstKM);
+            $scope.isLoading = false;
+        })
+        .catch(function (error) {
+            console.log(error);
+            $scope.isLoading = false;
+        });
 
     $http.get(apiProduct + "/hotproduct")
         .then(function (response) {

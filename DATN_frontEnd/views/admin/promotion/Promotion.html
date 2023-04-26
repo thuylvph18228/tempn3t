@@ -114,7 +114,7 @@
                             </td>
                             <td class="text-center">
                                 <!-- <a href="#promotion-detail/{{promotion.id}}" class="btn btn-warning btn-sm">Chi tiết</a> -->
-                                <button data-bs-toggle="modal" data-bs-target="#modal_properties{{$index}}"
+                                <button data-bs-toggle="modal" data-bs-target="#modal_properties{{$index}}" ng-click="checkPro(promotion.id)"
                                     class="btn btn-warning btn-sm">Áp dụng</button>
                                 <div class="modal fade" id="modal_properties{{$index}}" tabindex="-1"
                                     aria-hidden="true">
@@ -128,21 +128,6 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div class="row">
-                                                    <hr>
-                                                    <div class=" d-flex justify-content-end">
-                                                        <div class="col-3">
-                                                            <div class="">
-                                                                <div class="search-box">
-                                                                    <form class="search-form" action=""> <input
-                                                                            class="form-control" placeholder="Search"
-                                                                            type="text">
-                                                                        <button class="btn btn-link search-btn">
-                                                                        </button>
-                                                                    </form>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                     <div class="mt-1">
                                                         <label class="d-flex justify-content-start ms-5"><input ng-model="selectAll"
                                                                 ng-change="toggleAllSelection()"
@@ -179,7 +164,9 @@
                                                 <button type="button" class="btn btn-secondary"
                                                     data-bs-dismiss="modal">Đóng</button>
                                                 <div class="button">
-                                                    <button type="submit" ng-click="confirm($index, promotion)"
+                                                    <button ng-show="show==0" type="submit" ng-click="updatePromotionCategory($index, promotion)"
+                                                        class="btn btn-outline-success">Cập nhật</button>
+                                                    <button ng-show="show!=0" type="submit" ng-click="confirm($index, promotion)"
                                                         class="btn btn-outline-success">Lưu</button>
                                                     <button class="btn btn-outline-danger" ng-click="clear()"
                                                         type="">Xóa form</button>

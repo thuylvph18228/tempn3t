@@ -1,14 +1,14 @@
-function promotion ($scope, $http, $rootScope) {
-    
+function promotion($scope, $http, $rootScope) {
+
     $rootScope.isAdmin = false;
 
     const userLocal = localStorage.getItem("user");
     const user = userLocal ? JSON.parse(userLocal) : null;
-    
-    if(user) {
+
+    if (user) {
         user.roles.map(item => {
-            if(item == "ADMIN"){
-                $rootScope.isAdmin = true;            
+            if (item == "ADMIN") {
+                $rootScope.isAdmin = true;
             } else {
                 document.location.href = "#home"
             }
@@ -26,7 +26,7 @@ function promotion ($scope, $http, $rootScope) {
         status: 'AVAILABLE',
         isDelete: 0
     }
-    
+
     $scope.promotionCategory = {
         id: '',
         promotion: null,
@@ -47,8 +47,9 @@ function promotion ($scope, $http, $rootScope) {
     }
 
     $scope.promotions = [];
+    $scope.promotionCate = [];
     $scope.vouchers = [];
-    
+
     $scope.isLoading = false;
     $scope.isSuccess = true;
     $scope.message = "";
@@ -57,10 +58,10 @@ function promotion ($scope, $http, $rootScope) {
     const apiVoucher = "http://localhost:8080/n3t/voucher"
     const apiCategory = "http://localhost:8080/n3t/category"
     const apiPromotionCategory = "http://localhost:8080/n3t/promotion-category"
-    
+
     /**hien thi thong bao */
     alertShow = () => {
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('.toast').toast('show');
         });
     }
@@ -79,11 +80,23 @@ function promotion ($scope, $http, $rootScope) {
             alertShow();
         });
 
+    $http.get(apiPromotionCategory)
+        .then((res) => {
+            $scope.promotionCate = res.data;
+            $scope.isLoading = false;
+        }).catch((err) => {
+            console.log(err);
+            $scope.isLoading = false;
+            $scope.isSuccess = false;
+            $scope.message = "Có lỗi xảy ra, vui lòng thử lại!!!";
+            alertShow();
+        });
+
     // save promotion
     $scope.savePromotion = () => {
         $http.post(apiPromotion, $scope.promotion)
             .then(res => {
-                if(!$scope.promotion.id){
+                if (!$scope.promotion.id) {
                     $scope.promotions.push(angular.copy(res.data));
                 }
                 $scope.isLoading = true;
@@ -113,7 +126,7 @@ function promotion ($scope, $http, $rootScope) {
     }
 
     $scope.checkEndDatePromotion = (promotion) => {
-        if(new Date(promotion.endDate).getTime() <= new Date().getTime()){
+        if (new Date(promotion.endDate).getTime() <= new Date().getTime()) {
             return true;
         } else {
             return false;
@@ -121,7 +134,7 @@ function promotion ($scope, $http, $rootScope) {
     }
 
     $scope.updateStatusPromotion = (promotion, index) => {
-        if(promotion.status == 'AVAILABLE'){
+        if (promotion.status == 'AVAILABLE') {
             promotion.status = "UNAVAILABLE";
         } else {
             promotion.status = "AVAILABLE"
@@ -181,12 +194,12 @@ function promotion ($scope, $http, $rootScope) {
     $scope.toggleAllSelection = function () {
         if ($scope.selectAll) {
             $scope.selectedCategorys = $scope.listCategory.slice();
-            angular.forEach($scope.listCategory, function(category) {
+            angular.forEach($scope.listCategory, function (category) {
                 category.selected = true;
             });
         } else {
             $scope.selectedCategorys = [];
-            angular.forEach($scope.listCategory, function(category) {
+            angular.forEach($scope.listCategory, function (category) {
                 category.selected = false;
             });
         }
@@ -198,6 +211,25 @@ function promotion ($scope, $http, $rootScope) {
         // Update selectAll checkbox
         $scope.selectAll = !anyUnselectedProduct;
     };
+
+    $scope.checkPro = (id) => {
+        $scope.show=1;
+        $scope.selectedCategorys = [];
+        angular.forEach($scope.listCategory, function (category) {
+            category.selected = false;
+        });
+        $scope.promotionCate.map(item => {
+            if (id == item.promotion.id) {  
+                $scope.show = 0;
+                angular.forEach($scope.listCategory, function (category) {
+                    if (category.id == item.category.id) {
+                        $scope.selectedCategorys.push(category);
+                        category.selected = true;
+                    }
+                });
+            }
+        })
+    }
 
     $scope.toggleSelection = function (index) {
         var category = $scope.listCategory[index];
@@ -242,10 +274,10 @@ function promotion ($scope, $http, $rootScope) {
 
     $scope.confirm = (index, promotion) => {
         $scope.selectedCategorys.forEach(item => {
-            const p = {...$scope.promotionCategory};
+            const p = { ...$scope.promotionCategory };
             p.promotion = promotion;
             p.category = item;
-            console.log(p);            
+            console.log(p);
             $http.post(apiPromotionCategory, p)
                 .then(function (response) {
                     $scope.isLoading = true;
@@ -260,7 +292,30 @@ function promotion ($scope, $http, $rootScope) {
                     $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
                     alertShow();
                 });
-    })
+        })
+    }
+
+    $scope.updatePromotionCategory = (index, promotion) => {
+        $scope.selectedCategorys.forEach(item => {
+            const p = { ...$scope.promotionCategory };
+            p.promotion = promotion;
+            p.category = item;
+            console.log(p);
+            $http.put(apiPromotionCategory, p)
+                .then(function (response) {
+                    $scope.isLoading = true;
+                    $scope.isSuccess = true;
+                    $scope.message = "Sửa thành công"
+                    alertShow();
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                    alertShow();
+                });
+        })
     }
 
     //get all voucher
@@ -280,7 +335,7 @@ function promotion ($scope, $http, $rootScope) {
     $scope.saveVoucher = () => {
         $http.post(apiVoucher, $scope.voucher)
             .then(res => {
-                if(!$scope.voucher.id){
+                if (!$scope.voucher.id) {
                     $scope.vouchers.push(angular.copy(res.data));
                 }
                 $scope.isLoading = false;
@@ -313,7 +368,7 @@ function promotion ($scope, $http, $rootScope) {
     }
 
     $scope.checkEndDate = (voucher) => {
-        if(new Date(voucher.endDate).getTime() <= new Date().getTime()){
+        if (new Date(voucher.endDate).getTime() <= new Date().getTime()) {
             return true;
         } else {
             return false;
@@ -327,7 +382,7 @@ function promotion ($scope, $http, $rootScope) {
     }
 
     $scope.updateStatusVoucher = (voucher, index) => {
-        if(voucher.status == 'AVAILABLE'){
+        if (voucher.status == 'AVAILABLE') {
             voucher.status = "UNAVAILABLE";
         } else {
             voucher.status = "AVAILABLE"
@@ -362,5 +417,5 @@ function promotion ($scope, $http, $rootScope) {
             })
         alertShow();
     }
-    
+
 }
