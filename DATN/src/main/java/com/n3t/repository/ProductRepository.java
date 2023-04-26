@@ -69,4 +69,11 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "                       join order_history oh on order_details.id = oh.order_detail_id\n" +
             "                        group by products.id order by sum(order_details.product_id) desc LIMIT 8"  ,nativeQuery = true)
     List<Product> findBySellingTop5( );
+
+    @Query(value = "SELECT DISTINCT p.*\n" +
+            "FROM products p\n" +
+            "         INNER JOIN promotion_categories pc ON p.category_id = pc.category_id\n" +
+            "         INNER JOIN promotions pr ON pc.promotion_id = pr.id\n" +
+            "WHERE pr.status = 'AVAILABLE' AND pr.begin_date <= NOW() AND pr.end_date >= NOW()"  ,nativeQuery = true)
+    List<Product> findByPromotion();
 }
