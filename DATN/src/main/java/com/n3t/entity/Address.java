@@ -47,7 +47,7 @@ public class Address implements Serializable {
     private String address;
 
     @Column(name = "default_address")
-    private Integer defaultAdd;
+    private boolean defaultAdd;
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id")

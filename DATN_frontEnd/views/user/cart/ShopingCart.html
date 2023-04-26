@@ -164,7 +164,7 @@
                         <!-- Create And Update Address -->
                         <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
                             aria-labelledby="confirmModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
+                            <div class="modal-dialog" role="document" ng-form=>
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h5 class="modal-title" id="confirmModalLabel">Địa chỉ của bạn</h5>
@@ -277,7 +277,7 @@
                                                 <div class="col-6">
                                                     <input type="text" class="form-control" ng-model="address.address"
                                                         placeholder="Địa chỉ chi tiết*" autocomplete="off"
-                                                        name="address" ng-required="true" ng-trim="true" minlength="5"
+                                                        name="address" ng-required="true" ng-trim="true" minlength="3"
                                                         maxlength="255">
                                                     <div class="text-danger"
                                                         ng-hide="formUserOder.address.$untouched || formUserOder.address.$valid">
@@ -291,6 +291,11 @@
                                                             ng-show="formUserOder.address.$error.maxlength">Không
                                                             được nhập quá 255 ký tự!</small>
                                                     </div>
+                                                </div>
+                                                <div>
+                                                    <label>
+                                                        <input type="checkbox" ng-model="address.defaultAdd" name="defaultAdd" value="1">Mặc định
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>

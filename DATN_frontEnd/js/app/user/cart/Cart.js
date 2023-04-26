@@ -724,37 +724,49 @@ function cart($scope, $http, $routeParams) {
     };
 
     $scope.submit = function () {
-    $(document).ready(function() {
-        $('body').on('click','.checkmobile', function() {
-        var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
-        var mobile = $('#phone').val();
-        if(mobile !==''){
-            if (vnf_regex.test(mobile) == false) 
-            {
-                alert('Số điện thoại của bạn không đúng định dạng!');
-                return;
-            }else{
-                
-               $http.post(apiAddress, $scope.address)
-            .then(function (response) {
-                if (!$scope.address.id) {
-                    $scope.listAddress.push(angular.copy(response.data));
+        $(document).ready(function () {
+            $('body').on('click', '.checkmobile', function () {
+                var vnf_regex = /((09|03|07|08|05)+([0-9]{8})\b)/g;
+                var mobile = $('#phone').val();
+                if (mobile !== '') {
+                    if (vnf_regex.test(mobile) == false) {
+                        $scope.isLoading = false;
+                        $scope.isSuccess = false;
+                        $scope.message = 'Số điện thoại của bạn không đúng định dạng!';
+                        alertShow();
+                        return;
+                    } else {
+
+                        $http.post(apiAddress, $scope.address)
+                            .then(function (response) {
+                                if (!$scope.address.id) {
+                                    $scope.listAddress.push(angular.copy(response.data));
+                                }
+                                $scope.isLoading = true;
+                                $scope.isSuccess = true;
+                                $scope.message = "Lưu địa chỉ thành công"
+                                $scope.clearAddress();
+                                $('#confirmModal').modal('hide');
+                                $('#addressModal').modal('show');
+                                alertShow();
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                                $scope.isLoading = false;
+                                $scope.isSuccess = false;
+                                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                                alertShow();
+                            });
+                    };
+                } else {
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = 'Bạn chưa điền số điện thoại!';
+                    alertShow();
+                    return;
                 }
-                $scope.isLoading = true;
-                $scope.isSuccess = true;
-                $scope.message = "Lưu địa chỉ thành công"
-                $scope.clearAddress();
-                $('#confirmModal').modal('hide');
-                $('#addressModal').modal('show');
-                alertShow();
-            })
-            .catch(function (error) {
-                console.log(error);
-                $scope.isLoading = false;
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
-                alertShow();
             });
+        });
     };
 
     $scope.clearAddress = () => {
@@ -790,17 +802,7 @@ function cart($scope, $http, $routeParams) {
                 $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
                 alertShow();
             });
-            }
-        }else{
-            alert('Bạn chưa điền số điện thoại!');
-            return;
-        }
-        });
-    });
-
-
-        
-    };
+    }
 
     $scope.confirmAddress = (index) => {
         $scope.address = angular.copy($scope.listAddress[index]);
