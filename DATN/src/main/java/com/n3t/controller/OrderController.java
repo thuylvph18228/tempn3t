@@ -123,6 +123,14 @@ public class OrderController {
         return ResponseEntity.ok(this.orderService.finAllBy(orderCode));
     }
 
+    @GetMapping("/searchOrderCodeAndStatus")
+    public ResponseEntity getByOrderCodeAndStatus(
+            @RequestParam("orderCode") String orderCode,
+            @RequestParam("orderStatus") String status
+    ) {
+        return ResponseEntity.ok(this.orderService.finAllByCodeAndStatus(orderCode, status));
+    }
+
     @GetMapping("/findByTime")
     public ResponseEntity findOrderByTime(
             @RequestParam(name = "beginDate") String beginDate,

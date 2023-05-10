@@ -339,7 +339,7 @@ function WAIT_FOR_THE_SHIPPER_TO_PICK_UP ($scope, $http, $rootScope, $filter){
     }
 
     $scope.updateStatusOrder = (order, index) => {
-        var message = "Đơn hàng đang được giao!"
+        var message = "Đơn hàng đã giao cho shipper thành công!"
         order.status = "DELIVERING";
         updateStatus(order, message, index);
     }
