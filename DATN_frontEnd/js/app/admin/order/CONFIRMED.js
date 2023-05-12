@@ -1,14 +1,14 @@
-function CONFIRMED ($scope, $http, $rootScope, $filter){
-    
+function CONFIRMED($scope, $http, $rootScope, $filter) {
+
     $rootScope.isAdmin = false;
 
     const userLocal = localStorage.getItem("user");
     const user = userLocal ? JSON.parse(userLocal) : null;
-    
-    if(user) {
+
+    if (user) {
         user.roles.map(item => {
-            if(item == "ADMIN"){
-                $rootScope.isAdmin = true;            
+            if (item == "ADMIN") {
+                $rootScope.isAdmin = true;
             } else {
                 document.location.href = "#home"
             }
@@ -30,7 +30,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
         id: '',
         code: '',
         codeGHN: '',
-        createdDate:"",
+        createdDate: "",
         customerName: '',
         phone: '',
         address: '',
@@ -65,14 +65,14 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
     $scope.status = "CONFIRMED";
 
     $scope.orderStatusReturn = [
-        {value: "WAIT_FOR_CONFIRMATION", text: "Chờ xác nhận"}, 
-        {value: "CONFIRMED", text: "Đã xác nhận, Đang chuẩn bị hàng"}, 
-        {value: "UNCONFIRM", text: "Không được xác nhận"}, 
-        {value: "WAIT_FOR_THE_SHIPPER_TO_PICK_UP", text: "Chuẩn bị hàng thành công, Chờ shipper lấy hàng"}, 
-        {value: "DELIVERING", text: "Đang giao hàng"}, 
-        {value: "NO_DELIVERY", text: "Không giao được hàng"}, 
-        {value: "DELIVERED", text: "Đã giao hàng"}, 
-        {value: "CANCELLED", text: "Đã hủy"}, 
+        { value: "WAIT_FOR_CONFIRMATION", text: "Chờ xác nhận" },
+        { value: "CONFIRMED", text: "Đã xác nhận, Đang chuẩn bị hàng" },
+        { value: "UNCONFIRM", text: "Không được xác nhận" },
+        { value: "WAIT_FOR_THE_SHIPPER_TO_PICK_UP", text: "Chuẩn bị hàng thành công, Chờ shipper lấy hàng" },
+        { value: "DELIVERING", text: "Đang giao hàng" },
+        { value: "NO_DELIVERY", text: "Không giao được hàng" },
+        { value: "DELIVERED", text: "Đã giao hàng" },
+        { value: "CANCELLED", text: "Đã hủy" },
     ]
 
     $scope.orderStatus = $scope.orderStatusReturn;
@@ -83,7 +83,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
     // const apiGHN = 'https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create';
 
     alertShow = () => {
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('.toast').toast('show');
         });
     }
@@ -91,20 +91,20 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
     //get all don hang by status
     getAllOrder = (page, status) => {
         $scope.isLoading = true;
-        $http.get(apiOrder + "/status" + "?page=" + page + "&status=" + status) 
-            .then(function (response) {                    
+        $http.get(apiOrder + "/status" + "?page=" + page + "&status=" + status)
+            .then(function (response) {
                 $scope.orders = response.data[0];
                 $scope.totalPage = response.data[1];
                 $scope.isLoading = false;
 
                 $scope.orders.map(order => {
                     var totalMoney = 0;
-                    if(order.orderDetails && order.orderDetails.length ){
+                    if (order.orderDetails && order.orderDetails.length) {
                         order.orderDetails.forEach(orderDetail => {
                             totalMoney += orderDetail.price * orderDetail.quantity;
                         })
                     }
-                    if(order.voucher){
+                    if (order.voucher) {
                         totalMoney -= order.voucher.promotion;
                     }
                     order.totalMoney = totalMoney + order.totalShip;
@@ -142,8 +142,8 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
     // }
 
     /**get info shop */
-    $http.get(apiShop) 
-        .then(response => {                    
+    $http.get(apiShop)
+        .then(response => {
             $scope.shopInfo = response.data;
         })
         .catch(error => {
@@ -161,18 +161,18 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
             Token: '8572ee07-c663-11ed-ab31-3eeb4194879e',
         }
     })
-    .then(function (response) {                    
-        $scope.listProvince = response.data.data;
-        $scope.isLoading = false;
-    })
-    .catch(function (error) {
-        console.log(error);
-        $scope.isLoading = false;
-    });
+        .then(function (response) {
+            $scope.listProvince = response.data.data;
+            $scope.isLoading = false;
+        })
+        .catch(function (error) {
+            console.log(error);
+            $scope.isLoading = false;
+        });
 
     $scope.prev = () => {
-        if($scope.pageIndex <= 0) {
-            $scope.pageIndex  = 0;
+        if ($scope.pageIndex <= 0) {
+            $scope.pageIndex = 0;
             getAllOrder(0, $scope.status);
         } else {
             $scope.pageIndex--;
@@ -181,7 +181,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
     }
 
     $scope.next = () => {
-        if($scope.pageIndex == $scope.totalPage - 1) {
+        if ($scope.pageIndex == $scope.totalPage - 1) {
             $scope.pageIndex = $scope.totalPage - 1;
             getAllOrder($scope.totalPage - 1, $scope.status);
         } else {
@@ -190,8 +190,8 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
         }
     }
 
-    $scope.deleteOrder = (orderId, index) =>{
-        
+    $scope.deleteOrder = (orderId, index) => {
+
     }
 
     /**tim kiem san pham khi cap nhật sản phẩm trong hóa đơn */
@@ -200,7 +200,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
     getAllProduct = (api) => {
         $scope.isLoading = true;
         $http.get(api)
-            .then(function (response) {                    
+            .then(function (response) {
                 $scope.products = response.data;
                 $scope.isLoading = false;
             })
@@ -215,34 +215,34 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
 
     getAllProduct(apiProduct);
 
-     /**tim kiem sp theo ten */
-     $scope.searchProduct = () => {
-        if($scope.listOrder[orderNo].orderDetails[productIndex].product.name){
-            getAllProduct(apiProduct + "/get-by-name?name="+ $scope.listOrder[orderNo].orderDetails[productIndex].product.name);
-        } else{
+    /**tim kiem sp theo ten */
+    $scope.searchProduct = () => {
+        if ($scope.listOrder[orderNo].orderDetails[productIndex].product.name) {
+            getAllProduct(apiProduct + "/get-by-name?name=" + $scope.listOrder[orderNo].orderDetails[productIndex].product.name);
+        } else {
             $scope.productName = "";
             getAllProduct(apiProduct);
         }
     }
-    
+
     /**chon san pham trong danh sach, param: vị tri product, vi tri productDetail, vi tri order hien tai */
     $scope.chooseProduct = (product, productDetail, indexOrder) => {
         var indexProduct = null;
         var result = $scope.orders[indexOrder].orderDetails.filter((item, index) => {
-            if(item.id = productDetail.id){
+            if (item.id = productDetail.id) {
                 indexProduct = index;
             }
             return productDetail.id === item.productDetail.id;
         })
 
-        if(result.length == 0){
+        if (result.length == 0) {
             $scope.orderDetail.orderId = $scope.orders[indexOrder].id;
             $scope.orderDetail.price = product.price;
             $scope.orderDetail.product = product;
             $scope.orderDetail.productDetail = productDetail;
             $scope.orderDetail.quantity = 1;
             $scope.orders[indexOrder].orderDetails.push(angular.copy($scope.orderDetail));
-            
+
         } else {
             $scope.orders[indexOrder].orderDetails[indexProduct].quantity++;
         }
@@ -270,7 +270,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
         $scope.indexOrder = indexOrder;
     }
     $scope.deleteProduct = () => {
-        const productDetailId =  $scope.orders[$scope.indexOrder].orderDetails[$scope.indexOrderDetail].id;
+        const productDetailId = $scope.orders[$scope.indexOrder].orderDetails[$scope.indexOrderDetail].id;
 
         $http.delete("http://localhost:8080/n3t/order/detail/" + productDetailId)
             .then(response => {
@@ -290,7 +290,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
     }
 
     // chọn tỉnh thành phố
-    $scope.chooseProvince = function(ProvinceID, indexOrder){
+    $scope.chooseProvince = function (ProvinceID, indexOrder) {
         $scope.orders[indexOrder].province = $scope.listProvince.filter(item => {
             return item.ProvinceID == ProvinceID;
         })[0].ProvinceName;
@@ -299,8 +299,8 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
 
         $scope.province = $scope.listProvince.filter(item => {
             return item.ProvinceID == ProvinceID;
-        })[0];  
-        
+        })[0];
+
         //lấy các quận huyện theo thành phố
         $http({
             method: 'POST',
@@ -310,30 +310,30 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
             },
             data: { province_id: ProvinceID },
         })
-        .then(function (response) {                    
-            $scope.listDistrict = response.data.data;
-            if($scope.orders[indexOrder].province == "Hà Nội") {
-                $scope.listDistrict.splice(0, 2);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                $scope.listDistrict = response.data.data;
+                if ($scope.orders[indexOrder].province == "Hà Nội") {
+                    $scope.listDistrict.splice(0, 2);
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
     }
 
     // chon quan, huyện
-    $scope.chooseDistrict = function(DistrictID, indexOrder){
+    $scope.chooseDistrict = function (DistrictID, indexOrder) {
         $scope.orders[indexOrder].district = $scope.listDistrict.filter(item => {
             return item.DistrictID == DistrictID;
         })[0].DistrictName;
 
         $scope.district = $scope.listDistrict.filter(item => {
             return item.DistrictID == DistrictID;
-        })[0];  
+        })[0];
 
         $scope.orders[indexOrder].ward = "";
-        
+
         //lấy các phường, xã theo thành quận, huyện
         $http({
             method: 'POST',
@@ -343,36 +343,36 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
             },
             data: { district_id: DistrictID }
         })
-        .then(function (response) {                    
-            $scope.listWard = response.data.data;
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+            .then(function (response) {
+                $scope.listWard = response.data.data;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     //chon phuong, xa
-    $scope.chooseWard = function(WardCode, indexOrder){
+    $scope.chooseWard = function (WardCode, indexOrder) {
         $scope.orders[indexOrder].ward = $scope.listWard.filter(item => {
             return item.WardCode == WardCode;
         })[0].WardName;
 
         $scope.ward = $scope.listWard.filter(item => {
             return item.WardCode == WardCode;
-        })[0];  
+        })[0];
         shipFee($scope.orders[indexOrder]);
     }
 
     /**cập nhật đơn hàng */
     $scope.updateOrder = (indexOrder) => {
         $scope.isLoading = true;
-        
+
         $http.post(apiOrder, $scope.orders[indexOrder])
             .then(async response => {
                 $scope.isSuccess = true;
-                
+
                 /**nếu trạng thái đơn hàng là chuẩn bị hàng thành công -> đăng đơn lên GHN */
-                if(response.data.status == "WAIT_FOR_THE_SHIPPER_TO_PICK_UP"){
+                if (response.data.status == "WAIT_FOR_THE_SHIPPER_TO_PICK_UP") {
                     // await getInfoShop();
                     var orderResponse = response.data;
                     var items = [];
@@ -391,14 +391,14 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
                         items.push(angular.copy(product)); /**danh sach cac san pham trong don hang GHN */
                         weight = weight + (item.product.weight.weight * item.quantity);
                         height += 12;
-                        if(response.data.paymentType == "OFFLINE"){
-                            cod_amount = cod_amount + (item.price * item.quantity); 
+                        if (response.data.paymentType == "OFFLINE") {
+                            cod_amount = cod_amount + (item.price * item.quantity);
                             payment_type_id = 2;
-                        } else{
+                        } else {
                             payment_type_id = 1;
                         }
                     });
-                    
+
                     var orderGHN = {
                         from_name: $scope.shopInfo.ownerName,
                         from_address: $scope.shopInfo.address,
@@ -442,29 +442,29 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
                         },
                         data: orderGHN
                     })
-                    .then(responseGHN => {
-                        /**cập nhật mã đơn hàng trên ghn vào order trong database */
-                        var orderCodeGHN = responseGHN.data.data.order_code;
-                        $scope.orders[indexOrder].codeGHN = orderCodeGHN;
+                        .then(responseGHN => {
+                            /**cập nhật mã đơn hàng trên ghn vào order trong database */
+                            var orderCodeGHN = responseGHN.data.data.order_code;
+                            $scope.orders[indexOrder].codeGHN = orderCodeGHN;
 
-                        if($scope.orders[indexOrder].codeGHN){
-                            $http.post(apiOrder, $scope.orders[indexOrder])
-                                .then(response => {})
-                                .catch(error => {
-                                    console.log(error);
-                                })
-                        }
-                        $scope.isSuccess = true;
-                        $scope.message = "Cập nhật đơn hàng thành công, và đã đăng đơn hàng cho shipper";
+                            if ($scope.orders[indexOrder].codeGHN) {
+                                $http.post(apiOrder, $scope.orders[indexOrder])
+                                    .then(response => { })
+                                    .catch(error => {
+                                        console.log(error);
+                                    })
+                            }
+                            $scope.isSuccess = true;
+                            $scope.message = "Cập nhật đơn hàng thành công, và đã đăng đơn hàng cho shipper";
 
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        $scope.isSuccess = false;
-                        $scope.message = "Cập nhật đơn hàng thành công, Có lỗi xảy ra khi đăng đơn hàng lên GHN";
-                    })
-                    
-                } else{
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            $scope.isSuccess = false;
+                            $scope.message = "Cập nhật đơn hàng thành công, Có lỗi xảy ra khi đăng đơn hàng lên GHN";
+                        })
+
+                } else {
                     $scope.message = "Cập nhật đơn hàng thành công";
                 }
 
@@ -478,6 +478,122 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
                 $scope.message = "Cập nhật đơn hàng thất bại, vui lòng thử lại";
                 alertShow();
             });
+    }
+
+    /**Xác nhận đơn hàng */
+    $scope.confirmOrder = (order, index) => {
+        var message = "Đơn hàng đã chuẩn bị thành công và chờ shipper giao!"
+        order.status = "WAIT_FOR_THE_SHIPPER_TO_PICK_UP";
+        updateStatus(order, message, index);
+        /**nếu trạng thái đơn hàng là chuẩn bị hàng thành công -> đăng đơn lên GHN */
+        // await getInfoShop();
+        var orderResponse = order;
+        var items = [];
+
+        var weight = 0;
+        var height = 0;
+        var cod_amount = 0; /**tien thu hộ khi thanh toán off */
+        var payment_type_id = 2; /**thu tien nguoi ban(1) or nguoi nhan(2) */
+
+        order.orderDetails.map(item => {
+            var product = {
+                name: item.product.name,
+                code: item.productDetail.id + "",
+                quantity: item.quantity
+            }
+            items.push(angular.copy(product)); /**danh sach cac san pham trong don hang GHN */
+            weight = weight + (item.product.weight.weight * item.quantity);
+            height += 12;
+            if (order.paymentType == "OFFLINE") {
+                cod_amount = cod_amount + (item.price * item.quantity);
+                payment_type_id = 2;
+            } else {
+                payment_type_id = 1;
+            }
+        });
+
+        var orderGHN = {
+            from_name: $scope.shopInfo.ownerName,
+            from_address: $scope.shopInfo.address,
+            from_province_name: $scope.shopInfo.province,
+            from_district_name: $scope.shopInfo.district,
+            from_ward_name: $scope.shopInfo.ward,
+            from_phone: $scope.shopInfo.tel,
+            to_name: orderResponse.customerName,
+            to_phone: orderResponse.phone,
+            to_address: orderResponse.address,
+            to_ward_name: orderResponse.ward,
+            to_district_name: orderResponse.district,
+            to_province_name: orderResponse.province,
+            // return_name: $scope.shopInfo.ownerName,
+            // return_phone: $scope.shopInfo.tel,
+            // return_address: $scope.shopInfo.address,
+            // return_ward_name: $scope.shopInfo.ward,
+            // return_district_name: $scope.shopInfo.district,
+            // return_province_name: $scope.shopInfo.province,
+            client_order_code: orderResponse.code + "",
+            cod_amount: cod_amount,
+            content: orderResponse.description,
+            weight: weight,
+            length: 33,
+            width: 22,
+            height: height,
+            service_type_id: 2,
+            payment_type_id: payment_type_id,
+            required_note: 'CHOXEMHANGKHONGTHU',
+            items: items
+        };
+
+        $http({
+            method: 'POST',
+            url: "https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create",
+            headers: {
+                Token: '8572ee07-c663-11ed-ab31-3eeb4194879e',
+                ShopId: '122249',
+                'Content-Type': 'application/json'
+            },
+            data: orderGHN
+        })
+            .then(responseGHN => {
+                /**cập nhật mã đơn hàng trên ghn vào order trong database */
+                var orderCodeGHN = responseGHN.data.data.order_code;
+                $scope.orders[index].codeGHN = orderCodeGHN;
+
+                if ($scope.orders[index].codeGHN) {
+                    $http.post(apiOrder, $scope.orders[index])
+                        .then(response => { })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                }
+                $scope.isSuccess = true;
+                $scope.message = "Cập nhật đơn hàng thành công, và đã đăng đơn hàng cho shipper";
+                $scope.orders.splice(index, 1);
+            })
+            .catch(error => {
+                console.log(error);
+                $scope.isSuccess = false;
+                $scope.message = "Cập nhật đơn hàng thành công, Có lỗi xảy ra khi đăng đơn hàng lên GHN";
+            })
+        alertShow();
+    }
+
+    /**cập nhật trạng thái đơn hàng */
+    updateStatus = (order, message, index) => {
+        $http.put(apiOrder + "/update-status", order)
+            .then(async response => {
+                $scope.isLoading = false;
+                $scope.isSuccess = true;
+                $scope.message = message;
+                alertShow();
+            })
+            .catch((error) => {
+                console.log(error);
+                $scope.isSuccess = false;
+                $scope.isLoading = false;
+                $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                alertShow();
+            })
     }
 
     /**xử lý hiển thị các trạng thái đơn hàng khi vào cập nhật đơn hàng */
@@ -524,7 +640,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
     //tìm kiếm đơn hàng
     $scope.searchOrder = () => {
         $scope.isLoading = true;
-        if($scope.orderCode && $scope.orderCode.length > 1){
+        if ($scope.orderCode && $scope.orderCode.length > 1) {
             $http.get(apiOrder + "/search?orderCode=" + $scope.orderCode)
                 .then(response => {
                     $scope.isLoading = false;
@@ -532,12 +648,12 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
                     $scope.orders = response.data;
                     $scope.orders.map(order => {
                         var totalMoney = 0;
-                        if(order.orderDetails && order.orderDetails.length ){
+                        if (order.orderDetails && order.orderDetails.length) {
                             order.orderDetails.forEach(orderDetail => {
                                 totalMoney += orderDetail.price * orderDetail.quantity;
                             })
                         }
-                        if(order.voucher){
+                        if (order.voucher) {
                             totalMoney -= order.voucher.promotion;
                         }
                         order.totalMoney = totalMoney + order.totalShip;
@@ -566,12 +682,12 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
                 $scope.orders = response.data;
                 $scope.orders.map(order => {
                     var totalMoney = 0;
-                    if(order.orderDetails && order.orderDetails.length ){
+                    if (order.orderDetails && order.orderDetails.length) {
                         order.orderDetails.forEach(orderDetail => {
                             totalMoney += orderDetail.price * orderDetail.quantity;
                         })
                     }
-                    if(order.voucher){
+                    if (order.voucher) {
                         totalMoney -= order.voucher.promotion;
                     }
                     order.totalMoney = totalMoney + order.totalShip;
@@ -584,13 +700,13 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
                 $scope.message = "Có lỗi xảy ra, vui lòng thử lại"
                 alertShow();
             })
-        
+
     }
 
     // tìm kiếm theo khoảng thời gian
     $scope.changeBeginDate = () => {
         $scope.beginDatea = $filter('date')($scope.beginDate, 'yyyy-MM-dd');
-        if($scope.endDatea){
+        if ($scope.endDatea) {
             findByTime($scope.beginDatea + "", $scope.endDatea + "");
         }
     }
@@ -598,7 +714,7 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
     // tìm kiếm theo khoảng thời gian
     $scope.changeEndDate = () => {
         $scope.endDatea = $filter('date')($scope.endDate, 'yyyy-MM-dd');
-        if($scope.beginDatea){
+        if ($scope.beginDatea) {
             findByTime($scope.beginDatea, $scope.endDatea);
         }
     }
@@ -611,12 +727,12 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
                 $scope.orders = res.data;
                 $scope.orders.map(order => {
                     var totalMoney = 0;
-                    if(order.orderDetails && order.orderDetails.length ){
+                    if (order.orderDetails && order.orderDetails.length) {
                         order.orderDetails.forEach(orderDetail => {
                             totalMoney += orderDetail.price * orderDetail.quantity;
                         })
                     }
-                    if(order.voucher){
+                    if (order.voucher) {
                         totalMoney -= order.voucher.promotion;
                     }
                     order.totalMoney = totalMoney + order.totalShip;
@@ -630,19 +746,19 @@ function CONFIRMED ($scope, $http, $rootScope, $filter){
             })
     }
     $scope.findOrderByTotalMoney = () => {
-        if($scope.findByTotal){
-            if($scope.findByTotal == 1){
+        if ($scope.findByTotal) {
+            if ($scope.findByTotal == 1) {
                 //tìm các đơn hàng từ 0-> 1tr
                 findBytotal(0, 1000000);
-            } else if($scope.findByTotal == 2){
+            } else if ($scope.findByTotal == 2) {
                 //tìm các đơn hàng từ 1-> 3tr
                 findBytotal(1000000, 3000000);
-            }else if($scope.findByTotal == 3){
+            } else if ($scope.findByTotal == 3) {
                 //tìm các đơn hàng từ 3-> 5tr
                 findBytotal(3000000, 5000000);
             }
-        } 
-        if($scope.findByTotalBegin && $scope.findByTotalEnd){
+        }
+        if ($scope.findByTotalBegin && $scope.findByTotalEnd) {
             findBytotal($scope.findByTotalBegin, $scope.findByTotalEnd);
         }
     }

@@ -97,6 +97,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderDto> finAllByCodeAndStatus(String orderCode, String status) {
+        return this.orderRepo.findAllByCodeAndStatus(orderCode, status).stream().map(Order :: toDto).collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public OrderDto save(OrderDto orderDto) throws MessagingException {
         if(orderDto.getId() == null) {
@@ -172,7 +177,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     @Transactional
     public OrderDto updateStatus(OrderDto orderDto) {
-        return this.orderRepo.saveAndFlush(Order.toEntity(orderDto)).toDto();
+        if (orderDto.getStatus().equalsIgnoreCase("CONFIRMED")){
+            for (OrderDetailDto orderDetailDto : orderDto.getOrderDetails()) {
+                Integer idProductDetail = orderDetailDto.getProductDetail().getId();
+                ProductDetail productDetail = this.productDetailRepo.findById(idProductDetail).get();
+                productDetail.setQuantity(productDetail.getQuantity() - orderDetailDto.getQuantity());
+                this.productDetailRepo.save(productDetail);
+            }
+        }
+        this.orderRepo.saveAndFlush(Order.toEntity(orderDto)).toDto();
+        return orderDto;
     }
 
     @Override

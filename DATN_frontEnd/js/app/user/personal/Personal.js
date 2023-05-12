@@ -200,13 +200,11 @@ function personal ($scope, $http){
         $scope.isLoading = true;
         $http.get(apiOrder + "/user/" + username) 
             .then(function (response) {      
-                $scope.orders = response.data;
-                console.log($scope.orders);            
+                $scope.orders = response.data;           
                 $scope.orders.map(order => {
                     $scope.provinceId = order.provinceId;
                     $scope.districtId = order.districtId;
                     $scope.wardCode = order.wardCode; 
-                    console.log(order.provinceId);
                     var totalMoney = 0;
                     if(order.orderDetails){
                         order.orderDetails.map(item => {

@@ -16,6 +16,7 @@ public interface OrderService {
     Page<Order> getAllByStatus(Integer page, Integer size, String status);
     Order getById(int OrderId);
     List<OrderDto> finAllBy(String orderCode);
+    List<OrderDto> finAllByCodeAndStatus(String orderCode, String status);
 
     OrderDto save(OrderDto orderDto) throws MessagingException;
     OrderDto updateStatus(OrderDto orderDto);

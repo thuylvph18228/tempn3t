@@ -26,6 +26,10 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
     @Query(value = "select * from orders where code like :name% or phone like :name% or customer_name like :name%", nativeQuery = true)
     List<Order> findAllBy(String name);
 
+    @Query(value = "SELECT * FROM orders WHERE (code LIKE :name% OR phone LIKE :name% OR customer_name LIKE :name%) AND status LIKE :status", nativeQuery = true)
+    List<Order> findAllByCodeAndStatus(String name, String status);
+
+
     @Query(value = "SELECT * from orders o \n" +
             "WHERE EXISTS (SELECT * from order_history oh WHERE oh.order_id = o.id AND oh.status LIKE :status )", nativeQuery = true)
     List<Order> getAllOrderReturn(String status);
