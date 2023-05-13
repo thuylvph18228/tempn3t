@@ -6,7 +6,8 @@
         <h2 class="text-center mb-3"> <b> Đơn hàng bị hủy</b></h2>
         <div class="row mt-4">
             <div class="col-12 col-sm-6 col-xl-3">
-                <input class="form-control" type="search" placeholder="Tìm kiếm đơn hàng..." ng-focus="searchOrder()" ng-model="orderCode" ng-keyup="searchOrder()" >
+                <input class="form-control" type="search" placeholder="Tìm kiếm đơn hàng..." ng-focus="searchOrder()"
+                    ng-model="orderCode" ng-keyup="searchOrder()">
             </div>
             <div class="col-12 col-sm-6 col-xl-5">
                 <form class="d-flex">
@@ -16,45 +17,48 @@
                 </form>
             </div>
             <div class="col-12 col-sm-6 col-xl-2">
-                <div type="button" class="col-12 btn dropdown-toggle border" data-bs-toggle="dropdown" aria-expanded="false">
+                <div type="button" class="col-12 btn dropdown-toggle border" data-bs-toggle="dropdown"
+                    aria-expanded="false">
                     Giá tiền
                 </div>
                 <ul class="dropdown-menu" style="max-width: 244px;">
                     <li>
-                        <select class="form-select dropdown-item filter" ng-change="findOrderByTotalMoney()" ng-model="findByTotal">
+                        <select class="form-select dropdown-item filter" ng-change="findOrderByTotalMoney()"
+                            ng-model="findByTotal">
                             <option selected disabled>Gợi ý</option>
                             <option value="1">0 - 1,000,000</option>
                             <option value="2">1,000,000 - 3,000,000</option>
                             <option value="3">3,000,000 - 5,000,000</option>
-                        </select>    
+                        </select>
                     </li>
                     <li>
                         <b class="ps-3">Tùy chỉnh</b>
                         <div class="mt-2">
                             <div class="mt-2 ps-3 pe-3">
-                                <input type="number" class="form-control" placeholder="Từ" ng-model="findByTotalBegin" ng-change="findOrderByTotalMoney()" min="1" oninput="this.value = Math.abs(this.value)">
+                                <input type="number" class="form-control" placeholder="Từ" ng-model="findByTotalBegin"
+                                    ng-change="findOrderByTotalMoney()" min="1"
+                                    oninput="this.value = Math.abs(this.value)">
                             </div>
                             <div class="mt-2 ps-3 pe-3">
-                                <input type="number" class="form-control" placeholder="Đến" ng-model="findByTotalEnd" ng-change="findOrderByTotalMoney()" min="1" oninput="this.value = Math.abs(this.value)">
+                                <input type="number" class="form-control" placeholder="Đến" ng-model="findByTotalEnd"
+                                    ng-change="findOrderByTotalMoney()" min="1"
+                                    oninput="this.value = Math.abs(this.value)">
                             </div>
                         </div>
                     </li>
                 </ul>
-            </div>            
+            </div>
             <div class="col-1">
                 <button ng-click="resetOrder()" class="btn btn-primary">Reset</button>
             </div>
         </div>
     </div>
-    
+
     <div class="row mt-6">
         <div class="col-sm-12 col-md-12 mt-3">
             <div class="row mt-3">
                 <div class="mb-3">
                     <div class="card">
-                        <!-- <div class="card-header">
-                            <h5>Bảng danh sách</h5>
-                        </div> -->
                         <div class="card-body mt-3">
                             <div class="table-responsive">
                                 <table id="example" class="table data-table table-hover">
@@ -72,7 +76,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        
+
                                         <tr ng-repeat="order in orders">
                                             <td>#{{order.code}}</td>
                                             <td>{{order.codeGHN}}</td>
@@ -85,7 +89,8 @@
                                             </td>
                                             <td>
                                                 {{order.address}} <br>
-                                                {{order.ward}} {{order.district ? " ," : ""}} {{order.district}} {{order.province ? " ," : ""}} {{order.province}}
+                                                {{order.ward}} {{order.district ? " ," : ""}} {{order.district}}
+                                                {{order.province ? " ," : ""}} {{order.province}}
                                             </td>
                                             <td>
                                                 {{order.totalMoney | currency : "" : 0}}₫
@@ -99,21 +104,15 @@
                                                 <div class="row">
                                                     <div class="col-auto pt-1">
                                                         <h4>
-                                                            <a href="#" style="color: rgb(8, 159, 41);" ng-click="chosesOrderUpdate($index)"
-                                                                data-bs-toggle="modal" data-bs-target="#detailModal{{$index}}">
+                                                            <a href="#" style="color: rgb(8, 159, 41);"
+                                                                ng-click="chosesOrderUpdate($index)"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#detailModal{{$index}}">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
                                                         </h4>
                                                     </div>
-                                                    <!-- <div class="col-1 pt-1">
-                                                        <h5>
-                                                            <a href="#" ng-click="showOrder($index)" data-bs-toggle="modal" data-bs-target="#update{{$index}}" style="color: rgb(29, 201, 231);">
-                                                                <i class="bi bi-pencil-square"></i>
-                                                            </a>
-                                                        </h5>
-                                                    </div> -->
                                                 </div>
-
                                                 <!-- Modal chi tiet đơn hang: -->
                                                 <div class="modal fade" id="detailModal{{$index}}" tabindex="-1"
                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -129,9 +128,17 @@
                                                             <!--table model-->
                                                             <div class="modal-body">
                                                                 <div>
-                                                                    Mã đơn hàng: <b> {{order.code}} </b> - Ngày tạo: <b>{{order.createdDate | date:"dd/MM/yyyy ' - ' h:mma"}}</b> - {{order.paymentType == "VNPAY"?"Đã thanh toán online" : "Thanh toán khi nhận hàng"}}<br>
-                                                                    Tên khách hàng: <b>{{order.customerName}} - SĐT: {{order.phone}}</b> <br>
-                                                                    Địa chỉ: <b>{{order.address}} {{order.ward ? " ," : ""}} {{order.ward}} {{order.district ? " ," : ""}} {{order.district}} {{order.province ? " ," : ""}} {{order.province}}</b> <br>
+                                                                    Mã đơn hàng: <b> {{order.code}} </b> - Ngày tạo:
+                                                                    <b>{{order.createdDate | date:"dd/MM/yyyy ' - '
+                                                                        h:mma"}}</b> - {{order.paymentType ==
+                                                                    "VNPAY"?"Đã thanh toán online" : "Thanh toán khi
+                                                                    nhận hàng"}}<br>
+                                                                    Tên khách hàng: <b>{{order.customerName}} - SĐT:
+                                                                        {{order.phone}}</b> <br>
+                                                                    Địa chỉ: <b>{{order.address}} {{order.ward ? " ," :
+                                                                        ""}} {{order.ward}} {{order.district ? " ," :
+                                                                        ""}} {{order.district}} {{order.province ? " ,"
+                                                                        : ""}} {{order.province}}</b> <br>
                                                                 </div>
                                                                 <table class="mt-4 table">
                                                                     <thead>
@@ -147,7 +154,8 @@
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr ng-repeat="orderDetail in order.orderDetails">
+                                                                        <tr
+                                                                            ng-repeat="orderDetail in order.orderDetails">
                                                                             <td>{{$index + 1}}</td>
                                                                             <td>
                                                                                 {{orderDetail.product.name}}
@@ -160,7 +168,8 @@
 
                                                                             </td>
                                                                             <td>
-                                                                                {{orderDetail.price | currency : "" : 0}}₫
+                                                                                {{orderDetail.price | currency : "" :
+                                                                                0}}₫
 
                                                                             </td>
                                                                             <td>
@@ -168,23 +177,28 @@
 
                                                                             </td>
                                                                             <td>
-                                                                                {{orderDetail.price * orderDetail.quantity | currency : "" : 0}}₫
+                                                                                {{orderDetail.price *
+                                                                                orderDetail.quantity | currency : "" :
+                                                                                0}}₫
                                                                             </td>
-                                                                        
+
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
                                                                 <div>
                                                                     <div class="d-flex justify-content-end">
                                                                         <div>
-                                                                          <p>Giảm giá:
-                                                                            <b ng-if="!order.voucher">0₫</b>
-                                                                            <b ng-if="order.voucher">-{{order.voucher.promotion | currency : "" : 0}}₫</b>
-                                                                          </p>
-                                                                          <p>Phí ship:
-                                                                            <b>+{{ order.totalShip | currency: "" : 0 }}₫</b>
-                                                                          </p>
-                                                                          <h5>Tổng tiền: <b>{{ order.totalMoney | currency : "" : 0}}₫</b></h5>
+                                                                            <p>Giảm giá:
+                                                                                <b ng-if="!order.voucher">0₫</b>
+                                                                                <b ng-if="order.voucher">-{{order.voucher.promotion
+                                                                                    | currency : "" : 0}}₫</b>
+                                                                            </p>
+                                                                            <p>Phí ship:
+                                                                                <b>+{{ order.totalShip | currency: "" :
+                                                                                    0 }}₫</b>
+                                                                            </p>
+                                                                            <h5>Tổng tiền: <b>{{ order.totalMoney |
+                                                                                    currency : "" : 0}}₫</b></h5>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -192,188 +206,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-
-                                                <!-- modal update -->
-                                                <div class="modal fade" id="update{{$index}}" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog modal-xl">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLabel">
-                                                                    Chi tiết đơn hàng: {{order.code}}
-                                                                </h5>
-                                                                <button type="button" class="btn-close" ng-click="cancelUpdate()"
-                                                                    data-bs-dismiss="modal" aria-label="Close"></button>
-                                                            </div>
-                                                            <!--table model-->
-                                                            <div class="modal-body row">
-                                                                <div class="">
-                                                                    <div class="col-11">
-                                                                        Mã đơn hàng: <b> {{order.code}} </b> - Ngày tạo: <b>{{order.createdDate}}</b> <br>
-                                                                        
-                                                                        <div class="row mt-3">
-                                                                            <div class="col-1">
-                                                                                <label for=""><h2><i class="bi bi-person"></i></h2></label>
-                                                                            </div>
-                                                                            <div class="col-11">
-                                                                                <div class="row">
-                                                                                    <div class="col-6">
-                                                                                        <input type="text" class="form-control" ng-model="order.customerName" placeholder="Tên người nhận">
-                                                                                    </div>
-                                                                                    <div class="col-6">
-                                                                                        <input type="text" class="form-control" ng-model="order.phone" placeholder="Số điện thoại">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>                                                                        
-                                                                        </div>
-                                                                        
-                                                                        <div class="row mt-2" ng-if="order.orderType == 'ONLINE' || order.orderType == 'ONLINE_WEB' ">
-                                                                            <div class="col-1">
-                                                                                <label for=""><h2><i class="bi bi-geo-alt"></i></h2></label>
-                                                                            </div>
-                                                                            <div class="col-11">
-                                                                                <div class="row">
-                                                                                    <div class="col-6">
-                                                                                        <input class="form-control dropdown-toggle" type="text" id="orderProvince{{$index}}" ng-model="order.province" 
-                                                                                            ng-focus="showProvince()" placeholder="Tỉnh, thành phố.."  data-bs-toggle="dropdown" aria-expanded="false"/>
-                                                                                        <div class="dropdown-menu" aria-labelledby="orderProvince{{$index}}" style="width: 210px; height: 200px; overflow-y: scroll">
-                                                                                            <p id="province" ng-repeat="province in listProvince" ng-click="chooseProvince(province.ProvinceID, $parent.$index)">
-                                                                                                <a href="" style="text-decoration: none; color: black;">{{province.ProvinceName}}</a>
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-6">
-                                                                                        <input class="form-control dropdown-toggle" type="text" id="orderDistrict{{$index}}" ng-model="order.district" 
-                                                                                            ng-focus="showDistrict()" placeholder="Quận/Huyện..."  data-bs-toggle="dropdown" aria-expanded="false"/>
-                                                                                        <div ng-show="order.province" class="dropdown-menu" aria-labelledby="orderDistrict{{$index}}" style="width: 210px; height: 200px; overflow-y: scroll">
-                                                                                            <p id="district" ng-repeat="district in listDistrict" ng-click="chooseDistrict(district.DistrictID, $parent.$index)">
-                                                                                                <a href="" style="text-decoration: none; color: black;">{{district.DistrictName}}</a>
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="row mt-2">
-                                                                                    <div class="col-6">
-                                                                                        <input class="form-control dropdown-toggle" type="text" id="orderWard{{$index}}" ng-model="order.ward" 
-                                                                                            ng-focus="showWard()" placeholder="Phường, xã..."  data-bs-toggle="dropdown" aria-expanded="false"/>
-                                                                                        <div ng-show="order.district" class="dropdown-menu" aria-labelledby="orderWard{{$index}}" style="width: 210px; height: 200px; overflow-y: scroll">
-                                                                                            <p id="ward" ng-repeat="ward in listWard" ng-click="chooseWard(ward.WardCode, $parent.$index)">
-                                                                                                <a  href="" style="text-decoration: none; color: black;">{{ward.WardName}}</a>
-                                                                                            </p>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                    <div class="col-6">
-                                                                                        <input type="text" class="form-control" ng-model="order.address" placeholder="Địa chỉ chi tiết">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="row mt-3">
-                                                                            <div class="col-1">
-                                                                                Trạng thái
-                                                                            </div>
-                                                                            <div class="col-11">
-                                                                                <div class="row">
-                                                                                    <div class="col-6">
-                                                                                        <select class="form-select" ng-model="order.status" id="order{{$index}}">
-                                                                                            <option ng-repeat="status in orderStatus" value="{{status.value}}">{{status.text}}</option>
-                                                                                        </select>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>                                                                        
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="d-flex justify-content-center mt-3 mt-2">
-                                                                        <div class="col-10">
-                                                                            <input type="text" ng-model="nameProduct" id="productOrder" ng-focus="showAllProduct()" data-bs-toggle="dropdown" aria-expanded="false"
-                                                                                ng-change="searchProduct()" class="form-control" placeholder="Tìm kiếm sản phẩm...">
-                                                                            
-                                                                            <div class="dropdown-menu" aria-labelledby="productOrder" style="width: 210px; height: 200px; overflow-y: scroll">
-                                                                                <div ng-show="products" ng-repeat="product in products" >
-                                                                                    <div id="productDetail" ng-repeat="productDetail in product.productDetails" >
-                                                                                        <p ng-click="chooseProduct(product, productDetail, $parent.$parent.$index)">
-                                                                                            <a href="" style="text-decoration: none; color: black;"> 
-                                                                                                {{product.name}} - {{product.price | currency : "" : 0}}₫
-                                                                                            </a><br>
-                                                                                            <a href="" style="text-decoration: none; color: black;">
-                                                                                                Size{{productDetail.size.name}} - Màu: {{productDetail.color.name}} - Độ cao đế: {{productDetail.height.height}}cm - Chất liệu: {{productDetail.material.name}}
-                                                                                            </a>
-                                                                                        </p>
-                                                                                        <hr>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                
-                                                                <table class="mt-4 table">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th>STT</th>
-                                                                            <th>Sản phẩm</th>
-                                                                            <th>Size</th>
-                                                                            <th>Màu sắc</th>
-                                                                            <th>Giá tiền</th>
-                                                                            <th>Số lượng</th>
-                                                                            <th>Tổng tiền</th>
-                                                                            <th></th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody>
-                                                                        <tr ng-repeat="orderDetail in order.orderDetails">
-                                                                            <td>{{$index + 1}}</td>
-                                                                            <td>
-                                                                                {{orderDetail.product.name}}
-                                                                            </td>
-                                                                            <td>
-                                                                                {{orderDetail.productDetail.size.name}}
-                                                                            </td>
-                                                                            <td>
-                                                                                {{orderDetail.productDetail.color.name}}
-
-                                                                            </td>
-                                                                            <td>
-                                                                                {{orderDetail.price}}
-
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="d-flex justify-content-center align-center">
-                                                                                    <input type="number" ng-change="changeQuantity($parent.$index)" class="col-2" ng-model="orderDetail.quantity">
-                                                                                </div>
-                                                                            </td>
-                                                                            <td>
-                                                                                {{orderDetail.price * orderDetail.quantity}}
-                                                                            </td>
-                                                                            <td>
-                                                                                <div class="row">
-                                                                                    <h5 class="col-auto mt-2">
-                                                                                        <a type="button" ng-click="a($index, $parent.$index)" class="ps-2" style="color: rgb(234, 55, 55);">
-                                                                                            <i class="bi bi-trash"></i>
-                                                                                        </a>
-                                                                                    </h5>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
-                                                                <div class="d-flex justify-content-end">
-                                                                    <h5>Tổng tiền đơn hàng: <b>{{ totalMoney }}</b></h5>
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"  ng-click="cancelUpdate()">Hủy</button>
-                                                                <!-- <button type="button" ng-if="order.status == 'WAIT_FOR_CONFIRMATION' || order.status == 'CONFIRMED' || order.status == 'WAIT_FOR_THE_SHIPPER_TO_PICK_UP' " 
-                                                                    class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#updateProduct{{$index}}">Cập nhật</button> -->
-                                                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-target="#updateProduct{{$index}}">Cập nhật</button>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                    </div>
-                                                </div>                                              
                                             </td>
                                         </tr>
-                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -381,26 +215,23 @@
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
     <!--Page-->
     <div>
-
+        <nav aria-label="Page navigation example" class="mt-3 offset-5">
+            <ul class="pagination pagination-sm">
+                <li ng-class="['page-item', {{ pageIndex == 0 ? 'disabled' : '' }} ]">
+                    <a href="" class="page-link" aria-label="Previous" ng-click="prev()">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li ng-class="['page-item', {{ pageIndex == totalPage ? 'disabled' : '' }} ]">
+                    <a href="" class="page-link" aria-label="Next" ng-click="next()">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
-    <nav aria-label="Page navigation example" class="mt-3 offset-5">
-        <ul class="pagination pagination-sm">
-            <li ng-class="['page-item', {{ pageIndex == 0 ? 'disabled' : '' }} ]" >
-                <a href="" class="page-link" aria-label="Previous" ng-click="prev()" >
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li ng-class="['page-item', {{ pageIndex == totalPage ? 'disabled' : '' }} ]" >
-                <a href="" class="page-link" aria-label="Next" ng-click="next()">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
 </div>
