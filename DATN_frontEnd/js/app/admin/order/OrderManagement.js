@@ -53,9 +53,10 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
     $scope.orderDelivering = "";
     $scope.orderDelivered = "";
     $scope.orderNoDelivery = "";
-    $scope.orderCancel = "";
+    $scope.orderCanceled = "";
     $scope.orderRe = "";
     $scope.status = "";
+    $scope.statusReturn = "WAIT";
 
     $scope.isLoading = false;
     $scope.isSuccess = true;
@@ -63,6 +64,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
     $scope.pageIndex = 0;
     $scope.totalPage = '';
     $scope.shopInfo = null;
+    $scope.active = false;
 
     $scope.province = {};
     $scope.district = {};
@@ -104,7 +106,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
                     $scope.orderwaitconfirms = response.data[0];
                     $scope.totalPage = response.data[1];
                     $scope.isLoading = false;
-
+                    $scope.countWaitConfirm = response.data[1];
                     $scope.orderwaitconfirms.map(order => {
                         var totalMoney = 0;
                         if (order.orderDetails && order.orderDetails.length) {
@@ -128,23 +130,24 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         }
         getAllOrderWaitConfirm(0, $scope.status = "WAIT_FOR_CONFIRMATION");
 
+        $scope.pageIndexWaitConfirm = 0;
         $scope.prevWaitConfirm = () => {
-            if ($scope.pageIndex <= 0) {
-                $scope.pageIndex = 0;
-                getAllOrderWaitConfirm(0, $scope.status);
+            if ($scope.pageIndexWaitConfirm <= 0) {
+                $scope.pageIndexWaitConfirm = 0;
+                getAllOrderWaitConfirm(0, $scope.status = "WAIT_FOR_CONFIRMATION");
             } else {
-                $scope.pageIndex--;
-                getAllOrderWaitConfirm($scope.pageIndex, $scope.status);
+                $scope.pageIndexWaitConfirm--;
+                getAllOrderWaitConfirm($scope.pageIndexWaitConfirm, $scope.status = "WAIT_FOR_CONFIRMATION");
             }
         }
 
         $scope.nextWaitConfirm = () => {
-            if ($scope.pageIndex == $scope.totalPage - 1) {
-                $scope.pageIndex = $scope.totalPage - 1;
-                getAllOrderWaitConfirm($scope.totalPage - 1, $scope.status);
+            if ($scope.pageIndexWaitConfirm == $scope.totalPage - 1) {
+                $scope.pageIndexWaitConfirm = $scope.totalPage - 1;
+                getAllOrderWaitConfirm($scope.totalPage - 1, $scope.status = "WAIT_FOR_CONFIRMATION");
             } else {
-                $scope.pageIndex++;
-                getAllOrderWaitConfirm($scope.pageIndex, $scope.status);
+                $scope.pageIndexWaitConfirm++;
+                getAllOrderWaitConfirm($scope.pageIndexWaitConfirm, $scope.status = "WAIT_FOR_CONFIRMATION");
             }
         }
 
@@ -309,7 +312,6 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
                 $http.get(apiOrder + "/searchOrderCodeAndStatus?orderCode=" + $scope.orderCode + "&orderStatus=WAIT_FOR_CONFIRMATION")
                     .then(response => {
                         $scope.isLoading = false;
-                        // $scope.orderSearch = response.data;
                         $scope.orderwaitconfirms = response.data;
                         $scope.orderwaitconfirms.map(order => {
                             var totalMoney = 0;
@@ -446,7 +448,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
                     $scope.orderconfirmeds = response.data[0];
                     $scope.totalPage = response.data[1];
                     $scope.isLoading = false;
-
+                    $scope.countConfirmed = response.data[1];
                     $scope.orderconfirmeds.map(order => {
                         var totalMoney = 0;
                         if (order.orderDetails && order.orderDetails.length) {
@@ -470,23 +472,24 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         }
         getAllOrderConfirmed(0, $scope.status = "CONFIRMED");
 
+        $scope.pageIndexConfirmed = 0;
         $scope.prevConfirmed = () => {
-            if ($scope.pageIndex <= 0) {
-                $scope.pageIndex = 0;
-                getAllOrderConfirmed(0, $scope.status);
+            if ($scope.pageIndexConfirmed <= 0) {
+                $scope.pageIndexConfirmed = 0;
+                getAllOrderConfirmed(0, $scope.status = "CONFIRMED");
             } else {
-                $scope.pageIndex--;
-                getAllOrderConfirmed($scope.pageIndex, $scope.status);
+                $scope.pageIndexConfirmed--;
+                getAllOrderConfirmed($scope.pageIndexConfirmed, $scope.status = "CONFIRMED");
             }
         }
 
         $scope.nextConfirmed = () => {
-            if ($scope.pageIndex == $scope.totalPage - 1) {
-                $scope.pageIndex = $scope.totalPage - 1;
-                getAllOrderConfirmed($scope.totalPage - 1, $scope.status);
+            if ($scope.pageIndexConfirmed == $scope.totalPage - 1) {
+                $scope.pageIndexConfirmed = $scope.totalPage - 1;
+                getAllOrderConfirmed($scope.totalPage - 1, $scope.status = "CONFIRMED");
             } else {
-                $scope.pageIndex++;
-                getAllOrderConfirmed($scope.pageIndex, $scope.status);
+                $scope.pageIndexConfirmed++;
+                getAllOrderConfirmed($scope.pageIndexConfirmed, $scope.status = "CONFIRMED");
             }
         }
 
@@ -851,7 +854,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
                     $scope.orderwaitshippers = response.data[0];
                     $scope.totalPage = response.data[1];
                     $scope.isLoading = false;
-
+                    $scope.countWaitShipper = response.data[1];
                     $scope.orderwaitshippers.map(order => {
                         var totalMoney = 0;
                         if (order.orderDetails && order.orderDetails.length) {
@@ -875,23 +878,24 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         }
         getAllOrderWaitShipper(0, $scope.status = "WAIT_FOR_THE_SHIPPER_TO_PICK_UP");
 
+        $scope.pageIndexWaitShipper = 0;
         $scope.prevWaitShipper = () => {
-            if ($scope.pageIndex <= 0) {
-                $scope.pageIndex = 0;
-                getAllOrderWaitShipper(0, $scope.status);
+            if ($scope.pageIndexWaitShipper <= 0) {
+                $scope.pageIndexWaitShipper = 0;
+                getAllOrderWaitShipper(0, $scope.status = "WAIT_FOR_THE_SHIPPER_TO_PICK_UP");
             } else {
-                $scope.pageIndex--;
-                getAllOrderWaitShipper($scope.pageIndex, $scope.status);
+                $scope.pageIndexWaitShipper--;
+                getAllOrderWaitShipper($scope.pageIndexWaitShipper, $scope.status = "WAIT_FOR_THE_SHIPPER_TO_PICK_UP");
             }
         }
 
         $scope.nextWaitShipper = () => {
-            if ($scope.pageIndex == $scope.totalPage - 1) {
-                $scope.pageIndex = $scope.totalPage - 1;
-                getAllOrderWaitShipper($scope.totalPage - 1, $scope.status);
+            if ($scope.pageIndexWaitShipper == $scope.totalPage - 1) {
+                $scope.pageIndexWaitShipper = $scope.totalPage - 1;
+                getAllOrderWaitShipper($scope.totalPage - 1, $scope.status = "WAIT_FOR_THE_SHIPPER_TO_PICK_UP");
             } else {
-                $scope.pageIndex++;
-                getAllOrderWaitShipper($scope.pageIndex, $scope.status);
+                $scope.pageIndexWaitShipper++;
+                getAllOrderWaitShipper($scope.pageIndexWaitShipper, $scope.status = "WAIT_FOR_THE_SHIPPER_TO_PICK_UP");
             }
         }
 
@@ -1161,7 +1165,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         }
     }
     // end don hang by status WAIT_FOR_THE_SHIPPER_TO_PICK_UP
-
+    //-------------------------------------------------------------------------------------------------------//
     // start don hang by status DELIVERING
     {
         getAllOrderDelivering = (page, status) => {
@@ -1171,7 +1175,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
                     $scope.orderDelivering = response.data[0];
                     $scope.totalPage = response.data[1];
                     $scope.isLoading = false;
-                    $scope.count = response.data[1];
+                    $scope.countDelivering = response.data[1];
                     $scope.orderDelivering.map(order => {
                         var totalMoney = 0;
                         if (order.orderDetails && order.orderDetails.length) {
@@ -1195,40 +1199,37 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         }
         getAllOrderDelivering(0, $scope.status = "DELIVERING");
 
+        $scope.pageIndexDelivering = 0;
         $scope.prevDelivering = () => {
-            $scope.page.page--;
-            if ($scope.pageIndex <= 0) {
-                $scope.page.page = $scope.count - 1;
-                $scope.pageIndex = 0;
-                getAllOrderDelivering(0, $scope.status);
+            if ($scope.pageIndexDelivering <= 0) {
+                $scope.pageIndexDelivering = 0;
+                getAllOrderDelivering(0, $scope.status = "DELIVERING");
             } else {
-                $scope.pageIndex--;
-                getAllOrderDelivering($scope.pageIndex, $scope.status);
+                $scope.pageIndexDelivering--;
+                getAllOrderDelivering($scope.pageIndexDelivering, $scope.status = "DELIVERING");
             }
         }
 
         $scope.nextDelivering = () => {
-            $scope.page.page++;
-            if ($scope.pageIndex == $scope.totalPage - 1) {
-                $scope.page.page = 0;
-                $scope.pageIndex = $scope.totalPage - 1;
-                getAllOrderDelivering($scope.totalPage - 1, $scope.status);
+            if ($scope.pageIndexDelivering == $scope.totalPage - 1) {
+                $scope.pageIndexDelivering = $scope.totalPage - 1;
+                getAllOrderDelivering($scope.totalPage - 1, $scope.status = "DELIVERING");
             } else {
-                $scope.pageIndex++;
-                getAllOrderDelivering($scope.pageIndex, $scope.status);
+                $scope.pageIndexDelivering++;
+                getAllOrderDelivering($scope.pageIndexDelivering, $scope.status = "DELIVERING");
             }
         }
 
         /**cập nhật trạng thái đơn hàng */
         updateStatusDelivering = (order, message, index) => {
             $http.put(apiOrder + "/update-status", order)
-                .then(async response => {                    
-                    // if (order.status == "DELIVERED") {
-                    //     $scope.orderDelivered.unshift(order);
-                    // }
-                    // if (order.status == "NO_DELIVERY") {
-                    //     $scope.orderNoDelivery.unshift(order);
-                    // }
+                .then(async response => {
+                    if (order.status == "DELIVERED") {
+                        $scope.orderDelivered.unshift(order);
+                    }
+                    if (order.status == "NO_DELIVERY") {
+                        $scope.orderNoDelivery.unshift(order);
+                    }
                     $scope.orderDelivering.splice(index, 1);
                     $scope.isLoading = false;
                     $scope.isSuccess = true;
@@ -1400,60 +1401,898 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         }
     }
     // end don hang by status DELIVERING
+    //-------------------------------------------------------------------------------------------------------//
+    // start don hang by status DELIVERED
+    {
+        getAllOrderDelivered = (page, status) => {
+            $scope.isLoading = true;
+            $http.get(apiOrder + "/status" + "?page=" + page + "&status=" + status)
+                .then(function (response) {
+                    $scope.orderDelivered = response.data[0];
+                    $scope.totalPage = response.data[1];
+                    $scope.isLoading = false;
+                    $scope.countDelivered = response.data[1];
+                    $scope.orderDelivered.map(order => {
+                        var totalMoney = 0;
+                        if (order.orderDetails && order.orderDetails.length) {
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if (order.voucher) {
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney + order.totalShip;
+                    })
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại";
+                    alertShow();
+                    $scope.isLoading = false;
+                });
+        }
+        getAllOrderDelivered(0, $scope.status = "DELIVERED");
 
-    //get all don hang by status
-    getAllOrder = (page, status) => {
-        $scope.isLoading = true;
-        $http.get(apiOrder + "/status" + "?page=" + page + "&status=" + status)
-            .then(function (response) {
-                $scope.orders = response.data[0];
-                $scope.orders.map(order => {
-                    var totalMoney = 0;
-                    if (order.orderDetails && order.orderDetails.length) {
-                        order.orderDetails.forEach(orderDetail => {
-                            totalMoney += orderDetail.price * orderDetail.quantity;
+        $scope.pageIndexDelivered = 0;
+        $scope.prevDelivered = () => {
+            if ($scope.pageIndexDelivered <= 0) {
+                $scope.pageIndexDelivered = 0;
+                getAllOrderDelivered(0, $scope.status = "DELIVERED");
+            } else {
+                $scope.pageIndexDelivered--;
+                getAllOrderDelivered($scope.pageIndexDelivered, $scope.status = "DELIVERED");
+            }
+        }
+
+        $scope.nextDelivered = () => {
+            if ($scope.pageIndexDelivered == $scope.totalPage - 1) {
+                $scope.pageIndexDelivered = $scope.totalPage - 1;
+                getAllOrderDelivered($scope.totalPage - 1, $scope.status = "DELIVERED");
+            } else {
+                $scope.pageIndexDelivered++;
+                getAllOrderDelivered($scope.pageIndexDelivered, $scope.status = "DELIVERED");
+            }
+        }
+
+        //tìm kiếm đơn hàng
+        $scope.searchOrderDelivered = () => {
+            $scope.isLoading = true;
+            if ($scope.orderCode && $scope.orderCode.length > 1) {
+                $http.get(apiOrder + "/searchOrderCodeAndStatus?orderCode=" + $scope.orderCode + "&orderStatus=DELIVERED")
+                    .then(response => {
+                        $scope.isLoading = false;
+                        $scope.orderDelivered = response.data;
+                        $scope.orderDelivered.map(order => {
+                            var totalMoney = 0;
+                            if (order.orderDetails && order.orderDetails.length) {
+                                order.orderDetails.forEach(orderDetail => {
+                                    totalMoney += orderDetail.price * orderDetail.quantity;
+                                })
+                            }
+                            if (order.voucher) {
+                                totalMoney -= order.voucher.promotion;
+                            }
+                            order.totalMoney = totalMoney + order.totalShip;
                         })
-                    }
-                    if (order.voucher) {
-                        totalMoney -= order.voucher.promotion;
-                    }
-                    order.totalMoney = totalMoney + order.totalShip;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        $scope.isLoading = false;
+                        $scope.isSuccess = false;
+                        $scope.message = "Có lỗi xảy ra, vui lòng thử lại"
+                        alertShow();
+                    })
+            } else {
+                getAllOrder(0, '');
+            }
+        }
 
-                    if (genDayRental(order.updateDate) > 10) {
-                        order.isReturn = false;
-                    } else {
-                        order.isReturn = true;
-                    }
+        // tìm kiếm theo khoảng thời gian
+        findByTimeDelivered = (beginDate, endDate) => {
+            $scope.isLoading = true;
+            $http.get(apiOrder + "/findByTimeAndStatus?beginDate=" + beginDate + "&endDate=" + endDate + "&status=DELIVERED")
+                .then(response => {
+                    $scope.isLoading = false;
+                    $scope.orderDelivered = response.data;
+                    $scope.orderDelivered.map(order => {
+                        var totalMoney = 0;
+                        if (order.orderDetails && order.orderDetails.length) {
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if (order.voucher) {
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney + order.totalShip;
+                    })
+                })
+                .catch(error => {
+                    console.log(error);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại"
+                    alertShow();
+                })
 
-                    if (order.updateDate == null && genDayRental(order.createdDate) < 10) {
-                        order.isReturn = true;
+        }
+
+        // tìm kiếm theo khoảng thời gian
+        $scope.changeBeginDateDelivered = () => {
+            $scope.beginDatea = $filter('date')($scope.beginDate, 'yyyy-MM-dd');
+            if ($scope.endDatea) {
+                findByTimeDelivered($scope.beginDatea + "", $scope.endDatea + "");
+            }
+        }
+
+        // tìm kiếm theo khoảng thời gian
+        $scope.changeEndDateDelivered = () => {
+            $scope.endDatea = $filter('date')($scope.endDate, 'yyyy-MM-dd');
+            if ($scope.beginDatea) {
+                findByTimeWaitShipper($scope.beginDatea, $scope.endDatea);
+            }
+        }
+
+        $scope.findByTotal = '';
+        //tìm kiếm theo khoảng giá tổng tiền đơn hàng
+        findBytotalDelivered = (beginMoney, endMoney) => {
+            $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+                .then(res => {
+                    $scope.orderDelivered = res.data;
+                    $scope.orderDelivered.map(order => {
+                        var totalMoney = 0;
+                        if (order.orderDetails && order.orderDetails.length) {
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if (order.voucher) {
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney + order.totalShip;
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra khi lọc đơn hàng";
+                    alertShow();
+                })
+        }
+        $scope.findOrderByTotalMoneyDelivered = () => {
+            if ($scope.findByTotal) {
+                if ($scope.findByTotal == 1) {
+                    //tìm các đơn hàng từ 0-> 1tr
+                    findBytotalDelivered(0, 1000000);
+                } else if ($scope.findByTotal == 2) {
+                    //tìm các đơn hàng từ 1-> 3tr
+                    findBytotalDelivered(1000000, 3000000);
+                } else if ($scope.findByTotal == 3) {
+                    //tìm các đơn hàng từ 3-> 5tr
+                    findBytotalDelivered(3000000, 5000000);
+                }
+            }
+            if ($scope.findByTotalBegin && $scope.findByTotalEnd) {
+                findBytotalDelivered($scope.findByTotalBegin, $scope.findByTotalEnd);
+            }
+        }
+
+        $scope.resetOrderDelivered = () => {
+            $scope.beginDate = null;
+            $scope.endDate = null;
+            $scope.findByTotalBegin = $scope.findByTotalEnd = '';
+            $scope.findByTotal = '';
+            getAllOrderDelivered(0, $scope.status = "DELIVERED");
+        }
+    }
+    // end don hang by status DELIVERED
+    //-------------------------------------------------------------------------------------------------------//
+    // start don hang by status NO_DELIVERY
+    {
+        getAllOrderNoDelivery = (page, status) => {
+            $scope.isLoading = true;
+            $http.get(apiOrder + "/status" + "?page=" + page + "&status=" + status)
+                .then(function (response) {
+                    $scope.orderNoDelivery = response.data[0];
+                    $scope.totalPage = response.data[1];
+                    $scope.isLoading = false;
+                    $scope.countNoDelivery = response.data[1];
+                    $scope.orderNoDelivery.map(order => {
+                        var totalMoney = 0;
+                        if (order.orderDetails && order.orderDetails.length) {
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if (order.voucher) {
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney + order.totalShip;
+                    })
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại";
+                    alertShow();
+                    $scope.isLoading = false;
+                });
+        }
+        getAllOrderNoDelivery(0, $scope.status = "NO_DELIVERY");
+
+        $scope.pageIndexNoDelivery = 0;
+        $scope.prevNoDelivery = () => {
+            if ($scope.pageIndexNoDelivery <= 0) {
+                $scope.pageIndexNoDelivery = 0;
+                getAllOrderNoDelivery(0, $scope.status = "NO_DELIVERY");
+            } else {
+                $scope.pageIndexNoDelivery--;
+                getAllOrderNoDelivery($scope.pageIndexNoDelivery, $scope.status = "NO_DELIVERY");
+            }
+        }
+
+        $scope.nextNoDelivery = () => {
+            if ($scope.pageIndexNoDelivery == $scope.totalPage - 1) {
+                $scope.pageIndexNoDelivery = $scope.totalPage - 1;
+                getAllOrderNoDelivery($scope.totalPage - 1, $scope.status = "NO_DELIVERY");
+            } else {
+                $scope.pageIndexNoDelivery++;
+                getAllOrderNoDelivery($scope.pageIndexNoDelivery, $scope.status = "NO_DELIVERY");
+            }
+        }
+
+        /**cập nhật trạng thái đơn hàng */
+        updateStatusNoDelivery = (order, message, index) => {
+            $http.put(apiOrder + "/update-status", order)
+                .then(async response => {
+                    $scope.orderwaitshippers.unshift(order);
+                    $scope.orderNoDelivery.splice(index, 1);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = true;
+                    $scope.message = message;
+                    alertShow();
+                    // Lấy tab đang xử lý (waitfortheshippertopickup)
+                    var tabwaitfortheshippertopickup = document.getElementById("waitfortheshippertopickup-tab");
+                    // Kích hoạt sự kiện click vào tab đó
+                    tabwaitfortheshippertopickup.click();
+                })
+                .catch((error) => {
+                    console.log(error);
+                    $scope.isSuccess = false;
+                    $scope.isLoading = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại !"
+                    alertShow();
+                });
+        }
+
+        /**Xác nhận đơn hàng */
+        $scope.updateStatusOrderNoDelivery = (order, index) => {
+            var message = "Đơn hàng đã cập nhật thành công và chờ shipper giao!"
+            order.status = "WAIT_FOR_THE_SHIPPER_TO_PICK_UP";
+            updateStatusNoDelivery(order, message, index);
+        }
+
+        //tìm kiếm đơn hàng
+        $scope.searchOrderNoDelivery = () => {
+            $scope.isLoading = true;
+            if ($scope.orderCode && $scope.orderCode.length > 1) {
+                $http.get(apiOrder + "/searchOrderCodeAndStatus?orderCode=" + $scope.orderCode + "&orderStatus=NO_DELIVERY")
+                    .then(response => {
+                        $scope.isLoading = false;
+                        $scope.orderNoDelivery = response.data;
+                        $scope.orderNoDelivery.map(order => {
+                            var totalMoney = 0;
+                            if (order.orderDetails && order.orderDetails.length) {
+                                order.orderDetails.forEach(orderDetail => {
+                                    totalMoney += orderDetail.price * orderDetail.quantity;
+                                })
+                            }
+                            if (order.voucher) {
+                                totalMoney -= order.voucher.promotion;
+                            }
+                            order.totalMoney = totalMoney + order.totalShip;
+                        })
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        $scope.isLoading = false;
+                        $scope.isSuccess = false;
+                        $scope.message = "Có lỗi xảy ra, vui lòng thử lại"
+                        alertShow();
+                    })
+            } else {
+                getAllOrder(0, '');
+            }
+        }
+
+        // tìm kiếm theo khoảng thời gian
+        findByTimeNoDelivery = (beginDate, endDate) => {
+            $scope.isLoading = true;
+            $http.get(apiOrder + "/findByTimeAndStatus?beginDate=" + beginDate + "&endDate=" + endDate + "&status=NO_DELIVERY")
+                .then(response => {
+                    $scope.isLoading = false;
+                    $scope.orderNoDelivery = response.data;
+                    $scope.orderNoDelivery.map(order => {
+                        var totalMoney = 0;
+                        if (order.orderDetails && order.orderDetails.length) {
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if (order.voucher) {
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney + order.totalShip;
+                    })
+                })
+                .catch(error => {
+                    console.log(error);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại"
+                    alertShow();
+                })
+
+        }
+
+        // tìm kiếm theo khoảng thời gian
+        $scope.changeBeginDateNoDelivery = () => {
+            $scope.beginDatea = $filter('date')($scope.beginDate, 'yyyy-MM-dd');
+            if ($scope.endDatea) {
+                findByTimeNoDelivery($scope.beginDatea + "", $scope.endDatea + "");
+            }
+        }
+
+        // tìm kiếm theo khoảng thời gian
+        $scope.changeEndDateNoDelivery = () => {
+            $scope.endDatea = $filter('date')($scope.endDate, 'yyyy-MM-dd');
+            if ($scope.beginDatea) {
+                findByTimeWaitShipper($scope.beginDatea, $scope.endDatea);
+            }
+        }
+
+        $scope.findByTotal = '';
+        //tìm kiếm theo khoảng giá tổng tiền đơn hàng
+        findBytotalNoDelivery = (beginMoney, endMoney) => {
+            $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+                .then(res => {
+                    $scope.orderNoDelivery = res.data;
+                    $scope.orderNoDelivery.map(order => {
+                        var totalMoney = 0;
+                        if (order.orderDetails && order.orderDetails.length) {
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if (order.voucher) {
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney + order.totalShip;
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra khi lọc đơn hàng";
+                    alertShow();
+                })
+        }
+        $scope.findOrderByTotalMoneyNoDelivery = () => {
+            if ($scope.findByTotal) {
+                if ($scope.findByTotal == 1) {
+                    //tìm các đơn hàng từ 0-> 1tr
+                    findBytotalNoDelivery(0, 1000000);
+                } else if ($scope.findByTotal == 2) {
+                    //tìm các đơn hàng từ 1-> 3tr
+                    findBytotalNoDelivery(1000000, 3000000);
+                } else if ($scope.findByTotal == 3) {
+                    //tìm các đơn hàng từ 3-> 5tr
+                    findBytotalNoDelivery(3000000, 5000000);
+                }
+            }
+            if ($scope.findByTotalBegin && $scope.findByTotalEnd) {
+                findBytotalNoDelivery($scope.findByTotalBegin, $scope.findByTotalEnd);
+            }
+        }
+
+        $scope.resetOrderNoDelivery = () => {
+            $scope.beginDate = null;
+            $scope.endDate = null;
+            $scope.findByTotalBegin = $scope.findByTotalEnd = '';
+            $scope.findByTotal = '';
+            getAllOrderNoDelivery(0, $scope.status = "NO_DELIVERY");
+        }
+    }
+    // end don hang by status NO_DELIVERY
+    // start don hang by status CANCELLED
+    {
+        getAllOrderCanceled = (page, status) => {
+            $scope.isLoading = true;
+            $http.get(apiOrder + "/status" + "?page=" + page + "&status=" + status)
+                .then(function (response) {
+                    $scope.orderCanceled = response.data[0];
+                    $scope.totalPage = response.data[1];
+                    $scope.isLoading = false;
+                    $scope.countCanceled = response.data[1];
+                    $scope.orderCanceled.map(order => {
+                        var totalMoney = 0;
+                        if (order.orderDetails && order.orderDetails.length) {
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if (order.voucher) {
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney + order.totalShip;
+                    })
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại";
+                    alertShow();
+                    $scope.isLoading = false;
+                });
+        }
+        getAllOrderCanceled(0, $scope.status = "CANCELLED");
+
+        $scope.pageIndexCanceled = 0;
+        $scope.prevCanceled = () => {
+            if ($scope.pageIndexCanceled <= 0) {
+                $scope.pageIndexCanceled = 0;
+                getAllOrderCanceled(0, $scope.status = "CANCELLED");
+            } else {
+                $scope.pageIndexCanceled--;
+                getAllOrderCanceled($scope.pageIndexCanceled, $scope.status = "CANCELLED");
+            }
+        }
+
+        $scope.nextCanceled = () => {
+            if ($scope.pageIndexCanceled == $scope.totalPage - 1) {
+                $scope.pageIndexCanceled = $scope.totalPage - 1;
+                getAllOrderCanceled($scope.totalPage - 1, $scope.status = "CANCELLED");
+            } else {
+                $scope.pageIndexCanceled++;
+                getAllOrderCanceled($scope.pageIndexCanceled, $scope.status = "CANCELLED");
+            }
+        }
+
+        //tìm kiếm đơn hàng
+        $scope.searchOrderCanceled = () => {
+            $scope.isLoading = true;
+            if ($scope.orderCode && $scope.orderCode.length > 1) {
+                $http.get(apiOrder + "/searchOrderCodeAndStatus?orderCode=" + $scope.orderCode + "&orderStatus=CANCELLED")
+                    .then(response => {
+                        $scope.isLoading = false;
+                        $scope.orderCanceled = response.data;
+                        $scope.orderCanceled.map(order => {
+                            var totalMoney = 0;
+                            if (order.orderDetails && order.orderDetails.length) {
+                                order.orderDetails.forEach(orderDetail => {
+                                    totalMoney += orderDetail.price * orderDetail.quantity;
+                                })
+                            }
+                            if (order.voucher) {
+                                totalMoney -= order.voucher.promotion;
+                            }
+                            order.totalMoney = totalMoney + order.totalShip;
+                        })
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        $scope.isLoading = false;
+                        $scope.isSuccess = false;
+                        $scope.message = "Có lỗi xảy ra, vui lòng thử lại"
+                        alertShow();
+                    })
+            } else {
+                getAllOrder(0, '');
+            }
+        }
+
+        // tìm kiếm theo khoảng thời gian
+        findByTimeCanceled = (beginDate, endDate) => {
+            $scope.isLoading = true;
+            $http.get(apiOrder + "/findByTimeAndStatus?beginDate=" + beginDate + "&endDate=" + endDate + "&status=CANCELLED")
+                .then(response => {
+                    $scope.isLoading = false;
+                    $scope.orderCanceled = response.data;
+                    $scope.orderCanceled.map(order => {
+                        var totalMoney = 0;
+                        if (order.orderDetails && order.orderDetails.length) {
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if (order.voucher) {
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney + order.totalShip;
+                    })
+                })
+                .catch(error => {
+                    console.log(error);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại"
+                    alertShow();
+                })
+
+        }
+
+        // tìm kiếm theo khoảng thời gian
+        $scope.changeBeginDateCanceled = () => {
+            $scope.beginDatea = $filter('date')($scope.beginDate, 'yyyy-MM-dd');
+            if ($scope.endDatea) {
+                findByTimeCanceled($scope.beginDatea + "", $scope.endDatea + "");
+            }
+        }
+
+        // tìm kiếm theo khoảng thời gian
+        $scope.changeEndDateCanceled = () => {
+            $scope.endDatea = $filter('date')($scope.endDate, 'yyyy-MM-dd');
+            if ($scope.beginDatea) {
+                findByTimeWaitShipper($scope.beginDatea, $scope.endDatea);
+            }
+        }
+
+        $scope.findByTotal = '';
+        //tìm kiếm theo khoảng giá tổng tiền đơn hàng
+        findBytotalCanceled = (beginMoney, endMoney) => {
+            $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+                .then(res => {
+                    $scope.orderCanceled = res.data;
+                    $scope.orderCanceled.map(order => {
+                        var totalMoney = 0;
+                        if (order.orderDetails && order.orderDetails.length) {
+                            order.orderDetails.forEach(orderDetail => {
+                                totalMoney += orderDetail.price * orderDetail.quantity;
+                            })
+                        }
+                        if (order.voucher) {
+                            totalMoney -= order.voucher.promotion;
+                        }
+                        order.totalMoney = totalMoney + order.totalShip;
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra khi lọc đơn hàng";
+                    alertShow();
+                })
+        }
+        $scope.findOrderByTotalMoneyCanceled = () => {
+            if ($scope.findByTotal) {
+                if ($scope.findByTotal == 1) {
+                    //tìm các đơn hàng từ 0-> 1tr
+                    findBytotalCanceled(0, 1000000);
+                } else if ($scope.findByTotal == 2) {
+                    //tìm các đơn hàng từ 1-> 3tr
+                    findBytotalCanceled(1000000, 3000000);
+                } else if ($scope.findByTotal == 3) {
+                    //tìm các đơn hàng từ 3-> 5tr
+                    findBytotalCanceled(3000000, 5000000);
+                }
+            }
+            if ($scope.findByTotalBegin && $scope.findByTotalEnd) {
+                findBytotalCanceled($scope.findByTotalBegin, $scope.findByTotalEnd);
+            }
+        }
+
+        $scope.resetOrderCanceled = () => {
+            $scope.beginDate = null;
+            $scope.endDate = null;
+            $scope.findByTotalBegin = $scope.findByTotalEnd = '';
+            $scope.findByTotal = '';
+            getAllOrderCanceled(0, $scope.status = "CANCELLED");
+        }
+    }
+    // end don hang by status CANCELLED
+
+    // start đổi trả hàng
+    {
+        getAllOrderReturn = (status) => {
+            $scope.isLoading = true;
+            $http.get(apiOrder + "/return_order" + "?status=" + status)
+                .then(function (response) {
+                    $scope.orderRe = response.data;
+                    $scope.isLoading = false;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại";
+                    alertShow();
+                    $scope.isLoading = false;
+                });
+        }
+        getAllOrderReturn($scope.statusReturn);
+
+        /**chọn tab các đơn đã xử lý */
+        $scope.activeTrue = () => {
+            $scope.active = true;
+            $scope.statusReturn = "DONE";
+            getAllOrderReturn($scope.statusReturn);
+        }
+
+        /**chọn tab các đơn chờ */
+        $scope.activeFalse = () => {
+            $scope.active = false;
+            $scope.statusReturn = "WAIT";
+            getAllOrderReturn($scope.statusReturn);
+        }
+
+        $scope.orderReturn = null; //hien thi len modal doi tra
+        $scope.orderSearchIndex = '';
+        $scope.chooseOrderReturn = (order, indexOrder) => {
+            $scope.orderReturn = order;
+            if (order.orderHistories && order.orderHistories[0].status == "WAIT") {
+                $scope.orderReturnHistory = order.orderHistories;
+            } else {
+                $scope.orderReturnHistory = [];
+            }
+            $scope.orderSearchIndex = indexOrder;
+            var myModal = new bootstrap.Modal(document.getElementById('modalReturnOrder'), {
+                keyboard: false
+            })
+            myModal.show()
+        }
+
+        /**xem lại chỉnh sửa */
+        $scope.orderReturnHistory = [];
+        /**Số lượng đổi */
+        $scope.orderReturnWaitQuantityChange = 1;
+        /**Số lượng trả */
+        $scope.orderReturnWaitQuantityReturn = 1;
+        /**vị trí orderDetail trong order */
+        $scope.indexProductInOrderDetail = '';
+
+        /** đổi hàng */
+        $scope.changeProductReturn = (indexProduct) => {
+            $scope.indexProductInOrderDetail = indexProduct;
+        }
+
+        /**đổi 1 phần */
+        $scope.changeMultipleProduct = () => {
+            const a = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
+            a.quantity = $scope.orderReturnWaitQuantityChange;
+            a.action = "DOI";
+            a.status = "DONE";
+            a.orderDetail = $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail];
+            a.id = "";
+
+            const result = angular.copy($scope.orderReturnHistory).filter((item) => {
+                return item.orderDetail.id == a.orderDetail.id && a.action == item.action;
+            })
+
+            if (result.length > 0) {
+                angular.copy($scope.orderReturnHistory).map((item, index) => {
+                    if (item.orderDetail.id == a.orderDetail.id && item.action == a.action) {
+                        $scope.orderReturnHistory[index].quantity += $scope.orderReturnWaitQuantityChange;
+                    }
+                });
+            } else {
+                $scope.orderReturnHistory.push(a);
+            }
+        }
+
+        /**đổi tất cả */
+        $scope.changeAllProduct = () => {
+
+            const a = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
+            a.action = "DOI";
+            a.status = "DONE";
+            a.orderDetail = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
+            a.id = "";
+
+            const result = $scope.orderReturnHistory.filter((item) => {
+                return item.orderDetail.id == a.orderDetail.id && a.action == item.action;
+            })
+
+            if (result.length == 0) {
+                $scope.orderReturnHistory.push(angular.copy(a));
+            } else {
+                $scope.orderReturnHistory.map((item, index) => {
+                    if (item.orderDetail.id == a.orderDetail.id && a.action == item.action) {
+                        $scope.orderReturnHistory[index] = $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail];
+                        $scope.orderReturnHistory[index].action = "DOI";
+                    }
+                });
+            }
+        }
+
+        /**trả hàng */
+        $scope.returnProductReturn = (indexProduct) => {
+            $scope.indexProductInOrderDetail = indexProduct;
+        }
+
+        /**trả 1 phần */
+        $scope.returnMultipleProduct = () => {
+            const a = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
+            a.quantity = $scope.orderReturnWaitQuantityReturn;
+            a.action = "TRA";
+            a.status = "DONE";
+            a.orderDetail = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
+            a.id = "";
+
+            const result = angular.copy($scope.orderReturnHistory).filter((item) => {
+                return item.orderDetail.id == a.orderDetail.id && item.action == a.action;
+            })
+
+            $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail].quantity -= $scope.orderReturnWaitQuantityReturn;
+            if (result.length > 0) {
+                angular.copy($scope.orderReturnHistory).map((item, index) => {
+                    if (item.orderDetail.id == a.orderDetail.id && a.action == item.action) {
+                        $scope.orderReturnHistory[index].quantity += $scope.orderReturnWaitQuantityReturn;
+                    }
+                });
+            } else {
+                $scope.orderReturnHistory.push(angular.copy(a));
+            }
+
+            if ($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail].quantity == 0) {
+                $scope.orderReturn.orderDetails.splice($scope.indexProductInOrderDetail, 1);
+                $scope.orderReturnHistory.map((item, index) => {
+                    if (item.orderDetail.id == a.orderDetail.id && item.action == "DOI") {
+                        $scope.orderReturnHistory.splice(index, 1);
                     }
                 })
-                $scope.totalPage = response.data[1];
-                $scope.totalOrder = response.data[2];
-                $scope.isLoading = false;
-                // console.log($scope.orders);
+                a.action = "TRA_ALL";
+            }
+
+        }
+
+        /**trả tất cả */
+        $scope.returnAllProduct = () => {
+            const a = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
+            a.action = "TRA_ALL";
+            a.status = "DONE";
+            a.orderDetail = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
+            a.id = "";
+
+            $scope.orderReturnHistory.map((item, index) => {
+                if (item.action == "DOI" && item.orderDetail.id == a.orderDetail.id) {
+                    $scope.orderReturnHistory.splice(index, 1);
+                }
             })
-            .catch(function (error) {
-                console.log(error);
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại";
-                alertShow();
-                $scope.isLoading = false;
+
+            const result = $scope.orderReturnHistory.filter((item) => {
+                return item.orderDetail.id == a.orderDetail.id;
+            })
+
+            if (result.length == 0) {
+                $scope.orderReturn.orderDetails.splice($scope.indexProductInOrderDetail, 1);
+                $scope.orderReturnHistory.push(angular.copy(a));
+            } else {
+                $scope.orderReturnHistory.map((item, index) => {
+
+                    if (item.orderDetail.id == a.orderDetail.id) {
+                        var quantity = 0;
+                        if (item.action === "TRA" || item.action === "TRA_ALL") {
+                            quantity = $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail].quantity + $scope.orderReturnHistory[index].quantity;
+                            $scope.orderReturnHistory[index].quantity = quantity;
+                        } else {
+                            $scope.orderReturnHistory[index].quantity = a.quantity;
+                        }
+                        $scope.orderReturnHistory[index] = $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail];
+                        $scope.orderReturn.orderDetails.splice($scope.indexProductInOrderDetail, 1);
+                        $scope.orderReturnHistory[index].action = "TRA_ALL";
+                    }
+                });
+            }
+
+        }
+
+        /**huy doi, tra hang */
+        $scope.cancel = () => {
+            $scope.orderReturnHistory = [];
+            $scope.orderReturn = $scope.orderSearch[$scope.orderSearchIndex];
+        }
+
+        /**cập nhật đổi, trả hàng vào database */
+        updateOrderReturn = (orderReturn, message, index) => {
+            for (var j = 0; j < orderReturn.orderHistories.length; j++) {
+                const item = orderReturn.orderHistories[j];
+                orderReturn.orderHistories[j].status = "DONE";
+                var result = false;
+                for (var i = 0; i < orderReturn.orderDetails.length; i++) {
+                    if (item.orderDetail.id == orderReturn.orderDetails[i].id) {
+                        if (item.action != "DOI") {
+                            orderReturn.orderDetails[i].quantity -= item.quantity;
+                        }
+                        result = true;
+                        break;
+                    } else {
+                        result = false;
+                    }
+                }
+                if (result == true) {
+                    continue;
+                }
+            }
+            $http.post(apiOrder + "/returnOrder", orderReturn)
+                .then(response => {
+                    $scope.isLoading = false;
+                    $scope.isSuccess = true;
+                    $scope.message = message;
+                    alertShow();
+                })
+                .catch(error => {
+                    console.log(error);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại!!!";
+                    alertShow();
+                })
+        }
+        //xác nhận yêu cầu đổi trả hàng
+        $scope.updateReturnOrder = () => {
+            $scope.orderReturn.orderHistories = $scope.orderReturnHistory;
+            $scope.orderReturn.orderHistories[0].description = $scope.reasonReturn || $scope.orderReturn.orderHistories[0].description;
+            $scope.isLoading = true;
+            const message = "Đổi trả hàng thành công";
+            const index = $scope.orderSearchIndex;
+            updateOrderReturn($scope.orderReturn, message, index);
+        }
+
+        /**không xác nhận yêu cầu đổi trả hàng */
+        $scope.unConfirmReturnOrder = (order, index) => {
+            order.orderHistories.map(item => {
+                item.status = "CANCEL";
             });
-    }
+            $http.post(apiOrder + "/cancelReturnOrder", order)
+                .then(response => {
+                    $scope.isLoading = false;
+                    $scope.isSuccess = true;
+                    $scope.message = "Đã hủy đơn hàng";
+                    alertShow();
+                    $scope.orderRe.splice(index, 1);
+                })
+                .catch(error => {
+                    console.log(error);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra, vui lòng thử lại!!!";
+                    alertShow();
+                })
 
-    const genDayRental = (value) => {
-        let d1 = new Date().getTime();
-        let d2 = new Date(value).getTime();
-        return Math.ceil((d1 - d2) / (24 * 60 * 60 * 1000));
-    };
+        }
 
-    getAllOrder(0, $scope.status);
-    /**get all theo status */
-    $scope.getAllBy = () => {
-        getAllOrder(0, $scope.status);
+        /**xóa sản phẩm trong đơn trả hàng: history */
+        $scope.chooseProductInReturnOrder = (index, boolean) => {
+            $scope.idOrderReturn = $scope.orderReturnHistory[index].id;
+            $scope.index = index;
+            if (boolean) {
+                const a = $scope.orderReturnHistory.splice($scope.index, 1);
+                if ($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]) {
+                    $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail].quantity += a[0].quantity;
+                } else {
+                    $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail] = a[0];
+                }
+            }
+        }
+        $scope.deleteProductInReturnOrder = () => {
+            $http.delete("http://localhost:8080/n3t/orderReturn/" + $scope.idOrderReturn)
+                .then(respone => {
+                    $scope.isLoading = false;
+                    $scope.isSuccess = true;
+                    $scope.message = "Đã xóa sản phẩm";
+                    $scope.orderReturnHistory.splice($scope.index, 1);
+                })
+                .catch(error => {
+                    console.log(error);
+                    $scope.isLoading = false;
+                    $scope.isSuccess = false;
+                    $scope.message = "Có lỗi xảy ra khi xóa, vui lòng thử lại";
+                });
+            alertShow();
+        }
     }
+    // end đổi trả hàng
 
     /**get info shop */
     $http.get(apiShop)
@@ -1870,284 +2709,6 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
     $scope.cancelUpdate = () => {
         $scope.orderStatus = $scope.orderStatusReturn;
         getAllOrder(0, $scope.status);
-    }
-
-    // ---------------------------------------------đổi trả hàng-----------------------------------------------
-    $scope.orderReturn = null; //hien thi len modal doi tra
-    $scope.orderSearchIndex = '';
-    $scope.showReturnOrder = (order, indexOrder) => {
-        $scope.orderReturn = order;
-        // console.log($scope.orderReturn);
-        if (order.orderHistories && order.orderHistories[0].status == "WAIT") {
-            $scope.orderReturnHistory = order.orderHistories;
-        } else {
-            $scope.orderReturnHistory = [];
-        }
-        $scope.orderSearchIndex = indexOrder;
-        $('#modalReturnOrder').modal('show');
-    }
-
-    /**xem lại chỉnh sửa */
-    $scope.orderReturnHistory = [];
-    /**Số lượng đổi */
-    $scope.orderReturnWaitQuantityChange = 1;
-    /**Số lượng trả */
-    $scope.orderReturnWaitQuantityReturn = 1;
-    /**vị trí orderDetail trong order */
-    $scope.indexProductInOrderDetail = '';
-
-    /** đổi hàng */
-    $scope.changeProductReturn = (indexProduct) => {
-        $scope.indexProductInOrderDetail = indexProduct;
-    }
-
-    /**đổi 1 phần */
-    $scope.changeMultipleProduct = () => {
-        const a = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
-        a.quantity = $scope.orderReturnWaitQuantityChange;
-        a.action = "DOI";
-        a.status = "DONE";
-        a.orderDetail = $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail];
-        a.id = "";
-
-        const result = angular.copy($scope.orderReturnHistory).filter((item) => {
-            return item.orderDetail.id == a.orderDetail.id && a.action == item.action;
-        })
-
-        if (result.length > 0) {
-            angular.copy($scope.orderReturnHistory).map((item, index) => {
-                if (item.orderDetail.id == a.orderDetail.id && item.action == a.action) {
-                    $scope.orderReturnHistory[index].quantity += $scope.orderReturnWaitQuantityChange;
-                }
-            });
-        } else {
-            $scope.orderReturnHistory.push(a);
-        }
-    }
-
-    /**đổi tất cả */
-    $scope.changeAllProduct = () => {
-
-        const a = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
-        a.action = "DOI";
-        a.status = "DONE";
-        a.orderDetail = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
-        a.id = "";
-
-        const result = $scope.orderReturnHistory.filter((item) => {
-            return item.orderDetail.id == a.orderDetail.id && a.action == item.action;
-        })
-
-        if (result.length == 0) {
-            $scope.orderReturnHistory.push(angular.copy(a));
-        } else {
-            $scope.orderReturnHistory.map((item, index) => {
-                if (item.orderDetail.id == a.orderDetail.id && a.action == item.action) {
-                    $scope.orderReturnHistory[index] = $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail];
-                    $scope.orderReturnHistory[index].action = "DOI";
-                }
-            });
-        }
-    }
-
-    /**trả hàng */
-    $scope.returnProductReturn = (indexProduct) => {
-        $scope.indexProductInOrderDetail = indexProduct;
-    }
-
-    /**trả 1 phần */
-    $scope.returnMultipleProduct = () => {
-
-        const a = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
-        a.quantity = $scope.orderReturnWaitQuantityReturn;
-        a.action = "TRA";
-        a.status = "DONE";
-        a.orderDetail = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
-        a.id = "";
-
-        const result = angular.copy($scope.orderReturnHistory).filter((item) => {
-            return item.orderDetail.id == a.orderDetail.id && item.action == a.action;
-        })
-
-        $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail].quantity -= $scope.orderReturnWaitQuantityReturn;
-        if (result.length > 0) {
-            angular.copy($scope.orderReturnHistory).map((item, index) => {
-                if (item.orderDetail.id == a.orderDetail.id && a.action == item.action) {
-                    $scope.orderReturnHistory[index].quantity += $scope.orderReturnWaitQuantityReturn;
-                }
-            });
-        } else {
-            $scope.orderReturnHistory.push(angular.copy(a));
-        }
-
-        if ($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail].quantity == 0) {
-            $scope.orderReturn.orderDetails.splice($scope.indexProductInOrderDetail, 1);
-            $scope.orderReturnHistory.map((item, index) => {
-                if (item.orderDetail.id == a.orderDetail.id && item.action == "DOI") {
-                    $scope.orderReturnHistory.splice(index, 1);
-                }
-            })
-            a.action = "TRA_ALL";
-        }
-
-    }
-
-    /**trả tất cả */
-    $scope.returnAllProduct = () => {
-
-        const a = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
-        a.action = "TRA_ALL";
-        a.status = "DONE";
-        a.orderDetail = angular.copy($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]);
-        a.id = "";
-
-        $scope.orderReturnHistory.map((item, index) => {
-            if (item.action == "DOI" && item.orderDetail.id == a.orderDetail.id) {
-                $scope.orderReturnHistory.splice(index, 1);
-            }
-        })
-
-        const result = $scope.orderReturnHistory.filter((item) => {
-            return item.orderDetail.id == a.orderDetail.id;
-        })
-
-        if (result.length == 0) {
-            $scope.orderReturn.orderDetails.splice($scope.indexProductInOrderDetail, 1);
-            $scope.orderReturnHistory.push(angular.copy(a));
-        } else {
-            $scope.orderReturnHistory.map((item, index) => {
-
-                if (item.orderDetail.id == a.orderDetail.id) {
-                    var quantity = 0;
-                    if (item.action === "TRA" || item.action === "TRA_ALL") {
-                        quantity = $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail].quantity + $scope.orderReturnHistory[index].quantity;
-                        $scope.orderReturnHistory[index].quantity = quantity;
-                    } else {
-                        $scope.orderReturnHistory[index].quantity = a.quantity;
-                    }
-                    $scope.orderReturnHistory[index] = $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail];
-                    $scope.orderReturn.orderDetails.splice($scope.indexProductInOrderDetail, 1);
-                    $scope.orderReturnHistory[index].action = "TRA_ALL";
-                }
-            });
-        }
-
-    }
-
-    /**huy doi, tra hang */
-    $scope.cancel = () => {
-        $scope.orderReturnHistory = [];
-        $scope.orderReturn = $scope.orders[$scope.orderSearchIndex];
-        getAllOrder(0, $scope.status);
-    }
-
-    /**cập nhật đổi, trả hàng vào database */
-    updateOrderReturn = (orderReturn, message, index) => {
-
-        for (var j = 0; j < orderReturn.orderHistories.length; j++) {
-            const item = orderReturn.orderHistories[j];
-            orderReturn.orderHistories[j].status = "DONE";
-            var result = false;
-            for (var i = 0; i < orderReturn.orderDetails.length; i++) {
-                if (item.orderDetail.id == orderReturn.orderDetails[i].id) {
-                    if (item.action != "DOI") {
-                        orderReturn.orderDetails[i].quantity -= item.quantity;
-                    }
-                    result = true;
-                    break;
-                } else {
-                    result = false;
-                }
-            }
-            if (result == true) {
-                continue;
-            }
-        }
-
-        $http.post(apiOrder + "/returnOrder", orderReturn)
-            .then(response => {
-                $scope.isLoading = false;
-                $scope.isSuccess = true;
-                $scope.message = message;
-                alertShow();
-            })
-            .catch(error => {
-                console.log(error);
-                $scope.isLoading = false;
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại!!!";
-                alertShow();
-            })
-    }
-
-    $scope.updateReturnOrder = () => {
-        $scope.orderReturn.orderHistories = $scope.orderReturnHistory;
-        $scope.orderReturn.orderHistories[0].description = $scope.reasonReturn || $scope.orderReturn.orderHistories[0].description;
-        $scope.isLoading = true;
-        const message = "Đổi trả hàng thành công";
-        const index = $scope.orderSearchIndex;
-        updateOrderReturn($scope.orderReturn, message, index);
-    }
-
-    //xác nhận yêu cầu đổi trả hàng
-    $scope.confirmReturnOrder = (order, index) => {
-        const message = "Xác nhận đổi trả hàng thành công"
-        updateOrderReturn(order, message, index);
-    }
-
-    /**không xác nhận yêu cầu đổi trả hàng */
-    $scope.unConfirmReturnOrder = (order, index) => {
-
-        order.orderHistories.map(item => {
-            item.status = "CANCEL";
-        });
-
-        $http.post(apiOrder + "/cancelReturnOrder", order)
-            .then(response => {
-                $scope.isLoading = false;
-                $scope.isSuccess = true;
-                $scope.message = "Đã hủy đơn hàng";
-                alertShow();
-                $scope.orders.splice(index, 1);
-            })
-            .catch(error => {
-                console.log(error);
-                $scope.isLoading = false;
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra, vui lòng thử lại!!!";
-                alertShow();
-            })
-
-    }
-
-    /**xóa sản phẩm trong đơn trả hàng: history */
-    $scope.chooseProductInReturnOrder = (index, boolean) => {
-        $scope.idOrderReturn = $scope.orderReturnHistory[index].id;
-        $scope.index = index;
-        if (boolean) {
-            const a = $scope.orderReturnHistory.splice($scope.index, 1);
-            if ($scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail]) {
-                $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail].quantity += a[0].quantity;
-            } else {
-                $scope.orderReturn.orderDetails[$scope.indexProductInOrderDetail] = a[0];
-            }
-        }
-    }
-    $scope.deleteProductInReturnOrder = () => {
-        $http.delete("http://localhost:8080/n3t/orderReturn/" + $scope.idOrderReturn)
-            .then(respone => {
-                $scope.isLoading = false;
-                $scope.isSuccess = true;
-                $scope.message = "Đã xóa sản phẩm";
-                $scope.orderReturnHistory.splice($scope.index, 1);
-            })
-            .catch(error => {
-                console.log(error);
-                $scope.isLoading = false;
-                $scope.isSuccess = false;
-                $scope.message = "Có lỗi xảy ra khi xóa, vui lòng thử lại";
-            });
-        alertShow();
     }
 
     //tìm kiếm đơn hàng
