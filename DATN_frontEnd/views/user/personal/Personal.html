@@ -189,7 +189,8 @@
                                                         {{order.status == "WAIT_FOR_CONFIRMATION" ? "Đang chờ xác nhận" : order.status == "CONFIRMED" ? "Đang xử lý" : 
                                                             order.status == "UNCONFIRM" ? "Không được xác nhận" : order.status == "DELIVERING" ? "Đang giao hàng": 
                                                             order.status == "NO_DELIVERY" ? "Không giao được hàng" : order.status == "DELIVERED" ? "Đã giao hàng" : 
-                                                            order.status == "CANCELLED" ? "Đã hủy" : "Đang xử lý" }}
+                                                            order.status == "CANCELLED" ? "Đã hủy" : 
+                                                            order.status == "WAIT_FOR_THE_SHIPPER_TO_PICK_UP" ? "Chờ shipper" : ""}}
                                                     </td>
                                                     <td>
                                                         <div class="row d-flex">

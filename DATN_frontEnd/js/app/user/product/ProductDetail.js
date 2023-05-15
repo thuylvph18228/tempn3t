@@ -1,4 +1,4 @@
-function productDetailUser($scope, $http, $routeParams) {
+function productDetailUser($scope, $http, $routeParams, $location) {
 
     window.scrollTo(0, 0);
 
@@ -595,7 +595,6 @@ function productDetailUser($scope, $http, $routeParams) {
 
     /**thêm sản phẩm vào giỏ hàng */
     $scope.addToCart = () => {
-
         if (localStorage.getItem('user') == 'null') {
             $scope.isSuccess = false;
             $scope.message = "Vui lòng đăng nhập trước khi đặt hàng!"
@@ -609,7 +608,6 @@ function productDetailUser($scope, $http, $routeParams) {
             const product = $scope.newProduct;
             product.quantity = 1;
             product.selected = true;
-
             // ------------------------- code thêm vào giỏ hàng phía bên dưới
             if (products.length > 0) {
                 //tìm sp trong giỏ hàng, lọc các phần tử trong mảng
@@ -639,6 +637,47 @@ function productDetailUser($scope, $http, $routeParams) {
             $scope.isSuccess = true;
             $scope.message = "Thêm vào giỏ hàng thành công"
             alertShow();
+        }
+    }
+
+    $scope.buyNow = () => {
+        if (localStorage.getItem('user') == 'null') {
+            $scope.isSuccess = false;
+            $scope.message = "Vui lòng đăng nhập trước khi đặt hàng!"
+            alertShow();
+            return;
+        } else {
+            const productsJson = localStorage.getItem("products");
+            const products = productsJson ? JSON.parse(productsJson) : 
+            $scope.newProduct.productDetail = $scope.productDetail;
+            const product = $scope.newProduct;
+            product.quantity = 1;
+            product.selected = true;
+            // ------------------------- code thêm vào giỏ hàng phía bên dưới
+            if (products.length > 0) {
+                //tìm sp trong giỏ hàng, lọc các phần tử trong mảng
+                products.forEach((item, index) => {
+                    if (item.productDetail.color.id == product.productDetail.color.id && item.productDetail.size.id == product.productDetail.size.id) {
+                        products[index].quantity++;
+                        const json = JSON.stringify(angular.copy(products));
+                        localStorage.setItem("products", json);
+                    }
+                });
+                const result = angular.copy(products).filter(item => {
+                    return item.productDetail.color.id == product.productDetail.color.id && item.productDetail.size.id == product.productDetail.size.id;
+                });
+                if (!result.length) {
+                    products.push(angular.copy(product));
+                    const json = JSON.stringify(products);
+                    localStorage.setItem("products", json);
+                }
+            } else {
+                products.push(angular.copy(product));
+                const json = JSON.stringify(angular.copy(products));
+                localStorage.setItem("products", json);
+            }
+            $scope.isSuccess = true;
+            $location.path('/cart');
         }
     }
 
