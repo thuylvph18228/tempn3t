@@ -530,7 +530,7 @@
                                 ng-click="pay()">Thanh toán</button>
                             <button type="button" ng-show="orderNew.paymentType == 'OFFLINE' " data-bs-dismiss="modal"
                                 ng-click="createOrder()" class="btn btn-primary"
-                                ng-disabled="formUserOder.province.$invalid ||  formUserOder.district.$invalid || formUserOder.ward.$invalid || formUserOder.address.$invalid">Đặt
+                                ng-disabled="!hasSelectedProduct || formUserOder.province.$invalid ||  formUserOder.district.$invalid || formUserOder.ward.$invalid || formUserOder.address.$invalid">Đặt
                                 hàng</button>
                         </div>
                     </div>
