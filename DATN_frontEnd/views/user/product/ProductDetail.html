@@ -56,7 +56,7 @@
                         <input type="radio" name="color" id="color{{$index}}" ng-value="color"
                                ng-model="newProduct.productDetail.color"
                                ng-click="changeColor(color)" ng-disabled="color.disable"/>
-                        <label class="ps-1 pe-1 {{color.disable ? '' : 'color'}} {{newProduct.productDetail.color.id == color.id ? 'border bg-info text-light' : '' }}"
+                        <label class="ps-1 pe-1 {{color.disable ? 'bg-secondary' : 'color'}} {{newProduct.productDetail.color.id == color.id ? 'border bg-info text-light' : '' }}"
                                for="color{{$index}}">
                             {{color.name}}
                         </label>
@@ -67,7 +67,7 @@
                         <input type="radio" name="size" id="size{{$index}}" ng-value="size"
                                ng-model="newProduct.productDetail.size"
                                ng-click="changeSize(size)" ng-disabled="size.disable"/>
-                        <label class="ps-1 pe-1 {{size.disable ? ' bg-secondary' : 'size'}} {{ newProduct.productDetail.size.id == size.id ? 'border bg-info text-light' : '' }}"
+                        <label class="ps-1 pe-1 {{size.disable ? 'bg-secondary' : 'size'}} {{ newProduct.productDetail.size.id == size.id ? 'border bg-info text-light' : '' }}"
                                for="size{{$index}}">
                             {{size.name}}
                         </label>

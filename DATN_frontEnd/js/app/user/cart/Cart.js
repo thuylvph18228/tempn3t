@@ -9,6 +9,9 @@ function cart($scope, $http, $routeParams) {
     const userLocal = localStorage.getItem("user");
     const user = userLocal ? JSON.parse(userLocal) : null;
 
+    $scope.initialized = false;
+    $scope.hasSelectedProduct = false;
+
     $scope.product = {
         id: "",
         code: '',
@@ -61,6 +64,9 @@ function cart($scope, $http, $routeParams) {
         }
         $scope.orderDetails.push(angular.copy($scope.orderDetail));
         totalMoney += item.quantity * item.price;
+        if (totalMoney!=0) {
+            $scope.hasSelectedProduct = $scope.products.some((product) => product.selected);
+        }
     })
 
     $scope.orderNew = {
@@ -426,18 +432,12 @@ function cart($scope, $http, $routeParams) {
                     data: ship
                 })
                     .then(response => {
-                        // if ($scope.totalShipFee != 0 && changeQuantity) {
-                        //     $scope.orderNew.totalMoney -= $scope.totalShipFee
-                        // }
                         $scope.totalShipFee = response.data.data.total;
                         $scope.orderNew.totalShip = response.data.data.total;
                         $scope.orderNew.totalMoney += $scope.totalShipFee;
                     })
                     .catch(error => {
                         console.log(error);
-                        // $scope.isSuccess = false;
-                        // $scope.message = "Có lỗi xảy ra khi tính phí ship!!";
-                        // alertShow();
                     })
             }
         }
@@ -551,8 +551,9 @@ function cart($scope, $http, $routeParams) {
 
         const json = JSON.stringify($scope.products);
         localStorage.setItem("products", json);
-
         updateOrder();
+        // Kiểm tra xem có sản phẩm nào được chọn hay không
+        $scope.hasSelectedProduct = $scope.products.some((product) => product.selected);
     }
 
     const apiVoucher = 'http://localhost:8080/n3t/voucher';
@@ -629,13 +630,8 @@ function cart($scope, $http, $routeParams) {
                 $scope.isLoading = false;
             });
     }
-    // $scope.vnpayDto = {
-    //     vnp_OrderInfo: 'Thanh toan don hang',
-    //     vnp_Amount: '',
-    // }
 
     $scope.pay = () => {
-        // $scope.vnpayDto.vnp_Amount = $scope.orderNew.totalMoney;
         $http.post(apiOrder + "/pay", $scope.orderNew)
             .then(res => {
                 window.location = res.data[0];
@@ -648,19 +644,9 @@ function cart($scope, $http, $routeParams) {
     const vnp_ResponseCode = $routeParams.vnp_ResponseCode;
 
     if (vnp_ResponseCode && vnp_ResponseCode == 00) {
-
         window.location = "http://127.0.0.1:5500/Index.html#/cart";
         $http.get(apiOrder + "/updatePay")
             .then(res => {
-                // res.data.orderDetails.forEach(item => {
-                //     $scope.products.forEach((element) => {
-                //         element.selected = false;
-                //         if(item.productDetail.id == element.productDetail.id){
-                //             console.log("a");
-                //             element.selected = true;
-                //         }
-                //     });
-                // });
                 const products = localStorage.getItem("products");
                 $scope.products = products ? JSON.parse(products) : [];
 
@@ -679,11 +665,9 @@ function cart($scope, $http, $routeParams) {
                 console.log(err);
             })
     } else if (vnp_ResponseCode && vnp_ResponseCode == 51) {
-        // window.location = "http://127.0.0.1:5500/Index.html#/cart";
         $scope.message = "Số dư của quý khách không đủ để thực hiện thanh toán, vui lòng thử lại sau!!"
         alertShow();
     } else if (vnp_ResponseCode != null) {
-        // window.location = "http://127.0.0.1:5500/Index.html#/cart";
         $scope.message = "Có lỗi xảy ra khi thanh toán đơn hàng, vui lòng thử lại sau!!"
         alertShow();
     }

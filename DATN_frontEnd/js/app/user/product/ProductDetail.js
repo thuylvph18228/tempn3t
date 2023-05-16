@@ -211,7 +211,6 @@ function productDetailUser($scope, $http, $routeParams, $location) {
             $scope.newProduct.weight = response.data.weight;
 
             $scope.product.productDetails.forEach(item => {
-
                 /**kiểm tra xem đã có size này chưa, nếu chưa thì thêm vào mảng */
                 if ($scope.sizes.length > 0) {
                     var result = $scope.sizes.find(a => {
@@ -300,23 +299,30 @@ function productDetailUser($scope, $http, $routeParams, $location) {
     }
 
     $scope.changeColor = (color) => {
-
         const result = angular.copy($scope.product.productDetails).filter(item => {
             return item.color.id == color.id && item.quantity > 0;
         })
 
         /** kiếm tra nếu màu không có size này, hoặc hết, disable */
-        $scope.sizes.map(size => {
+        $scope.sizes.forEach(size => {
             size.disable = true;
-            result.forEach(item => {
+            result.map(item => {
                 if (size.id == item.size.id) {
                     size.disable = false;
                 }
             })
-        });
+        })
+
+        /**chọn mặc định size */
+        for (var i = 0; i < $scope.sizes.length; i++) {
+            if ($scope.sizes[i].disable == false) {
+                $scope.newProduct.productDetail.size = $scope.sizes[i];
+                break;
+            }
+        }
 
         $scope.newProduct.productDetail.color = color;
-        $scope.newProduct.productDetail.size = null;
+        // $scope.newProduct.productDetail.size = null;
     }
 
     // chọn tỉnh thành phố
