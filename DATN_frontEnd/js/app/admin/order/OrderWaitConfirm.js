@@ -361,7 +361,6 @@ function orderWaitConfirm($scope, $http, $rootScope, $filter) {
     /**Cập nhật sản phẩm trong đơn hàng */
     $scope.updateOrder = (indexOrder) => {
         $scope.isLoading = true;
-        console.log($scope.orders[indexOrder]);
         $http.post(apiOrder, $scope.orders[indexOrder])
             .then(response => {
                 $scope.isLoading = false;
