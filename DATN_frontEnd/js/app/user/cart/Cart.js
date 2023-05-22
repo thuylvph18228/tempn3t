@@ -132,6 +132,7 @@ function cart($scope, $http, $routeParams) {
     $scope.provinceId = null;
     $scope.districtId = null;
     $scope.wardCode = null;
+    $scope.index = -1;
 
     const apiShop = 'http://localhost:8080/n3t/shop';
     const apiOrder = 'http://localhost:8080/n3t/order';
@@ -500,10 +501,12 @@ function cart($scope, $http, $routeParams) {
             .then(res => {
                 if (res.data[1] == false) {
                     $scope.showErrQuantity = true;
+                    $scope.products[index].selected = false;
                     $scope['showErrQuantity' + index] = true;
                     $scope.error = true;
                 } else {
                     $scope['showErrQuantity' + index] = false;
+                    $scope.products[index].selected = true;
                     updateOrder();
                     $scope.error = false;
                 }
@@ -691,6 +694,7 @@ function cart($scope, $http, $routeParams) {
         $('#addressModal').modal('hide');
         $('#confirmModal').modal('show');
         $scope.address = angular.copy($scope.listAddress[index]);
+        $scope.index = index;
     };
 
     $scope.closeModalAddress = function () {
@@ -723,7 +727,16 @@ function cart($scope, $http, $routeParams) {
 
                         $http.post(apiAddress, $scope.address)
                             .then(function (response) {
-                                if (!$scope.address.id) {
+                                if ($scope.index > -1) {
+                                    $scope.listAddress[$scope.index] = response.data;
+                                    if (response.data.defaultAdd==1) {
+                                        $scope.listAddress.find(item => {
+                                            if(response.data.id != item.id) {
+                                                item.defaultAdd = 0
+                                            }
+                                        })
+                                    }
+                                } else {
                                     $scope.listAddress.push(angular.copy(response.data));
                                 }
                                 $scope.isLoading = true;

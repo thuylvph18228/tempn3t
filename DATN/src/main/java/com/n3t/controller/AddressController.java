@@ -32,7 +32,9 @@ public class AddressController {
     public ResponseEntity<?> save(@RequestBody Address address) {
         List<Address> list = addressService.getAllByUser(address.getUser().getId());
         for(int i = 0; i < list.size(); i++) {
-            list.get(i).setDefaultAdd(false);
+            if(address.isDefaultAdd()==true){
+                list.get(i).setDefaultAdd(false);
+            }
         }
         return ResponseEntity.ok(this.addressService.save(address));
     }
