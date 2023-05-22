@@ -188,6 +188,15 @@ public class OrderController {
         return ResponseEntity.ok(this.orderService.getBytotalMoney(beginMoney, endMoney));
     }
 
+    @GetMapping("/totalMoneyAndStatus")
+    public ResponseEntity getByTotalMoneyAndStatus(
+            @RequestParam(name = "beginMoney") String beginMoney,
+            @RequestParam(name = "endMoney") String endMoney,
+            @RequestParam(name = "status") String status
+    ){
+        return ResponseEntity.ok(this.orderService.getOrderByTotalMoneyAndStatus(beginMoney, endMoney, status));
+    }
+
     //thanh toán online
     @PostMapping("/pay")
     public ResponseEntity payOrder(

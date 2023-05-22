@@ -503,6 +503,7 @@ function cart($scope, $http, $routeParams) {
                     $scope.showErrQuantity = true;
                     $scope.products[index].selected = false;
                     $scope['showErrQuantity' + index] = true;
+                    updateOrder();
                     $scope.error = true;
                 } else {
                     $scope['showErrQuantity' + index] = false;
@@ -724,7 +725,6 @@ function cart($scope, $http, $routeParams) {
                         alertShow();
                         return;
                     } else {
-
                         $http.post(apiAddress, $scope.address)
                             .then(function (response) {
                                 if ($scope.index > -1) {

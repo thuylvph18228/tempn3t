@@ -430,11 +430,11 @@
                                         placeholder="Ghi chú đơn hàng" autocomplete="off">
                                 </div>
                             </div>
-                            <div class="mt-2 row d-flex justify-content-center" style="height: 120px; overflow-x: scroll">
+                            <div ng-repeat="voucher in listVoucher" class="mt-2 row d-flex justify-content-center" style="height: 120px; overflow-x: scroll">
                                 <div class="d-flex flex-row">
                                     <div style="display: flex; border: 2px solid black; border-radius: 16px; cursor: pointer; transition: all .2s;"
                                         class="col-6 mt-2 me-3 " aria-labelledby="codeVoucher{{$index}}"
-                                        ng-repeat="voucher in listVoucher" id="{{ voucher.code }}"
+                                        id="{{ voucher.code }}"
                                         ng-click="changeVoucher(voucher.code)">
                                         <div
                                             style="flex: 1; border-right: 2px dashed black; min-width: 20px; max-width: 20px; position: relative;">
