@@ -304,6 +304,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderDto> getOrderByTotalMoneyAndStatus(String beginMoney, String endMoney, String status) {
+        return this.orderRepo.getOrderByTotalMoneyAndStatus(beginMoney, endMoney, status).stream().map(Order :: toDto).collect(Collectors.toList());
+    }
+
+    @Override
     public String pay(OrderDto orderDto) throws UnsupportedEncodingException {
 
         this.orderDtoNew = orderDto;

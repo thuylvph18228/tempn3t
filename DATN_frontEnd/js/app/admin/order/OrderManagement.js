@@ -160,11 +160,6 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
                     $scope.isSuccess = true;
                     $scope.message = message;
                     alertShow();
-                    $scope.orderconfirmeds.unshift(angular.copy(order));
-                    // Lấy tab đang xử lý (confirmed)
-                    var tabConfirmed = document.getElementById("confirmed-tab");
-                    // Kích hoạt sự kiện click vào tab đó
-                    tabConfirmed.click();
                 })
                 .catch((error) => {
                     console.log(error);
@@ -206,6 +201,11 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
                         var message = "Xác nhận đơn hàng thành công"
                         order.status = "CONFIRMED";
                         updateStatus(order, message, index);
+                        $scope.orderconfirmeds.unshift(angular.copy(order));
+                        // Lấy tab đang xử lý (confirmed)
+                        var tabConfirmed = document.getElementById("confirmed-tab");
+                        // Kích hoạt sự kiện click vào tab đó
+                        tabConfirmed.click();
                     }
                 })
                 .catch(function (error) {
@@ -388,7 +388,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         $scope.findByTotal = '';
         //tìm kiếm theo khoảng giá tổng tiền đơn hàng
         findBytotalWaitConfirm = (beginMoney, endMoney) => {
-            $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+            $http.get(apiOrder + "/totalMoneyAndStatus?beginMoney=" + beginMoney + "&endMoney=" + endMoney + "&status=WAIT_FOR_CONFIRMATION")
                 .then(res => {
                     $scope.orderwaitconfirms = res.data;
                     $scope.orderwaitconfirms.map(order => {
@@ -498,7 +498,6 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
             $http.put(apiOrder + "/update-status", order)
                 .then(async response => {
                     $scope.orderwaitshippers.unshift(order);
-                    console.log($scope.orderwaitshippers);
                     $scope.orderconfirmeds.splice(index, 1);
                     $scope.isLoading = false;
                     $scope.isSuccess = true;
@@ -794,7 +793,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         $scope.findByTotal = '';
         //tìm kiếm theo khoảng giá tổng tiền đơn hàng
         findBytotalConfirmed = (beginMoney, endMoney) => {
-            $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+            $http.get(apiOrder + "/totalMoneyAndStatus?beginMoney=" + beginMoney + "&endMoney=" + endMoney + "&status=CONFIRMED")
                 .then(res => {
                     $scope.orderconfirmeds = res.data;
                     $scope.orderconfirmeds.map(order => {
@@ -903,16 +902,11 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         updateStatusWaitShipper = (order, message, index) => {
             $http.put(apiOrder + "/update-status", order)
                 .then(async response => {
-                    $scope.orderDelivering.unshift(order);
-                    $scope.orderwaitshippers.splice(index, 1);
                     $scope.isLoading = false;
                     $scope.isSuccess = true;
                     $scope.message = message;
                     alertShow();
-                    // Lấy tab đang xử lý (delivering)
-                    var tabDelivering = document.getElementById("delivering-tab");
-                    // Kích hoạt sự kiện click vào tab đó
-                    tabDelivering.click();
+                    $scope.orderwaitshippers.splice(index, 1);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -923,10 +917,37 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
                 });
         }
 
+        /**hủy đơn hàng */
+        $scope.cancelOrder = (order, index) => {
+            order.status = "CANCELLED"
+            $http.post(apiOrder, order)
+                .then(async response => {
+                    $scope.isSuccess = true;
+                    $scope.message = "Hủy đơn hàng thành công";
+                    $scope.orderwaitshippers.splice(index, 1);
+                    alertShow();
+                })
+                .catch(error => {
+                    console.log(error);
+                    $scope.message = "Có lỗi xảy ra khi hủy đơn hàng trên GHN";
+                    alertShow();
+                })
+            $scope.orderCanceled.unshift(order);
+            // Lấy tab đang xử lý (canceled)
+            var tabCanceled = document.getElementById("canceled-tab");
+            // Kích hoạt sự kiện click vào tab đó
+            tabCanceled.click();
+        }
+
         $scope.updateStatusOrderWaitShipper = (order, index) => {
             var message = "Đơn hàng đã giao cho shipper thành công!"
             order.status = "DELIVERING";
             updateStatusWaitShipper(order, message, index);
+            $scope.orderDelivering.unshift(order);
+            // Lấy tab đang xử lý (delivering)
+            var tabDelivering = document.getElementById("delivering-tab");
+            // Kích hoạt sự kiện click vào tab đó
+            tabDelivering.click();
         }
 
         /**tim kiem san pham khi cap nhật sản phẩm trong hóa đơn */
@@ -1115,7 +1136,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         $scope.findByTotal = '';
         //tìm kiếm theo khoảng giá tổng tiền đơn hàng
         findBytotalWaitShipper = (beginMoney, endMoney) => {
-            $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+            $http.get(apiOrder + "/totalMoneyAndStatus?beginMoney=" + beginMoney + "&endMoney=" + endMoney) + "&status=WAIT_FOR_THE_SHIPPER_TO_PICK_UP"
                 .then(res => {
                     $scope.orderwaitshippers = res.data;
                     $scope.orderwaitshippers.map(order => {
@@ -1351,7 +1372,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         $scope.findByTotal = '';
         //tìm kiếm theo khoảng giá tổng tiền đơn hàng
         findBytotalDelivering = (beginMoney, endMoney) => {
-            $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+            $http.get(apiOrder + "/totalMoneyAndStatus?beginMoney=" + beginMoney + "&endMoney=" + endMoney + "&status=DELIVERING")
                 .then(res => {
                     $scope.orderDelivering = res.data;
                     $scope.orderDelivering.map(order => {
@@ -1538,7 +1559,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         $scope.findByTotal = '';
         //tìm kiếm theo khoảng giá tổng tiền đơn hàng
         findBytotalDelivered = (beginMoney, endMoney) => {
-            $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+            $http.get(apiOrder + "/totalMoneyAndStatus?beginMoney=" + beginMoney + "&endMoney=" + endMoney + "&status=DELIVERED")
                 .then(res => {
                     $scope.orderDelivered = res.data;
                     $scope.orderDelivered.map(order => {
@@ -1756,7 +1777,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         $scope.findByTotal = '';
         //tìm kiếm theo khoảng giá tổng tiền đơn hàng
         findBytotalNoDelivery = (beginMoney, endMoney) => {
-            $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+            $http.get(apiOrder + "/totalMoneyAndStatus?beginMoney=" + beginMoney + "&endMoney=" + endMoney + "&status=NO_DELIVERY")
                 .then(res => {
                     $scope.orderNoDelivery = res.data;
                     $scope.orderNoDelivery.map(order => {
@@ -1942,7 +1963,7 @@ function orderManagement($scope, $http, $rootScope, $filter, $timeout) {
         $scope.findByTotal = '';
         //tìm kiếm theo khoảng giá tổng tiền đơn hàng
         findBytotalCanceled = (beginMoney, endMoney) => {
-            $http.get(apiOrder + "/totalMoney?beginMoney=" + beginMoney + "&endMoney=" + endMoney)
+            $http.get(apiOrder + "/totalMoneyAndStatus?beginMoney=" + beginMoney + "&endMoney=" + endMoney + "&status=CANCELLED")
                 .then(res => {
                     $scope.orderCanceled = res.data;
                     $scope.orderCanceled.map(order => {

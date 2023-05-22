@@ -138,21 +138,21 @@
                                                             <thead class="table table-danger">
                                                                 <tr>
                                                                     <th class="text-center ">DA</th>
-                                                                    <th class="text-center">Loại sản Phẩm</th>
+                                                                    <th class="text-center">Sản Phẩm</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <tr ng-repeat="cate in listCategory">
+                                                                <tr ng-repeat="product in listProducts">
                                                                     <td class="d-flex justify-content-center"><input
                                                                             ng-model="dummy"
                                                                             ng-change="toggleSelection($index)"
-                                                                            ng-checked="selectAll || cate.selected"
+                                                                            ng-checked="selectAll || product.selected"
                                                                             ng-checked="selectAll"
                                                                             ng-model="isCheckedAll"
                                                                             ng-change="isCheckedAll ? checkAll() : uncheckAll()"
                                                                             class="form-check-input" type="checkbox"
                                                                             value="" id="flexCheckDefault"></td>
-                                                                    <td>{{ cate.name }}</td>
+                                                                    <td>{{ product.name }}</td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>

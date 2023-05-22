@@ -1602,43 +1602,150 @@
                                                                         <h5>
                                                                             <a href="#" type="button"
                                                                                 data-bs-toggle="modal"
-                                                                                data-bs-target="#deleteOrder{{order.id}}"
+                                                                                data-bs-target="#deleteOrder{{$index}}"
                                                                                 style="color: red ;">
                                                                                 <i class="bi bi-x-circle"></i>
                                                                             </a>
-                                                                            <!-- modal xóa đơn hàng -->
-                                                                            <div class="modal fade"
-                                                                                id="deleteOrder{{order.id}}"
-                                                                                tabindex="-1"
-                                                                                aria-labelledby="exampleModalLabel"
-                                                                                aria-hidden="true">
-                                                                                <div
-                                                                                    class="modal-dialog modal-dialog-centered">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header">
-                                                                                            <button type="button"
-                                                                                                class="btn-close"
-                                                                                                data-bs-dismiss="modal"
-                                                                                                aria-label="Close"></button>
-                                                                                        </div>
-                                                                                        <div class="modal-body">
-                                                                                            Xóa đơn hàng này
-                                                                                        </div>
-                                                                                        <div class="modal-footer">
-                                                                                            <button type="button"
-                                                                                                class="btn btn-secondary"
-                                                                                                data-bs-dismiss="modal">Hủy</button>
-                                                                                            <button type="button"
-                                                                                                data-bs-dismiss="modal"
-                                                                                                class="btn btn-danger"
-                                                                                                ng-click="cancelOrder(order, $index)">Xóa</button>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
                                                                         </h5>
                                                                     </div>
                                                                 </div>
+
+                                                                <!-- modal xóa đơn hàng -->
+                                                                <div class="modal fade"
+                                                                id="deleteOrder{{$index}}"
+                                                                tabindex="-1"
+                                                                aria-labelledby="exampleModalLabel"
+                                                                aria-hidden="true">
+                                                                <div
+                                                                    class="modal-dialog modal-xl">
+                                                                    <div class="modal-content">
+                                                                        <div class="modal-header">
+                                                                            <h5 class="modal-title"
+                                                                                id="exampleModalLabel">
+                                                                                Xóa đơn hàng {{order.code}}
+                                                                            </h5>
+                                                                            <button type="button"
+                                                                                class="btn-close"
+                                                                                data-bs-dismiss="modal"
+                                                                                aria-label="Close"></button>
+                                                                        </div>
+                                                                        <div class="modal-body">
+                                                                            <div>
+                                                                                Mã đơn hàng: <b> {{order.code}}
+                                                                                </b> -
+                                                                                Ngày tạo:
+                                                                                <b>{{order.createdDate |
+                                                                                    date:"dd/MM/yyyy ' - '
+                                                                                    h:mma"}}</b>
+                                                                                - {{order.paymentType ==
+                                                                                "VNPAY"?"Đã
+                                                                                thanh toán
+                                                                                online" : "Thanh toán khi nhận
+                                                                                hàng"}}<br>
+                                                                                Tên khách hàng:
+                                                                                <b>{{order.customerName}} - SĐT:
+                                                                                    {{order.phone}}</b> <br>
+                                                                                Địa chỉ: <b>{{order.address}}
+                                                                                    {{order.ward ? "
+                                                                                    ," : ""}} {{order.ward}}
+                                                                                    {{order.district ?
+                                                                                    " ," : ""}}
+                                                                                    {{order.district}}
+                                                                                    {{order.province ? " ," :
+                                                                                    ""}}
+                                                                                    {{order.province}}</b> <br>
+                                                                            </div>
+                                                                            <table class="mt-4 table">
+                                                                                <thead>
+                                                                                    <tr>
+                                                                                        <th>STT</th>
+                                                                                        <th>Sản phẩm</th>
+                                                                                        <th>Size</th>
+                                                                                        <th>Màu sắc</th>
+                                                                                        <th>Giá tiền</th>
+                                                                                        <th>Số lượng</th>
+                                                                                        <th>Tổng tiền</th>
+                                                                                        <!-- <th>Thao tác</th> -->
+                                                                                    </tr>
+                                                                                </thead>
+                                                                                <tbody>
+                                                                                    <tr
+                                                                                        ng-repeat="orderDetail in order.orderDetails">
+                                                                                        <td>{{$index + 1}}</td>
+                                                                                        <td>
+                                                                                            {{orderDetail.product.name}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{orderDetail.productDetail.size.name}}
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{orderDetail.productDetail.color.name}}
+
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{orderDetail.price
+                                                                                            |
+                                                                                            currency : ""
+                                                                                            : 0}}₫
+
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{orderDetail.quantity}}
+
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            {{orderDetail.price
+                                                                                            *
+                                                                                            orderDetail.quantity
+                                                                                            |
+                                                                                            currency : ""
+                                                                                            : 0}}₫
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                            <div>
+                                                                                <div
+                                                                                    class="d-flex justify-content-end">
+                                                                                    <div>
+                                                                                        <p>Giảm giá:
+                                                                                            <b
+                                                                                                ng-if="!order.voucher">0₫</b>
+                                                                                            <b
+                                                                                                ng-if="order.voucher">-{{order.voucher.promotion
+                                                                                                | currency : ""
+                                                                                                :
+                                                                                                0}}₫</b>
+                                                                                        </p>
+                                                                                        <p>Phí ship:
+                                                                                            <b>+{{
+                                                                                                order.totalShip
+                                                                                                |
+                                                                                                currency:
+                                                                                                "" : 0 }}₫</b>
+                                                                                        </p>
+                                                                                        <h5>Tổng tiền: <b>{{
+                                                                                                order.totalMoney
+                                                                                                |
+                                                                                                currency : "" :
+                                                                                                0}}₫</b>
+                                                                                        </h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button"
+                                                                                class="btn btn-secondary"
+                                                                                data-bs-dismiss="modal">Hủy</button>
+                                                                            <button type="button"
+                                                                                data-bs-dismiss="modal"
+                                                                                class="btn btn-danger"
+                                                                                ng-click="cancelOrder(order, $index)">Xóa</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
                                                                 <!-- modal confirm -->
                                                                 <div class="modal fade"
@@ -1649,6 +1756,7 @@
                                                                         <div class="modal-content">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
+                                                                                    
                                                                                     <h5 class="modal-title"
                                                                                         id="exampleModalLabel">
                                                                                         Xác nhận đơn hàng {{order.code}}

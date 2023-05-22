@@ -119,6 +119,15 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             ")", nativeQuery = true)
     List<Order> getOrderByTotalMoney(String totalBegin, String totalEnd);
 
+    @Query(value = "SELECT * FROM orders o\n" +
+            "WHERE(\n" +
+            "    SELECT SUM(od.quantity * od.price) AS totalMoney FROM order_details od\n" +
+            "    GROUP BY od.order_id\n" +
+            "    HAVING o.id = od.order_id AND totalMoney >= :totalBegin AND totalMoney <= :totalEnd \n" +
+            "    AND o.status = :status" +
+            ")", nativeQuery = true)
+    List<Order> getOrderByTotalMoneyAndStatus(String totalBegin, String totalEnd, String status);
+
     //thống kê số lượng đơn hàng từng ngày trong tháng hiện tại
     @Query(value = "select DAY(o.created_date), COUNT(o.id) from orders o \n" +
             "where MONTH(o.created_date) = :month and YEAR(o.created_date) = :year \n" +

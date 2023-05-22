@@ -43,6 +43,9 @@ public interface OrderService {
     // lọc các hóa đơn theo tổng tiền
     List<OrderDto> getBytotalMoney(String beginMoney, String endMoney);
 
+    // lọc các hóa đơn theo tổng tiền và trạng thái
+    List<OrderDto> getOrderByTotalMoneyAndStatus(String beginMoney, String endMoney, String status);
+
     // thanh toán online
     String pay(OrderDto orderDto) throws UnsupportedEncodingException;
 
