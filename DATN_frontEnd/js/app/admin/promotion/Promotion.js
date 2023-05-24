@@ -178,7 +178,7 @@ function promotion($scope, $http, $rootScope) {
     }
 
     //get all product
-    $http.get(apiProduct)
+    $http.get(apiCategory)
         .then((res) => {
             $scope.listProducts = res.data;
             $scope.isLoading = false;

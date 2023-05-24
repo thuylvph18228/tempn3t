@@ -64,7 +64,7 @@ function cart($scope, $http, $routeParams) {
         }
         $scope.orderDetails.push(angular.copy($scope.orderDetail));
         totalMoney += item.quantity * item.price;
-        if (totalMoney!=0) {
+        if (totalMoney != 0) {
             $scope.hasSelectedProduct = $scope.products.some((product) => product.selected);
         }
     })
@@ -403,43 +403,52 @@ function cart($scope, $http, $routeParams) {
     shipFee = (changeQuantity = true) => {
         if ($scope.products.length > 0) {
             if ($scope.wardCode && $scope.districtId) {
-                ship = {
-                    service_type_id: 2,
-                    to_ward_code: $scope.wardCode + "",
-                    to_district_id: Number($scope.districtId),
-                    weight: 0,
-                    length: 33,
-                    width: 22,
-                    height: 0
+                const selectedProducts = $scope.products.filter(product => {
+                    return product.selected && (!product.quantity || product.quantity <= product.quantityInventory) && product.weight && typeof product.weight.weight === 'number';
+                });
+                if (selectedProducts.length > 0) {
+                    ship = {
+                        service_type_id: 2,
+                        to_ward_code: $scope.wardCode + "",
+                        to_district_id: Number($scope.districtId),
+                        weight: 0,
+                        length: 33,
+                        width: 22,
+                        height: 0
+                    }
+    
+                    var weightShip = 0;
+                    var heightShip = 0;
+                    selectedProducts.forEach(item => {
+                        weightShip += item.quantity * item.weight.weight;
+                        heightShip += item.quantity * 12;
+                    })
+                    ship.weight = weightShip;
+                    ship.height = heightShip;
+    
+                    $http({
+                        method: 'POST',
+                        url: "https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
+                        headers: {
+                            Token: '9e4591da-c66a-11ed-bcba-eac62dba9bd9',
+                            ShopId: '3928266',
+                            'Content-Type': 'application/json'
+                        },
+                        data: ship
+                    })
+                        .then(response => {
+                            $scope.totalShipFee = response.data.data.total;
+                            $scope.orderNew.totalShip = response.data.data.total;
+                            $scope.orderNew.totalMoney += $scope.totalShipFee;
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                } else {
+                    $scope.totalShipFee = 0; // Không có sản phẩm hợp lệ được chọn, phí ship = 0
+                    $scope.orderNew.totalShip = 0;
+                    $scope.orderNew.totalMoney -= $scope.totalShipFee;
                 }
-
-                var weightShip = 0;
-                var heightShip = 0;
-                $scope.orderNew.orderDetails.map(item => {
-                    weightShip += item.quantity * item.product.weight.weight;
-                    heightShip += item.quantity * 12;
-                })
-                ship.weight = weightShip;
-                ship.height = heightShip;
-
-                $http({
-                    method: 'POST',
-                    url: "https://online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/fee",
-                    headers: {
-                        Token: '9e4591da-c66a-11ed-bcba-eac62dba9bd9',
-                        ShopId: '3928266',
-                        'Content-Type': 'application/json'
-                    },
-                    data: ship
-                })
-                    .then(response => {
-                        $scope.totalShipFee = response.data.data.total;
-                        $scope.orderNew.totalShip = response.data.data.total;
-                        $scope.orderNew.totalMoney += $scope.totalShipFee;
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    })
             }
         }
     }
@@ -488,8 +497,9 @@ function cart($scope, $http, $routeParams) {
 
     /**thay đổi số lượng trong giỏ hàng, index: vị trí sản phẩm trong mảng products */
     $scope.changeQuantity = (indexOrder, index) => {
-        if (!$scope.products[index].quantity) {
+        if (!$scope.products[index] || !$scope.products[index].quantity) {
             $scope.error = true;
+            return; // Thoát khỏi hàm nếu phần tử không tồn tại hoặc không có thuộc tính 'quantity'
         }
         const json = JSON.stringify(angular.copy($scope.products));
         localStorage.setItem("products", json);
@@ -502,20 +512,32 @@ function cart($scope, $http, $routeParams) {
                 if (res.data[1] == false) {
                     $scope.showErrQuantity = true;
                     $scope.products[index].selected = false;
+                    $scope.hasSelectedProduct = $scope.products.some((product) => product.selected);
                     $scope['showErrQuantity' + index] = true;
                     updateOrder();
                     $scope.error = true;
                 } else {
                     $scope['showErrQuantity' + index] = false;
                     $scope.products[index].selected = true;
+                    $scope.hasSelectedProduct = $scope.products.some((product) => product.selected);
                     updateOrder();
                     $scope.error = false;
                 }
-                $scope.quantityInventory = res.data[0];
+                $scope.products[index].quantityInventory = res.data[0];
+                $scope.products[index].selected = !($scope.products[index].quantity > $scope.products[index].quantityInventory);
             }).catch(err => {
                 console.log(err);
             })
     }
+    
+    // Kiểm tra xem có sản phẩm trong giỏ hàng hay không
+    if ($scope.products.length > 0) {
+        // Lặp qua từng sản phẩm trong giỏ hàng và gọi hàm changeQuantity
+        for (let i = 0; i < $scope.products.length; i++) {
+            $scope.changeQuantity(i, i); // Truyền cùng chỉ số cho cả indexOrder và index
+        }        
+    }
+
 
     /**xóa sản phẩm trong giỏ hàng, index: vị trí sản phẩm trong giỏ hàng*/
     $scope.delete = (index) => {
@@ -729,9 +751,9 @@ function cart($scope, $http, $routeParams) {
                             .then(function (response) {
                                 if ($scope.index > -1) {
                                     $scope.listAddress[$scope.index] = response.data;
-                                    if (response.data.defaultAdd==1) {
+                                    if (response.data.defaultAdd == 1) {
                                         $scope.listAddress.find(item => {
-                                            if(response.data.id != item.id) {
+                                            if (response.data.id != item.id) {
                                                 item.defaultAdd = 0
                                             }
                                         })
